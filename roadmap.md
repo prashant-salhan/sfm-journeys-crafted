@@ -1,0 +1,4 @@
+- [x] Establish the selected Aurora Glass travel direction and generate the image set
+- [ ] Build the SFM Travels single-page homepage with reusable sections and interactions
+- [ ] Update design tokens and page metadata/favicon
+- [ ] Verify the live page at desktop and mobile widths
