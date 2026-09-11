@@ -33,6 +33,7 @@ import keralaImage from "@/assets/sfm-kerala.jpg";
 import honeymoonImage from "@/assets/sfm-honeymoon.jpg";
 import familyImage from "@/assets/sfm-family.jpg";
 import desertImage from "@/assets/sfm-desert.jpg";
+import sfmLogo from "@/assets/sfm-logo.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -128,9 +129,20 @@ const gallery: ImageItem[] = [
 
 function Logo() {
   return (
-    <a href="#home" className="flex shrink-0 items-center gap-2.5" aria-label="SFM Travels home">
-      <span className="grid size-9 place-items-center rounded-lg bg-gradient-to-br from-sky to-gold font-display text-xs font-extrabold text-ink shadow-lg shadow-sky/20">SFM</span>
-      <span className="font-display text-lg font-bold tracking-tight text-foreground">SFM <span className="text-sky">Travels</span></span>
+    <a href="#home" className="group flex shrink-0 items-center gap-3" aria-label="SFM Travels home">
+      <img
+        src={sfmLogo}
+        alt="SFM Travels Logo"
+        className="size-11 rounded-full object-contain shadow-lg shadow-sky/20 ring-2 ring-gold/40 transition-transform duration-300 group-hover:scale-105"
+      />
+      <div className="flex flex-col">
+        <span className="font-display text-lg font-bold tracking-tight text-foreground leading-tight">
+          SFM <span className="text-sky">Travels</span>
+        </span>
+        <span className="text-[10px] font-semibold tracking-wider text-gold uppercase">
+          Smile For Millions
+        </span>
+      </div>
     </a>
   );
 }
