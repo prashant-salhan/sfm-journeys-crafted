@@ -112,7 +112,7 @@ const services = [
   { icon: Sparkles, title: "Customized Trips", text: "Bespoke journeys tailored entirely to your wish list." },
 ];
 
-const faqs = [
+const faqs: [string, string][] = [
   ["How do I book a custom itinerary with SFM Travels?", "Share your preferences through the enquiry form or WhatsApp. Our planner will send a full itinerary within 24 hours for your review."],
   ["What is included in your holiday packages?", "Most packages include accommodation, transfers, breakfast and curated sightseeing. Flights and special meals can be added."],
   ["Can I modify my trip after confirming?", "Yes — you can adjust dates, rooms or activities up until your cancellation window. Our team will rework the plan for you."],
@@ -159,12 +159,73 @@ const [formData, setFormData] = useState({
   message: "",
 });
 
+const [searchData, setSearchData] = useState({
+  destination: "",
+  date: "",
+  travellers: "",
+});
+
+const [newsletterEmail, setNewsletterEmail] = useState("");
+const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+const [newsletterLoading, setNewsletterLoading] = useState(false);
+const [newsletterMessage, setNewsletterMessage] = useState("");
+
 const [loading, setLoading] = useState(false);
 const [error, setError] = useState("");
 const scrollTo = (id: string) => {
     setMenuOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
+
+const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  setSearchOpen(false);
+  setFormData((current) => ({
+    ...current,
+    destination: searchData.destination || current.destination,
+    message: [
+      current.message,
+      searchData.date ? `Travel Date: ${searchData.date}` : "",
+      searchData.travellers ? `Travellers: ${searchData.travellers}` : "",
+    ]
+      .filter(Boolean)
+      .join(" | "),
+  }));
+  scrollTo("contact");
+};
+
+const handleNewsletterSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  if (!newsletterEmail) return;
+
+  setNewsletterLoading(true);
+  setNewsletterMessage("");
+
+  try {
+    const apiBase = (import.meta.env["VITE_API_URL"] as string | undefined) || "";
+    const response = await fetch(`${apiBase}/api/newsletter`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: newsletterEmail }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || data.message || "Failed to subscribe");
+    }
+
+    setNewsletterSubmitted(true);
+    setNewsletterMessage(data.message || "Thank you for subscribing!");
+    setNewsletterEmail("");
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : "Subscription failed. Please try again.";
+    setNewsletterMessage(msg);
+  } finally {
+    setNewsletterLoading(false);
+  }
+};
+
 const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
   event.preventDefault();
 
@@ -172,26 +233,24 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
   setError("");
 
   try {
-    const response = await fetch(
-      `${import.meta.env.["VITE_API_URL"]}/api/enquiries`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          fullName: formData.name,
-          phone: formData.phone,
-          destination: formData.destination,
-          message: formData.message,
-        }),
-      }
-    );
+    const apiBase = (import.meta.env["VITE_API_URL"] as string | undefined) || "";
+    const response = await fetch(`${apiBase}/api/enquiries`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fullName: formData.name,
+        phone: formData.phone,
+        destination: formData.destination,
+        message: formData.message,
+      }),
+    });
 
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "Failed to submit enquiry");
+      throw new Error(data.error || data.message || "Failed to submit enquiry");
     }
 
     setSubmitted(true);
@@ -202,9 +261,10 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
       destination: "",
       message: "",
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Enquiry submission error:", error);
-    setError("Unable to submit your enquiry. Please try again.");
+    const msg = error instanceof Error ? error.message : "Unable to submit your enquiry. Please try again.";
+    setError(msg);
   } finally {
     setLoading(false);
   }
@@ -277,7 +337,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 lg:px-8"><div className="glass grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-foreground/10 sm:grid-cols-4">{[["15K+", "Travellers Served", "sky"], ["120+", "Destinations", "gold"], ["12", "Years Experience", "cyan-300"], ["98%", "Satisfaction", "foreground"]].map(([number, label, color]) => <div key={label} className="p-6 text-center"><p className={`font-display text-3xl font-extrabold text-${color}`}>{number}</p><p className="mt-1 text-xs uppercase tracking-[0.15em] text-foreground/50">{label}</p></div>)}</div></section>
+      <section className="mx-auto max-w-7xl px-5 lg:px-8"><div className="glass grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-foreground/10 sm:grid-cols-4">{([["15K+", "Travellers Served", "text-sky"], ["120+", "Destinations", "text-gold"], ["12", "Years Experience", "text-cyan-300"], ["98%", "Satisfaction", "text-foreground"]] as [string, string, string][]).map(([number, label, color]) => <div key={label} className="p-6 text-center"><p className={`font-display text-3xl font-extrabold ${color}`}>{number}</p><p className="mt-1 text-xs uppercase tracking-[0.15em] text-foreground/50">{label}</p></div>)}</div></section>
 
       <section id="destinations" className="mx-auto max-w-7xl px-5 py-20 lg:px-8"><SectionHeading eyebrow="Popular Destinations" title="Where will you go next?" action={<button type="button" onClick={() => scrollTo("contact")} className="inline-flex items-center gap-2 text-sm font-semibold text-sky hover:text-cyan-300">View all destinations <ArrowRight size={15} /></button>} /><div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">{destinations.map((destination) => <article key={destination.name} className="group relative overflow-hidden rounded-2xl border border-foreground/10"><img src={destination.image} alt={`${destination.name} travel destination`} width={1024} height={1024} loading="lazy" className="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent" /><div className="absolute inset-x-0 bottom-0 p-5"><p className="text-xs font-semibold uppercase tracking-[0.15em] text-sky">{destination.region}</p><h3 className="mt-1 font-display text-2xl font-bold text-foreground">{destination.name}</h3><p className="mt-1 text-sm text-foreground/60">From {destination.price} · {destination.nights}</p></div></article>)}</div></section>
 
@@ -287,9 +347,9 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
       <section id="about" className="mx-auto max-w-7xl px-5 pb-20 lg:px-8"><div className="glass grid gap-10 overflow-hidden rounded-3xl border border-foreground/10 p-6 sm:p-10 lg:grid-cols-2"><div><p className="text-xs font-bold uppercase tracking-[0.22em] text-gold">Why Choose SFM Travels</p><h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">Travel with confidence</h2><p className="mt-4 text-foreground/60">For over a decade we’ve turned dreams into well-planned journeys. Our expert planners, trusted partners and round-the-clock support make every trip effortless.</p><ul className="mt-8 space-y-4">{["Expert local planners who know every route inside out", "Transparent pricing with zero hidden charges", "24×7 on-trip support wherever you are", "Flexible plans you can adjust before departure"].map((text, index) => <li key={text} className="flex items-start gap-3"><span className={`mt-1 grid size-6 shrink-0 place-items-center rounded-full ${index % 3 === 0 ? "bg-gold/20 text-gold" : "bg-sky/20 text-sky"}`}><Check size={13} /></span><span className="text-sm text-foreground/75">{text}</span></li>)}</ul></div><div className="grid grid-cols-2 gap-4"><img src={familyImage} alt="Family enjoying a mountain journey" width={1024} height={768} loading="lazy" className="aspect-square w-full rounded-2xl object-cover" /><div className="flex flex-col justify-center rounded-2xl border border-foreground/10 bg-foreground/[0.03] p-6"><p className="font-display text-4xl font-extrabold text-sky">250+</p><p className="mt-1 text-sm text-foreground/55">Curated experiences</p></div><div className="flex flex-col justify-center rounded-2xl border border-foreground/10 bg-foreground/[0.03] p-6"><p className="font-display text-4xl font-extrabold text-gold">40+</p><p className="mt-1 text-sm text-foreground/55">Destination specialists</p></div><img src={kashmirImage} alt="Kashmir lake and mountain landscape" width={1024} height={1024} loading="lazy" className="aspect-square w-full rounded-2xl object-cover" /></div></div></section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-20 lg:px-8"><div className="text-center"><p className="text-xs font-bold uppercase tracking-[0.22em] text-gold">How It Works</p><h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">Four simple steps</h2></div><div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">{[["01", "Tell Us Your Dream", "Share your destination, dates and budget with our team."], ["02", "We Craft Your Plan", "Receive a tailored itinerary within 24 hours."], ["03", "Confirm & Book", "Approve the plan and we lock in every detail."], ["04", "Travel Worry-Free", "Pack your bags — we handle the rest on the ground."]].map(([number, title, text], index) => <article key={number} className="glass rounded-2xl border border-foreground/10 p-6"><span className={`font-display text-5xl font-extrabold ${index === 3 ? "text-gold/40" : "text-sky/30"}`}>{number}</span><h3 className="mt-3 font-display text-lg font-bold text-foreground">{title}</h3><p className="mt-2 text-sm text-foreground/55">{text}</p></article>)}</div></section>
+      <section className="mx-auto max-w-7xl px-5 pb-20 lg:px-8"><div className="text-center"><p className="text-xs font-bold uppercase tracking-[0.22em] text-gold">How It Works</p><h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">Four simple steps</h2></div><div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">{([["01", "Tell Us Your Dream", "Share your destination, dates and budget with our team."], ["02", "We Craft Your Plan", "Receive a tailored itinerary within 24 hours."], ["03", "Confirm & Book", "Approve the plan and we lock in every detail."], ["04", "Travel Worry-Free", "Pack your bags — we handle the rest on the ground."]] as [string, string, string][]).map(([number, title, text], index) => <article key={number} className="glass rounded-2xl border border-foreground/10 p-6"><span className={`font-display text-5xl font-extrabold ${index === 3 ? "text-gold/40" : "text-sky/30"}`}>{number}</span><h3 className="mt-3 font-display text-lg font-bold text-foreground">{title}</h3><p className="mt-2 text-sm text-foreground/55">{text}</p></article>)}</div></section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-20 lg:px-8"><div className="text-center"><p className="text-xs font-bold uppercase tracking-[0.22em] text-gold">Testimonials</p><h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">Loved by travellers</h2></div><div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">{[["Ananya Mehta", "Honeymoon · Kashmir", "Our Kashmir honeymoon was flawless. Every hotel, transfer and surprise was perfect. SFM really does care."], ["Rohit Sharma", "Family Tour · Manali", "Took our whole family to Manali. Smooth, safe and the kids absolutely loved it. Booked again already."], ["Sneha Kapoor", "International · Dubai", "The Dubai trip was seamlessly organised. Great hotels and honest pricing. Highly recommend SFM Travels."]].map(([name, trip, quote]) => <article key={name} className="glass rounded-2xl border border-foreground/10 p-7"><p className="flex gap-1 text-gold" aria-label="5 out of 5 stars">{Array.from({ length: 5 }).map((_, index) => <Star key={index} size={15} fill="currentColor" />)}</p><p className="mt-4 text-sm leading-relaxed text-foreground/75">“{quote}”</p><div className="mt-6 flex items-center gap-3"><div className="grid size-11 place-items-center rounded-full bg-gradient-to-br from-sky/40 to-gold/40 text-sm font-bold text-foreground">{name.charAt(0)}</div><div><p className="text-sm font-semibold text-foreground">{name}</p><p className="text-xs text-foreground/50">{trip}</p></div></div></article>)}</div></section>
+      <section className="mx-auto max-w-7xl px-5 pb-20 lg:px-8"><div className="text-center"><p className="text-xs font-bold uppercase tracking-[0.22em] text-gold">Testimonials</p><h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">Loved by travellers</h2></div><div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">{([["Ananya Mehta", "Honeymoon · Kashmir", "Our Kashmir honeymoon was flawless. Every hotel, transfer and surprise was perfect. SFM really does care."], ["Rohit Sharma", "Family Tour · Manali", "Took our whole family to Manali. Smooth, safe and the kids absolutely loved it. Booked again already."], ["Sneha Kapoor", "International · Dubai", "The Dubai trip was seamlessly organised. Great hotels and honest pricing. Highly recommend SFM Travels."]] as [string, string, string][]).map(([name, trip, quote]) => <article key={name} className="glass rounded-2xl border border-foreground/10 p-7"><p className="flex gap-1 text-gold" aria-label="5 out of 5 stars">{Array.from({ length: 5 }).map((_, index) => <Star key={index} size={15} fill="currentColor" />)}</p><p className="mt-4 text-sm leading-relaxed text-foreground/75">“{quote}”</p><div className="mt-6 flex items-center gap-3"><div className="grid size-11 place-items-center rounded-full bg-gradient-to-br from-sky/40 to-gold/40 text-sm font-bold text-foreground">{name.charAt(0)}</div><div><p className="text-sm font-semibold text-foreground">{name}</p><p className="text-xs text-foreground/50">{trip}</p></div></div></article>)}</div></section>
 
       <section className="mx-auto max-w-7xl px-5 pb-20 lg:px-8"><div className="text-center"><p className="text-xs font-bold uppercase tracking-[0.22em] text-gold">Travel Gallery</p><h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">Moments we’ve made</h2></div><div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">{gallery.map((image) => <img key={image.alt} src={image.src} alt={image.alt} width={1024} height={1024} loading="lazy" className="aspect-square w-full rounded-2xl object-cover transition duration-500 hover:scale-[1.02]" />)}</div></section>
 
@@ -389,11 +449,93 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
           )}
         </form></div></section>
 
-      <footer className="border-t border-foreground/10"><div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:px-8"><div><Logo /><p className="mt-4 max-w-xs text-sm text-foreground/50">Crafting memorable journeys across India and the world since 2013.</p><div className="mt-5 flex gap-3"><a href="https://www.instagram.com" aria-label="Instagram" className="grid size-9 place-items-center rounded-lg border border-foreground/10 text-foreground/60 transition hover:border-sky/40 hover:text-sky"><Instagram size={16} /></a><a href="https://www.youtube.com" aria-label="YouTube" className="grid size-9 place-items-center rounded-lg border border-foreground/10 text-foreground/60 transition hover:border-sky/40 hover:text-sky"><Youtube size={16} /></a></div></div><FooterLinks title="Explore" links={["Destinations", "Packages", "Services", "About Us"]} scrollTo={scrollTo} /><FooterLinks title="Support" links={["Contact", "FAQs", "Terms & Privacy", "Cancellation Policy"]} scrollTo={scrollTo} /><div><p className="font-display text-sm font-bold uppercase tracking-[0.15em] text-foreground/80">Newsletter</p><p className="mt-4 text-sm text-foreground/50">Travel deals & inspiration, monthly.</p><div className="mt-3 flex gap-2"><input aria-label="Email address" type="email" placeholder="Email address" className="min-w-0 flex-1 rounded-xl border border-foreground/10 bg-foreground/5 px-4 py-2.5 text-sm text-foreground placeholder-foreground/30 outline-none focus:border-sky/60" /><button type="button" aria-label="Join newsletter" className="grid size-11 shrink-0 place-items-center rounded-xl bg-gradient-to-r from-gold to-amber-300 text-ink"><ArrowRight size={17} /></button></div></div></div><div className="border-t border-foreground/10"><div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-5 py-6 text-xs text-foreground/45 sm:flex-row lg:px-8"><p>© 2026 SFM Travels. All rights reserved.</p><p>Crafted with care for every journey.</p></div></div></footer>
+      <footer className="border-t border-foreground/10"><div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:px-8"><div><Logo /><p className="mt-4 max-w-xs text-sm text-foreground/50">Crafting memorable journeys across India and the world since 2013.</p><div className="mt-5 flex gap-3"><a href="https://www.instagram.com" aria-label="Instagram" className="grid size-9 place-items-center rounded-lg border border-foreground/10 text-foreground/60 transition hover:border-sky/40 hover:text-sky"><Instagram size={16} /></a><a href="https://www.youtube.com" aria-label="YouTube" className="grid size-9 place-items-center rounded-lg border border-foreground/10 text-foreground/60 transition hover:border-sky/40 hover:text-sky"><Youtube size={16} /></a></div></div><FooterLinks title="Explore" links={["Destinations", "Packages", "Services", "About Us"]} scrollTo={scrollTo} /><FooterLinks title="Support" links={["Contact", "FAQs", "Terms & Privacy", "Cancellation Policy"]} scrollTo={scrollTo} /><div>
+  <p className="font-display text-sm font-bold uppercase tracking-[0.15em] text-foreground/80">Newsletter</p>
+  <p className="mt-4 text-sm text-foreground/50">Travel deals & inspiration, monthly.</p>
+  <form onSubmit={handleNewsletterSubmit} className="mt-3 space-y-2">
+    <div className="flex gap-2">
+      <input
+        aria-label="Email address"
+        type="email"
+        required
+        value={newsletterEmail}
+        onChange={(e) => setNewsletterEmail(e.target.value)}
+        placeholder="Email address"
+        className="min-w-0 flex-1 rounded-xl border border-foreground/10 bg-foreground/5 px-4 py-2.5 text-sm text-foreground placeholder-foreground/30 outline-none focus:border-sky/60"
+      />
+      <button
+        type="submit"
+        disabled={newsletterLoading}
+        aria-label="Join newsletter"
+        className="grid size-11 shrink-0 place-items-center rounded-xl bg-gradient-to-r from-gold to-amber-300 text-ink transition hover:brightness-110 disabled:opacity-60"
+      >
+        <ArrowRight size={17} />
+      </button>
+    </div>
+    {newsletterMessage && (
+      <p className={`text-xs ${newsletterSubmitted ? "text-sky" : "text-amber-300"}`}>
+        {newsletterMessage}
+      </p>
+    )}
+  </form>
+</div>
+</div>
+<div className="border-t border-foreground/10">
+  <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-5 py-6 text-xs text-foreground/45 sm:flex-row lg:px-8">
+    <p>© 2026 SFM Travels. All rights reserved.</p>
+    <p>Crafted with care for every journey.</p>
+  </div>
+</div>
+</footer>
 
-      <a href="https://wa.me/919999779351" target="_blank" rel="noreferrer" className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-whatsapp px-5 py-3.5 text-sm font-bold text-whatsapp-foreground shadow-2xl shadow-black/40 transition hover:brightness-110"><span className="grid size-6 place-items-center rounded-full bg-whatsapp-foreground/20 text-xs">✆</span><span className="hidden sm:inline">Chat on WhatsApp</span></a>
+<a href="https://wa.me/919999779351" target="_blank" rel="noreferrer" className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-whatsapp px-5 py-3.5 text-sm font-bold text-whatsapp-foreground shadow-2xl shadow-black/40 transition hover:brightness-110">
+  <span className="grid size-6 place-items-center rounded-full bg-whatsapp-foreground/20 text-xs">✆</span>
+  <span className="hidden sm:inline">Chat on WhatsApp</span>
+</a>
 
-      {searchOpen && <div className="fixed inset-0 z-[60] grid place-items-center bg-ink/80 p-5 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="Plan your escape"><div className="glass w-full max-w-lg rounded-3xl border border-foreground/15 p-6 shadow-2xl sm:p-8"><div className="flex items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[0.18em] text-gold">Start planning</p><h2 className="mt-2 font-display text-2xl font-bold text-foreground">Where will you go next?</h2></div><button type="button" onClick={() => setSearchOpen(false)} className="grid size-9 place-items-center rounded-lg border border-foreground/10 text-foreground/70" aria-label="Close search"><X size={18} /></button></div><form className="mt-6 space-y-4" onSubmit={(event) => { event.preventDefault(); setSearchOpen(false); scrollTo("contact"); }}><Field label="Destination" placeholder="Kashmir, Goa, Dubai…" required /><div className="grid gap-4 sm:grid-cols-2"><Field label="Travel date" placeholder="12 Jun 2026" required /><Field label="Travellers" placeholder="2 adults" required /></div><button type="submit" className="w-full rounded-xl bg-gradient-to-r from-gold to-amber-300 px-6 py-3.5 text-sm font-bold text-ink">Find my trip</button></form></div></div>}
+{searchOpen && (
+  <div className="fixed inset-0 z-[60] grid place-items-center bg-ink/80 p-5 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="Plan your escape">
+    <div className="glass w-full max-w-lg rounded-3xl border border-foreground/15 p-6 shadow-2xl sm:p-8">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold">Start planning</p>
+          <h2 className="mt-2 font-display text-2xl font-bold text-foreground">Where will you go next?</h2>
+        </div>
+        <button type="button" onClick={() => setSearchOpen(false)} className="grid size-9 place-items-center rounded-lg border border-foreground/10 text-foreground/70" aria-label="Close search">
+          <X size={18} />
+        </button>
+      </div>
+      <form className="mt-6 space-y-4" onSubmit={handleSearchSubmit}>
+        <Field
+          label="Destination"
+          placeholder="Kashmir, Goa, Dubai…"
+          required
+          value={searchData.destination}
+          onChange={(val) => setSearchData((curr) => ({ ...curr, destination: val }))}
+        />
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field
+            label="Travel date"
+            placeholder="12 Jun 2026"
+            required
+            value={searchData.date}
+            onChange={(val) => setSearchData((curr) => ({ ...curr, date: val }))}
+          />
+          <Field
+            label="Travellers"
+            placeholder="2 adults"
+            required
+            value={searchData.travellers}
+            onChange={(val) => setSearchData((curr) => ({ ...curr, travellers: val }))}
+          />
+        </div>
+        <button type="submit" className="w-full rounded-xl bg-gradient-to-r from-gold to-amber-300 px-6 py-3.5 text-sm font-bold text-ink transition hover:brightness-110">
+          Find my trip
+        </button>
+      </form>
+    </div>
+  </div>
+)}
     </main>
   );
 }
