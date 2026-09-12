@@ -33,7 +33,6 @@ import keralaImage from "@/assets/sfm-kerala.jpg";
 import honeymoonImage from "@/assets/sfm-honeymoon.jpg";
 import familyImage from "@/assets/sfm-family.jpg";
 import desertImage from "@/assets/sfm-desert.jpg";
-import sfmLogo from "@/assets/sfm-logo.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -129,20 +128,9 @@ const gallery: ImageItem[] = [
 
 function Logo() {
   return (
-    <a href="#home" className="group flex shrink-0 items-center gap-3" aria-label="SFM Travels home">
-      <img
-        src={sfmLogo}
-        alt="SFM Travels Logo"
-        className="size-11 rounded-full object-contain shadow-lg shadow-sky/20 ring-2 ring-gold/40 transition-transform duration-300 group-hover:scale-105"
-      />
-      <div className="flex flex-col">
-        <span className="font-display text-lg font-bold tracking-tight text-foreground leading-tight">
-          SFM <span className="text-sky">Travels</span>
-        </span>
-        <span className="text-[10px] font-semibold tracking-wider text-gold uppercase">
-          Smile For Millions
-        </span>
-      </div>
+    <a href="#home" className="flex shrink-0 items-center gap-2.5" aria-label="SFM Travels home">
+      <span className="grid size-9 place-items-center rounded-lg bg-gradient-to-br from-sky to-gold font-display text-xs font-extrabold text-ink shadow-lg shadow-sky/20">SFM</span>
+      <span className="font-display text-lg font-bold tracking-tight text-foreground">SFM <span className="text-sky">Travels</span></span>
     </a>
   );
 }
@@ -161,18 +149,66 @@ function SectionHeading({ eyebrow, title, action }: { eyebrow: string; title: st
 
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
+const [submitted, setSubmitted] = useState(false);
+const [searchOpen, setSearchOpen] = useState(false);
 
-  const scrollTo = (id: string) => {
+const [formData, setFormData] = useState({
+  name: "",
+  phone: "",
+  destination: "",
+  message: "",
+});
+
+const [loading, setLoading] = useState(false);
+const [error, setError] = useState("");
+const scrollTo = (id: string) => {
     setMenuOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
+const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  setLoading(true);
+  setError("");
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.["VITE_API_URL"]}/api/enquiries`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fullName: formData.name,
+          phone: formData.phone,
+          destination: formData.destination,
+          message: formData.message,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to submit enquiry");
+    }
+
     setSubmitted(true);
-  };
+
+    setFormData({
+      name: "",
+      phone: "",
+      destination: "",
+      message: "",
+    });
+  } catch (error) {
+    console.error("Enquiry submission error:", error);
+    setError("Unable to submit your enquiry. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-ink font-sans text-foreground antialiased">
@@ -259,11 +295,103 @@ function Index() {
 
       <section className="mx-auto max-w-3xl px-5 pb-20 lg:px-8"><div className="text-center"><p className="text-xs font-bold uppercase tracking-[0.22em] text-gold">FAQ</p><h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">Questions, answered</h2></div><div className="mt-10 space-y-3">{faqs.map(([question, answer]) => <FaqItem key={question} question={question} answer={answer} />)}</div></section>
 
-      <section id="contact" className="mx-auto max-w-7xl scroll-mt-28 px-5 pb-20 lg:px-8"><div className="glass grid gap-10 overflow-hidden rounded-3xl border border-foreground/10 p-6 sm:p-10 lg:grid-cols-2"><div><p className="text-xs font-bold uppercase tracking-[0.22em] text-gold">Get In Touch</p><h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">Start your journey today</h2><p className="mt-4 max-w-sm text-foreground/60">Tell us where you’d love to go and we’ll craft the perfect trip. We respond within a few hours.</p><ul className="mt-8 space-y-4 text-sm text-foreground/70"><li className="flex items-center gap-3"><span className="grid size-9 place-items-center rounded-lg bg-sky/15 text-sky"><Plane size={17} /></span> +91 98765 43210</li><li className="flex items-center gap-3"><span className="grid size-9 place-items-center rounded-lg bg-gold/15 text-gold"><Mail size={17} /></span> hello@sfmtravels.com</li><li className="flex items-center gap-3"><span className="grid size-9 place-items-center rounded-lg bg-sky/15 text-sky"><MapPin size={17} /></span> 12 Marina Road, Bengaluru, IN</li></ul></div><form className="space-y-4" onSubmit={handleSubmit}>{submitted ? <div className="flex min-h-64 flex-col items-center justify-center rounded-2xl border border-sky/30 bg-sky/10 p-8 text-center"><div className="grid size-14 place-items-center rounded-full bg-sky/20 text-sky"><Check size={26} /></div><h3 className="mt-5 font-display text-2xl font-bold text-foreground">Enquiry received</h3><p className="mt-2 max-w-sm text-sm text-foreground/60">Thanks for reaching out. A travel planner will contact you shortly.</p><button type="button" onClick={() => setSubmitted(false)} className="mt-6 text-sm font-semibold text-sky hover:text-cyan-300">Send another enquiry</button></div> : <><div className="grid gap-4 sm:grid-cols-2"><Field label="Full Name" placeholder="Your name" required /><Field label="Phone" placeholder="+91 98765 43210" required /></div><Field label="Destination" placeholder="e.g. Kashmir, Dubai" required /><label className="block"><span className="text-xs font-semibold uppercase tracking-[0.12em] text-foreground/50">Message</span><textarea rows={3} required placeholder="Tell us about your ideal trip…" className="mt-1.5 w-full resize-none rounded-xl border border-foreground/10 bg-foreground/5 px-4 py-3 text-sm text-foreground placeholder-foreground/30 outline-none transition focus:border-sky/60 focus:ring-2 focus:ring-sky/20" /></label><button type="submit" className="w-full rounded-xl bg-gradient-to-r from-sky to-cyan-300 px-6 py-3.5 text-sm font-bold text-ink shadow-lg shadow-sky/20 transition hover:brightness-110">Send Enquiry</button></>}</form></div></section>
+      <section id="contact" className="mx-auto max-w-7xl scroll-mt-28 px-5 pb-20 lg:px-8"><div className="glass grid gap-10 overflow-hidden rounded-3xl border border-foreground/10 p-6 sm:p-10 lg:grid-cols-2"><div><p className="text-xs font-bold uppercase tracking-[0.22em] text-gold">Get In Touch</p><h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">Start your journey today</h2><p className="mt-4 max-w-sm text-foreground/60">Tell us where you’d love to go and we’ll craft the perfect trip. We respond within a few hours.</p><ul className="mt-8 space-y-4 text-sm text-foreground/70"><li className="flex items-center gap-3"><span className="grid size-9 place-items-center rounded-lg bg-sky/15 text-sky"><Plane size={17} /></span> +91 98765 43210</li><li className="flex items-center gap-3"><span className="grid size-9 place-items-center rounded-lg bg-gold/15 text-gold"><Mail size={17} /></span> hello@sfmtravels.com</li><li className="flex items-center gap-3"><span className="grid size-9 place-items-center rounded-lg bg-sky/15 text-sky"><MapPin size={17} /></span> 12 Marina Road, Bengaluru, IN</li></ul></div><form className="space-y-4" onSubmit={handleSubmit}>
+          {submitted ? (
+            <div className="flex min-h-64 flex-col items-center justify-center rounded-2xl border border-sky/30 bg-sky/10 p-8 text-center">
+              <div className="grid size-14 place-items-center rounded-full bg-sky/20 text-sky">
+                <Check size={26} />
+              </div>
+              <h3 className="mt-5 font-display text-2xl font-bold text-foreground">
+                Enquiry received
+              </h3>
+              <p className="mt-2 max-w-sm text-sm text-foreground/60">
+                Thanks for reaching out. A travel planner will contact you shortly.
+              </p>
+              <button
+                type="button"
+                onClick={() => setSubmitted(false)}
+                className="mt-6 text-sm font-semibold text-sky hover:text-cyan-300"
+              >
+                Send another enquiry
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field
+                  label="Full Name"
+                  placeholder="Your name"
+                  required
+                  value={formData.name}
+                  onChange={(value) =>
+                    setFormData((current) => ({ ...current, name: value }))
+                  }
+                />
+
+                <Field
+                  label="Phone"
+                  type="tel"
+                  placeholder="+91 98765 43210"
+                  required
+                  value={formData.phone}
+                  onChange={(value) =>
+                    setFormData((current) => ({ ...current, phone: value }))
+                  }
+                />
+              </div>
+
+              <Field
+                label="Destination"
+                placeholder="e.g. Kashmir, Dubai"
+                required
+                value={formData.destination}
+                onChange={(value) =>
+                  setFormData((current) => ({
+                    ...current,
+                    destination: value,
+                  }))
+                }
+              />
+
+              <label className="block">
+                <span className="text-xs font-semibold uppercase tracking-[0.12em] text-foreground/50">
+                  Message
+                </span>
+                <textarea
+                  rows={3}
+                  required
+                  placeholder="Tell us about your ideal trip…"
+                  value={formData.message}
+                  onChange={(event) =>
+                    setFormData((current) => ({
+                      ...current,
+                      message: event.target.value,
+                    }))
+                  }
+                  className="mt-1.5 w-full resize-none rounded-xl border border-foreground/10 bg-foreground/5 px-4 py-3 text-sm text-foreground placeholder-foreground/30 outline-none transition focus:border-sky/60 focus:ring-2 focus:ring-sky/20"
+                />
+              </label>
+
+              {error && (
+                <p className="rounded-lg border border-red-400/20 bg-red-400/10 px-4 py-3 text-sm text-red-300">
+                  {error}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full rounded-xl bg-gradient-to-r from-sky to-cyan-300 px-6 py-3.5 text-sm font-bold text-ink shadow-lg shadow-sky/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {loading ? "Sending..." : "Send Enquiry"}
+              </button>
+            </>
+          )}
+        </form></div></section>
 
       <footer className="border-t border-foreground/10"><div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:px-8"><div><Logo /><p className="mt-4 max-w-xs text-sm text-foreground/50">Crafting memorable journeys across India and the world since 2013.</p><div className="mt-5 flex gap-3"><a href="https://www.instagram.com" aria-label="Instagram" className="grid size-9 place-items-center rounded-lg border border-foreground/10 text-foreground/60 transition hover:border-sky/40 hover:text-sky"><Instagram size={16} /></a><a href="https://www.youtube.com" aria-label="YouTube" className="grid size-9 place-items-center rounded-lg border border-foreground/10 text-foreground/60 transition hover:border-sky/40 hover:text-sky"><Youtube size={16} /></a></div></div><FooterLinks title="Explore" links={["Destinations", "Packages", "Services", "About Us"]} scrollTo={scrollTo} /><FooterLinks title="Support" links={["Contact", "FAQs", "Terms & Privacy", "Cancellation Policy"]} scrollTo={scrollTo} /><div><p className="font-display text-sm font-bold uppercase tracking-[0.15em] text-foreground/80">Newsletter</p><p className="mt-4 text-sm text-foreground/50">Travel deals & inspiration, monthly.</p><div className="mt-3 flex gap-2"><input aria-label="Email address" type="email" placeholder="Email address" className="min-w-0 flex-1 rounded-xl border border-foreground/10 bg-foreground/5 px-4 py-2.5 text-sm text-foreground placeholder-foreground/30 outline-none focus:border-sky/60" /><button type="button" aria-label="Join newsletter" className="grid size-11 shrink-0 place-items-center rounded-xl bg-gradient-to-r from-gold to-amber-300 text-ink"><ArrowRight size={17} /></button></div></div></div><div className="border-t border-foreground/10"><div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-5 py-6 text-xs text-foreground/45 sm:flex-row lg:px-8"><p>© 2026 SFM Travels. All rights reserved.</p><p>Crafted with care for every journey.</p></div></div></footer>
 
-      <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-whatsapp px-5 py-3.5 text-sm font-bold text-whatsapp-foreground shadow-2xl shadow-black/40 transition hover:brightness-110"><span className="grid size-6 place-items-center rounded-full bg-whatsapp-foreground/20 text-xs">✆</span><span className="hidden sm:inline">Chat on WhatsApp</span></a>
+      <a href="https://wa.me/919999779351" target="_blank" rel="noreferrer" className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-whatsapp px-5 py-3.5 text-sm font-bold text-whatsapp-foreground shadow-2xl shadow-black/40 transition hover:brightness-110"><span className="grid size-6 place-items-center rounded-full bg-whatsapp-foreground/20 text-xs">✆</span><span className="hidden sm:inline">Chat on WhatsApp</span></a>
 
       {searchOpen && <div className="fixed inset-0 z-[60] grid place-items-center bg-ink/80 p-5 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="Plan your escape"><div className="glass w-full max-w-lg rounded-3xl border border-foreground/15 p-6 shadow-2xl sm:p-8"><div className="flex items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[0.18em] text-gold">Start planning</p><h2 className="mt-2 font-display text-2xl font-bold text-foreground">Where will you go next?</h2></div><button type="button" onClick={() => setSearchOpen(false)} className="grid size-9 place-items-center rounded-lg border border-foreground/10 text-foreground/70" aria-label="Close search"><X size={18} /></button></div><form className="mt-6 space-y-4" onSubmit={(event) => { event.preventDefault(); setSearchOpen(false); scrollTo("contact"); }}><Field label="Destination" placeholder="Kashmir, Goa, Dubai…" required /><div className="grid gap-4 sm:grid-cols-2"><Field label="Travel date" placeholder="12 Jun 2026" required /><Field label="Travellers" placeholder="2 adults" required /></div><button type="submit" className="w-full rounded-xl bg-gradient-to-r from-gold to-amber-300 px-6 py-3.5 text-sm font-bold text-ink">Find my trip</button></form></div></div>}
     </main>
@@ -275,8 +403,36 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
   return <div className="glass rounded-2xl border border-foreground/10 p-5"><button type="button" onClick={() => setOpen((value) => !value)} className="flex w-full items-center justify-between gap-4 text-left font-display text-base font-semibold text-foreground"><span>{question}</span>{open ? <ChevronUp className="shrink-0 text-sky" size={18} /> : <ChevronDown className="shrink-0 text-sky" size={18} />}</button>{open && <p className="mt-3 pr-7 text-sm text-foreground/60">{answer}</p>}</div>;
 }
 
-function Field({ label, placeholder, required = false }: { label: string; placeholder: string; required?: boolean }) {
-  return <label className="block"><span className="text-xs font-semibold uppercase tracking-[0.12em] text-foreground/50">{label}</span><input type="text" placeholder={placeholder} required={required} className="mt-1.5 w-full rounded-xl border border-foreground/10 bg-foreground/5 px-4 py-3 text-sm text-foreground placeholder-foreground/30 outline-none transition focus:border-sky/60 focus:ring-2 focus:ring-sky/20" /></label>;
+function Field({
+  label,
+  placeholder,
+  required = false,
+  type = "text",
+  value,
+  onChange,
+}: {
+  label: string;
+  placeholder: string;
+  required?: boolean;
+  type?: string;
+  value?: string;
+  onChange?: (value: string) => void;
+}) {
+  return (
+    <label className="block">
+      <span className="text-xs font-semibold uppercase tracking-[0.12em] text-foreground/50">
+        {label}
+      </span>
+      <input
+        type={type}
+        placeholder={placeholder}
+        required={required}
+        value={value}
+        onChange={(event) => onChange?.(event.target.value)}
+        className="mt-1.5 w-full rounded-xl border border-foreground/10 bg-foreground/5 px-4 py-3 text-sm text-foreground placeholder-foreground/30 outline-none transition focus:border-sky/60 focus:ring-2 focus:ring-sky/20"
+      />
+    </label>
+  );
 }
 
 function FooterLinks({ title, links, scrollTo }: { title: string; links: string[]; scrollTo: (id: string) => void }) {
