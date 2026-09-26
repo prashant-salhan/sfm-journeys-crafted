@@ -732,7 +732,7 @@ export function IndiaPortal() {
           </div>
 
           <div className="bg-slate-900/90 border border-slate-700 p-6 sm:p-10 rounded-3xl shadow-2xl text-left">
-            <InlineEnquiryForm key={selectedPackageTitle || "default"} initialPackageTitle={selectedPackageTitle} />
+            <InlineEnquiryForm initialPackageTitle={selectedPackageTitle} />
           </div>
         </div>
       </section>
@@ -1024,10 +1024,8 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             name="fullName"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
-            onInput={(e: any) => setFullName(e.target.value)}
             placeholder="e.g. Rahul Sharma"
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text pointer-events-auto"
-            style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold"
           />
         </div>
         <div>
@@ -1038,10 +1036,8 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             name="phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            onInput={(e: any) => setPhone(e.target.value)}
             placeholder="e.g. +91 9876543210"
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text pointer-events-auto"
-            style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold"
           />
         </div>
       </div>
@@ -1055,10 +1051,8 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             name="travelDate"
             value={travelDate}
             onChange={(e) => setTravelDate(e.target.value)}
-            onInput={(e: any) => setTravelDate(e.target.value)}
             placeholder="e.g. Next Month / Oct 15"
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text pointer-events-auto"
-            style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold"
           />
         </div>
         <div>
@@ -1068,8 +1062,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             name="travellers"
             value={travellers}
             onChange={(e) => setTravellers(e.target.value)}
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer pointer-events-auto"
-            style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer"
           >
             <option value="1 Traveller (Solo)">1 Traveller (Solo)</option>
             <option value="2 Travellers (Couple)">2 Travellers (Couple)</option>
@@ -1086,18 +1079,16 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
           name="userMessage"
           value={userMessage}
           onChange={(e) => setUserMessage(e.target.value)}
-          onInput={(e: any) => setUserMessage(e.target.value)}
           rows={3}
           placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
-          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text pointer-events-auto"
-          style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
+          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold"
         />
       </div>
 
       <button
         type="submit"
         disabled={submitting}
-        className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-extrabold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 text-base cursor-pointer pointer-events-auto"
+        className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-extrabold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 text-base cursor-pointer"
       >
         {submitting ? "Submitting Request..." : "Request Free India Quote Now"}
       </button>
