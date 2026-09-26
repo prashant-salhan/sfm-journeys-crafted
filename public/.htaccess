@@ -1,7 +1,14 @@
+# Phusion Passenger Node.js Configuration for GoDaddy cPanel
+PassengerEnabled on
+PassengerAppRoot /home/wuusut1b55nd/backend_sfm
+PassengerBaseURI /api
+PassengerStartupFile server.js
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
   RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_URI} !^/api [NC]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.html [L]

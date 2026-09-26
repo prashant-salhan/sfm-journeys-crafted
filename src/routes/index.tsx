@@ -1,583 +1,1062 @@
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowRight,
   Check,
-  ChevronDown,
-  ChevronUp,
   Compass,
-  Globe2,
+  FileCheck,
   Heart,
-  Instagram,
-  Mail,
   MapPin,
   Menu,
-  Plane,
+  Phone,
   Search,
   ShieldCheck,
   Sparkles,
   Star,
   Users,
-  WalletCards,
   X,
-  Youtube,
+  Zap,
+  Clock,
+  Send,
+  CheckCircle2,
+  Award,
+  Calendar,
+  Globe,
+  Sun,
+  Camera,
+  Utensils,
 } from "lucide-react";
 
-import heroImage from "@/assets/sfm-hero.jpg";
 import kashmirImage from "@/assets/sfm-kashmir.jpg";
-import manaliImage from "@/assets/sfm-manali.jpg";
-import goaImage from "@/assets/sfm-goa.jpg";
-import dubaiImage from "@/assets/sfm-dubai.jpg";
-import rajasthanImage from "@/assets/sfm-rajasthan.jpg";
 import keralaImage from "@/assets/sfm-kerala.jpg";
-import honeymoonImage from "@/assets/sfm-honeymoon.jpg";
-import familyImage from "@/assets/sfm-family.jpg";
-import desertImage from "@/assets/sfm-desert.jpg";
+import rajasthanImage from "@/assets/sfm-rajasthan.jpg";
+import goaImage from "@/assets/sfm-goa.jpg";
+import manaliImage from "@/assets/sfm-manali.jpg";
+import heroImage from "@/assets/sfm-hero.jpg";
 import sfmLogo from "@/assets/sfm-logo.png";
+import { CurrencySelector } from "@/components/CurrencySelector";
+import { useCurrency } from "@/context/CurrencyContext";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SFM Travels | Curated Journeys, Beautifully Planned" },
+      { title: "SFM Travels India | Incredible India Holidays, Kerala, Kashmir & Rajasthan Tours" },
       {
         name: "description",
         content:
-          "Discover curated holidays, honeymoon escapes and bespoke journeys across India and the world with SFM Travels.",
+          "Official India Tourism Portal. Book luxury Incredible India holiday packages, Golden Triangle tours, Kashmir snow escapes, Kerala backwater houseboats, and Goa beach vacations.",
       },
       {
         property: "og:title",
-        content: "SFM Travels | Curated Journeys, Beautifully Planned",
+        content: "SFM Travels India | Incredible India Tourism & Custom Tour Packages",
       },
       {
         property: "og:description",
         content:
-          "Premium travel planning for holidays, honeymoons, family tours and unforgettable escapes.",
+          "Discover Incredible India with SFM Travels. Best price guarantee for Kerala houseboats, Kashmir tours, Rajasthan royal palaces, and Goa beach holidays.",
       },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: Index,
+  component: IndiaPortal,
 });
 
-type ImageItem = { src: string; alt: string };
+type PackageItinerary = {
+  day: number;
+  title: string;
+  desc: string;
+};
 
-const destinations = [
-  { name: "Kashmir", region: "Himalayas", price: "₹24,999", nights: "5 nights", image: kashmirImage },
-  { name: "Manali", region: "Himalayas", price: "₹18,499", nights: "4 nights", image: manaliImage },
-  { name: "Goa", region: "Coastal", price: "₹15,999", nights: "3 nights", image: goaImage },
-  { name: "Dubai", region: "International", price: "₹54,999", nights: "5 nights", image: dubaiImage },
-  { name: "Rajasthan", region: "Heritage", price: "₹29,999", nights: "6 nights", image: rajasthanImage },
-  { name: "Kerala", region: "Backwaters", price: "₹22,499", nights: "5 nights", image: keralaImage },
-];
+type IndiaPackage = {
+  id: string;
+  title: string;
+  category: string;
+  duration: string;
+  description: string;
+  priceInr: number;
+  image: string;
+  badge: string;
+  inclusions: string[];
+  itinerary: PackageItinerary[];
+};
 
-const packages = [
+const INDIA_PACKAGES: IndiaPackage[] = [
   {
-    title: "Kerala Honeymoon Bliss",
-    category: "Honeymoon",
-    duration: "5D / 4N",
-    description: "Backwater houseboat, spa day and candlelit dinner for two.",
-    price: "₹42,999",
-    suffix: "/ couple",
-    image: honeymoonImage,
-    tone: "sky",
+    id: "pkg-kashmir-paradise",
+    title: "Kashmir Paradise & Golden Triangle Special",
+    category: "Mountain & Heritage",
+    duration: "6 Days / 5 Nights",
+    description:
+      "Explore Delhi, Agra Taj Mahal, Srinagar Dal Lake romantic Shikara ride, Gulmarg Gondola cable car, and Pahalgam Betaab Valley.",
+    priceInr: 39999,
+    image: kashmirImage,
+    badge: "Bestseller",
+    inclusions: [
+      "4★ Hotel & Houseboat Stay",
+      "Daily Breakfast & Dinner",
+      "Taj Mahal Sunrise Tour",
+      "Dal Lake Shikara Ride",
+      "Gulmarg Gondola Pass",
+      "Private Cab & Airport Transfers",
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival in Delhi & City Tour", desc: "VIP Airport transfer. Visit Qutub Minar, India Gate, Rashtrapati Bhavan & Red Fort." },
+      { day: 2, title: "Delhi to Agra & Taj Mahal Sunset", desc: "Drive to Agra via Yamuna Expressway. Guided tour of Taj Mahal at sunset and Agra Fort." },
+      { day: 3, title: "Flight to Srinagar & Dal Lake Shikara Ride", desc: "Fly to Srinagar. Check-in to luxury wooden houseboat on Dal Lake. Evening romantic sunset Shikara ride." },
+      { day: 4, title: "Gulmarg Snow Point & Gondola Cable Car", desc: "Excursion to Gulmarg. Ride Asia's highest Gondola cable car up to Apharwat peak for skiing & snow views." },
+      { day: 5, title: "Pahalgam Valley of Shepherds & Betaab Valley", desc: "Visit Pahalgam, Aru Valley, Betaab Valley, and Lidder River bank walks." },
+      { day: 6, title: "Srinagar Departure", desc: "Check out after breakfast and private drop-off at Srinagar Airport." },
+    ],
   },
   {
-    title: "Kashmir Family Escape",
-    category: "Family Tour",
-    duration: "6D / 5N",
-    description: "Srinagar, Gulmarg cable car, Dal Lake and Shikara rides.",
-    price: "₹58,999",
-    suffix: "/ family",
-    image: familyImage,
-    tone: "gold",
+    id: "pkg-kerala-backwaters",
+    title: "Kerala Backwaters & Houseboat Sanctuary",
+    category: "Backwaters & Nature",
+    duration: "5 Days / 4 Nights",
+    description:
+      "Serene Kerala tour covering Cochin heritage, Munnar tea garden hills, Thekkady spice plantations, and Alleppey private luxury houseboat cruise.",
+    priceInr: 28999,
+    image: keralaImage,
+    badge: "Trending",
+    inclusions: [
+      "4★ Resort & Houseboat Stay",
+      "Daily Breakfast & Houseboat Meals",
+      "Alleppey Private Houseboat Cruise",
+      "Munnar Tea Plantation Tour",
+      "Kathakali Cultural Show",
+      "Cochin Airport Transfers",
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival in Cochin & Transfer to Munnar", desc: "Airport pickup and scenic drive to Munnar. Enroute visit Cheeyappara and Valara waterfalls." },
+      { day: 2, title: "Full Day Munnar Tea Gardens & Eravikulam", desc: "Visit Eravikulam National Park (Nilgiri Tahr), Mattupetty Dam, Echo Point, and Tea Museum." },
+      { day: 3, title: "Munnar to Thekkady Spice Plantation", desc: "Drive to Thekkady. Spice garden tour, elephant ride, and Periyar lake boat safari." },
+      { day: 4, title: "Thekkady to Alleppey Luxury Houseboat", desc: "Board your private luxury houseboat in Alleppey. Cruise through narrow backwater canals with fresh Kerala meals." },
+      { day: 5, title: "Departure from Cochin", desc: "Houseboat breakfast, checkout, and drop-off at Cochin Airport." },
+    ],
   },
   {
-    title: "Dubai City Adventure",
-    category: "International",
-    duration: "5D / 4N",
-    description: "Burj Khalifa, desert safari, Gold Souk and Marina cruise.",
-    price: "₹74,999",
-    suffix: "/ person",
-    image: desertImage,
-    tone: "sky",
+    id: "pkg-rajasthan-royal",
+    title: "Royal Rajasthan Forts & Thar Desert Glamping",
+    category: "Royal Heritage",
+    duration: "6 Days / 5 Nights",
+    description:
+      "Experience royal majesty in Jaipur Pink City forts, Jodhpur Mehrangarh, Udaipur Lake Palace, and Thar Desert glamping with camel safari.",
+    priceInr: 34999,
+    image: rajasthanImage,
+    badge: "Royal Special",
+    inclusions: [
+      "4★ Heritage Haveli Stay",
+      "Thar Desert Swiss Tent Camp",
+      "Camel Safari & Dune Bashing",
+      "Folk Dance & Rajasthani BBQ",
+      "Lake Pichola Sunset Boat Ride",
+      "Intercity Transfers",
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival in Jaipur (Pink City)", desc: "Airport/Station pickup. Evening visit to Chokhi Dhani cultural village for authentic Rajasthani thali dinner." },
+      { day: 2, title: "Jaipur Forts & Palaces Sightseeing", desc: "Jeep ride up Amber Fort, photo stop at Hawa Mahal, Jal Mahal, and guided tour of City Palace & Jantar Mantar." },
+      { day: 3, title: "Jaipur to Jodhpur (Blue City)", desc: "Drive to Jodhpur. Explore Mehrangarh Fort, Jaswant Thada, and Umaid Bhawan Palace." },
+      { day: 4, title: "Jodhpur to Jaisalmer Thar Desert Camp", desc: "Drive to Jaisalmer. Evening 4x4 dune bashing, camel safari, Kalbelia folk dance, and glamping under desert stars." },
+      { day: 5, title: "Jaisalmer Golden Fort & Transfer to Udaipur", desc: "Explore Sonar Qila (Living Fort) and Patwon Ki Haveli. Transfer to Udaipur (City of Lakes)." },
+      { day: 6, title: "Udaipur Lake Pichola & Departure", desc: "Romantic boat ride at Lake Pichola, Jagmandir visit, and drop-off at Udaipur Airport." },
+    ],
+  },
+  {
+    id: "pkg-goa-beaches",
+    title: "Goa Sun, Sand & Sunset Cruise Escape",
+    category: "Beach & Nightlife",
+    duration: "4 Days / 3 Nights",
+    description:
+      "Relax on Goa's finest beaches, experience Dudhsagar waterfall jeep safari, Old Goa heritage churches, and Mandovi river sunset cruise.",
+    priceInr: 22999,
+    image: goaImage,
+    badge: "Beach Favorite",
+    inclusions: [
+      "4★ Beach Resort near Calangute",
+      "Daily Breakfast",
+      "North & South Goa Tour",
+      "Dudhsagar Waterfall Jeep Safari",
+      "Mandovi River Sunset Cruise",
+      "Airport / Railway Transfers",
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival in Goa & Beach Relaxation", desc: "Airport pickup & welcome drinks at resort. Evening walk at Calangute beach & Baga market." },
+      { day: 2, title: "North Goa Beaches & Fort Aguada", desc: "Visit Fort Aguada, Chapora Fort (Dil Chahta Hai point), Anjuna, Vagator & Baga water sports." },
+      { day: 3, title: "South Goa Heritage & Sunset Cruise", desc: "Explore Basilica of Bom Jesus, Se Cathedral, Mangueshi Temple, and evening Mandovi River sunset cruise with music." },
+      { day: 4, title: "Departure", desc: "Hotel checkout and transfer to Goa Airport (GOI/GOX) or Madgaon station." },
+    ],
+  },
+  {
+    id: "pkg-manali-snow",
+    title: "Himachal Snow Peaks & Solang Valley Tour",
+    category: "Mountain Adventure",
+    duration: "6 Days / 5 Nights",
+    description:
+      "Scenic mountain retreat through Shimla Mall Road, Kufri snow point, Kullu river rafting, and Manali Solang Valley & Atal Tunnel.",
+    priceInr: 26999,
+    image: manaliImage,
+    badge: "Mountain Escape",
+    inclusions: [
+      "3★/4★ Mountain View Hotel",
+      "Daily Breakfast & Dinner",
+      "Shimla & Kufri Sightseeing",
+      "Solang Valley Snow Point Pass",
+      "Atal Tunnel & Sissu Excursion",
+      "Private Cab Transfers",
+    ],
+    itinerary: [
+      { day: 1, title: "Pickup from Delhi/Chandigarh & Shimla Drive", desc: "Drive to Shimla via Himalayan expressway. Check-in to hill resort." },
+      { day: 2, title: "Shimla Local Tour & Kufri Snow Point", desc: "Visit Kufri horse riding point, Ridge, Christ Church, and Mall Road shopping." },
+      { day: 3, title: "Shimla to Manali via Kullu Valley", desc: "Scenic drive past Pandoh Dam, Kullu Shawl Factory, and white-water rafting point." },
+      { day: 4, title: "Solang Valley Snow Adventure & Atal Tunnel", desc: "Excursion to Solang Valley for paragliding, zorbing, snow scooter rides, and crossing Atal Tunnel to Sissu." },
+      { day: 5, title: "Manali Local Sights & Vashisht Springs", desc: "Visit Hadimba Temple, Club House, Vashisht hot springs, and Tibetan Monastery." },
+      { day: 6, title: "Return Drop to Chandigarh/Delhi", desc: "Drive back with fond Himalayan memories for evening drop." },
+    ],
   },
 ];
 
-const services = [
-  { icon: Compass, title: "Holiday Packages", text: "All-inclusive getaways with stays, transfers and sightseeing." },
-  { icon: Heart, title: "Honeymoon", text: "Romantic escapes designed for two, down to the last detail." },
-  { icon: Users, title: "Family Tours", text: "Comfortable, safe itineraries the whole family will love." },
-  { icon: Globe2, title: "Group Tours", text: "Budget-friendly group departures across popular routes." },
-  { icon: Plane, title: "Hotel & Flight Booking", text: "Best-rate bookings with instant confirmation support." },
-  { icon: Sparkles, title: "Customized Trips", text: "Bespoke journeys tailored entirely to your wish list." },
+const INDIA_REGIONS = [
+  { name: "North India & Himalayas", location: "Kashmir, Himachal, Golden Triangle, Ladakh", desc: "Majestic snow peaks, Taj Mahal, hill stations, and ancient heritage." },
+  { name: "South India & Tropics", location: "Kerala, Munnar, Coorg, Hampi, Rameshwaram", desc: "Emerald backwaters, lush tea estates, palm groves, and grand Dravidian temples." },
+  { name: "West & Royal Rajasthan", location: "Jaipur, Udaipur, Jaisalmer Desert, Goa", desc: "Royal fortresses, Thar desert camel glamping, and sun-kissed beaches." },
+  { name: "East & North-East", location: "Darjeeling, Sikkim, Meghalaya, Assam", desc: "Living root bridges, tea gardens, Kaziranga rhinos, and Himalayan monasteries." },
 ];
 
-const faqs: [string, string][] = [
-  ["How do I book a custom itinerary with SFM Travels?", "Share your preferences through the enquiry form or WhatsApp. Our planner will send a full itinerary within 24 hours for your review."],
-  ["What is included in your holiday packages?", "Most packages include accommodation, transfers, breakfast and curated sightseeing. Flights and special meals can be added."],
-  ["Can I modify my trip after confirming?", "Yes — you can adjust dates, rooms or activities up until your cancellation window. Our team will rework the plan for you."],
-  ["Do you offer support during the trip?", "Absolutely. You’ll get a dedicated on-trip contact available 24×7 for any help, from cabs to restaurant bookings."],
-];
-
-const gallery: ImageItem[] = [
-  { src: heroImage, alt: "Turquoise tropical coastline at golden hour" },
-  { src: rajasthanImage, alt: "Rajasthan palace courtyard framed by carved arches" },
-  { src: goaImage, alt: "Palm-lined Goa beach at sunset" },
-  { src: manaliImage, alt: "Snowy Manali mountain valley" },
-];
-
-function Logo() {
-  return (
-    <a href="#home" className="flex shrink-0 items-center gap-3" aria-label="SFM Travels home">
-      <img src={sfmLogo} alt="SFM Travels Logo" className="h-12 w-12 rounded-full object-contain shadow-md shadow-sky/20 transition hover:scale-105" />
-      <span className="font-display text-xl font-extrabold tracking-tight text-foreground">SFM <span className="text-sky">Travels</span></span>
-    </a>
-  );
+declare global {
+  interface Window {
+    __SFM_API_URL__?: string;
+  }
 }
 
-function SectionHeading({ eyebrow, title, action }: { eyebrow: string; title: string; action?: ReactNode }) {
-  return (
-    <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-      <div>
-        <p className="text-xs font-bold uppercase tracking-[0.22em] text-gold">{eyebrow}</p>
-        <h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">{title}</h2>
-      </div>
-      {action}
-    </div>
-  );
-}
+const getApiBase = () => {
+  if (typeof window !== "undefined" && window.__SFM_API_URL__) {
+    return window.__SFM_API_URL__;
+  }
+  let url = (import.meta.env["VITE_API_URL"] as string | undefined) || "";
+  if (url.includes("api.sfmtravels.co.in")) url = "";
+  if (url) return url;
+  if (typeof window !== "undefined") {
+    const host = window.location.hostname;
+    if (host === "localhost" || host === "127.0.0.1") return "http://localhost:5000";
+  }
+  return "";
+};
 
-function Index() {
-  const [menuOpen, setMenuOpen] = useState(false);
-const [submitted, setSubmitted] = useState(false);
-const [searchOpen, setSearchOpen] = useState(false);
+export function IndiaPortal() {
+  const { formatPrice } = useCurrency();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
-const [formData, setFormData] = useState({
-  name: "",
-  phone: "",
-  destination: "",
-  message: "",
-});
+  // Enquiry Modal States
+  const [enquiryModalOpen, setEnquiryModalOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState<IndiaPackage | null>(null);
+  const [selectedItineraryPkg, setSelectedItineraryPkg] = useState<IndiaPackage | null>(null);
 
-const [searchData, setSearchData] = useState({
-  destination: "",
-  date: "",
-  travellers: "",
-});
+  // Auto-pop enquiry modal 1.5 seconds after page load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const hasClosedBefore = sessionStorage.getItem("sfm_india_enquiry_opened");
+      if (!hasClosedBefore) {
+        setEnquiryModalOpen(true);
+      }
+    }, 1500);
 
-const [newsletterEmail, setNewsletterEmail] = useState("");
-const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
-const [newsletterLoading, setNewsletterLoading] = useState(false);
-const [newsletterMessage, setNewsletterMessage] = useState("");
+    return () => clearTimeout(timer);
+  }, []);
 
-const [loading, setLoading] = useState(false);
-const [error, setError] = useState("");
-const scrollTo = (id: string) => {
-    setMenuOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const handleCloseEnquiryModal = () => {
+    setEnquiryModalOpen(false);
+    sessionStorage.setItem("sfm_india_enquiry_opened", "true");
   };
 
-const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-  setSearchOpen(false);
-  setFormData((current) => ({
-    ...current,
-    destination: searchData.destination || current.destination,
-    message: [
-      current.message,
-      searchData.date ? `Travel Date: ${searchData.date}` : "",
-      searchData.travellers ? `Travellers: ${searchData.travellers}` : "",
-    ]
-      .filter(Boolean)
-      .join(" | "),
-  }));
-  scrollTo("contact");
-};
+  const handleOpenEnquiryForPkg = (pkg: IndiaPackage) => {
+    setSelectedPackage(pkg);
+    setEnquiryModalOpen(true);
+  };
 
-const handleNewsletterSubmit = async (event: FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-  if (!newsletterEmail) return;
+  const filteredPackages = INDIA_PACKAGES.filter((pkg) => {
+    const matchesTab =
+      activeTab === "all"
+        ? true
+        : activeTab === "north"
+        ? pkg.category.toLowerCase().includes("mountain") || pkg.category.toLowerCase().includes("heritage")
+        : activeTab === "kerala"
+        ? pkg.category.toLowerCase().includes("backwaters")
+        : activeTab === "rajasthan"
+        ? pkg.category.toLowerCase().includes("royal")
+        : activeTab === "goa"
+        ? pkg.category.toLowerCase().includes("beach")
+        : true;
 
-  setNewsletterLoading(true);
-  setNewsletterMessage("");
+    const matchesSearch =
+      pkg.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      pkg.description.toLowerCase().includes(searchQuery.toLowerCase());
 
-  try {
-    const apiBase = (import.meta.env["VITE_API_URL"] as string | undefined) || "";
-    const response = await fetch(`${apiBase}/api/newsletter`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: newsletterEmail }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error || data.message || "Failed to subscribe");
-    }
-
-    setNewsletterSubmitted(true);
-    setNewsletterMessage(data.message || "Thank you for subscribing!");
-    setNewsletterEmail("");
-  } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : "Subscription failed. Please try again.";
-    setNewsletterMessage(msg);
-  } finally {
-    setNewsletterLoading(false);
-  }
-};
-
-const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-
-  setLoading(true);
-  setError("");
-
-  try {
-    const apiBase = (import.meta.env["VITE_API_URL"] as string | undefined) || "";
-    const response = await fetch(`${apiBase}/api/enquiries`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        fullName: formData.name,
-        phone: formData.phone,
-        destination: formData.destination,
-        message: formData.message,
-      }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error || data.message || "Failed to submit enquiry");
-    }
-
-    setSubmitted(true);
-
-    setFormData({
-      name: "",
-      phone: "",
-      destination: "",
-      message: "",
-    });
-  } catch (error: unknown) {
-    console.error("Enquiry submission error:", error);
-    const msg = error instanceof Error ? error.message : "Unable to submit your enquiry. Please try again.";
-    setError(msg);
-  } finally {
-    setLoading(false);
-  }
-};
+    return matchesTab && matchesSearch;
+  });
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-ink font-sans text-foreground antialiased">
-      <div className="fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
-        <div className="absolute inset-0 bg-ink" />
-        <div className="aurora-one absolute -left-40 -top-40 size-[40rem] rounded-full bg-sky/20 blur-[140px]" />
-        <div className="aurora-two absolute right-0 top-10 size-[36rem] rounded-full bg-gold/10 blur-[150px]" />
-        <div className="aurora-one absolute left-1/3 top-[55%] size-[34rem] rounded-full bg-indigo-500/10 blur-[150px]" />
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-amber-500 selection:text-slate-950 w-full max-w-full overflow-x-hidden">
+      {/* Top Banner Contact Bar */}
+      <div className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 text-slate-950 text-xs font-semibold py-2 px-4 flex flex-wrap justify-between items-center z-50">
+        <div className="flex items-center gap-4 mx-auto md:mx-0">
+          <span className="flex items-center gap-1.5">
+            <Zap className="w-3.5 h-3.5" /> Incredible India Tourism Specialists — Best Price Guarantee
+          </span>
+          <span className="hidden sm:inline">|</span>
+          <span className="hidden sm:flex items-center gap-1">
+            <FileCheck className="w-3.5 h-3.5" /> Approved India Tour Operator & E-Visa Assistance
+          </span>
+        </div>
+        <div className="hidden md:flex items-center gap-4">
+          <a href="tel:+919876543210" className="hover:underline flex items-center gap-1">
+            <Phone className="w-3 h-3" /> +91 98765 43210
+          </a>
+          <a
+            href="https://wa.me/919876543210?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20India%20trip!"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:underline flex items-center gap-1 font-bold"
+          >
+            💬 WhatsApp Chat
+          </a>
+        </div>
       </div>
 
-      <header className="sticky top-0 z-50 border-b border-foreground/10 bg-ink/85 backdrop-blur-xl">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8" aria-label="Main navigation">
-          <Logo />
-          <div className="hidden items-center gap-8 lg:flex">
-            {["Home", "Destinations", "Packages", "Services", "About", "Contact"].map((item) => (
-              <button key={item} type="button" onClick={() => scrollTo(item === "Home" ? "home" : item.toLowerCase())} className="text-sm font-medium text-foreground/65 transition hover:text-foreground">
-                {item}
-              </button>
-            ))}
-          </div>
-          <div className="flex items-center gap-3">
-            <button type="button" onClick={() => scrollTo("contact")} className="hidden rounded-lg bg-gradient-to-r from-sky to-cyan-300 px-5 py-2.5 text-sm font-semibold text-ink shadow-lg shadow-sky/20 transition hover:brightness-110 sm:block">Book Now</button>
-            <button type="button" onClick={() => setMenuOpen((open) => !open)} className="grid size-10 place-items-center rounded-lg border border-foreground/15 text-foreground/80 lg:hidden" aria-label={menuOpen ? "Close menu" : "Open menu"}>
-              {menuOpen ? <X size={20} /> : <Menu size={20} />}
+      {/* Main Navbar */}
+      <header className="sticky top-0 z-40 bg-slate-950 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+          {/* Logo */}
+          <a href="#" className="flex items-center gap-3">
+            <img src={sfmLogo} alt="SFM Travels Logo" className="h-10 sm:h-12 w-auto object-contain" />
+            <div>
+              <span className="text-lg sm:text-xl font-bold tracking-tight text-white block">
+                SFM <span className="text-amber-400">INDIA</span>
+              </span>
+              <span className="text-[9px] sm:text-[10px] tracking-widest text-slate-400 uppercase font-semibold block">
+                Incredible India Tourism Portal
+              </span>
+            </div>
+          </a>
+
+          {/* Desktop Nav Links */}
+          <nav className="hidden lg:flex items-center gap-8 font-medium text-sm text-slate-300">
+            <a href="#packages" className="hover:text-amber-400 transition-colors">
+              India Packages
+            </a>
+            <a href="#regions" className="hover:text-amber-400 transition-colors">
+              Regions & Circuits
+            </a>
+            <a href="#essentials" className="hover:text-amber-400 transition-colors">
+              Travel Essentials
+            </a>
+            <a href="#why-us" className="hover:text-amber-400 transition-colors">
+              Why Choose Us
+            </a>
+          </nav>
+
+          {/* Actions */}
+          <div className="hidden sm:flex items-center gap-4">
+            <CurrencySelector />
+            <button
+              onClick={() => setEnquiryModalOpen(true)}
+              className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold px-5 py-2.5 rounded-full shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 transition-all flex items-center gap-2 text-sm"
+            >
+              <Sparkles className="w-4 h-4" /> Plan My India Trip
             </button>
           </div>
-        </nav>
-        {menuOpen && (
-          <div className="border-t border-foreground/10 px-5 py-4 lg:hidden">
-            <div className="mx-auto grid max-w-7xl gap-2">
-              {["Home", "Destinations", "Packages", "Services", "About", "Contact"].map((item) => (
-                <button key={item} type="button" onClick={() => scrollTo(item === "Home" ? "home" : item.toLowerCase())} className="rounded-lg px-3 py-3 text-left text-sm font-medium text-foreground/70 transition hover:bg-foreground/5 hover:text-foreground">{item}</button>
-              ))}
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 text-slate-300 hover:text-white"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+
+        {/* Mobile Navigation Menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-slate-900 border-b border-slate-800 px-4 py-6 space-y-4">
+            <a
+              href="#packages"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-slate-200 font-medium hover:text-amber-400"
+            >
+              India Packages
+            </a>
+            <a
+              href="#regions"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-slate-200 font-medium hover:text-amber-400"
+            >
+              Regions & Circuits
+            </a>
+            <a
+              href="#essentials"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-slate-200 font-medium hover:text-amber-400"
+            >
+              Travel Essentials
+            </a>
+            <a
+              href="#why-us"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-slate-200 font-medium hover:text-amber-400"
+            >
+              Why Choose Us
+            </a>
+            <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+              <CurrencySelector />
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setEnquiryModalOpen(true);
+                }}
+                className="bg-amber-500 text-slate-950 font-bold px-4 py-2 rounded-full text-xs"
+              >
+                Get Quote
+              </button>
             </div>
           </div>
         )}
       </header>
 
-      <section id="home" className="relative">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-24">
-          <div className="rise-in">
-            <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-gold"><span className="size-1.5 rounded-full bg-gold" /> Premium Travel Agency</span>
-            <h1 className="mt-6 max-w-3xl font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl">Your Journey Begins<br />With <span className="bg-gradient-to-r from-sky via-cyan-300 to-gold bg-clip-text text-transparent">SFM Travels</span></h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/60 sm:text-lg">Curated holidays, honeymoon escapes and bespoke journeys across India and the world — crafted around you, delivered flawlessly.</p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <button type="button" onClick={() => scrollTo("contact")} className="rounded-xl bg-gradient-to-r from-sky to-cyan-300 px-7 py-3.5 text-sm font-bold text-ink shadow-xl shadow-sky/20 transition hover:brightness-110">Start Booking</button>
-              <button type="button" onClick={() => scrollTo("packages")} className="rounded-xl border border-foreground/20 px-7 py-3.5 text-sm font-semibold text-foreground transition hover:bg-foreground/10">Explore Packages</button>
+      {/* Hero Section */}
+      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden py-16 sm:py-20 px-4">
+        {/* Background Image & Gradient Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src={heroImage}
+            alt="Incredible India TourismTaj Mahal & Himalayas"
+            className="w-full h-full object-cover object-center opacity-30"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/50" />
+        </div>
+
+        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-6 sm:space-y-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold tracking-wider uppercase">
+            <Sparkles className="w-4 h-4" /> Official Incredible India Tourism Portal
+          </div>
+
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-tight">
+            Discover <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500">INCREDIBLE INDIA</span>
+          </h1>
+
+          <p className="text-base sm:text-xl text-slate-300 max-w-3xl mx-auto font-light leading-relaxed">
+            Experience royal Rajasthan palaces, Kashmir paradise snow peaks, Kerala backwater houseboats, Goa tropical beaches, and Golden Triangle heritage tours.
+          </p>
+
+          {/* Quick Search & Filter Widget */}
+          <div className="bg-slate-900 border border-slate-800 p-4 sm:p-6 rounded-2xl max-w-3xl mx-auto shadow-2xl space-y-4">
+            {/* Filter Tabs */}
+            <div className="flex flex-wrap gap-2 justify-center border-b border-slate-800 pb-3">
+              {[
+                { id: "all", label: "All India Tours" },
+                { id: "north", label: "Kashmir & Himalayas" },
+                { id: "kerala", label: "Kerala Backwaters" },
+                { id: "rajasthan", label: "Royal Rajasthan" },
+                { id: "goa", label: "Goa & Beaches" },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                    activeTab === tab.id
+                      ? "bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20"
+                      : "bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
-            <div className="glass mt-9 rounded-2xl border border-foreground/10 p-3 shadow-2xl shadow-black/20">
-              <div className="grid gap-2 sm:grid-cols-[1fr_1fr_1fr_auto]">
-                {["Destination|Anywhere in India", "Travel Dates|12 Jun 2026", "Guests|2 Adults"].map((item) => {
-                  const [label, value] = item.split("|");
-                  return <button key={label} type="button" onClick={() => setSearchOpen(true)} className="rounded-xl bg-foreground/5 px-4 py-3 text-left transition hover:bg-foreground/10"><p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-sky">{label}</p><p className="mt-0.5 text-sm font-medium text-foreground/85">{value}</p></button>;
-                })}
-                <button type="button" onClick={() => setSearchOpen(true)} className="grid place-items-center rounded-xl bg-gradient-to-r from-gold to-amber-300 px-6 py-3 text-sm font-bold text-ink transition hover:brightness-110"><Search size={17} /></button>
+
+            {/* Input & Action */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="relative flex-1">
+                <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
+                <input
+                  type="text"
+                  placeholder="Search destinations, e.g. Kashmir, Houseboat, Taj Mahal, Goa..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-amber-500"
+                />
               </div>
+              <button
+                onClick={() => setEnquiryModalOpen(true)}
+                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-xl transition-all flex items-center justify-center gap-2 text-sm shrink-0"
+              >
+                Get Custom Quote <ArrowRight className="w-4 h-4" />
+              </button>
             </div>
           </div>
-          <div className="rise-in relative" style={{ animationDelay: "150ms" }}>
-            <div className="relative aspect-[3/4] w-full overflow-hidden rounded-3xl border border-foreground/10 shadow-2xl shadow-black/30">
-              <img src={heroImage} alt="Aerial view of a tropical coastline and luxury resort" width={1080} height={1440} className="h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/10 to-transparent" />
-            </div>
-            <div className="glass absolute -bottom-5 -left-3 flex items-center gap-3 rounded-2xl border border-foreground/10 p-4 shadow-xl shadow-black/30 sm:-left-5"><div className="grid size-12 place-items-center rounded-xl bg-gold/15 text-gold"><Star size={19} fill="currentColor" /></div><div><p className="font-display text-sm font-bold text-foreground">4.9 / 5 Rating</p><p className="text-xs text-foreground/55">12,000+ happy travellers</p></div></div>
+
+          {/* Highlights Badges */}
+          <div className="pt-4 flex flex-wrap justify-center items-center gap-6 text-xs font-medium text-slate-400">
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-amber-400" /> 100% Best Rate Guarantee
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-amber-400" /> Custom Private Itineraries
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-amber-400" /> 24/7 On-Ground India Support
+            </span>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 lg:px-8"><div className="glass grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-foreground/10 sm:grid-cols-4">{([["15K+", "Travellers Served", "text-sky"], ["120+", "Destinations", "text-gold"], ["12", "Years Experience", "text-cyan-300"], ["98%", "Satisfaction", "text-foreground"]] as [string, string, string][]).map(([number, label, color]) => <div key={label} className="p-6 text-center"><p className={`font-display text-3xl font-extrabold ${color}`}>{number}</p><p className="mt-1 text-xs uppercase tracking-[0.15em] text-foreground/50">{label}</p></div>)}</div></section>
+      {/* Curated India Packages Section */}
+      <section id="packages" className="py-24 px-4 max-w-7xl mx-auto">
+        <div className="text-center space-y-4 mb-16">
+          <span className="text-xs font-bold uppercase tracking-widest text-amber-400">
+            JNTO-Inspired Curated Experiences
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+            Handcrafted India Holiday Packages
+          </h2>
+          <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">
+            All packages include luxury accommodations, private cab transfers, daily breakfast, sightseeing passes, and 24/7 dedicated local tour guides.
+          </p>
+        </div>
 
-      <section id="destinations" className="mx-auto max-w-7xl px-5 py-20 lg:px-8"><SectionHeading eyebrow="Popular Destinations" title="Where will you go next?" action={<button type="button" onClick={() => scrollTo("contact")} className="inline-flex items-center gap-2 text-sm font-semibold text-sky hover:text-cyan-300">View all destinations <ArrowRight size={15} /></button>} /><div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">{destinations.map((destination) => <article key={destination.name} className="group relative overflow-hidden rounded-2xl border border-foreground/10"><img src={destination.image} alt={`${destination.name} travel destination`} width={1024} height={1024} loading="lazy" className="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent" /><div className="absolute inset-x-0 bottom-0 p-5"><p className="text-xs font-semibold uppercase tracking-[0.15em] text-sky">{destination.region}</p><h3 className="mt-1 font-display text-2xl font-bold text-foreground">{destination.name}</h3><p className="mt-1 text-sm text-foreground/60">From {destination.price} · {destination.nights}</p></div></article>)}</div></section>
-
-      <section id="packages" className="mx-auto max-w-7xl px-5 pb-20 lg:px-8"><div className="glass rounded-3xl border border-foreground/10 p-6 sm:p-10"><SectionHeading eyebrow="Featured Packages" title="Handpicked journeys for you" /><div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">{packages.map((item) => <article key={item.title} className={`group flex flex-col overflow-hidden rounded-2xl border ${item.tone === "gold" ? "border-gold/30 bg-gold/5" : "border-foreground/10 bg-foreground/[0.03]"}`}><div className="overflow-hidden"><img src={item.image} alt={item.title} width={1024} height={768} loading="lazy" className="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-105" /></div><div className="flex flex-1 flex-col p-6"><div className="flex items-center justify-between text-xs"><span className={`rounded-full px-3 py-1 font-semibold ${item.tone === "gold" ? "bg-gold/20 text-gold" : "bg-sky/15 text-sky"}`}>{item.category}</span><span className="text-foreground/50">{item.duration}</span></div><h3 className="mt-4 font-display text-xl font-bold text-foreground">{item.title}</h3><p className="mt-2 flex-1 text-sm text-foreground/55">{item.description}</p><div className="mt-5 flex items-center justify-between"><div><p className="text-xs text-foreground/50">From</p><p className="font-display text-2xl font-extrabold text-foreground">{item.price} <span className="text-xs font-medium text-foreground/40">{item.suffix}</span></p></div><button type="button" onClick={() => scrollTo("contact")} className={`rounded-lg px-5 py-2.5 text-sm font-bold text-ink transition hover:brightness-110 ${item.tone === "gold" ? "bg-gradient-to-r from-gold to-amber-300" : "bg-gradient-to-r from-sky to-cyan-300"}`}>Enquire</button></div></div></article>)}</div></div></section>
-
-      <section id="services" className="mx-auto max-w-7xl px-5 pb-20 lg:px-8"><div className="text-center"><SectionHeading eyebrow="Our Services" title="Everything, thoughtfully arranged" /></div><div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">{services.map(({ icon: Icon, title, text }) => <article key={title} className="glass rounded-2xl border border-foreground/10 p-6 transition hover:-translate-y-1 hover:border-sky/40"><div className="grid size-11 place-items-center rounded-xl bg-sky/15 text-sky"><Icon size={20} /></div><h3 className="mt-4 font-display text-lg font-bold text-foreground">{title}</h3><p className="mt-2 text-sm text-foreground/55">{text}</p></article>)}</div></section>
-
-      <section id="about" className="mx-auto max-w-7xl px-5 pb-20 lg:px-8"><div className="glass grid gap-10 overflow-hidden rounded-3xl border border-foreground/10 p-6 sm:p-10 lg:grid-cols-2"><div><p className="text-xs font-bold uppercase tracking-[0.22em] text-gold">Why Choose SFM Travels</p><h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">Travel with confidence</h2><p className="mt-4 text-foreground/60">For over a decade we’ve turned dreams into well-planned journeys. Our expert planners, trusted partners and round-the-clock support make every trip effortless.</p><ul className="mt-8 space-y-4">{["Expert local planners who know every route inside out", "Transparent pricing with zero hidden charges", "24×7 on-trip support wherever you are", "Flexible plans you can adjust before departure"].map((text, index) => <li key={text} className="flex items-start gap-3"><span className={`mt-1 grid size-6 shrink-0 place-items-center rounded-full ${index % 3 === 0 ? "bg-gold/20 text-gold" : "bg-sky/20 text-sky"}`}><Check size={13} /></span><span className="text-sm text-foreground/75">{text}</span></li>)}</ul></div><div className="grid grid-cols-2 gap-4"><img src={familyImage} alt="Family enjoying a mountain journey" width={1024} height={768} loading="lazy" className="aspect-square w-full rounded-2xl object-cover" /><div className="flex flex-col justify-center rounded-2xl border border-foreground/10 bg-foreground/[0.03] p-6"><p className="font-display text-4xl font-extrabold text-sky">250+</p><p className="mt-1 text-sm text-foreground/55">Curated experiences</p></div><div className="flex flex-col justify-center rounded-2xl border border-foreground/10 bg-foreground/[0.03] p-6"><p className="font-display text-4xl font-extrabold text-gold">40+</p><p className="mt-1 text-sm text-foreground/55">Destination specialists</p></div><img src={kashmirImage} alt="Kashmir lake and mountain landscape" width={1024} height={1024} loading="lazy" className="aspect-square w-full rounded-2xl object-cover" /></div></div></section>
-
-      <section className="mx-auto max-w-7xl px-5 pb-20 lg:px-8"><div className="text-center"><p className="text-xs font-bold uppercase tracking-[0.22em] text-gold">How It Works</p><h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">Four simple steps</h2></div><div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">{([["01", "Tell Us Your Dream", "Share your destination, dates and budget with our team."], ["02", "We Craft Your Plan", "Receive a tailored itinerary within 24 hours."], ["03", "Confirm & Book", "Approve the plan and we lock in every detail."], ["04", "Travel Worry-Free", "Pack your bags — we handle the rest on the ground."]] as [string, string, string][]).map(([number, title, text], index) => <article key={number} className="glass rounded-2xl border border-foreground/10 p-6"><span className={`font-display text-5xl font-extrabold ${index === 3 ? "text-gold/40" : "text-sky/30"}`}>{number}</span><h3 className="mt-3 font-display text-lg font-bold text-foreground">{title}</h3><p className="mt-2 text-sm text-foreground/55">{text}</p></article>)}</div></section>
-
-      <section className="mx-auto max-w-7xl px-5 pb-20 lg:px-8"><div className="text-center"><p className="text-xs font-bold uppercase tracking-[0.22em] text-gold">Testimonials</p><h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">Loved by travellers</h2></div><div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">{([["Ananya Mehta", "Honeymoon · Kashmir", "Our Kashmir honeymoon was flawless. Every hotel, transfer and surprise was perfect. SFM really does care."], ["Rohit Sharma", "Family Tour · Manali", "Took our whole family to Manali. Smooth, safe and the kids absolutely loved it. Booked again already."], ["Sneha Kapoor", "International · Dubai", "The Dubai trip was seamlessly organised. Great hotels and honest pricing. Highly recommend SFM Travels."]] as [string, string, string][]).map(([name, trip, quote]) => <article key={name} className="glass rounded-2xl border border-foreground/10 p-7"><p className="flex gap-1 text-gold" aria-label="5 out of 5 stars">{Array.from({ length: 5 }).map((_, index) => <Star key={index} size={15} fill="currentColor" />)}</p><p className="mt-4 text-sm leading-relaxed text-foreground/75">“{quote}”</p><div className="mt-6 flex items-center gap-3"><div className="grid size-11 place-items-center rounded-full bg-gradient-to-br from-sky/40 to-gold/40 text-sm font-bold text-foreground">{name.charAt(0)}</div><div><p className="text-sm font-semibold text-foreground">{name}</p><p className="text-xs text-foreground/50">{trip}</p></div></div></article>)}</div></section>
-
-      <section className="mx-auto max-w-7xl px-5 pb-20 lg:px-8"><div className="text-center"><p className="text-xs font-bold uppercase tracking-[0.22em] text-gold">Travel Gallery</p><h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">Moments we’ve made</h2></div><div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">{gallery.map((image) => <img key={image.alt} src={image.src} alt={image.alt} width={1024} height={1024} loading="lazy" className="aspect-square w-full rounded-2xl object-cover transition duration-500 hover:scale-[1.02]" />)}</div></section>
-
-      <section className="mx-auto max-w-3xl px-5 pb-20 lg:px-8"><div className="text-center"><p className="text-xs font-bold uppercase tracking-[0.22em] text-gold">FAQ</p><h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">Questions, answered</h2></div><div className="mt-10 space-y-3">{faqs.map(([question, answer]) => <FaqItem key={question} question={question} answer={answer} />)}</div></section>
-
-      <section id="contact" className="mx-auto max-w-7xl scroll-mt-28 px-5 pb-20 lg:px-8"><div className="glass grid gap-10 overflow-hidden rounded-3xl border border-foreground/10 p-6 sm:p-10 lg:grid-cols-2"><div><p className="text-xs font-bold uppercase tracking-[0.22em] text-gold">Get In Touch</p><h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">Start your journey today</h2><p className="mt-4 max-w-sm text-foreground/60">Tell us where you’d love to go and we’ll craft the perfect trip. We respond within a few hours.</p><ul className="mt-8 space-y-4 text-sm text-foreground/70"><li className="flex items-center gap-3"><span className="grid size-9 place-items-center rounded-lg bg-sky/15 text-sky"><Plane size={17} /></span> +91 98765 43210</li><li className="flex items-center gap-3"><span className="grid size-9 place-items-center rounded-lg bg-gold/15 text-gold"><Mail size={17} /></span> hello@sfmtravels.com</li><li className="flex items-center gap-3"><span className="grid size-9 place-items-center rounded-lg bg-sky/15 text-sky"><MapPin size={17} /></span> 12 Marina Road, Bengaluru, IN</li></ul></div><form className="space-y-4" onSubmit={handleSubmit}>
-          {submitted ? (
-            <div className="flex min-h-64 flex-col items-center justify-center rounded-2xl border border-sky/30 bg-sky/10 p-8 text-center">
-              <div className="grid size-14 place-items-center rounded-full bg-sky/20 text-sky">
-                <Check size={26} />
+        {/* Packages Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+          {filteredPackages.map((pkg) => (
+            <div
+              key={pkg.id}
+              className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden hover:border-amber-500/50 transition-all duration-300 group flex flex-col"
+            >
+              {/* Image & Badge */}
+              <div className="relative h-64 overflow-hidden">
+                <img
+                  src={pkg.image}
+                  alt={pkg.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+                <span className="absolute top-4 left-4 bg-amber-500 text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
+                  {pkg.badge}
+                </span>
+                <span className="absolute bottom-4 left-4 bg-slate-900/90 border border-slate-700 text-slate-200 text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
+                  <Clock className="w-3.5 h-3.5 text-amber-400" /> {pkg.duration}
+                </span>
               </div>
-              <h3 className="mt-5 font-display text-2xl font-bold text-foreground">
-                Enquiry received
-              </h3>
-              <p className="mt-2 max-w-sm text-sm text-foreground/60">
-                Thanks for reaching out. A travel planner will contact you shortly.
-              </p>
-              <button
-                type="button"
-                onClick={() => setSubmitted(false)}
-                className="mt-6 text-sm font-semibold text-sky hover:text-cyan-300"
+
+              {/* Content */}
+              <div className="p-6 flex-1 flex flex-col justify-between space-y-6">
+                <div>
+                  <span className="text-amber-400 text-xs font-bold uppercase tracking-wider block mb-1">
+                    {pkg.category}
+                  </span>
+                  <h3 className="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">
+                    {pkg.title}
+                  </h3>
+                  <p className="text-slate-400 text-xs sm:text-sm mt-2 leading-relaxed">
+                    {pkg.description}
+                  </p>
+                </div>
+
+                {/* Inclusions List */}
+                <div className="space-y-2">
+                  <span className="text-xs font-semibold text-slate-300 block">Package Inclusions:</span>
+                  <div className="flex flex-wrap gap-2">
+                    {pkg.inclusions.map((inc, i) => (
+                      <span
+                        key={i}
+                        className="bg-slate-800 border border-slate-700 text-slate-300 text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1"
+                      >
+                        <Check className="w-3 h-3 text-amber-400" /> {inc}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Price & Action Buttons */}
+                <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4">
+                  <div>
+                    <span className="text-slate-400 text-[11px] uppercase tracking-wider block">Starting From</span>
+                    <span className="text-2xl font-extrabold text-amber-400">
+                      {formatPrice(pkg.priceInr)}
+                    </span>
+                    <span className="text-slate-400 text-xs"> / person</span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setSelectedItineraryPkg(pkg)}
+                      className="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold px-4 py-2.5 rounded-xl border border-slate-700 transition-colors"
+                    >
+                      Itinerary
+                    </button>
+                    <button
+                      onClick={() => handleOpenEnquiryForPkg(pkg)}
+                      className="bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold px-5 py-2.5 rounded-xl transition-all flex items-center gap-1 shadow-md shadow-amber-500/10"
+                    >
+                      Book Now <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Regions of India (JNTO Explorer Section) */}
+      <section id="regions" className="py-20 px-4 bg-gradient-to-b from-slate-900 to-slate-950 border-y border-slate-800">
+        <div className="max-w-7xl mx-auto space-y-12">
+          <div className="text-center space-y-4">
+            <span className="text-xs font-bold uppercase tracking-widest text-amber-400 flex items-center justify-center gap-1">
+              <Globe className="w-4 h-4" /> Regions & Circuits
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              Explore India by Regions & Experiences
+            </h2>
+            <p className="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base">
+              From snow-capped Himalayan peaks in the North to emerald backwaters in the South, choose your destination circuit.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {INDIA_REGIONS.map((reg, i) => (
+              <div
+                key={i}
+                className="bg-slate-950 border border-slate-800 p-6 rounded-2xl space-y-3 hover:border-amber-500/50 transition-all group"
               >
-                Send another enquiry
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-amber-400 uppercase">{reg.name}</span>
+                  <Compass className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform" />
+                </div>
+                <h3 className="text-base font-bold text-white">{reg.location}</h3>
+                <p className="text-slate-400 text-xs leading-relaxed">{reg.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Travel Essentials & JNTO India Guide */}
+      <section id="essentials" className="py-24 px-4 max-w-7xl mx-auto space-y-16">
+        <div className="text-center space-y-4">
+          <span className="text-xs font-bold uppercase tracking-widest text-amber-400">
+            Traveler's Handbook
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+            India Travel Essentials & Tips
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-slate-900 border border-slate-800 p-8 rounded-3xl space-y-4">
+            <Sun className="w-10 h-10 text-amber-400" />
+            <h3 className="text-xl font-bold text-white">Best Season to Visit</h3>
+            <p className="text-slate-400 text-xs leading-relaxed">
+              <strong>October to March:</strong> Ideal season for Golden Triangle, Rajasthan deserts, Kerala backwaters, and beaches.  
+              <strong>April to July:</strong> Best time for Himalayan snow points in Kashmir, Ladakh, and Himachal.
+            </p>
+          </div>
+
+          <div className="bg-slate-900 border border-slate-800 p-8 rounded-3xl space-y-4">
+            <Camera className="w-10 h-10 text-amber-400" />
+            <h3 className="text-xl font-bold text-white">Culture & Etiquette</h3>
+            <p className="text-slate-400 text-xs leading-relaxed">
+              India warmly welcomes guests with <em>"Atithi Devo Bhava"</em> (Guest is God). Modest attire is appreciated at spiritual shrines, temples, and heritage monuments.
+            </p>
+          </div>
+
+          <div className="bg-slate-900 border border-slate-800 p-8 rounded-3xl space-y-4">
+            <Utensils className="w-10 h-10 text-amber-400" />
+            <h3 className="text-xl font-bold text-white">Cuisine & Hospitality</h3>
+            <p className="text-slate-400 text-xs leading-relaxed">
+              Experience authentic Mughlai kebabs in North India, Rajasthani Royal Thali, spicy Goa seafood, and traditional Kerala Sadhya served on banana leaves.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section id="why-us" className="py-20 px-4 bg-slate-900/50 border-t border-slate-800">
+        <div className="max-w-7xl mx-auto text-center space-y-12">
+          <div className="space-y-4">
+            <span className="text-xs font-bold uppercase tracking-widest text-amber-400">
+              Why SFM Travels India
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              Your Trusted Incredible India Destination Specialist
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="space-y-3 p-6 bg-slate-950 border border-slate-800 rounded-2xl">
+              <ShieldCheck className="w-8 h-8 text-amber-400 mx-auto" />
+              <h3 className="font-bold text-white text-base">Direct Rates Guarantee</h3>
+              <p className="text-slate-400 text-xs">Direct contracting with 4★/5★ luxury resorts & verified houseboat owners.</p>
+            </div>
+            <div className="space-y-3 p-6 bg-slate-950 border border-slate-800 rounded-2xl">
+              <Clock className="w-8 h-8 text-amber-400 mx-auto" />
+              <h3 className="font-bold text-white text-base">24/7 On-Ground Support</h3>
+              <p className="text-slate-400 text-xs">Dedicated India tour manager assisting you from arrival to final drop.</p>
+            </div>
+            <div className="space-y-3 p-6 bg-slate-950 border border-slate-800 rounded-2xl">
+              <FileCheck className="w-8 h-8 text-amber-400 mx-auto" />
+              <h3 className="font-bold text-white text-base">Verified Cab Drivers</h3>
+              <p className="text-slate-400 text-xs">Professional, uniform-clad local drivers with well-maintained air-conditioned vehicles.</p>
+            </div>
+            <div className="space-y-3 p-6 bg-slate-950 border border-slate-800 rounded-2xl">
+              <Users className="w-8 h-8 text-amber-400 mx-auto" />
+              <h3 className="font-bold text-white text-base">50,000+ Happy Guests</h3>
+              <p className="text-slate-400 text-xs">Over 10 years of experience creating unforgettable journeys across India.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-slate-950 border-t border-slate-800 py-16 px-4">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <img src={sfmLogo} alt="SFM Travels Logo" className="h-10 w-auto" />
+              <span className="text-lg font-bold text-white">SFM INDIA</span>
+            </div>
+            <p className="text-slate-400 text-xs leading-relaxed">
+              SFM Travels India is a licensed Destination Management Company specializing in Incredible India tour packages, Kerala houseboats, Kashmir snow holidays, and Rajasthan palace tours.
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            <h4 className="text-white text-sm font-bold uppercase tracking-wider">Quick Links</h4>
+            <ul className="space-y-2 text-xs text-slate-400">
+              <li><a href="#packages" className="hover:text-amber-400">India Packages</a></li>
+              <li><a href="#regions" className="hover:text-amber-400">Regions & Circuits</a></li>
+              <li><a href="#essentials" className="hover:text-amber-400">Travel Essentials</a></li>
+              <li><a href="#why-us" className="hover:text-amber-400">Why Choose Us</a></li>
+            </ul>
+          </div>
+
+          <div className="space-y-3">
+            <h4 className="text-white text-sm font-bold uppercase tracking-wider">India Operations</h4>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Connaught Place, New Delhi, India - 110001
+            </p>
+            <p className="text-xs text-slate-400">Call: +91 98765 43210</p>
+            <p className="text-xs text-slate-400">Email: info@sfmtravels.co.in</p>
+          </div>
+
+          <div className="space-y-3">
+            <h4 className="text-white text-sm font-bold uppercase tracking-wider">Custom Plan?</h4>
+            <p className="text-xs text-slate-400">
+              Speak to our senior India travel consultant on WhatsApp for instant customized itineraries.
+            </p>
+            <button
+              onClick={() => setEnquiryModalOpen(true)}
+              className="bg-amber-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs"
+            >
+              Get Free Quote
+            </button>
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto pt-8 border-t border-slate-900 text-center text-xs text-slate-500">
+          © {new Date().getFullYear()} SFM Travels India. All rights reserved. Hosted on sfmtravels.co.in
+        </div>
+      </footer>
+
+      {/* Floating WhatsApp Agent */}
+      <a
+        href="https://wa.me/919876543210?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20India%20trip!"
+        target="_blank"
+        rel="noreferrer"
+        className="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white p-4 rounded-full shadow-2xl shadow-emerald-500/40 hover:scale-110 transition-all flex items-center justify-center group"
+      >
+        <Send className="w-6 h-6" />
+        <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-in-out whitespace-nowrap text-xs font-bold pl-0 group-hover:pl-2">
+          Chat on WhatsApp
+        </span>
+      </a>
+
+      {/* Auto-Popping Fast Enquiry Modal */}
+      <FastEnquiryModal
+        isOpen={enquiryModalOpen}
+        onClose={handleCloseEnquiryModal}
+        initialPackageTitle={selectedPackage?.title}
+      />
+
+      {/* Day-by-Day Itinerary Modal */}
+      {selectedItineraryPkg && (
+        <div className="fixed inset-0 z-[99998] bg-slate-950/90 flex items-center justify-center p-3 sm:p-4 pointer-events-auto">
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative shadow-2xl space-y-6 max-h-[85vh] overflow-y-auto">
+            <button
+              onClick={() => setSelectedItineraryPkg(null)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-full bg-slate-800/80 hover:bg-slate-800"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="space-y-2">
+              <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">
+                JNTO-Style Day-by-Day Tour Itinerary
+              </span>
+              <h3 className="text-2xl font-extrabold text-white">
+                {selectedItineraryPkg.title}
+              </h3>
+              <p className="text-slate-400 text-xs">
+                {selectedItineraryPkg.duration} | {selectedItineraryPkg.category}
+              </p>
+            </div>
+
+            <div className="space-y-4 relative border-l-2 border-amber-500/30 pl-6 ml-2">
+              {selectedItineraryPkg.itinerary.map((item) => (
+                <div key={item.day} className="relative space-y-1">
+                  <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-amber-500 border-4 border-slate-900" />
+                  <span className="text-xs font-bold text-amber-400 block">DAY {item.day}</span>
+                  <h4 className="font-bold text-white text-sm">{item.title}</h4>
+                  <p className="text-slate-400 text-xs leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+              <div>
+                <span className="text-slate-400 text-[11px] block">Price Per Person</span>
+                <span className="text-xl font-extrabold text-amber-400">
+                  {formatPrice(selectedItineraryPkg.priceInr)}
+                </span>
+              </div>
+
+              <button
+                onClick={() => {
+                  const pkg = selectedItineraryPkg;
+                  setSelectedItineraryPkg(null);
+                  handleOpenEnquiryForPkg(pkg);
+                }}
+                className="bg-amber-500 text-slate-950 font-bold px-6 py-3 rounded-xl text-xs"
+              >
+                Book This Itinerary
               </button>
             </div>
-          ) : (
-            <>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field
-                  label="Full Name"
-                  placeholder="Your name"
-                  required
-                  value={formData.name}
-                  onChange={(value) =>
-                    setFormData((current) => ({ ...current, name: value }))
-                  }
-                />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
-                <Field
-                  label="Phone"
-                  type="tel"
-                  placeholder="+91 98765 43210"
+function FastEnquiryModal({
+  isOpen,
+  onClose,
+  initialPackageTitle,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  initialPackageTitle?: string;
+}) {
+  const [submitting, setSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const fullName = (formData.get("fullName") as string)?.trim() || "";
+    const phone = (formData.get("phone") as string)?.trim() || "";
+    const travelDate = (formData.get("travelDate") as string)?.trim() || "";
+    const travellers = (formData.get("travellers") as string) || "2 Travellers";
+    const destinationPkg = (formData.get("destinationPkg") as string) || "Incredible India Holiday Package";
+    const userMessage = (formData.get("userMessage") as string)?.trim() || "";
+
+    if (!fullName || !phone) {
+      setSubmitError("Please provide your name and phone number.");
+      return;
+    }
+
+    setSubmitting(true);
+    setSubmitError("");
+    setSubmitSuccess(false);
+
+    const apiBase = getApiBase();
+    const payload = {
+      fullName,
+      phone,
+      destination: destinationPkg || "Incredible India Tour Package",
+      travelDate,
+      travellers,
+      message: userMessage,
+      source: "india_portal_popup",
+    };
+
+    // 1. Non-blocking background fetch if backend URL exists on Render
+    if (apiBase) {
+      fetch(`${apiBase}/api/enquiries`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }).catch((err) => console.warn("Backend Enquiry API warning:", err));
+    }
+
+    // 2. Format pre-filled WhatsApp lead message
+    const waMsg = `Hi SFM Travels India! I want a custom quote for my India trip:%0A- Name: ${encodeURIComponent(fullName)}%0A- Phone: ${encodeURIComponent(phone)}%0A- Package: ${encodeURIComponent(destinationPkg)}%0A- Travel Date: ${encodeURIComponent(travelDate || "Flexible")}%0A- Travellers: ${encodeURIComponent(travellers)}${userMessage ? `%0A- Notes: ${encodeURIComponent(userMessage)}` : ""}`;
+    const waUrl = `https://wa.me/919876543210?text=${waMsg}`;
+
+    // 3. Instant UI feedback (<10ms)
+    setSubmitSuccess(true);
+    setSubmitting(false);
+
+    // 4. Trigger direct WhatsApp lead delivery in new tab
+    try {
+      window.open(waUrl, "_blank");
+    } catch (_) {}
+
+    setTimeout(() => {
+      setSubmitSuccess(false);
+      onClose();
+    }, 4000);
+  };
+
+  return (
+    <div className="fixed inset-0 z-[99999] bg-slate-950/90 flex items-center justify-center p-3 sm:p-4 pointer-events-auto">
+      <div className="bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-8 relative shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto pointer-events-auto select-text">
+        <button
+          onClick={onClose}
+          type="button"
+          className="absolute top-4 right-4 text-slate-400 hover:text-white p-1.5 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        <div className="space-y-1.5">
+          <span className="text-xs font-bold text-amber-400 uppercase tracking-widest flex items-center gap-1">
+            <Sparkles className="w-4 h-4" /> Fast India Travel Quote
+          </span>
+          <h3 className="text-xl sm:text-2xl font-extrabold text-white">
+            Plan Your Dream India Trip
+          </h3>
+          <p className="text-slate-400 text-xs leading-relaxed">
+            Fill in your details below and our senior India travel expert will contact you within 15 minutes with customized quotes & discounts.
+          </p>
+        </div>
+
+        {submitSuccess ? (
+          <div className="bg-emerald-950/60 border border-emerald-800 p-6 rounded-2xl text-center space-y-3">
+            <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto" />
+            <h4 className="text-lg font-bold text-white">Enquiry Received Successfully!</h4>
+            <p className="text-slate-300 text-xs">
+              Thank you! Our senior India specialist will call or WhatsApp you shortly.
+            </p>
+          </div>
+        ) : (
+          <form onSubmit={handleFormSubmit} className="space-y-4">
+            {submitError && (
+              <div className="bg-rose-950/60 border border-rose-800 p-3 rounded-xl text-rose-300 text-xs">
+                {submitError}
+              </div>
+            )}
+
+            <div>
+              <label className="text-xs font-medium text-slate-300 block mb-1">Select Package / Region</label>
+              <select
+                name="destinationPkg"
+                defaultValue={initialPackageTitle || "Incredible India Holiday Package"}
+                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 font-medium cursor-pointer"
+              >
+                <option value="Incredible India Holiday Package">General Incredible India Package</option>
+                <option value="Kashmir Paradise & Golden Triangle (6D/5N)">Kashmir Paradise & Golden Triangle (6D/5N)</option>
+                <option value="Kerala Backwaters & Houseboat Sanctuary (5D/4N)">Kerala Backwaters & Houseboat (5D/4N)</option>
+                <option value="Royal Rajasthan Forts & Thar Desert Glamping (6D/5N)">Royal Rajasthan & Desert Glamping (6D/5N)</option>
+                <option value="Goa Sun, Sand & Sunset Cruise Escape (4D/3N)">Goa Sun, Sand & Sunset Cruise (4D/3N)</option>
+                <option value="Himachal Snow Peaks & Solang Valley (6D/5N)">Himachal Snow Peaks & Manali (6D/5N)</option>
+              </select>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="text-xs font-medium text-slate-300 block mb-1">Full Name *</label>
+                <input
+                  type="text"
+                  name="fullName"
                   required
-                  value={formData.phone}
-                  onChange={(value) =>
-                    setFormData((current) => ({ ...current, phone: value }))
-                  }
+                  autoFocus
+                  autoComplete="name"
+                  placeholder="e.g. Rahul Sharma"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text"
                 />
               </div>
-
-              <Field
-                label="Destination"
-                placeholder="e.g. Kashmir, Dubai"
-                required
-                value={formData.destination}
-                onChange={(value) =>
-                  setFormData((current) => ({
-                    ...current,
-                    destination: value,
-                  }))
-                }
-              />
-
-              <label className="block">
-                <span className="text-xs font-semibold uppercase tracking-[0.12em] text-foreground/50">
-                  Message
-                </span>
-                <textarea
-                  rows={3}
+              <div>
+                <label className="text-xs font-medium text-slate-300 block mb-1">Phone / WhatsApp *</label>
+                <input
+                  type="tel"
+                  name="phone"
                   required
-                  placeholder="Tell us about your ideal trip…"
-                  value={formData.message}
-                  onChange={(event) =>
-                    setFormData((current) => ({
-                      ...current,
-                      message: event.target.value,
-                    }))
-                  }
-                  className="mt-1.5 w-full resize-none rounded-xl border border-foreground/10 bg-foreground/5 px-4 py-3 text-sm text-foreground placeholder-foreground/30 outline-none transition focus:border-sky/60 focus:ring-2 focus:ring-sky/20"
+                  autoComplete="tel"
+                  placeholder="e.g. +91 9876543210"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text"
                 />
-              </label>
+              </div>
+            </div>
 
-              {error && (
-                <p className="rounded-lg border border-red-400/20 bg-red-400/10 px-4 py-3 text-sm text-red-300">
-                  {error}
-                </p>
-              )}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="text-xs font-medium text-slate-300 block mb-1">Travel Month / Date</label>
+                <input
+                  type="text"
+                  name="travelDate"
+                  autoComplete="off"
+                  placeholder="e.g. Next Month / Oct 15"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-slate-300 block mb-1">Travellers Count</label>
+                <select
+                  name="travellers"
+                  defaultValue="2 Travellers (Couple)"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 font-medium cursor-pointer"
+                >
+                  <option value="1 Traveller (Solo)">1 Traveller (Solo)</option>
+                  <option value="2 Travellers (Couple)">2 Travellers (Couple)</option>
+                  <option value="3-5 Travellers (Family/Group)">3-5 Travellers (Family)</option>
+                  <option value="6+ Travellers (Group)">6+ Travellers (Group)</option>
+                </select>
+              </div>
+            </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full rounded-xl bg-gradient-to-r from-sky to-cyan-300 px-6 py-3.5 text-sm font-bold text-ink shadow-lg shadow-sky/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {loading ? "Sending..." : "Send Enquiry"}
-              </button>
-            </>
-          )}
-        </form></div></section>
+            <div>
+              <label className="text-xs font-medium text-slate-300 block mb-1">Special Requirements (Optional)</label>
+              <textarea
+                name="userMessage"
+                rows={2}
+                placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
+                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text"
+              />
+            </div>
 
-      <footer className="border-t border-foreground/10"><div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:px-8"><div><Logo /><p className="mt-4 max-w-xs text-sm text-foreground/50">Crafting memorable journeys across India and the world since 2013.</p><div className="mt-5 flex gap-3"><a href="https://www.instagram.com" aria-label="Instagram" className="grid size-9 place-items-center rounded-lg border border-foreground/10 text-foreground/60 transition hover:border-sky/40 hover:text-sky"><Instagram size={16} /></a><a href="https://www.youtube.com" aria-label="YouTube" className="grid size-9 place-items-center rounded-lg border border-foreground/10 text-foreground/60 transition hover:border-sky/40 hover:text-sky"><Youtube size={16} /></a></div></div><FooterLinks title="Explore" links={["Destinations", "Packages", "Services", "About Us"]} scrollTo={scrollTo} /><FooterLinks title="Support" links={["Contact", "FAQs", "Terms & Privacy", "Cancellation Policy"]} scrollTo={scrollTo} /><div>
-  <p className="font-display text-sm font-bold uppercase tracking-[0.15em] text-foreground/80">Newsletter</p>
-  <p className="mt-4 text-sm text-foreground/50">Travel deals & inspiration, monthly.</p>
-  <form onSubmit={handleNewsletterSubmit} className="mt-3 space-y-2">
-    <div className="flex gap-2">
-      <input
-        aria-label="Email address"
-        type="email"
-        required
-        value={newsletterEmail}
-        onChange={(e) => setNewsletterEmail(e.target.value)}
-        placeholder="Email address"
-        className="min-w-0 flex-1 rounded-xl border border-foreground/10 bg-foreground/5 px-4 py-2.5 text-sm text-foreground placeholder-foreground/30 outline-none focus:border-sky/60"
-      />
-      <button
-        type="submit"
-        disabled={newsletterLoading}
-        aria-label="Join newsletter"
-        className="grid size-11 shrink-0 place-items-center rounded-xl bg-gradient-to-r from-gold to-amber-300 text-ink transition hover:brightness-110 disabled:opacity-60"
-      >
-        <ArrowRight size={17} />
-      </button>
-    </div>
-    {newsletterMessage && (
-      <p className={`text-xs ${newsletterSubmitted ? "text-sky" : "text-amber-300"}`}>
-        {newsletterMessage}
-      </p>
-    )}
-  </form>
-</div>
-</div>
-<div className="border-t border-foreground/10">
-  <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-5 py-6 text-xs text-foreground/45 sm:flex-row lg:px-8">
-    <p>© 2026 SFM Travels. All rights reserved.</p>
-    <p>Crafted with care for every journey.</p>
-  </div>
-</div>
-</footer>
-
-<a href="https://wa.me/919999779351" target="_blank" rel="noreferrer" className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-whatsapp px-5 py-3.5 text-sm font-bold text-whatsapp-foreground shadow-2xl shadow-black/40 transition hover:brightness-110">
-  <span className="grid size-6 place-items-center rounded-full bg-whatsapp-foreground/20 text-xs">✆</span>
-  <span className="hidden sm:inline">Chat on WhatsApp</span>
-</a>
-
-{searchOpen && (
-  <div className="fixed inset-0 z-[60] grid place-items-center bg-ink/80 p-5 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="Plan your escape">
-    <div className="glass w-full max-w-lg rounded-3xl border border-foreground/15 p-6 shadow-2xl sm:p-8">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold">Start planning</p>
-          <h2 className="mt-2 font-display text-2xl font-bold text-foreground">Where will you go next?</h2>
-        </div>
-        <button type="button" onClick={() => setSearchOpen(false)} className="grid size-9 place-items-center rounded-lg border border-foreground/10 text-foreground/70" aria-label="Close search">
-          <X size={18} />
-        </button>
+            <button
+              type="submit"
+              disabled={submitting}
+              className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-extrabold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 text-sm cursor-pointer"
+            >
+              {submitting ? "Submitting Request..." : "Request Free India Quote Now"}
+            </button>
+          </form>
+        )}
       </div>
-      <form className="mt-6 space-y-4" onSubmit={handleSearchSubmit}>
-        <Field
-          label="Destination"
-          placeholder="Kashmir, Goa, Dubai…"
-          required
-          value={searchData.destination}
-          onChange={(val) => setSearchData((curr) => ({ ...curr, destination: val }))}
-        />
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Field
-            label="Travel date"
-            placeholder="12 Jun 2026"
-            required
-            value={searchData.date}
-            onChange={(val) => setSearchData((curr) => ({ ...curr, date: val }))}
-          />
-          <Field
-            label="Travellers"
-            placeholder="2 adults"
-            required
-            value={searchData.travellers}
-            onChange={(val) => setSearchData((curr) => ({ ...curr, travellers: val }))}
-          />
-        </div>
-        <button type="submit" className="w-full rounded-xl bg-gradient-to-r from-gold to-amber-300 px-6 py-3.5 text-sm font-bold text-ink transition hover:brightness-110">
-          Find my trip
-        </button>
-      </form>
     </div>
-  </div>
-)}
-    </main>
   );
-}
-
-function FaqItem({ question, answer }: { question: string; answer: string }) {
-  const [open, setOpen] = useState(false);
-  return <div className="glass rounded-2xl border border-foreground/10 p-5"><button type="button" onClick={() => setOpen((value) => !value)} className="flex w-full items-center justify-between gap-4 text-left font-display text-base font-semibold text-foreground"><span>{question}</span>{open ? <ChevronUp className="shrink-0 text-sky" size={18} /> : <ChevronDown className="shrink-0 text-sky" size={18} />}</button>{open && <p className="mt-3 pr-7 text-sm text-foreground/60">{answer}</p>}</div>;
-}
-
-function Field({
-  label,
-  placeholder,
-  required = false,
-  type = "text",
-  value,
-  onChange,
-}: {
-  label: string;
-  placeholder: string;
-  required?: boolean;
-  type?: string;
-  value?: string;
-  onChange?: (value: string) => void;
-}) {
-  return (
-    <label className="block">
-      <span className="text-xs font-semibold uppercase tracking-[0.12em] text-foreground/50">
-        {label}
-      </span>
-      <input
-        type={type}
-        placeholder={placeholder}
-        required={required}
-        value={value}
-        onChange={(event) => onChange?.(event.target.value)}
-        className="mt-1.5 w-full rounded-xl border border-foreground/10 bg-foreground/5 px-4 py-3 text-sm text-foreground placeholder-foreground/30 outline-none transition focus:border-sky/60 focus:ring-2 focus:ring-sky/20"
-      />
-    </label>
-  );
-}
-
-function FooterLinks({ title, links, scrollTo }: { title: string; links: string[]; scrollTo: (id: string) => void }) {
-  return <div><p className="font-display text-sm font-bold uppercase tracking-[0.15em] text-foreground/80">{title}</p><ul className="mt-4 space-y-2.5 text-sm text-foreground/55">{links.map((link) => <li key={link}><button type="button" onClick={() => scrollTo(link === "FAQs" ? "contact" : link === "About Us" ? "about" : link.toLowerCase())} className="transition hover:text-foreground">{link}</button></li>)}</ul></div>;
 }

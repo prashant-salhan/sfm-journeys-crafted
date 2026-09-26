@@ -178,6 +178,38 @@
   animation: aurora-two 26s ease-in-out infinite;
 }
 
+@utility card-3d {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease;
+}
+
+@utility float-3d {
+  animation: float-3d 6s ease-in-out infinite;
+}
+
+@utility float-3d-reverse {
+  animation: float-3d-reverse 7s ease-in-out infinite;
+}
+
+@utility glow-3d-sky {
+  box-shadow: 0 0 35px -5px rgba(14, 165, 233, 0.4);
+}
+
+@utility glow-3d-gold {
+  box-shadow: 0 0 35px -5px rgba(234, 179, 8, 0.4);
+}
+
+@keyframes float-3d {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1.5deg); }
+}
+
+@keyframes float-3d-reverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(8px) rotate(-1.5deg); }
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
