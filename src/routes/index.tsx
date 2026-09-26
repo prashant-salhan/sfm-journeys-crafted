@@ -983,7 +983,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
   }
 
   return (
-    <form onSubmit={handleFormSubmit} className="space-y-5 select-text">
+    <form noValidate onSubmit={handleFormSubmit} className="space-y-5 select-text">
       {submitError && (
         <div className="bg-rose-950/60 border border-rose-800 p-3.5 rounded-xl text-rose-300 text-xs">
           {submitError}
@@ -1021,7 +1021,6 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             onChange={(e) => setFullName(e.target.value)}
             onInput={(e) => setFullName(e.currentTarget.value)}
             onPointerDown={(e) => e.stopPropagation()}
-            required
             autoComplete="name"
             placeholder="e.g. Rahul Sharma"
             className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text select-text touch-manipulation relative z-30"
@@ -1038,7 +1037,6 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             onChange={(e) => setPhone(e.target.value)}
             onInput={(e) => setPhone(e.currentTarget.value)}
             onPointerDown={(e) => e.stopPropagation()}
-            required
             autoComplete="tel"
             placeholder="e.g. +91 9876543210"
             className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text select-text touch-manipulation relative z-30"
@@ -1215,7 +1213,7 @@ function FastEnquiryModal({
           <button
             onClick={onClose}
             type="button"
-            className="absolute top-4 right-4 text-slate-400 hover:text-white p-1.5 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors z-30"
+            className="absolute top-4 right-4 text-slate-400 hover:text-white p-1.5 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors z-30 cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -1241,7 +1239,7 @@ function FastEnquiryModal({
               </p>
             </div>
           ) : (
-            <form onSubmit={handleFormSubmit} className="space-y-4 select-text">
+            <form noValidate onSubmit={handleFormSubmit} className="space-y-4 select-text">
               {submitError && (
                 <div className="bg-rose-950/60 border border-rose-800 p-3 rounded-xl text-rose-300 text-xs">
                   {submitError}
@@ -1279,7 +1277,6 @@ function FastEnquiryModal({
                     onChange={(e) => setFullName(e.target.value)}
                     onInput={(e) => setFullName(e.currentTarget.value)}
                     onPointerDown={(e) => e.stopPropagation()}
-                    required
                     autoComplete="name"
                     placeholder="e.g. Rahul Sharma"
                     className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20 select-text touch-manipulation"
@@ -1296,7 +1293,6 @@ function FastEnquiryModal({
                     onChange={(e) => setPhone(e.target.value)}
                     onInput={(e) => setPhone(e.currentTarget.value)}
                     onPointerDown={(e) => e.stopPropagation()}
-                    required
                     autoComplete="tel"
                     placeholder="e.g. +91 9876543210"
                     className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20 select-text touch-manipulation"
