@@ -718,21 +718,21 @@ export function IndiaPortal() {
       </section>
 
       {/* Inline Quick Enquiry Section on Page */}
-      <section id="enquiry" className="py-20 px-4 bg-gradient-to-r from-amber-950/40 via-slate-900 to-amber-950/40 border-y border-amber-500/30">
-        <div className="max-w-4xl mx-auto space-y-8 text-center">
+      <section id="enquiry" className="py-20 px-4 bg-slate-900 border-y border-amber-500/30">
+        <div className="max-w-3xl mx-auto space-y-8 text-center">
           <div className="space-y-3">
             <span className="text-xs font-bold uppercase tracking-widest text-amber-400 flex items-center justify-center gap-1">
-              <Sparkles className="w-4 h-4" /> Direct India Travel Quote
+              <Sparkles className="w-4 h-4" /> Direct Travel Quote
             </span>
             <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-              Request Your Custom India Itinerary
+              Request Callback & Custom Quote
             </h2>
             <p className="text-slate-300 max-w-xl mx-auto text-xs sm:text-sm">
-              Fill out your travel details below and our senior India holiday specialist will craft a personalized itinerary with instant discounts.
+              Fill out your travel details below and our senior holiday specialist will contact you with custom itineraries and best price guarantees.
             </p>
           </div>
 
-          <div className="bg-slate-900/90 border border-slate-700 p-6 sm:p-10 rounded-3xl shadow-2xl text-left">
+          <div className="bg-white border border-slate-200 p-6 sm:p-10 rounded-3xl shadow-2xl text-left text-slate-900">
             <InlineEnquiryForm initialPackageTitle={selectedPackageTitle} />
           </div>
         </div>
@@ -908,7 +908,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
     const cleanDesc = descRef.current?.value.trim() || "";
 
     if (!cleanName || !cleanPhone) {
-      setSubmitError("Please provide your name and phone number.");
+      setSubmitError("Please enter your name and phone number.");
       return;
     }
 
@@ -955,18 +955,18 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
     const waUrl = `https://wa.me/919876543210?text=${waMsg}`;
 
     return (
-      <div className="bg-emerald-950/60 border border-emerald-800 p-8 rounded-2xl text-center space-y-4">
-        <CheckCircle2 className="w-14 h-14 text-emerald-400 mx-auto" />
-        <h4 className="text-xl font-bold text-white">Request Submitted Successfully!</h4>
-        <p className="text-slate-300 text-sm max-w-md mx-auto">
-          Thank you {submittedData.name}! Your enquiry has been received. Our travel specialist will contact you on phone/WhatsApp shortly.
+      <div className="bg-emerald-50 border border-emerald-200 p-8 rounded-2xl text-center space-y-4">
+        <CheckCircle2 className="w-14 h-14 text-emerald-600 mx-auto" />
+        <h4 className="text-xl font-bold text-slate-900">Request Submitted Successfully!</h4>
+        <p className="text-slate-700 text-sm max-w-md mx-auto">
+          Thank you <strong>{submittedData.name}</strong>! Your enquiry has been received. Our travel specialist will contact you on phone/WhatsApp shortly.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <a
             href={waUrl}
             target="_blank"
             rel="noreferrer"
-            className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 transition-colors cursor-pointer"
+            className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 transition-colors cursor-pointer"
           >
             💬 Chat on WhatsApp Now
           </a>
@@ -975,7 +975,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
               setSubmitSuccess(false);
               setSubmittedData(null);
             }}
-            className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-xs transition-colors cursor-pointer"
+            className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-xs transition-colors cursor-pointer"
           >
             Submit Another Request
           </button>
@@ -985,15 +985,15 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
   }
 
   return (
-    <form noValidate onSubmit={handleFormSubmit} className="space-y-4 relative z-10 pointer-events-auto">
+    <form noValidate onSubmit={handleFormSubmit} className="space-y-4">
       {submitError && (
-        <div className="bg-rose-950/60 border border-rose-800 p-3.5 rounded-xl text-rose-300 text-xs font-semibold">
+        <div className="bg-rose-50 border border-rose-200 p-3.5 rounded-xl text-rose-700 text-xs font-semibold">
           {submitError}
         </div>
       )}
 
       <div>
-        <label htmlFor="name" className="text-xs font-semibold text-slate-200 block mb-1">Your Name *</label>
+        <label htmlFor="name" className="text-xs font-bold text-slate-700 block mb-1">Your Name *</label>
         <input
           id="name"
           type="text"
@@ -1003,14 +1003,14 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
           autoComplete="off"
           placeholder="Enter your name"
           required
-          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400 pointer-events-auto select-text cursor-text"
-          style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b", opacity: 1, pointerEvents: "auto", userSelect: "text" }}
+          className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 text-base text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 font-medium"
+          style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
         />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="phone" className="text-xs font-semibold text-slate-200 block mb-1">Phone Number *</label>
+          <label htmlFor="phone" className="text-xs font-bold text-slate-700 block mb-1">Phone Number *</label>
           <input
             id="phone"
             type="tel"
@@ -1020,13 +1020,13 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             autoComplete="off"
             placeholder="Enter phone number"
             required
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400 pointer-events-auto select-text cursor-text"
-            style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b", opacity: 1, pointerEvents: "auto", userSelect: "text" }}
+            className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 text-base text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 font-medium"
+            style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
           />
         </div>
 
         <div>
-          <label htmlFor="email" className="text-xs font-semibold text-slate-200 block mb-1">Email Address</label>
+          <label htmlFor="email" className="text-xs font-bold text-slate-700 block mb-1">Email Address</label>
           <input
             id="email"
             type="email"
@@ -1035,14 +1035,14 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             defaultValue=""
             autoComplete="off"
             placeholder="Enter your email"
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400 pointer-events-auto select-text cursor-text"
-            style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b", opacity: 1, pointerEvents: "auto", userSelect: "text" }}
+            className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 text-base text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 font-medium"
+            style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="travel" className="text-xs font-semibold text-slate-200 block mb-1">Where are you planning to travel? *</label>
+        <label htmlFor="travel" className="text-xs font-bold text-slate-700 block mb-1">Where are you planning to travel? *</label>
         <input
           id="travel"
           type="text"
@@ -1052,13 +1052,13 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
           autoComplete="off"
           placeholder="Europe, Kashmir, Kerala, Dubai, Singapore....."
           required
-          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400 pointer-events-auto select-text cursor-text"
-          style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b", opacity: 1, pointerEvents: "auto", userSelect: "text" }}
+          className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 text-base text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 font-medium"
+          style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
         />
       </div>
 
       <div>
-        <label htmlFor="description" className="text-xs font-semibold text-slate-200 block mb-1">Description</label>
+        <label htmlFor="description" className="text-xs font-bold text-slate-700 block mb-1">Description</label>
         <textarea
           id="description"
           name="description"
@@ -1066,15 +1066,15 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
           defaultValue=""
           rows={3}
           placeholder="Enter additional details..."
-          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400 pointer-events-auto select-text cursor-text"
-          style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b", opacity: 1, pointerEvents: "auto", userSelect: "text" }}
+          className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 text-base text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 font-medium"
+          style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
         />
       </div>
 
       <button
         type="submit"
         disabled={submitting}
-        className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-extrabold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 text-base cursor-pointer pointer-events-auto"
+        className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-extrabold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 text-base cursor-pointer"
       >
         {submitting ? "Submitting..." : "Submit"}
       </button>
