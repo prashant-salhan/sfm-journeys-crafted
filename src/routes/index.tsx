@@ -487,8 +487,8 @@ export function IndiaPortal() {
                 />
               </div>
               <button
-                onClick={() => setEnquiryModalOpen(true)}
-                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-xl transition-all flex items-center justify-center gap-2 text-sm shrink-0"
+                onClick={handleScrollToEnquiry}
+                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-xl transition-all flex items-center justify-center gap-2 text-sm shrink-0 cursor-pointer"
               >
                 Get Custom Quote <ArrowRight className="w-4 h-4" />
               </button>
