@@ -793,11 +793,19 @@ export function IndiaPortal() {
 
       {/* Day-by-Day Itinerary Modal */}
       {selectedItineraryPkg && (
-        <div className="fixed inset-0 z-[99998] bg-slate-950/90 overflow-y-auto p-4 flex justify-center items-start sm:items-center">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative shadow-2xl space-y-6 my-auto">
+        <div className="fixed inset-0 z-[99998] overflow-y-auto p-4 sm:p-6 flex items-center justify-center min-h-screen">
+          {/* Backdrop Overlay */}
+          <div
+            className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm transition-opacity"
+            onClick={() => setSelectedItineraryPkg(null)}
+          />
+
+          {/* Modal Card */}
+          <div className="relative z-10 bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 my-8 text-left text-white">
             <button
               onClick={() => setSelectedItineraryPkg(null)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-full bg-slate-800/80 hover:bg-slate-800"
+              type="button"
+              className="absolute top-4 right-4 text-slate-400 hover:text-white p-1.5 rounded-full bg-slate-800/80 hover:bg-slate-800 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -834,12 +842,13 @@ export function IndiaPortal() {
               </div>
 
               <button
+                type="button"
                 onClick={() => {
                   const pkg = selectedItineraryPkg;
                   setSelectedItineraryPkg(null);
                   handleOpenEnquiryForPkg(pkg);
                 }}
-                className="bg-amber-500 text-slate-950 font-bold px-6 py-3 rounded-xl text-xs"
+                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-xl text-xs transition-colors"
               >
                 Book This Itinerary
               </button>
@@ -881,9 +890,14 @@ function FastEnquiryModal({
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.stopPropagation();
 
     const cleanName = fullName.trim();
     const cleanPhone = phone.trim();
+    const cleanDate = travelDate.trim();
+    const cleanTravellers = travellers;
+    const cleanPkg = destinationPkg;
+    const cleanMsg = userMessage.trim();
 
     if (!cleanName || !cleanPhone) {
       setSubmitError("Please provide your name and phone number.");
@@ -898,10 +912,10 @@ function FastEnquiryModal({
     const payload = {
       fullName: cleanName,
       phone: cleanPhone,
-      destination: destinationPkg || "Incredible India Tour Package",
-      travelDate: travelDate.trim(),
-      travellers,
-      message: userMessage.trim(),
+      destination: cleanPkg,
+      travelDate: cleanDate,
+      travellers: cleanTravellers,
+      message: cleanMsg,
       source: "india_portal_popup",
     };
 
@@ -915,7 +929,7 @@ function FastEnquiryModal({
     }
 
     // 2. Format pre-filled WhatsApp lead message
-    const waMsg = `Hi SFM Travels India! I want a custom quote for my India trip:%0A- Name: ${encodeURIComponent(cleanName)}%0A- Phone: ${encodeURIComponent(cleanPhone)}%0A- Package: ${encodeURIComponent(destinationPkg)}%0A- Travel Date: ${encodeURIComponent(travelDate || "Flexible")}%0A- Travellers: ${encodeURIComponent(travellers)}${userMessage ? `%0A- Notes: ${encodeURIComponent(userMessage.trim())}` : ""}`;
+    const waMsg = `Hi SFM Travels India! I want a custom quote for my India trip:%0A- Name: ${encodeURIComponent(cleanName)}%0A- Phone: ${encodeURIComponent(cleanPhone)}%0A- Package: ${encodeURIComponent(cleanPkg)}%0A- Travel Date: ${encodeURIComponent(cleanDate || "Flexible")}%0A- Travellers: ${encodeURIComponent(cleanTravellers)}${cleanMsg ? `%0A- Notes: ${encodeURIComponent(cleanMsg)}` : ""}`;
     const waUrl = `https://wa.me/919876543210?text=${waMsg}`;
 
     // 3. Instant UI feedback (<10ms)
@@ -929,13 +943,24 @@ function FastEnquiryModal({
 
     setTimeout(() => {
       setSubmitSuccess(false);
+      setFullName("");
+      setPhone("");
+      setTravelDate("");
+      setUserMessage("");
       onClose();
-    }, 4000);
+    }, 3000);
   };
 
   return (
-    <div className="fixed inset-0 z-[99999] bg-slate-950/90 overflow-y-auto p-4 flex justify-center items-start sm:items-center">
-      <div className="bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-8 relative shadow-2xl space-y-5 my-auto">
+    <div className="fixed inset-0 z-[99999] overflow-y-auto p-4 sm:p-6 flex items-center justify-center min-h-screen">
+      {/* Backdrop Overlay */}
+      <div
+        className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm transition-opacity"
+        onClick={onClose}
+      />
+
+      {/* Modal Card */}
+      <div className="relative z-10 bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl space-y-5 my-8 text-left text-white">
         <button
           onClick={onClose}
           type="button"
@@ -965,7 +990,7 @@ function FastEnquiryModal({
             </p>
           </div>
         ) : (
-          <form action="javascript:void(0);" noValidate onSubmit={handleFormSubmit} className="space-y-4">
+          <form onSubmit={handleFormSubmit} className="space-y-4">
             {submitError && (
               <div className="bg-rose-950/60 border border-rose-800 p-3 rounded-xl text-rose-300 text-xs">
                 {submitError}
@@ -979,7 +1004,8 @@ function FastEnquiryModal({
                 name="destinationPkg"
                 value={destinationPkg}
                 onChange={(e) => setDestinationPkg(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 font-medium cursor-pointer"
+                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 font-medium cursor-pointer relative z-20"
+                style={{ color: "#ffffff", backgroundColor: "#020617" }}
               >
                 <option value="Incredible India Holiday Package">General Incredible India Package</option>
                 <option value="Kashmir Paradise & Golden Triangle (6D/5N)">Kashmir Paradise & Golden Triangle (6D/5N)</option>
@@ -1000,10 +1026,10 @@ function FastEnquiryModal({
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   required
-                  autoComplete="off"
-                  data-lpignore="true"
+                  autoComplete="name"
                   placeholder="e.g. Rahul Sharma"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text relative z-20"
+                  style={{ color: "#ffffff", backgroundColor: "#020617", caretColor: "#fbbf24" }}
                 />
               </div>
               <div>
@@ -1015,10 +1041,10 @@ function FastEnquiryModal({
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   required
-                  autoComplete="off"
-                  data-lpignore="true"
+                  autoComplete="tel"
                   placeholder="e.g. +91 9876543210"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text relative z-20"
+                  style={{ color: "#ffffff", backgroundColor: "#020617", caretColor: "#fbbf24" }}
                 />
               </div>
             </div>
@@ -1032,10 +1058,9 @@ function FastEnquiryModal({
                   name="travelDate"
                   value={travelDate}
                   onChange={(e) => setTravelDate(e.target.value)}
-                  autoComplete="off"
-                  data-lpignore="true"
                   placeholder="e.g. Next Month / Oct 15"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text relative z-20"
+                  style={{ color: "#ffffff", backgroundColor: "#020617", caretColor: "#fbbf24" }}
                 />
               </div>
               <div>
@@ -1045,7 +1070,8 @@ function FastEnquiryModal({
                   name="travellers"
                   value={travellers}
                   onChange={(e) => setTravellers(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 font-medium cursor-pointer"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 font-medium cursor-pointer relative z-20"
+                  style={{ color: "#ffffff", backgroundColor: "#020617" }}
                 >
                   <option value="1 Traveller (Solo)">1 Traveller (Solo)</option>
                   <option value="2 Travellers (Couple)">2 Travellers (Couple)</option>
@@ -1063,17 +1089,16 @@ function FastEnquiryModal({
                 value={userMessage}
                 onChange={(e) => setUserMessage(e.target.value)}
                 rows={2}
-                autoComplete="off"
-                data-lpignore="true"
                 placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text"
+                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text relative z-20"
+                style={{ color: "#ffffff", backgroundColor: "#020617", caretColor: "#fbbf24" }}
               />
             </div>
 
             <button
               type="submit"
               disabled={submitting}
-              className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-extrabold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 text-sm cursor-pointer"
+              className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-extrabold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 text-sm cursor-pointer relative z-20"
             >
               {submitting ? "Submitting Request..." : "Request Free India Quote Now"}
             </button>
