@@ -1024,8 +1024,11 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             name="fullName"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
+            autoComplete="off"
+            spellCheck={false}
             placeholder="e.g. Rahul Sharma"
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold"
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
+            style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
           />
         </div>
         <div>
@@ -1036,8 +1039,10 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             name="phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            autoComplete="off"
             placeholder="e.g. +91 9876543210"
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold"
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
+            style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
           />
         </div>
       </div>
@@ -1051,8 +1056,10 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             name="travelDate"
             value={travelDate}
             onChange={(e) => setTravelDate(e.target.value)}
+            autoComplete="off"
             placeholder="e.g. Next Month / Oct 15"
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold"
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
+            style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
           />
         </div>
         <div>
@@ -1063,6 +1070,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             value={travellers}
             onChange={(e) => setTravellers(e.target.value)}
             className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer"
+            style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
           >
             <option value="1 Traveller (Solo)">1 Traveller (Solo)</option>
             <option value="2 Travellers (Couple)">2 Travellers (Couple)</option>
@@ -1081,7 +1089,8 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
           onChange={(e) => setUserMessage(e.target.value)}
           rows={3}
           placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
-          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold"
+          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
+          style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
         />
       </div>
 
