@@ -10,11 +10,20 @@ startTransition(() => {
   const rootElement = document.getElementById("root");
 
   if (rootElement) {
-    createRoot(rootElement).render(
-      <StrictMode>
-        <RouterProvider router={router} />
-      </StrictMode>
-    );
+    if (rootElement.hasChildNodes()) {
+      hydrateRoot(
+        rootElement,
+        <StrictMode>
+          <RouterProvider router={router} />
+        </StrictMode>
+      );
+    } else {
+      createRoot(rootElement).render(
+        <StrictMode>
+          <RouterProvider router={router} />
+        </StrictMode>
+      );
+    }
   } else {
     hydrateRoot(
       document,

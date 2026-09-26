@@ -985,7 +985,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
   }
 
   return (
-    <form noValidate onSubmit={handleFormSubmit} className="space-y-4">
+    <form noValidate onSubmit={handleFormSubmit} className="space-y-4 relative z-10 pointer-events-auto">
       {submitError && (
         <div className="bg-rose-950/60 border border-rose-800 p-3.5 rounded-xl text-rose-300 text-xs font-semibold">
           {submitError}
@@ -1003,8 +1003,8 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
           autoComplete="off"
           placeholder="Enter your name"
           required
-          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
-          style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
+          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400 pointer-events-auto select-text cursor-text"
+          style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b", opacity: 1, pointerEvents: "auto", userSelect: "text" }}
         />
       </div>
 
@@ -1020,8 +1020,8 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             autoComplete="off"
             placeholder="Enter phone number"
             required
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
-            style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400 pointer-events-auto select-text cursor-text"
+            style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b", opacity: 1, pointerEvents: "auto", userSelect: "text" }}
           />
         </div>
 
@@ -1035,8 +1035,8 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             defaultValue=""
             autoComplete="off"
             placeholder="Enter your email"
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
-            style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400 pointer-events-auto select-text cursor-text"
+            style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b", opacity: 1, pointerEvents: "auto", userSelect: "text" }}
           />
         </div>
       </div>
@@ -1052,8 +1052,8 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
           autoComplete="off"
           placeholder="Europe, Kashmir, Kerala, Dubai, Singapore....."
           required
-          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
-          style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
+          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400 pointer-events-auto select-text cursor-text"
+          style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b", opacity: 1, pointerEvents: "auto", userSelect: "text" }}
         />
       </div>
 
@@ -1066,15 +1066,15 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
           defaultValue=""
           rows={3}
           placeholder="Enter additional details..."
-          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
-          style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
+          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400 pointer-events-auto select-text cursor-text"
+          style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b", opacity: 1, pointerEvents: "auto", userSelect: "text" }}
         />
       </div>
 
       <button
         type="submit"
         disabled={submitting}
-        className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-extrabold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 text-base cursor-pointer"
+        className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-extrabold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 text-base cursor-pointer pointer-events-auto"
       >
         {submitting ? "Submitting..." : "Submit"}
       </button>
