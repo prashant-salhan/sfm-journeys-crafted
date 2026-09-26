@@ -983,7 +983,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
   }
 
   return (
-    <form onSubmit={handleFormSubmit} className="space-y-5">
+    <form onSubmit={handleFormSubmit} className="space-y-5 select-text">
       {submitError && (
         <div className="bg-rose-950/60 border border-rose-800 p-3.5 rounded-xl text-rose-300 text-xs">
           {submitError}
@@ -997,7 +997,8 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
           name="destinationPkg"
           value={destinationPkg}
           onChange={(e) => setDestinationPkg(e.target.value)}
-          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer"
+          onInput={(e) => setDestinationPkg(e.currentTarget.value)}
+          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer select-text touch-manipulation"
           style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
         >
           <option value="Incredible India Holiday Package">General Incredible India Package</option>
@@ -1018,10 +1019,12 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             name="fullName"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
+            onInput={(e) => setFullName(e.currentTarget.value)}
+            onPointerDown={(e) => e.stopPropagation()}
             required
             autoComplete="name"
             placeholder="e.g. Rahul Sharma"
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text"
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text select-text touch-manipulation relative z-30"
             style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
           />
         </div>
@@ -1033,10 +1036,12 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             name="phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            onInput={(e) => setPhone(e.currentTarget.value)}
+            onPointerDown={(e) => e.stopPropagation()}
             required
             autoComplete="tel"
             placeholder="e.g. +91 9876543210"
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text"
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text select-text touch-manipulation relative z-30"
             style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
           />
         </div>
@@ -1051,8 +1056,10 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             name="travelDate"
             value={travelDate}
             onChange={(e) => setTravelDate(e.target.value)}
+            onInput={(e) => setTravelDate(e.currentTarget.value)}
+            onPointerDown={(e) => e.stopPropagation()}
             placeholder="e.g. Next Month / Oct 15"
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text"
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text select-text touch-manipulation relative z-30"
             style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
           />
         </div>
@@ -1063,7 +1070,8 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             name="travellers"
             value={travellers}
             onChange={(e) => setTravellers(e.target.value)}
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer"
+            onInput={(e) => setTravellers(e.currentTarget.value)}
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer select-text touch-manipulation"
             style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
           >
             <option value="1 Traveller (Solo)">1 Traveller (Solo)</option>
@@ -1081,9 +1089,11 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
           name="userMessage"
           value={userMessage}
           onChange={(e) => setUserMessage(e.target.value)}
+          onInput={(e) => setUserMessage(e.currentTarget.value)}
+          onPointerDown={(e) => e.stopPropagation()}
           rows={3}
           placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
-          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text"
+          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text select-text touch-manipulation relative z-30"
           style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
         />
       </div>
@@ -1188,161 +1198,174 @@ function FastEnquiryModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6">
+    <div className="fixed inset-0 z-[99999] overflow-y-auto">
       {/* Backdrop Overlay */}
       <div
         className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
 
-      {/* Modal Card */}
-      <div
-        className="relative z-10 bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl space-y-5 text-left text-white max-h-[90vh] overflow-y-auto"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          onClick={onClose}
-          type="button"
-          className="absolute top-4 right-4 text-slate-400 hover:text-white p-1.5 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors z-30"
+      {/* Centering Wrapper */}
+      <div className="flex min-h-full items-center justify-center p-4 sm:p-6 text-center">
+        {/* Modal Card */}
+        <div
+          className="relative z-10 bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl space-y-5 text-left text-white transform transition-all my-8 select-text"
+          onClick={(e) => e.stopPropagation()}
         >
-          <X className="w-5 h-5" />
-        </button>
+          <button
+            onClick={onClose}
+            type="button"
+            className="absolute top-4 right-4 text-slate-400 hover:text-white p-1.5 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors z-30"
+          >
+            <X className="w-5 h-5" />
+          </button>
 
-        <div className="space-y-1.5">
-          <span className="text-xs font-bold text-amber-400 uppercase tracking-widest flex items-center gap-1">
-            <Sparkles className="w-4 h-4" /> Fast India Travel Quote
-          </span>
-          <h3 className="text-xl sm:text-2xl font-extrabold text-white">
-            Plan Your Dream India Trip
-          </h3>
-          <p className="text-slate-400 text-xs leading-relaxed">
-            Fill in your details below and our senior India travel expert will contact you within 15 minutes with customized quotes & discounts.
-          </p>
-        </div>
-
-        {submitSuccess ? (
-          <div className="bg-emerald-950/60 border border-emerald-800 p-6 rounded-2xl text-center space-y-3">
-            <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto" />
-            <h4 className="text-lg font-bold text-white">Enquiry Received Successfully!</h4>
-            <p className="text-slate-300 text-xs">
-              Thank you! Our senior India specialist will call or WhatsApp you shortly.
+          <div className="space-y-1.5">
+            <span className="text-xs font-bold text-amber-400 uppercase tracking-widest flex items-center gap-1">
+              <Sparkles className="w-4 h-4" /> Fast India Travel Quote
+            </span>
+            <h3 className="text-xl sm:text-2xl font-extrabold text-white">
+              Plan Your Dream India Trip
+            </h3>
+            <p className="text-slate-400 text-xs leading-relaxed">
+              Fill in your details below and our senior India travel expert will contact you within 15 minutes with customized quotes & discounts.
             </p>
           </div>
-        ) : (
-          <form onSubmit={handleFormSubmit} className="space-y-4">
-            {submitError && (
-              <div className="bg-rose-950/60 border border-rose-800 p-3 rounded-xl text-rose-300 text-xs">
-                {submitError}
-              </div>
-            )}
 
-            <div>
-              <label htmlFor="sfm_destination_pkg" className="text-xs font-medium text-slate-300 block mb-1">Select Package / Region</label>
-              <select
-                id="sfm_destination_pkg"
-                name="destinationPkg"
-                value={destinationPkg}
-                onChange={(e) => setDestinationPkg(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer relative z-20"
-                style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
-              >
-                <option value="Incredible India Holiday Package">General Incredible India Package</option>
-                <option value="Kashmir Paradise & Golden Triangle (6D/5N)">Kashmir Paradise & Golden Triangle (6D/5N)</option>
-                <option value="Kerala Backwaters & Houseboat Sanctuary (5D/4N)">Kerala Backwaters & Houseboat (5D/4N)</option>
-                <option value="Royal Rajasthan Forts & Thar Desert Glamping (6D/5N)">Royal Rajasthan & Desert Glamping (6D/5N)</option>
-                <option value="Goa Sun, Sand & Sunset Cruise Escape (4D/3N)">Goa Sun, Sand & Sunset Cruise (4D/3N)</option>
-                <option value="Himachal Snow Peaks & Solang Valley (6D/5N)">Himachal Snow Peaks & Manali (6D/5N)</option>
-              </select>
+          {submitSuccess ? (
+            <div className="bg-emerald-950/60 border border-emerald-800 p-6 rounded-2xl text-center space-y-3">
+              <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto" />
+              <h4 className="text-lg font-bold text-white">Enquiry Received Successfully!</h4>
+              <p className="text-slate-300 text-xs">
+                Thank you! Our senior India specialist will call or WhatsApp you shortly.
+              </p>
             </div>
+          ) : (
+            <form onSubmit={handleFormSubmit} className="space-y-4 select-text">
+              {submitError && (
+                <div className="bg-rose-950/60 border border-rose-800 p-3 rounded-xl text-rose-300 text-xs">
+                  {submitError}
+                </div>
+              )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label htmlFor="sfm_full_name" className="text-xs font-medium text-slate-300 block mb-1">Full Name *</label>
-                <input
-                  id="sfm_full_name"
-                  type="text"
-                  name="fullName"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  required
-                  autoComplete="name"
-                  placeholder="e.g. Rahul Sharma"
-                  className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
-                  style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
-                />
-              </div>
-              <div>
-                <label htmlFor="sfm_phone_number" className="text-xs font-medium text-slate-300 block mb-1">Phone / WhatsApp *</label>
-                <input
-                  id="sfm_phone_number"
-                  type="tel"
-                  name="phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  required
-                  autoComplete="tel"
-                  placeholder="e.g. +91 9876543210"
-                  className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
-                  style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label htmlFor="sfm_travel_date" className="text-xs font-medium text-slate-300 block mb-1">Travel Month / Date</label>
-                <input
-                  id="sfm_travel_date"
-                  type="text"
-                  name="travelDate"
-                  value={travelDate}
-                  onChange={(e) => setTravelDate(e.target.value)}
-                  placeholder="e.g. Next Month / Oct 15"
-                  className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
-                  style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
-                />
-              </div>
-              <div>
-                <label htmlFor="sfm_travellers_count" className="text-xs font-medium text-slate-300 block mb-1">Travellers Count</label>
+                <label htmlFor="sfm_destination_pkg" className="text-xs font-medium text-slate-300 block mb-1">Select Package / Region</label>
                 <select
-                  id="sfm_travellers_count"
-                  name="travellers"
-                  value={travellers}
-                  onChange={(e) => setTravellers(e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer relative z-20"
+                  id="sfm_destination_pkg"
+                  name="destinationPkg"
+                  value={destinationPkg}
+                  onChange={(e) => setDestinationPkg(e.target.value)}
+                  onInput={(e) => setDestinationPkg(e.currentTarget.value)}
+                  className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer relative z-20 select-text touch-manipulation"
                   style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
                 >
-                  <option value="1 Traveller (Solo)">1 Traveller (Solo)</option>
-                  <option value="2 Travellers (Couple)">2 Travellers (Couple)</option>
-                  <option value="3-5 Travellers (Family/Group)">3-5 Travellers (Family)</option>
-                  <option value="6+ Travellers (Group)">6+ Travellers (Group)</option>
+                  <option value="Incredible India Holiday Package">General Incredible India Package</option>
+                  <option value="Kashmir Paradise & Golden Triangle (6D/5N)">Kashmir Paradise & Golden Triangle (6D/5N)</option>
+                  <option value="Kerala Backwaters & Houseboat Sanctuary (5D/4N)">Kerala Backwaters & Houseboat (5D/4N)</option>
+                  <option value="Royal Rajasthan Forts & Thar Desert Glamping (6D/5N)">Royal Rajasthan & Desert Glamping (6D/5N)</option>
+                  <option value="Goa Sun, Sand & Sunset Cruise Escape (4D/3N)">Goa Sun, Sand & Sunset Cruise (4D/3N)</option>
+                  <option value="Himachal Snow Peaks & Solang Valley (6D/5N)">Himachal Snow Peaks & Manali (6D/5N)</option>
                 </select>
               </div>
-            </div>
 
-            <div>
-              <label htmlFor="sfm_user_message" className="text-xs font-medium text-slate-300 block mb-1">Special Requirements (Optional)</label>
-              <textarea
-                id="sfm_user_message"
-                name="userMessage"
-                value={userMessage}
-                onChange={(e) => setUserMessage(e.target.value)}
-                rows={2}
-                placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
-                className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
-                style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
-              />
-            </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label htmlFor="sfm_full_name" className="text-xs font-medium text-slate-300 block mb-1">Full Name *</label>
+                  <input
+                    id="sfm_full_name"
+                    type="text"
+                    name="fullName"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    onInput={(e) => setFullName(e.currentTarget.value)}
+                    onPointerDown={(e) => e.stopPropagation()}
+                    required
+                    autoComplete="name"
+                    placeholder="e.g. Rahul Sharma"
+                    className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20 select-text touch-manipulation"
+                    style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="sfm_phone_number" className="text-xs font-medium text-slate-300 block mb-1">Phone / WhatsApp *</label>
+                  <input
+                    id="sfm_phone_number"
+                    type="tel"
+                    name="phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    onInput={(e) => setPhone(e.currentTarget.value)}
+                    onPointerDown={(e) => e.stopPropagation()}
+                    required
+                    autoComplete="tel"
+                    placeholder="e.g. +91 9876543210"
+                    className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20 select-text touch-manipulation"
+                    style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
+                  />
+                </div>
+              </div>
 
-            <button
-              type="submit"
-              disabled={submitting}
-              className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-extrabold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 text-sm cursor-pointer relative z-20"
-            >
-              {submitting ? "Submitting Request..." : "Request Free India Quote Now"}
-            </button>
-          </form>
-        )}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label htmlFor="sfm_travel_date" className="text-xs font-medium text-slate-300 block mb-1">Travel Month / Date</label>
+                  <input
+                    id="sfm_travel_date"
+                    type="text"
+                    name="travelDate"
+                    value={travelDate}
+                    onChange={(e) => setTravelDate(e.target.value)}
+                    onInput={(e) => setTravelDate(e.currentTarget.value)}
+                    onPointerDown={(e) => e.stopPropagation()}
+                    placeholder="e.g. Next Month / Oct 15"
+                    className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20 select-text touch-manipulation"
+                    style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="sfm_travellers_count" className="text-xs font-medium text-slate-300 block mb-1">Travellers Count</label>
+                  <select
+                    id="sfm_travellers_count"
+                    name="travellers"
+                    value={travellers}
+                    onChange={(e) => setTravellers(e.target.value)}
+                    onInput={(e) => setTravellers(e.currentTarget.value)}
+                    className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer relative z-20 select-text touch-manipulation"
+                    style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
+                  >
+                    <option value="1 Traveller (Solo)">1 Traveller (Solo)</option>
+                    <option value="2 Travellers (Couple)">2 Travellers (Couple)</option>
+                    <option value="3-5 Travellers (Family/Group)">3-5 Travellers (Family)</option>
+                    <option value="6+ Travellers (Group)">6+ Travellers (Group)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="sfm_user_message" className="text-xs font-medium text-slate-300 block mb-1">Special Requirements (Optional)</label>
+                <textarea
+                  id="sfm_user_message"
+                  name="userMessage"
+                  value={userMessage}
+                  onChange={(e) => setUserMessage(e.target.value)}
+                  onInput={(e) => setUserMessage(e.currentTarget.value)}
+                  onPointerDown={(e) => e.stopPropagation()}
+                  rows={2}
+                  placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
+                  className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20 select-text touch-manipulation"
+                  style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={submitting}
+                className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-extrabold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 text-sm cursor-pointer relative z-20"
+              >
+                {submitting ? "Submitting Request..." : "Request Free India Quote Now"}
+              </button>
+            </form>
+          )}
+        </div>
       </div>
     </div>
   );
