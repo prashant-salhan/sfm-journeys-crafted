@@ -965,7 +965,7 @@ function FastEnquiryModal({
             </p>
           </div>
         ) : (
-          <form onSubmit={handleFormSubmit} className="space-y-4">
+          <form action="javascript:void(0);" noValidate onSubmit={handleFormSubmit} className="space-y-4">
             {submitError && (
               <div className="bg-rose-950/60 border border-rose-800 p-3 rounded-xl text-rose-300 text-xs">
                 {submitError}
