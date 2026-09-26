@@ -815,71 +815,74 @@ export function IndiaPortal() {
 
       {/* Day-by-Day Itinerary Modal */}
       {selectedItineraryPkg && (
-        <div className="fixed inset-0 z-[99998] overflow-y-auto p-4 sm:p-6 flex items-center justify-center min-h-screen">
+        <>
           {/* Backdrop Overlay */}
           <div
-            className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm transition-opacity"
+            className="fixed inset-0 z-[99998] bg-slate-950/80 backdrop-blur-sm transition-opacity"
             onClick={() => setSelectedItineraryPkg(null)}
           />
 
-          {/* Modal Card */}
-          <div
-            className="relative z-10 bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 my-8 text-left text-white"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setSelectedItineraryPkg(null)}
-              type="button"
-              className="absolute top-4 right-4 text-slate-400 hover:text-white p-1.5 rounded-full bg-slate-800/80 hover:bg-slate-800 transition-colors"
+          {/* Modal Container */}
+          <div className="fixed inset-0 z-[99999] overflow-y-auto p-4 sm:p-6 flex items-center justify-center pointer-events-none">
+            {/* Modal Card */}
+            <div
+              className="pointer-events-auto relative bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 my-auto text-left text-white select-text"
+              onClick={(e) => e.stopPropagation()}
             >
-              <X className="w-5 h-5" />
-            </button>
+              <button
+                onClick={() => setSelectedItineraryPkg(null)}
+                type="button"
+                className="absolute top-4 right-4 text-slate-400 hover:text-white p-1.5 rounded-full bg-slate-800/80 hover:bg-slate-800 transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
 
-            <div className="space-y-2">
-              <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">
-                JNTO-Style Day-by-Day Tour Itinerary
-              </span>
-              <h3 className="text-2xl font-extrabold text-white">
-                {selectedItineraryPkg.title}
-              </h3>
-              <p className="text-slate-400 text-xs">
-                {selectedItineraryPkg.duration} | {selectedItineraryPkg.category}
-              </p>
-            </div>
-
-            <div className="space-y-4 relative border-l-2 border-amber-500/30 pl-6 ml-2">
-              {selectedItineraryPkg.itinerary.map((item) => (
-                <div key={item.day} className="relative space-y-1">
-                  <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-amber-500 border-4 border-slate-900" />
-                  <span className="text-xs font-bold text-amber-400 block">DAY {item.day}</span>
-                  <h4 className="font-bold text-white text-sm">{item.title}</h4>
-                  <p className="text-slate-400 text-xs leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
-              <div>
-                <span className="text-slate-400 text-[11px] block">Price Per Person</span>
-                <span className="text-xl font-extrabold text-amber-400">
-                  {formatPrice(selectedItineraryPkg.priceInr)}
+              <div className="space-y-2">
+                <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">
+                  JNTO-Style Day-by-Day Tour Itinerary
                 </span>
+                <h3 className="text-2xl font-extrabold text-white">
+                  {selectedItineraryPkg.title}
+                </h3>
+                <p className="text-slate-400 text-xs">
+                  {selectedItineraryPkg.duration} | {selectedItineraryPkg.category}
+                </p>
               </div>
 
-              <button
-                type="button"
-                onClick={() => {
-                  const pkg = selectedItineraryPkg;
-                  setSelectedItineraryPkg(null);
-                  handleOpenEnquiryForPkg(pkg);
-                }}
-                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-xl text-xs transition-colors"
-              >
-                Book This Itinerary
-              </button>
+              <div className="space-y-4 relative border-l-2 border-amber-500/30 pl-6 ml-2">
+                {selectedItineraryPkg.itinerary.map((item) => (
+                  <div key={item.day} className="relative space-y-1">
+                    <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-amber-500 border-4 border-slate-900" />
+                    <span className="text-xs font-bold text-amber-400 block">DAY {item.day}</span>
+                    <h4 className="font-bold text-white text-sm">{item.title}</h4>
+                    <p className="text-slate-400 text-xs leading-relaxed">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+                <div>
+                  <span className="text-slate-400 text-[11px] block">Price Per Person</span>
+                  <span className="text-xl font-extrabold text-amber-400">
+                    {formatPrice(selectedItineraryPkg.priceInr)}
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    const pkg = selectedItineraryPkg;
+                    setSelectedItineraryPkg(null);
+                    handleOpenEnquiryForPkg(pkg);
+                  }}
+                  className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-xl text-xs transition-colors cursor-pointer"
+                >
+                  Book This Itinerary
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
@@ -974,7 +977,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             setTravelDate("");
             setUserMessage("");
           }}
-          className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-colors"
+          className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-colors cursor-pointer"
         >
           Submit Another Enquiry
         </button>
@@ -1196,18 +1199,18 @@ function FastEnquiryModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[99999] overflow-y-auto">
-      {/* Backdrop Overlay */}
+    <>
+      {/* Standalone Backdrop Overlay */}
       <div
-        className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 z-[99998] bg-slate-950/80 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
 
-      {/* Centering Wrapper */}
-      <div className="flex min-h-full items-center justify-center p-4 sm:p-6 text-center">
+      {/* Standalone Scroll Wrapper */}
+      <div className="fixed inset-0 z-[99999] overflow-y-auto p-4 sm:p-6 flex items-center justify-center pointer-events-none">
         {/* Modal Card */}
         <div
-          className="relative z-10 bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl space-y-5 text-left text-white transform transition-all my-8 select-text"
+          className="pointer-events-auto relative bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl space-y-5 text-left text-white my-auto select-text"
           onClick={(e) => e.stopPropagation()}
         >
           <button
@@ -1363,6 +1366,6 @@ function FastEnquiryModal({
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 }
