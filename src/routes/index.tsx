@@ -1,4 +1,4 @@
-import { useState, useEffect, type FormEvent } from "react";
+import { useState, useEffect, useRef, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -873,18 +873,12 @@ function FastEnquiryModal({
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
 
-  const [destinationPkg, setDestinationPkg] = useState(initialPackageTitle || "Incredible India Holiday Package");
-  const [fullName, setFullName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [travelDate, setTravelDate] = useState("");
-  const [travellers, setTravellers] = useState("2 Travellers (Couple)");
-  const [userMessage, setUserMessage] = useState("");
-
-  useEffect(() => {
-    if (initialPackageTitle) {
-      setDestinationPkg(initialPackageTitle);
-    }
-  }, [initialPackageTitle]);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const dateRef = useRef<HTMLInputElement>(null);
+  const travellersRef = useRef<HTMLSelectElement>(null);
+  const pkgRef = useRef<HTMLSelectElement>(null);
+  const msgRef = useRef<HTMLTextAreaElement>(null);
 
   if (!isOpen) return null;
 
@@ -892,12 +886,12 @@ function FastEnquiryModal({
     e.preventDefault();
     e.stopPropagation();
 
-    const cleanName = fullName.trim();
-    const cleanPhone = phone.trim();
-    const cleanDate = travelDate.trim();
-    const cleanTravellers = travellers;
-    const cleanPkg = destinationPkg;
-    const cleanMsg = userMessage.trim();
+    const cleanName = nameRef.current?.value?.trim() || "";
+    const cleanPhone = phoneRef.current?.value?.trim() || "";
+    const cleanDate = dateRef.current?.value?.trim() || "";
+    const cleanTravellers = travellersRef.current?.value || "2 Travellers (Couple)";
+    const cleanPkg = pkgRef.current?.value || initialPackageTitle || "Incredible India Holiday Package";
+    const cleanMsg = msgRef.current?.value?.trim() || "";
 
     if (!cleanName || !cleanPhone) {
       setSubmitError("Please provide your name and phone number.");
@@ -948,10 +942,6 @@ function FastEnquiryModal({
 
     setTimeout(() => {
       setSubmitSuccess(false);
-      setFullName("");
-      setPhone("");
-      setTravelDate("");
-      setUserMessage("");
       onClose();
     }, 3000);
   };
@@ -1005,10 +995,10 @@ function FastEnquiryModal({
             <div>
               <label htmlFor="sfm_destination_pkg" className="text-xs font-medium text-slate-300 block mb-1">Select Package / Region</label>
               <select
+                ref={pkgRef}
                 id="sfm_destination_pkg"
                 name="destinationPkg"
-                value={destinationPkg}
-                onChange={(e) => setDestinationPkg(e.target.value)}
+                defaultValue={initialPackageTitle || "Incredible India Holiday Package"}
                 className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 font-medium cursor-pointer relative z-20"
                 style={{ color: "#ffffff", backgroundColor: "#020617" }}
               >
@@ -1025,11 +1015,11 @@ function FastEnquiryModal({
               <div>
                 <label htmlFor="sfm_full_name" className="text-xs font-medium text-slate-300 block mb-1">Full Name *</label>
                 <input
+                  ref={nameRef}
                   id="sfm_full_name"
                   type="text"
                   name="fullName"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
+                  defaultValue=""
                   required
                   autoFocus
                   autoComplete="name"
@@ -1041,11 +1031,11 @@ function FastEnquiryModal({
               <div>
                 <label htmlFor="sfm_phone_number" className="text-xs font-medium text-slate-300 block mb-1">Phone / WhatsApp *</label>
                 <input
+                  ref={phoneRef}
                   id="sfm_phone_number"
                   type="tel"
                   name="phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  defaultValue=""
                   required
                   autoComplete="tel"
                   placeholder="e.g. +91 9876543210"
@@ -1059,11 +1049,11 @@ function FastEnquiryModal({
               <div>
                 <label htmlFor="sfm_travel_date" className="text-xs font-medium text-slate-300 block mb-1">Travel Month / Date</label>
                 <input
+                  ref={dateRef}
                   id="sfm_travel_date"
                   type="text"
                   name="travelDate"
-                  value={travelDate}
-                  onChange={(e) => setTravelDate(e.target.value)}
+                  defaultValue=""
                   placeholder="e.g. Next Month / Oct 15"
                   className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text relative z-20"
                   style={{ color: "#ffffff", backgroundColor: "#020617", caretColor: "#fbbf24" }}
@@ -1072,10 +1062,10 @@ function FastEnquiryModal({
               <div>
                 <label htmlFor="sfm_travellers_count" className="text-xs font-medium text-slate-300 block mb-1">Travellers Count</label>
                 <select
+                  ref={travellersRef}
                   id="sfm_travellers_count"
                   name="travellers"
-                  value={travellers}
-                  onChange={(e) => setTravellers(e.target.value)}
+                  defaultValue="2 Travellers (Couple)"
                   className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 font-medium cursor-pointer relative z-20"
                   style={{ color: "#ffffff", backgroundColor: "#020617" }}
                 >
@@ -1090,10 +1080,10 @@ function FastEnquiryModal({
             <div>
               <label htmlFor="sfm_user_message" className="text-xs font-medium text-slate-300 block mb-1">Special Requirements (Optional)</label>
               <textarea
+                ref={msgRef}
                 id="sfm_user_message"
                 name="userMessage"
-                value={userMessage}
-                onChange={(e) => setUserMessage(e.target.value)}
+                defaultValue=""
                 rows={2}
                 placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
                 className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text relative z-20"
