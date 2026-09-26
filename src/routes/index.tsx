@@ -936,10 +936,15 @@ function FastEnquiryModal({
     setSubmitSuccess(true);
     setSubmitting(false);
 
-    // 4. Trigger direct WhatsApp lead delivery in new tab
+    // 4. Trigger direct WhatsApp lead delivery
     try {
-      window.open(waUrl, "_blank");
-    } catch (_) {}
+      const win = window.open(waUrl, "_blank");
+      if (!win || win.closed || typeof win.closed === "undefined") {
+        window.location.href = waUrl;
+      }
+    } catch (_) {
+      window.location.href = waUrl;
+    }
 
     setTimeout(() => {
       setSubmitSuccess(false);
@@ -1026,6 +1031,7 @@ function FastEnquiryModal({
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   required
+                  autoFocus
                   autoComplete="name"
                   placeholder="e.g. Rahul Sharma"
                   className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text relative z-20"
