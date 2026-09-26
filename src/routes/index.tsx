@@ -885,18 +885,15 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
 
   const nameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
-  const dateRef = useRef<HTMLInputElement>(null);
-  const travellersRef = useRef<HTMLSelectElement>(null);
-  const pkgRef = useRef<HTMLSelectElement>(null);
-  const msgRef = useRef<HTMLTextAreaElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const travelRef = useRef<HTMLInputElement>(null);
+  const descRef = useRef<HTMLTextAreaElement>(null);
 
-  const [selectedPkg, setSelectedPkg] = useState(initialPackageTitle || "Incredible India Holiday Package");
-  const [submittedData, setSubmittedData] = useState<{ name: string; phone: string; pkg: string } | null>(null);
+  const [submittedData, setSubmittedData] = useState<{ name: string; phone: string; travel: string } | null>(null);
 
   useEffect(() => {
-    if (initialPackageTitle) {
-      setSelectedPkg(initialPackageTitle);
-      if (pkgRef.current) pkgRef.current.value = initialPackageTitle;
+    if (initialPackageTitle && travelRef.current) {
+      travelRef.current.value = initialPackageTitle;
     }
   }, [initialPackageTitle]);
 
@@ -906,10 +903,9 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
 
     const cleanName = nameRef.current?.value.trim() || "";
     const cleanPhone = phoneRef.current?.value.trim() || "";
-    const cleanDate = dateRef.current?.value.trim() || "";
-    const cleanTravellers = travellersRef.current?.value || "2 Travellers (Couple)";
-    const cleanPkg = pkgRef.current?.value || selectedPkg || "Incredible India Holiday Package";
-    const cleanMsg = msgRef.current?.value.trim() || "";
+    const cleanEmail = emailRef.current?.value.trim() || "";
+    const cleanTravel = travelRef.current?.value.trim() || "Incredible India Holiday Package";
+    const cleanDesc = descRef.current?.value.trim() || "";
 
     if (!cleanName || !cleanPhone) {
       setSubmitError("Please provide your name and phone number.");
@@ -923,14 +919,12 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
     const payload = {
       fullName: cleanName,
       phone: cleanPhone,
-      destination: cleanPkg,
-      travelDate: cleanDate,
-      travellers: cleanTravellers,
-      message: cleanMsg,
+      email: cleanEmail,
+      destination: cleanTravel,
+      message: cleanDesc,
       source: "india_portal_inline",
     };
 
-    // Save to Render backend in background without delaying UI
     if (apiBase) {
       fetch(`${apiBase}/api/enquiries`, {
         method: "POST",
@@ -939,11 +933,11 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
       }).catch((err) => console.warn("Backend Enquiry API warning:", err));
     }
 
-    const waMsg = `Hi SFM Travels India! I want a custom quote for my India trip:%0A- Name: ${encodeURIComponent(cleanName)}%0A- Phone: ${encodeURIComponent(cleanPhone)}%0A- Package: ${encodeURIComponent(cleanPkg)}%0A- Travel Date: ${encodeURIComponent(cleanDate || "Flexible")}%0A- Travellers: ${encodeURIComponent(cleanTravellers)}${cleanMsg ? `%0A- Notes: ${encodeURIComponent(cleanMsg)}` : ""}`;
+    const waMsg = `Hi SFM Travels India! I want a custom quote for my India trip:%0A- Name: ${encodeURIComponent(cleanName)}%0A- Phone: ${encodeURIComponent(cleanPhone)}${cleanEmail ? `%0A- Email: ${encodeURIComponent(cleanEmail)}` : ""}%0A- Destination: ${encodeURIComponent(cleanTravel)}${cleanDesc ? `%0A- Details: ${encodeURIComponent(cleanDesc)}` : ""}`;
     const waUrl = `https://wa.me/919876543210?text=${waMsg}`;
 
     setSubmitting(false);
-    setSubmittedData({ name: cleanName, phone: cleanPhone, pkg: cleanPkg });
+    setSubmittedData({ name: cleanName, phone: cleanPhone, travel: cleanTravel });
     setSubmitSuccess(true);
 
     try {
@@ -957,15 +951,15 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
   };
 
   if (submitSuccess && submittedData) {
-    const waMsg = `Hi SFM Travels India! I submitted an enquiry for ${encodeURIComponent(submittedData.pkg)} (Name: ${encodeURIComponent(submittedData.name)}, Phone: ${encodeURIComponent(submittedData.phone)}).`;
+    const waMsg = `Hi SFM Travels India! I submitted an enquiry for ${encodeURIComponent(submittedData.travel)} (Name: ${encodeURIComponent(submittedData.name)}, Phone: ${encodeURIComponent(submittedData.phone)}).`;
     const waUrl = `https://wa.me/919876543210?text=${waMsg}`;
 
     return (
       <div className="bg-emerald-950/60 border border-emerald-800 p-8 rounded-2xl text-center space-y-4">
         <CheckCircle2 className="w-14 h-14 text-emerald-400 mx-auto" />
-        <h4 className="text-xl font-bold text-white">Enquiry Saved & Received!</h4>
+        <h4 className="text-xl font-bold text-white">Request Submitted Successfully!</h4>
         <p className="text-slate-300 text-sm max-w-md mx-auto">
-          Thank you {submittedData.name}! Your enquiry has been saved to our database. Our senior India holiday specialist will contact you on phone/WhatsApp shortly.
+          Thank you {submittedData.name}! Your enquiry has been received. Our travel specialist will contact you on phone/WhatsApp shortly.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <a
@@ -983,7 +977,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             }}
             className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-xs transition-colors cursor-pointer"
           >
-            Submit Another Enquiry
+            Submit Another Request
           </button>
         </div>
       </div>
@@ -991,7 +985,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
   }
 
   return (
-    <form noValidate onSubmit={handleFormSubmit} className="space-y-5">
+    <form noValidate onSubmit={handleFormSubmit} className="space-y-4">
       {submitError && (
         <div className="bg-rose-950/60 border border-rose-800 p-3.5 rounded-xl text-rose-300 text-xs font-semibold">
           {submitError}
@@ -999,99 +993,79 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
       )}
 
       <div>
-        <label htmlFor="inline_destination_pkg" className="text-xs font-semibold text-slate-200 block mb-1.5">Select Package / Region</label>
-        <select
-          id="inline_destination_pkg"
-          name="destinationPkg"
-          ref={pkgRef}
-          defaultValue={selectedPkg}
-          onChange={(e) => setSelectedPkg(e.target.value)}
-          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer"
-          style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
-        >
-          <option value="Incredible India Holiday Package">General Incredible India Package</option>
-          <option value="Kashmir Paradise & Golden Triangle (6D/5N)">Kashmir Paradise & Golden Triangle (6D/5N)</option>
-          <option value="Kerala Backwaters & Houseboat Sanctuary (5D/4N)">Kerala Backwaters & Houseboat (5D/4N)</option>
-          <option value="Royal Rajasthan Forts & Thar Desert Glamping (6D/5N)">Royal Rajasthan & Desert Glamping (6D/5N)</option>
-          <option value="Goa Sun, Sand & Sunset Cruise Escape (4D/3N)">Goa Sun, Sand & Sunset Cruise (4D/3N)</option>
-          <option value="Himachal Snow Peaks & Solang Valley (6D/5N)">Himachal Snow Peaks & Manali (6D/5N)</option>
-        </select>
+        <label htmlFor="name" className="text-xs font-semibold text-slate-200 block mb-1">Your Name *</label>
+        <input
+          id="name"
+          type="text"
+          name="name"
+          ref={nameRef}
+          defaultValue=""
+          autoComplete="off"
+          placeholder="Enter your name"
+          required
+          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
+          style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
+        />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="inline_full_name" className="text-xs font-semibold text-slate-200 block mb-1.5">Full Name *</label>
+          <label htmlFor="phone" className="text-xs font-semibold text-slate-200 block mb-1">Phone Number *</label>
           <input
-            id="inline_full_name"
-            type="text"
-            name="fullName"
-            ref={nameRef}
-            defaultValue=""
-            autoComplete="off"
-            spellCheck={false}
-            placeholder="e.g. Rahul Sharma"
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
-            style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
-          />
-        </div>
-        <div>
-          <label htmlFor="inline_phone_number" className="text-xs font-semibold text-slate-200 block mb-1.5">Phone / WhatsApp *</label>
-          <input
-            id="inline_phone_number"
+            id="phone"
             type="tel"
             name="phone"
             ref={phoneRef}
             defaultValue=""
             autoComplete="off"
-            placeholder="e.g. +91 9876543210"
+            placeholder="Enter phone number"
+            required
             className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
             style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
           />
         </div>
-      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="inline_travel_date" className="text-xs font-semibold text-slate-200 block mb-1.5">Travel Month / Date</label>
+          <label htmlFor="email" className="text-xs font-semibold text-slate-200 block mb-1">Email Address</label>
           <input
-            id="inline_travel_date"
-            type="text"
-            name="travelDate"
-            ref={dateRef}
+            id="email"
+            type="email"
+            name="email"
+            ref={emailRef}
             defaultValue=""
             autoComplete="off"
-            placeholder="e.g. Next Month / Oct 15"
+            placeholder="Enter your email"
             className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
             style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
           />
-        </div>
-        <div>
-          <label htmlFor="inline_travellers_count" className="text-xs font-semibold text-slate-200 block mb-1.5">Travellers Count</label>
-          <select
-            id="inline_travellers_count"
-            name="travellers"
-            ref={travellersRef}
-            defaultValue="2 Travellers (Couple)"
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer"
-            style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
-          >
-            <option value="1 Traveller (Solo)">1 Traveller (Solo)</option>
-            <option value="2 Travellers (Couple)">2 Travellers (Couple)</option>
-            <option value="3-5 Travellers (Family/Group)">3-5 Travellers (Family)</option>
-            <option value="6+ Travellers (Group)">6+ Travellers (Group)</option>
-          </select>
         </div>
       </div>
 
       <div>
-        <label htmlFor="inline_user_message" className="text-xs font-semibold text-slate-200 block mb-1.5">Special Requirements (Optional)</label>
+        <label htmlFor="travel" className="text-xs font-semibold text-slate-200 block mb-1">Where are you planning to travel? *</label>
+        <input
+          id="travel"
+          type="text"
+          name="travel"
+          ref={travelRef}
+          defaultValue={initialPackageTitle || ""}
+          autoComplete="off"
+          placeholder="Europe, Kashmir, Kerala, Dubai, Singapore....."
+          required
+          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
+          style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
+        />
+      </div>
+
+      <div>
+        <label htmlFor="description" className="text-xs font-semibold text-slate-200 block mb-1">Description</label>
         <textarea
-          id="inline_user_message"
-          name="userMessage"
-          ref={msgRef}
+          id="description"
+          name="description"
+          ref={descRef}
           defaultValue=""
           rows={3}
-          placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
+          placeholder="Enter additional details..."
           className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
           style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
         />
@@ -1100,9 +1074,9 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
       <button
         type="submit"
         disabled={submitting}
-        className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-extrabold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 text-base cursor-pointer"
+        className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-extrabold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 text-base cursor-pointer"
       >
-        {submitting ? "Submitting Request..." : "Request Free India Quote Now"}
+        {submitting ? "Submitting..." : "Submit"}
       </button>
     </form>
   );
