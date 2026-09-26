@@ -1,9 +1,14 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": ".output/public",
+  "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/((?!assets/|.*\\..*).*)",
+      "source": "/assets/(.*)",
+      "destination": "/assets/$1"
+    },
+    {
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
