@@ -248,18 +248,20 @@ export function IndiaPortal() {
   const [activeTab, setActiveTab] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Enquiry Modal States
-  const [enquiryModalOpen, setEnquiryModalOpen] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState<IndiaPackage | null>(null);
+  // Package Selection & Smooth Scroll States
+  const [selectedPackageTitle, setSelectedPackageTitle] = useState("");
   const [selectedItineraryPkg, setSelectedItineraryPkg] = useState<IndiaPackage | null>(null);
 
-  const handleCloseEnquiryModal = () => {
-    setEnquiryModalOpen(false);
+  const handleScrollToEnquiry = () => {
+    const el = document.getElementById("enquiry");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const handleOpenEnquiryForPkg = (pkg: IndiaPackage) => {
-    setSelectedPackage(pkg);
-    setEnquiryModalOpen(true);
+    setSelectedPackageTitle(pkg.title);
+    handleScrollToEnquiry();
   };
 
   const filteredPackages = INDIA_PACKAGES.filter((pkg) => {
@@ -347,8 +349,8 @@ export function IndiaPortal() {
           <div className="hidden sm:flex items-center gap-4">
             <CurrencySelector />
             <button
-              onClick={() => setEnquiryModalOpen(true)}
-              className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold px-5 py-2.5 rounded-full shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 transition-all flex items-center gap-2 text-sm"
+              onClick={handleScrollToEnquiry}
+              className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold px-5 py-2.5 rounded-full shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 transition-all flex items-center gap-2 text-sm cursor-pointer"
             >
               <Sparkles className="w-4 h-4" /> Plan My India Trip
             </button>
@@ -399,9 +401,9 @@ export function IndiaPortal() {
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  setEnquiryModalOpen(true);
+                  handleScrollToEnquiry();
                 }}
-                className="bg-amber-500 text-slate-950 font-bold px-4 py-2 rounded-full text-xs"
+                className="bg-amber-500 text-slate-950 font-bold px-4 py-2 rounded-full text-xs cursor-pointer"
               >
                 Get Quote
               </button>
@@ -722,7 +724,7 @@ export function IndiaPortal() {
           </div>
 
           <div className="bg-slate-900/90 border border-slate-700 p-6 sm:p-10 rounded-3xl shadow-2xl text-left">
-            <InlineEnquiryForm />
+            <InlineEnquiryForm key={selectedPackageTitle || "default"} initialPackageTitle={selectedPackageTitle} />
           </div>
         </div>
       </section>
@@ -791,13 +793,6 @@ export function IndiaPortal() {
           Chat on WhatsApp
         </span>
       </a>
-
-      {/* Auto-Popping Fast Enquiry Modal */}
-      <FastEnquiryModal
-        isOpen={enquiryModalOpen}
-        onClose={handleCloseEnquiryModal}
-        initialPackageTitle={selectedPackage?.title}
-      />
 
       {/* Day-by-Day Itinerary Modal */}
       {selectedItineraryPkg && (
