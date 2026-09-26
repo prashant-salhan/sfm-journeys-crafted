@@ -720,6 +720,27 @@ export function IndiaPortal() {
         </div>
       </section>
 
+      {/* Inline Quick Enquiry Section on Page */}
+      <section id="enquiry" className="py-20 px-4 bg-gradient-to-r from-amber-950/40 via-slate-900 to-amber-950/40 border-y border-amber-500/30">
+        <div className="max-w-4xl mx-auto space-y-8 text-center">
+          <div className="space-y-3">
+            <span className="text-xs font-bold uppercase tracking-widest text-amber-400 flex items-center justify-center gap-1">
+              <Sparkles className="w-4 h-4" /> Direct India Travel Quote
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              Request Your Custom India Itinerary
+            </h2>
+            <p className="text-slate-300 max-w-xl mx-auto text-xs sm:text-sm">
+              Fill out your travel details below and our senior India holiday specialist will craft a personalized itinerary with instant discounts.
+            </p>
+          </div>
+
+          <div className="bg-slate-900/90 border border-slate-700 p-6 sm:p-10 rounded-3xl shadow-2xl text-left">
+            <InlineEnquiryForm />
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-slate-950 border-t border-slate-800 py-16 px-4">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
@@ -738,6 +759,7 @@ export function IndiaPortal() {
             <ul className="space-y-2 text-xs text-slate-400">
               <li><a href="#packages" className="hover:text-amber-400">India Packages</a></li>
               <li><a href="#regions" className="hover:text-amber-400">Regions & Circuits</a></li>
+              <li><a href="#enquiry" className="hover:text-amber-400 font-bold text-amber-400">Get Free Quote</a></li>
               <li><a href="#essentials" className="hover:text-amber-400">Travel Essentials</a></li>
               <li><a href="#why-us" className="hover:text-amber-400">Why Choose Us</a></li>
             </ul>
@@ -757,12 +779,12 @@ export function IndiaPortal() {
             <p className="text-xs text-slate-400">
               Speak to our senior India travel consultant on WhatsApp for instant customized itineraries.
             </p>
-            <button
-              onClick={() => setEnquiryModalOpen(true)}
-              className="bg-amber-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs"
+            <a
+              href="#enquiry"
+              className="inline-block bg-amber-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs hover:bg-amber-400 transition-colors"
             >
               Get Free Quote
-            </button>
+            </a>
           </div>
         </div>
 
@@ -801,7 +823,10 @@ export function IndiaPortal() {
           />
 
           {/* Modal Card */}
-          <div className="relative z-10 bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 my-8 text-left text-white">
+          <div
+            className="relative z-10 bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 my-8 text-left text-white"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               onClick={() => setSelectedItineraryPkg(null)}
               type="button"
@@ -860,6 +885,220 @@ export function IndiaPortal() {
   );
 }
 
+function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: string }) {
+  const [submitting, setSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [travelDate, setTravelDate] = useState("");
+  const [travellers, setTravellers] = useState("2 Travellers (Couple)");
+  const [destinationPkg, setDestinationPkg] = useState(initialPackageTitle || "Incredible India Holiday Package");
+  const [userMessage, setUserMessage] = useState("");
+
+  useEffect(() => {
+    if (initialPackageTitle) {
+      setDestinationPkg(initialPackageTitle);
+    }
+  }, [initialPackageTitle]);
+
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const cleanName = fullName.trim();
+    const cleanPhone = phone.trim();
+    const cleanDate = travelDate.trim();
+    const cleanTravellers = travellers || "2 Travellers (Couple)";
+    const cleanPkg = destinationPkg || "Incredible India Holiday Package";
+    const cleanMsg = userMessage.trim();
+
+    if (!cleanName || !cleanPhone) {
+      setSubmitError("Please provide your name and phone number.");
+      return;
+    }
+
+    setSubmitting(true);
+    setSubmitError("");
+    setSubmitSuccess(false);
+
+    const apiBase = getApiBase();
+    const payload = {
+      fullName: cleanName,
+      phone: cleanPhone,
+      destination: cleanPkg,
+      travelDate: cleanDate,
+      travellers: cleanTravellers,
+      message: cleanMsg,
+      source: "india_portal_inline",
+    };
+
+    if (apiBase) {
+      fetch(`${apiBase}/api/enquiries`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }).catch((err) => console.warn("Backend Enquiry API warning:", err));
+    }
+
+    const waMsg = `Hi SFM Travels India! I want a custom quote for my India trip:%0A- Name: ${encodeURIComponent(cleanName)}%0A- Phone: ${encodeURIComponent(cleanPhone)}%0A- Package: ${encodeURIComponent(cleanPkg)}%0A- Travel Date: ${encodeURIComponent(cleanDate || "Flexible")}%0A- Travellers: ${encodeURIComponent(cleanTravellers)}${cleanMsg ? `%0A- Notes: ${encodeURIComponent(cleanMsg)}` : ""}`;
+    const waUrl = `https://wa.me/919876543210?text=${waMsg}`;
+
+    setSubmitSuccess(true);
+    setSubmitting(false);
+
+    try {
+      const win = window.open(waUrl, "_blank");
+      if (!win || win.closed || typeof win.closed === "undefined") {
+        window.location.href = waUrl;
+      }
+    } catch (_) {
+      window.location.href = waUrl;
+    }
+  };
+
+  if (submitSuccess) {
+    return (
+      <div className="bg-emerald-950/60 border border-emerald-800 p-8 rounded-2xl text-center space-y-4">
+        <CheckCircle2 className="w-14 h-14 text-emerald-400 mx-auto" />
+        <h4 className="text-xl font-bold text-white">Enquiry Received Successfully!</h4>
+        <p className="text-slate-300 text-sm max-w-md mx-auto">
+          Thank you! Our senior India holiday specialist will contact you on phone/WhatsApp shortly with your customized itinerary.
+        </p>
+        <button
+          onClick={() => {
+            setSubmitSuccess(false);
+            setFullName("");
+            setPhone("");
+            setTravelDate("");
+            setUserMessage("");
+          }}
+          className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-colors"
+        >
+          Submit Another Enquiry
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleFormSubmit} className="space-y-5">
+      {submitError && (
+        <div className="bg-rose-950/60 border border-rose-800 p-3.5 rounded-xl text-rose-300 text-xs">
+          {submitError}
+        </div>
+      )}
+
+      <div>
+        <label htmlFor="inline_destination_pkg" className="text-xs font-semibold text-slate-200 block mb-1.5">Select Package / Region</label>
+        <select
+          id="inline_destination_pkg"
+          name="destinationPkg"
+          value={destinationPkg}
+          onChange={(e) => setDestinationPkg(e.target.value)}
+          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer"
+          style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
+        >
+          <option value="Incredible India Holiday Package">General Incredible India Package</option>
+          <option value="Kashmir Paradise & Golden Triangle (6D/5N)">Kashmir Paradise & Golden Triangle (6D/5N)</option>
+          <option value="Kerala Backwaters & Houseboat Sanctuary (5D/4N)">Kerala Backwaters & Houseboat (5D/4N)</option>
+          <option value="Royal Rajasthan Forts & Thar Desert Glamping (6D/5N)">Royal Rajasthan & Desert Glamping (6D/5N)</option>
+          <option value="Goa Sun, Sand & Sunset Cruise Escape (4D/3N)">Goa Sun, Sand & Sunset Cruise (4D/3N)</option>
+          <option value="Himachal Snow Peaks & Solang Valley (6D/5N)">Himachal Snow Peaks & Manali (6D/5N)</option>
+        </select>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="inline_full_name" className="text-xs font-semibold text-slate-200 block mb-1.5">Full Name *</label>
+          <input
+            id="inline_full_name"
+            type="text"
+            name="fullName"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            required
+            autoComplete="name"
+            placeholder="e.g. Rahul Sharma"
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text"
+            style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
+          />
+        </div>
+        <div>
+          <label htmlFor="inline_phone_number" className="text-xs font-semibold text-slate-200 block mb-1.5">Phone / WhatsApp *</label>
+          <input
+            id="inline_phone_number"
+            type="tel"
+            name="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            required
+            autoComplete="tel"
+            placeholder="e.g. +91 9876543210"
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text"
+            style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="inline_travel_date" className="text-xs font-semibold text-slate-200 block mb-1.5">Travel Month / Date</label>
+          <input
+            id="inline_travel_date"
+            type="text"
+            name="travelDate"
+            value={travelDate}
+            onChange={(e) => setTravelDate(e.target.value)}
+            placeholder="e.g. Next Month / Oct 15"
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text"
+            style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
+          />
+        </div>
+        <div>
+          <label htmlFor="inline_travellers_count" className="text-xs font-semibold text-slate-200 block mb-1.5">Travellers Count</label>
+          <select
+            id="inline_travellers_count"
+            name="travellers"
+            value={travellers}
+            onChange={(e) => setTravellers(e.target.value)}
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer"
+            style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
+          >
+            <option value="1 Traveller (Solo)">1 Traveller (Solo)</option>
+            <option value="2 Travellers (Couple)">2 Travellers (Couple)</option>
+            <option value="3-5 Travellers (Family/Group)">3-5 Travellers (Family)</option>
+            <option value="6+ Travellers (Group)">6+ Travellers (Group)</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor="inline_user_message" className="text-xs font-semibold text-slate-200 block mb-1.5">Special Requirements (Optional)</label>
+        <textarea
+          id="inline_user_message"
+          name="userMessage"
+          value={userMessage}
+          onChange={(e) => setUserMessage(e.target.value)}
+          rows={3}
+          placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
+          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text"
+          style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
+        />
+      </div>
+
+      <button
+        type="submit"
+        disabled={submitting}
+        className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-extrabold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 text-base cursor-pointer"
+      >
+        {submitting ? "Submitting Request..." : "Request Free India Quote Now"}
+      </button>
+    </form>
+  );
+}
+
 function FastEnquiryModal({
   isOpen,
   onClose,
@@ -873,12 +1112,18 @@ function FastEnquiryModal({
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
 
-  const nameRef = useRef<HTMLInputElement>(null);
-  const phoneRef = useRef<HTMLInputElement>(null);
-  const dateRef = useRef<HTMLInputElement>(null);
-  const travellersRef = useRef<HTMLSelectElement>(null);
-  const pkgRef = useRef<HTMLSelectElement>(null);
-  const msgRef = useRef<HTMLTextAreaElement>(null);
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [travelDate, setTravelDate] = useState("");
+  const [travellers, setTravellers] = useState("2 Travellers (Couple)");
+  const [destinationPkg, setDestinationPkg] = useState(initialPackageTitle || "Incredible India Holiday Package");
+  const [userMessage, setUserMessage] = useState("");
+
+  useEffect(() => {
+    if (initialPackageTitle) {
+      setDestinationPkg(initialPackageTitle);
+    }
+  }, [initialPackageTitle]);
 
   if (!isOpen) return null;
 
@@ -886,12 +1131,12 @@ function FastEnquiryModal({
     e.preventDefault();
     e.stopPropagation();
 
-    const cleanName = nameRef.current?.value?.trim() || "";
-    const cleanPhone = phoneRef.current?.value?.trim() || "";
-    const cleanDate = dateRef.current?.value?.trim() || "";
-    const cleanTravellers = travellersRef.current?.value || "2 Travellers (Couple)";
-    const cleanPkg = pkgRef.current?.value || initialPackageTitle || "Incredible India Holiday Package";
-    const cleanMsg = msgRef.current?.value?.trim() || "";
+    const cleanName = fullName.trim();
+    const cleanPhone = phone.trim();
+    const cleanDate = travelDate.trim();
+    const cleanTravellers = travellers || "2 Travellers (Couple)";
+    const cleanPkg = destinationPkg || initialPackageTitle || "Incredible India Holiday Package";
+    const cleanMsg = userMessage.trim();
 
     if (!cleanName || !cleanPhone) {
       setSubmitError("Please provide your name and phone number.");
@@ -913,7 +1158,6 @@ function FastEnquiryModal({
       source: "india_portal_popup",
     };
 
-    // 1. Non-blocking background fetch if backend URL exists on Render
     if (apiBase) {
       fetch(`${apiBase}/api/enquiries`, {
         method: "POST",
@@ -922,15 +1166,12 @@ function FastEnquiryModal({
       }).catch((err) => console.warn("Backend Enquiry API warning:", err));
     }
 
-    // 2. Format pre-filled WhatsApp lead message
     const waMsg = `Hi SFM Travels India! I want a custom quote for my India trip:%0A- Name: ${encodeURIComponent(cleanName)}%0A- Phone: ${encodeURIComponent(cleanPhone)}%0A- Package: ${encodeURIComponent(cleanPkg)}%0A- Travel Date: ${encodeURIComponent(cleanDate || "Flexible")}%0A- Travellers: ${encodeURIComponent(cleanTravellers)}${cleanMsg ? `%0A- Notes: ${encodeURIComponent(cleanMsg)}` : ""}`;
     const waUrl = `https://wa.me/919876543210?text=${waMsg}`;
 
-    // 3. Instant UI feedback (<10ms)
     setSubmitSuccess(true);
     setSubmitting(false);
 
-    // 4. Trigger direct WhatsApp lead delivery
     try {
       const win = window.open(waUrl, "_blank");
       if (!win || win.closed || typeof win.closed === "undefined") {
@@ -955,7 +1196,10 @@ function FastEnquiryModal({
       />
 
       {/* Modal Card */}
-      <div className="relative z-10 bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl space-y-5 text-left text-white max-h-[90vh] overflow-y-auto">
+      <div
+        className="relative z-10 bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl space-y-5 text-left text-white max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
           onClick={onClose}
           type="button"
@@ -995,10 +1239,10 @@ function FastEnquiryModal({
             <div>
               <label htmlFor="sfm_destination_pkg" className="text-xs font-medium text-slate-300 block mb-1">Select Package / Region</label>
               <select
-                ref={pkgRef}
                 id="sfm_destination_pkg"
                 name="destinationPkg"
-                defaultValue={initialPackageTitle || "Incredible India Holiday Package"}
+                value={destinationPkg}
+                onChange={(e) => setDestinationPkg(e.target.value)}
                 className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer relative z-20"
                 style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
               >
@@ -1015,13 +1259,12 @@ function FastEnquiryModal({
               <div>
                 <label htmlFor="sfm_full_name" className="text-xs font-medium text-slate-300 block mb-1">Full Name *</label>
                 <input
-                  ref={nameRef}
                   id="sfm_full_name"
                   type="text"
                   name="fullName"
-                  defaultValue=""
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                   required
-                  autoFocus
                   autoComplete="name"
                   placeholder="e.g. Rahul Sharma"
                   className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
@@ -1031,11 +1274,11 @@ function FastEnquiryModal({
               <div>
                 <label htmlFor="sfm_phone_number" className="text-xs font-medium text-slate-300 block mb-1">Phone / WhatsApp *</label>
                 <input
-                  ref={phoneRef}
                   id="sfm_phone_number"
                   type="tel"
                   name="phone"
-                  defaultValue=""
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                   required
                   autoComplete="tel"
                   placeholder="e.g. +91 9876543210"
@@ -1049,11 +1292,11 @@ function FastEnquiryModal({
               <div>
                 <label htmlFor="sfm_travel_date" className="text-xs font-medium text-slate-300 block mb-1">Travel Month / Date</label>
                 <input
-                  ref={dateRef}
                   id="sfm_travel_date"
                   type="text"
                   name="travelDate"
-                  defaultValue=""
+                  value={travelDate}
+                  onChange={(e) => setTravelDate(e.target.value)}
                   placeholder="e.g. Next Month / Oct 15"
                   className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
                   style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
@@ -1062,10 +1305,10 @@ function FastEnquiryModal({
               <div>
                 <label htmlFor="sfm_travellers_count" className="text-xs font-medium text-slate-300 block mb-1">Travellers Count</label>
                 <select
-                  ref={travellersRef}
                   id="sfm_travellers_count"
                   name="travellers"
-                  defaultValue="2 Travellers (Couple)"
+                  value={travellers}
+                  onChange={(e) => setTravellers(e.target.value)}
                   className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer relative z-20"
                   style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
                 >
@@ -1080,10 +1323,10 @@ function FastEnquiryModal({
             <div>
               <label htmlFor="sfm_user_message" className="text-xs font-medium text-slate-300 block mb-1">Special Requirements (Optional)</label>
               <textarea
-                ref={msgRef}
                 id="sfm_user_message"
                 name="userMessage"
-                defaultValue=""
+                value={userMessage}
+                onChange={(e) => setUserMessage(e.target.value)}
                 rows={2}
                 placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
                 className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
