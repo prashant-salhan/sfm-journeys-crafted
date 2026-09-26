@@ -474,16 +474,17 @@ export function IndiaPortal() {
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="relative flex-1">
                 <label htmlFor="sfm_search_query" className="sr-only">Search India Destinations</label>
-                <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
+                <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400 pointer-events-none" />
                 <input
                   id="sfm_search_query"
                   name="searchQuery"
                   type="text"
                   aria-label="Search destinations"
                   placeholder="Search destinations, e.g. Kashmir, Houseboat, Taj Mahal, Goa..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-amber-500"
+                  defaultValue=""
+                  onInput={(e) => setSearchQuery((e.target as HTMLInputElement).value)}
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-amber-500 font-semibold caret-amber-400"
+                  style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#020617" }}
                 />
               </div>
               <button
@@ -882,16 +883,20 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
 
-  const [fullName, setFullName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [travelDate, setTravelDate] = useState("");
-  const [travellers, setTravellers] = useState("2 Travellers (Couple)");
-  const [destinationPkg, setDestinationPkg] = useState(initialPackageTitle || "Incredible India Holiday Package");
-  const [userMessage, setUserMessage] = useState("");
+  const nameRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const dateRef = useRef<HTMLInputElement>(null);
+  const travellersRef = useRef<HTMLSelectElement>(null);
+  const pkgRef = useRef<HTMLSelectElement>(null);
+  const msgRef = useRef<HTMLTextAreaElement>(null);
+
+  const [selectedPkg, setSelectedPkg] = useState(initialPackageTitle || "Incredible India Holiday Package");
+  const [submittedData, setSubmittedData] = useState<{ name: string; phone: string; pkg: string } | null>(null);
 
   useEffect(() => {
     if (initialPackageTitle) {
-      setDestinationPkg(initialPackageTitle);
+      setSelectedPkg(initialPackageTitle);
+      if (pkgRef.current) pkgRef.current.value = initialPackageTitle;
     }
   }, [initialPackageTitle]);
 
@@ -899,12 +904,12 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
     e.preventDefault();
     e.stopPropagation();
 
-    const cleanName = fullName.trim();
-    const cleanPhone = phone.trim();
-    const cleanDate = travelDate.trim();
-    const cleanTravellers = travellers || "2 Travellers (Couple)";
-    const cleanPkg = destinationPkg || "Incredible India Holiday Package";
-    const cleanMsg = userMessage.trim();
+    const cleanName = nameRef.current?.value.trim() || "";
+    const cleanPhone = phoneRef.current?.value.trim() || "";
+    const cleanDate = dateRef.current?.value.trim() || "";
+    const cleanTravellers = travellersRef.current?.value || "2 Travellers (Couple)";
+    const cleanPkg = pkgRef.current?.value || selectedPkg || "Incredible India Holiday Package";
+    const cleanMsg = msgRef.current?.value.trim() || "";
 
     if (!cleanName || !cleanPhone) {
       setSubmitError("Please provide your name and phone number.");
@@ -913,7 +918,6 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
 
     setSubmitting(true);
     setSubmitError("");
-    setSubmitSuccess(false);
 
     const apiBase = getApiBase();
     const payload = {
@@ -939,6 +943,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
     const waUrl = `https://wa.me/919876543210?text=${waMsg}`;
 
     setSubmitting(false);
+    setSubmittedData({ name: cleanName, phone: cleanPhone, pkg: cleanPkg });
     setSubmitSuccess(true);
 
     try {
@@ -951,8 +956,8 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
     }
   };
 
-  if (submitSuccess) {
-    const waMsg = `Hi SFM Travels India! I submitted an enquiry for ${encodeURIComponent(destinationPkg)} (Name: ${encodeURIComponent(fullName.trim())}, Phone: ${encodeURIComponent(phone.trim())}).`;
+  if (submitSuccess && submittedData) {
+    const waMsg = `Hi SFM Travels India! I submitted an enquiry for ${encodeURIComponent(submittedData.pkg)} (Name: ${encodeURIComponent(submittedData.name)}, Phone: ${encodeURIComponent(submittedData.phone)}).`;
     const waUrl = `https://wa.me/919876543210?text=${waMsg}`;
 
     return (
@@ -960,7 +965,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
         <CheckCircle2 className="w-14 h-14 text-emerald-400 mx-auto" />
         <h4 className="text-xl font-bold text-white">Enquiry Saved & Received!</h4>
         <p className="text-slate-300 text-sm max-w-md mx-auto">
-          Thank you! Your enquiry has been saved to our database. Our senior India holiday specialist will contact you on phone/WhatsApp shortly.
+          Thank you {submittedData.name}! Your enquiry has been saved to our database. Our senior India holiday specialist will contact you on phone/WhatsApp shortly.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <a
@@ -974,10 +979,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
           <button
             onClick={() => {
               setSubmitSuccess(false);
-              setFullName("");
-              setPhone("");
-              setTravelDate("");
-              setUserMessage("");
+              setSubmittedData(null);
             }}
             className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-xs transition-colors cursor-pointer"
           >
@@ -991,7 +993,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
   return (
     <form noValidate onSubmit={handleFormSubmit} className="space-y-5">
       {submitError && (
-        <div className="bg-rose-950/60 border border-rose-800 p-3.5 rounded-xl text-rose-300 text-xs">
+        <div className="bg-rose-950/60 border border-rose-800 p-3.5 rounded-xl text-rose-300 text-xs font-semibold">
           {submitError}
         </div>
       )}
@@ -1001,8 +1003,9 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
         <select
           id="inline_destination_pkg"
           name="destinationPkg"
-          value={destinationPkg}
-          onChange={(e) => setDestinationPkg(e.target.value)}
+          ref={pkgRef}
+          defaultValue={selectedPkg}
+          onChange={(e) => setSelectedPkg(e.target.value)}
           className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer"
           style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
         >
@@ -1022,8 +1025,8 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             id="inline_full_name"
             type="text"
             name="fullName"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            ref={nameRef}
+            defaultValue=""
             autoComplete="off"
             spellCheck={false}
             placeholder="e.g. Rahul Sharma"
@@ -1037,8 +1040,8 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             id="inline_phone_number"
             type="tel"
             name="phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            ref={phoneRef}
+            defaultValue=""
             autoComplete="off"
             placeholder="e.g. +91 9876543210"
             className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
@@ -1054,8 +1057,8 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             id="inline_travel_date"
             type="text"
             name="travelDate"
-            value={travelDate}
-            onChange={(e) => setTravelDate(e.target.value)}
+            ref={dateRef}
+            defaultValue=""
             autoComplete="off"
             placeholder="e.g. Next Month / Oct 15"
             className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
@@ -1067,8 +1070,8 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
           <select
             id="inline_travellers_count"
             name="travellers"
-            value={travellers}
-            onChange={(e) => setTravellers(e.target.value)}
+            ref={travellersRef}
+            defaultValue="2 Travellers (Couple)"
             className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer"
             style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", backgroundColor: "#1e293b" }}
           >
@@ -1085,8 +1088,8 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
         <textarea
           id="inline_user_message"
           name="userMessage"
-          value={userMessage}
-          onChange={(e) => setUserMessage(e.target.value)}
+          ref={msgRef}
+          defaultValue=""
           rows={3}
           placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
           className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold caret-amber-400"
