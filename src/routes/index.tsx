@@ -1000,7 +1000,8 @@ function FastEnquiryModal({
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   required
-                  autoComplete="name"
+                  autoComplete="off"
+                  data-lpignore="true"
                   placeholder="e.g. Rahul Sharma"
                   className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text"
                 />
@@ -1014,7 +1015,8 @@ function FastEnquiryModal({
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   required
-                  autoComplete="tel"
+                  autoComplete="off"
+                  data-lpignore="true"
                   placeholder="e.g. +91 9876543210"
                   className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text"
                 />
@@ -1031,6 +1033,7 @@ function FastEnquiryModal({
                   value={travelDate}
                   onChange={(e) => setTravelDate(e.target.value)}
                   autoComplete="off"
+                  data-lpignore="true"
                   placeholder="e.g. Next Month / Oct 15"
                   className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text"
                 />
@@ -1060,6 +1063,8 @@ function FastEnquiryModal({
                 value={userMessage}
                 onChange={(e) => setUserMessage(e.target.value)}
                 rows={2}
+                autoComplete="off"
+                data-lpignore="true"
                 placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
                 className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text"
               />
