@@ -793,8 +793,8 @@ export function IndiaPortal() {
 
       {/* Day-by-Day Itinerary Modal */}
       {selectedItineraryPkg && (
-        <div className="fixed inset-0 z-[99998] bg-slate-950/90 flex items-center justify-center p-3 sm:p-4 pointer-events-auto">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative shadow-2xl space-y-6 max-h-[85vh] overflow-y-auto">
+        <div className="fixed inset-0 z-[99998] bg-slate-950/90 overflow-y-auto p-4 flex justify-center items-start sm:items-center">
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative shadow-2xl space-y-6 my-auto">
             <button
               onClick={() => setSelectedItineraryPkg(null)}
               className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-full bg-slate-800/80 hover:bg-slate-800"
@@ -934,8 +934,8 @@ function FastEnquiryModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[99999] bg-slate-950/90 flex items-center justify-center p-3 sm:p-4">
-      <div className="bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-8 relative shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-[99999] bg-slate-950/90 overflow-y-auto p-4 flex justify-center items-start sm:items-center">
+      <div className="bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-8 relative shadow-2xl space-y-5 my-auto">
         <button
           onClick={onClose}
           type="button"
