@@ -252,6 +252,14 @@ export function IndiaPortal() {
   const [selectedPackageTitle, setSelectedPackageTitle] = useState("");
   const [selectedItineraryPkg, setSelectedItineraryPkg] = useState<IndiaPackage | null>(null);
 
+  // Pre-warm Render backend on page load so cold-starts are eliminated
+  useEffect(() => {
+    const apiBase = getApiBase();
+    if (apiBase) {
+      fetch(`${apiBase}/api/enquiries`, { method: "GET" }).catch(() => {});
+    }
+  }, []);
+
   const handleScrollToEnquiry = () => {
     const el = document.getElementById("enquiry");
     if (el) {
@@ -887,7 +895,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
     }
   }, [initialPackageTitle]);
 
-  const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -918,49 +926,28 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
       source: "india_portal_inline",
     };
 
-    let apiSucceeded = false;
-
+    // Save to Render backend in background without delaying UI
     if (apiBase) {
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000);
-
-        const res = await fetch(`${apiBase}/api/enquiries`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-          signal: controller.signal,
-        });
-
-        clearTimeout(timeoutId);
-
-        if (res.ok) {
-          apiSucceeded = true;
-        }
-      } catch (err) {
-        console.warn("Backend Enquiry API warning:", err);
-      }
+      fetch(`${apiBase}/api/enquiries`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }).catch((err) => console.warn("Backend Enquiry API warning:", err));
     }
-
-    setSubmitting(false);
 
     const waMsg = `Hi SFM Travels India! I want a custom quote for my India trip:%0A- Name: ${encodeURIComponent(cleanName)}%0A- Phone: ${encodeURIComponent(cleanPhone)}%0A- Package: ${encodeURIComponent(cleanPkg)}%0A- Travel Date: ${encodeURIComponent(cleanDate || "Flexible")}%0A- Travellers: ${encodeURIComponent(cleanTravellers)}${cleanMsg ? `%0A- Notes: ${encodeURIComponent(cleanMsg)}` : ""}`;
     const waUrl = `https://wa.me/919876543210?text=${waMsg}`;
 
-    if (apiSucceeded) {
-      setSubmitSuccess(true);
-    } else {
-      setSubmitError("Backend connection issue. Connecting directly to WhatsApp fallback...");
-      setTimeout(() => {
-        try {
-          const win = window.open(waUrl, "_blank");
-          if (!win || win.closed || typeof win.closed === "undefined") {
-            window.location.href = waUrl;
-          }
-        } catch (_) {
-          window.location.href = waUrl;
-        }
-      }, 1000);
+    setSubmitting(false);
+    setSubmitSuccess(true);
+
+    try {
+      const win = window.open(waUrl, "_blank");
+      if (!win || win.closed || typeof win.closed === "undefined") {
+        window.location.href = waUrl;
+      }
+    } catch (_) {
+      window.location.href = waUrl;
     }
   };
 
