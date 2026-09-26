@@ -986,7 +986,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
   }
 
   return (
-    <form noValidate onSubmit={handleFormSubmit} className="space-y-5 select-text">
+    <form noValidate onSubmit={handleFormSubmit} className="space-y-5">
       {submitError && (
         <div className="bg-rose-950/60 border border-rose-800 p-3.5 rounded-xl text-rose-300 text-xs">
           {submitError}
@@ -1000,8 +1000,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
           name="destinationPkg"
           value={destinationPkg}
           onChange={(e) => setDestinationPkg(e.target.value)}
-          onInput={(e) => setDestinationPkg(e.currentTarget.value)}
-          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer select-text touch-manipulation"
+          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer"
           style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
         >
           <option value="Incredible India Holiday Package">General Incredible India Package</option>
@@ -1022,11 +1021,9 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             name="fullName"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
-            onInput={(e) => setFullName(e.currentTarget.value)}
-            onPointerDown={(e) => e.stopPropagation()}
             autoComplete="name"
             placeholder="e.g. Rahul Sharma"
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text select-text touch-manipulation relative z-30"
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
             style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
           />
         </div>
@@ -1038,11 +1035,9 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             name="phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            onInput={(e) => setPhone(e.currentTarget.value)}
-            onPointerDown={(e) => e.stopPropagation()}
             autoComplete="tel"
             placeholder="e.g. +91 9876543210"
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text select-text touch-manipulation relative z-30"
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
             style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
           />
         </div>
@@ -1057,10 +1052,8 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             name="travelDate"
             value={travelDate}
             onChange={(e) => setTravelDate(e.target.value)}
-            onInput={(e) => setTravelDate(e.currentTarget.value)}
-            onPointerDown={(e) => e.stopPropagation()}
             placeholder="e.g. Next Month / Oct 15"
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text select-text touch-manipulation relative z-30"
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
             style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
           />
         </div>
@@ -1071,8 +1064,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
             name="travellers"
             value={travellers}
             onChange={(e) => setTravellers(e.target.value)}
-            onInput={(e) => setTravellers(e.currentTarget.value)}
-            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer select-text touch-manipulation"
+            className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer"
             style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
           >
             <option value="1 Traveller (Solo)">1 Traveller (Solo)</option>
@@ -1090,11 +1082,9 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
           name="userMessage"
           value={userMessage}
           onChange={(e) => setUserMessage(e.target.value)}
-          onInput={(e) => setUserMessage(e.currentTarget.value)}
-          onPointerDown={(e) => e.stopPropagation()}
           rows={3}
           placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
-          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text select-text touch-manipulation relative z-30"
+          className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
           style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
         />
       </div>
@@ -1210,7 +1200,7 @@ function FastEnquiryModal({
       <div className="fixed inset-0 z-[99999] overflow-y-auto p-4 sm:p-6 flex items-center justify-center pointer-events-none">
         {/* Modal Card */}
         <div
-          className="pointer-events-auto relative bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl space-y-5 text-left text-white my-auto select-text"
+          className="pointer-events-auto relative bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl space-y-5 text-left text-white my-auto"
           onClick={(e) => e.stopPropagation()}
         >
           <button
@@ -1242,7 +1232,7 @@ function FastEnquiryModal({
               </p>
             </div>
           ) : (
-            <form noValidate onSubmit={handleFormSubmit} className="space-y-4 select-text">
+            <form noValidate onSubmit={handleFormSubmit} className="space-y-4">
               {submitError && (
                 <div className="bg-rose-950/60 border border-rose-800 p-3 rounded-xl text-rose-300 text-xs">
                   {submitError}
@@ -1256,8 +1246,7 @@ function FastEnquiryModal({
                   name="destinationPkg"
                   value={destinationPkg}
                   onChange={(e) => setDestinationPkg(e.target.value)}
-                  onInput={(e) => setDestinationPkg(e.currentTarget.value)}
-                  className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer relative z-20 select-text touch-manipulation"
+                  className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer relative z-20"
                   style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
                 >
                   <option value="Incredible India Holiday Package">General Incredible India Package</option>
@@ -1278,11 +1267,9 @@ function FastEnquiryModal({
                     name="fullName"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    onInput={(e) => setFullName(e.currentTarget.value)}
-                    onPointerDown={(e) => e.stopPropagation()}
                     autoComplete="name"
                     placeholder="e.g. Rahul Sharma"
-                    className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20 select-text touch-manipulation"
+                    className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
                     style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
                   />
                 </div>
@@ -1294,11 +1281,9 @@ function FastEnquiryModal({
                     name="phone"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    onInput={(e) => setPhone(e.currentTarget.value)}
-                    onPointerDown={(e) => e.stopPropagation()}
                     autoComplete="tel"
                     placeholder="e.g. +91 9876543210"
-                    className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20 select-text touch-manipulation"
+                    className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
                     style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
                   />
                 </div>
@@ -1313,10 +1298,8 @@ function FastEnquiryModal({
                     name="travelDate"
                     value={travelDate}
                     onChange={(e) => setTravelDate(e.target.value)}
-                    onInput={(e) => setTravelDate(e.currentTarget.value)}
-                    onPointerDown={(e) => e.stopPropagation()}
                     placeholder="e.g. Next Month / Oct 15"
-                    className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20 select-text touch-manipulation"
+                    className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
                     style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
                   />
                 </div>
@@ -1327,8 +1310,7 @@ function FastEnquiryModal({
                     name="travellers"
                     value={travellers}
                     onChange={(e) => setTravellers(e.target.value)}
-                    onInput={(e) => setTravellers(e.currentTarget.value)}
-                    className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer relative z-20 select-text touch-manipulation"
+                    className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer relative z-20"
                     style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
                   >
                     <option value="1 Traveller (Solo)">1 Traveller (Solo)</option>
@@ -1346,11 +1328,9 @@ function FastEnquiryModal({
                   name="userMessage"
                   value={userMessage}
                   onChange={(e) => setUserMessage(e.target.value)}
-                  onInput={(e) => setUserMessage(e.currentTarget.value)}
-                  onPointerDown={(e) => e.stopPropagation()}
                   rows={2}
                   placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
-                  className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20 select-text touch-manipulation"
+                  className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
                   style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
                 />
               </div>
