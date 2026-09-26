@@ -258,9 +258,10 @@ export function IndiaPortal() {
     const timer = setTimeout(() => {
       const hasClosedBefore = sessionStorage.getItem("sfm_india_enquiry_opened");
       if (!hasClosedBefore) {
+        sessionStorage.setItem("sfm_india_enquiry_opened", "true");
         setEnquiryModalOpen(true);
       }
-    }, 1500);
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -476,9 +477,13 @@ export function IndiaPortal() {
             {/* Input & Action */}
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="relative flex-1">
+                <label htmlFor="sfm_search_query" className="sr-only">Search India Destinations</label>
                 <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
                 <input
+                  id="sfm_search_query"
+                  name="searchQuery"
                   type="text"
+                  aria-label="Search destinations"
                   placeholder="Search destinations, e.g. Kashmir, Houseboat, Taj Mahal, Goa..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -970,8 +975,9 @@ function FastEnquiryModal({
             )}
 
             <div>
-              <label className="text-xs font-medium text-slate-300 block mb-1">Select Package / Region</label>
+              <label htmlFor="sfm_destination_pkg" className="text-xs font-medium text-slate-300 block mb-1">Select Package / Region</label>
               <select
+                id="sfm_destination_pkg"
                 name="destinationPkg"
                 defaultValue={initialPackageTitle || "Incredible India Holiday Package"}
                 className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 font-medium cursor-pointer"
@@ -987,20 +993,21 @@ function FastEnquiryModal({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="text-xs font-medium text-slate-300 block mb-1">Full Name *</label>
+                <label htmlFor="sfm_full_name" className="text-xs font-medium text-slate-300 block mb-1">Full Name *</label>
                 <input
+                  id="sfm_full_name"
                   type="text"
                   name="fullName"
                   required
-                  autoFocus
                   autoComplete="name"
                   placeholder="e.g. Rahul Sharma"
                   className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text"
                 />
               </div>
               <div>
-                <label className="text-xs font-medium text-slate-300 block mb-1">Phone / WhatsApp *</label>
+                <label htmlFor="sfm_phone_number" className="text-xs font-medium text-slate-300 block mb-1">Phone / WhatsApp *</label>
                 <input
+                  id="sfm_phone_number"
                   type="tel"
                   name="phone"
                   required
@@ -1013,8 +1020,9 @@ function FastEnquiryModal({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="text-xs font-medium text-slate-300 block mb-1">Travel Month / Date</label>
+                <label htmlFor="sfm_travel_date" className="text-xs font-medium text-slate-300 block mb-1">Travel Month / Date</label>
                 <input
+                  id="sfm_travel_date"
                   type="text"
                   name="travelDate"
                   autoComplete="off"
@@ -1023,8 +1031,9 @@ function FastEnquiryModal({
                 />
               </div>
               <div>
-                <label className="text-xs font-medium text-slate-300 block mb-1">Travellers Count</label>
+                <label htmlFor="sfm_travellers_count" className="text-xs font-medium text-slate-300 block mb-1">Travellers Count</label>
                 <select
+                  id="sfm_travellers_count"
                   name="travellers"
                   defaultValue="2 Travellers (Couple)"
                   className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 font-medium cursor-pointer"
@@ -1038,8 +1047,9 @@ function FastEnquiryModal({
             </div>
 
             <div>
-              <label className="text-xs font-medium text-slate-300 block mb-1">Special Requirements (Optional)</label>
+              <label htmlFor="sfm_user_message" className="text-xs font-medium text-slate-300 block mb-1">Special Requirements (Optional)</label>
               <textarea
+                id="sfm_user_message"
                 name="userMessage"
                 rows={2}
                 placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
