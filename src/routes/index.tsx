@@ -239,7 +239,7 @@ const getApiBase = () => {
     const host = window.location.hostname;
     if (host === "localhost" || host === "127.0.0.1") return "http://localhost:5000";
   }
-  return "";
+  return "https://sfm-backend-5skx.onrender.com";
 };
 
 export function IndiaPortal() {
@@ -253,22 +253,8 @@ export function IndiaPortal() {
   const [selectedPackage, setSelectedPackage] = useState<IndiaPackage | null>(null);
   const [selectedItineraryPkg, setSelectedItineraryPkg] = useState<IndiaPackage | null>(null);
 
-  // Auto-pop enquiry modal 1.5 seconds after page load
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const hasClosedBefore = sessionStorage.getItem("sfm_india_enquiry_opened");
-      if (!hasClosedBefore) {
-        sessionStorage.setItem("sfm_india_enquiry_opened", "true");
-        setEnquiryModalOpen(true);
-      }
-    }, 2500);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   const handleCloseEnquiryModal = () => {
     setEnquiryModalOpen(false);
-    sessionStorage.setItem("sfm_india_enquiry_opened", "true");
   };
 
   const handleOpenEnquiryForPkg = (pkg: IndiaPackage) => {
@@ -906,7 +892,7 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
     }
   }, [initialPackageTitle]);
 
-  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -937,50 +923,85 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
       source: "india_portal_inline",
     };
 
+    let apiSucceeded = false;
+
     if (apiBase) {
-      fetch(`${apiBase}/api/enquiries`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      }).catch((err) => console.warn("Backend Enquiry API warning:", err));
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+        const res = await fetch(`${apiBase}/api/enquiries`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
+
+        if (res.ok) {
+          apiSucceeded = true;
+        }
+      } catch (err) {
+        console.warn("Backend Enquiry API warning:", err);
+      }
     }
+
+    setSubmitting(false);
 
     const waMsg = `Hi SFM Travels India! I want a custom quote for my India trip:%0A- Name: ${encodeURIComponent(cleanName)}%0A- Phone: ${encodeURIComponent(cleanPhone)}%0A- Package: ${encodeURIComponent(cleanPkg)}%0A- Travel Date: ${encodeURIComponent(cleanDate || "Flexible")}%0A- Travellers: ${encodeURIComponent(cleanTravellers)}${cleanMsg ? `%0A- Notes: ${encodeURIComponent(cleanMsg)}` : ""}`;
     const waUrl = `https://wa.me/919876543210?text=${waMsg}`;
 
-    setSubmitSuccess(true);
-    setSubmitting(false);
-
-    try {
-      const win = window.open(waUrl, "_blank");
-      if (!win || win.closed || typeof win.closed === "undefined") {
-        window.location.href = waUrl;
-      }
-    } catch (_) {
-      window.location.href = waUrl;
+    if (apiSucceeded) {
+      setSubmitSuccess(true);
+    } else {
+      setSubmitError("Backend connection issue. Connecting directly to WhatsApp fallback...");
+      setTimeout(() => {
+        try {
+          const win = window.open(waUrl, "_blank");
+          if (!win || win.closed || typeof win.closed === "undefined") {
+            window.location.href = waUrl;
+          }
+        } catch (_) {
+          window.location.href = waUrl;
+        }
+      }, 1000);
     }
   };
 
   if (submitSuccess) {
+    const waMsg = `Hi SFM Travels India! I submitted an enquiry for ${encodeURIComponent(destinationPkg)} (Name: ${encodeURIComponent(fullName.trim())}, Phone: ${encodeURIComponent(phone.trim())}).`;
+    const waUrl = `https://wa.me/919876543210?text=${waMsg}`;
+
     return (
       <div className="bg-emerald-950/60 border border-emerald-800 p-8 rounded-2xl text-center space-y-4">
         <CheckCircle2 className="w-14 h-14 text-emerald-400 mx-auto" />
-        <h4 className="text-xl font-bold text-white">Enquiry Received Successfully!</h4>
+        <h4 className="text-xl font-bold text-white">Enquiry Saved & Received!</h4>
         <p className="text-slate-300 text-sm max-w-md mx-auto">
-          Thank you! Our senior India holiday specialist will contact you on phone/WhatsApp shortly with your customized itinerary.
+          Thank you! Your enquiry has been saved to our database. Our senior India holiday specialist will contact you on phone/WhatsApp shortly.
         </p>
-        <button
-          onClick={() => {
-            setSubmitSuccess(false);
-            setFullName("");
-            setPhone("");
-            setTravelDate("");
-            setUserMessage("");
-          }}
-          className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-colors cursor-pointer"
-        >
-          Submit Another Enquiry
-        </button>
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+          <a
+            href={waUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 transition-colors cursor-pointer"
+          >
+            💬 Chat on WhatsApp Now
+          </a>
+          <button
+            onClick={() => {
+              setSubmitSuccess(false);
+              setFullName("");
+              setPhone("");
+              setTravelDate("");
+              setUserMessage("");
+            }}
+            className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-xs transition-colors cursor-pointer"
+          >
+            Submit Another Enquiry
+          </button>
+        </div>
       </div>
     );
   }
@@ -1128,7 +1149,7 @@ function FastEnquiryModal({
 
   if (!isOpen) return null;
 
-  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -1159,33 +1180,50 @@ function FastEnquiryModal({
       source: "india_portal_popup",
     };
 
+    let apiSucceeded = false;
+
     if (apiBase) {
-      fetch(`${apiBase}/api/enquiries`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      }).catch((err) => console.warn("Backend Enquiry API warning:", err));
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+        const res = await fetch(`${apiBase}/api/enquiries`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
+
+        if (res.ok) {
+          apiSucceeded = true;
+        }
+      } catch (err) {
+        console.warn("Backend Enquiry API warning:", err);
+      }
     }
+
+    setSubmitting(false);
 
     const waMsg = `Hi SFM Travels India! I want a custom quote for my India trip:%0A- Name: ${encodeURIComponent(cleanName)}%0A- Phone: ${encodeURIComponent(cleanPhone)}%0A- Package: ${encodeURIComponent(cleanPkg)}%0A- Travel Date: ${encodeURIComponent(cleanDate || "Flexible")}%0A- Travellers: ${encodeURIComponent(cleanTravellers)}${cleanMsg ? `%0A- Notes: ${encodeURIComponent(cleanMsg)}` : ""}`;
     const waUrl = `https://wa.me/919876543210?text=${waMsg}`;
 
-    setSubmitSuccess(true);
-    setSubmitting(false);
-
-    try {
-      const win = window.open(waUrl, "_blank");
-      if (!win || win.closed || typeof win.closed === "undefined") {
-        window.location.href = waUrl;
-      }
-    } catch (_) {
-      window.location.href = waUrl;
+    if (apiSucceeded) {
+      setSubmitSuccess(true);
+    } else {
+      setSubmitError("Backend connection issue. Connecting directly to WhatsApp fallback...");
+      setTimeout(() => {
+        try {
+          const win = window.open(waUrl, "_blank");
+          if (!win || win.closed || typeof win.closed === "undefined") {
+            window.location.href = waUrl;
+          }
+        } catch (_) {
+          window.location.href = waUrl;
+        }
+      }, 1000);
     }
-
-    setTimeout(() => {
-      setSubmitSuccess(false);
-      onClose();
-    }, 3000);
   };
 
   return (
@@ -1226,10 +1264,18 @@ function FastEnquiryModal({
           {submitSuccess ? (
             <div className="bg-emerald-950/60 border border-emerald-800 p-6 rounded-2xl text-center space-y-3">
               <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto" />
-              <h4 className="text-lg font-bold text-white">Enquiry Received Successfully!</h4>
+              <h4 className="text-lg font-bold text-white">Enquiry Received & Saved!</h4>
               <p className="text-slate-300 text-xs">
-                Thank you! Our senior India specialist will call or WhatsApp you shortly.
+                Thank you! Your enquiry has been stored in our backend system. Our senior India specialist will call or WhatsApp you shortly.
               </p>
+              <a
+                href={`https://wa.me/919876543210?text=${encodeURIComponent(`Hi SFM Travels India! I submitted an enquiry for ${destinationPkg}`)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition-colors cursor-pointer mt-2"
+              >
+                💬 Chat on WhatsApp Now
+              </a>
             </div>
           ) : (
             <form noValidate onSubmit={handleFormSubmit} className="space-y-4">
