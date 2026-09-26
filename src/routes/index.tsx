@@ -864,30 +864,28 @@ function FastEnquiryModal({
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
 
+  const [destinationPkg, setDestinationPkg] = useState(initialPackageTitle || "Incredible India Holiday Package");
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [travelDate, setTravelDate] = useState("");
+  const [travellers, setTravellers] = useState("2 Travellers (Couple)");
+  const [userMessage, setUserMessage] = useState("");
+
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    if (initialPackageTitle) {
+      setDestinationPkg(initialPackageTitle);
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
+  }, [initialPackageTitle]);
 
   if (!isOpen) return null;
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const fullName = (formData.get("fullName") as string)?.trim() || "";
-    const phone = (formData.get("phone") as string)?.trim() || "";
-    const travelDate = (formData.get("travelDate") as string)?.trim() || "";
-    const travellers = (formData.get("travellers") as string) || "2 Travellers";
-    const destinationPkg = (formData.get("destinationPkg") as string) || "Incredible India Holiday Package";
-    const userMessage = (formData.get("userMessage") as string)?.trim() || "";
 
-    if (!fullName || !phone) {
+    const cleanName = fullName.trim();
+    const cleanPhone = phone.trim();
+
+    if (!cleanName || !cleanPhone) {
       setSubmitError("Please provide your name and phone number.");
       return;
     }
@@ -898,12 +896,12 @@ function FastEnquiryModal({
 
     const apiBase = getApiBase();
     const payload = {
-      fullName,
-      phone,
+      fullName: cleanName,
+      phone: cleanPhone,
       destination: destinationPkg || "Incredible India Tour Package",
-      travelDate,
+      travelDate: travelDate.trim(),
       travellers,
-      message: userMessage,
+      message: userMessage.trim(),
       source: "india_portal_popup",
     };
 
@@ -917,7 +915,7 @@ function FastEnquiryModal({
     }
 
     // 2. Format pre-filled WhatsApp lead message
-    const waMsg = `Hi SFM Travels India! I want a custom quote for my India trip:%0A- Name: ${encodeURIComponent(fullName)}%0A- Phone: ${encodeURIComponent(phone)}%0A- Package: ${encodeURIComponent(destinationPkg)}%0A- Travel Date: ${encodeURIComponent(travelDate || "Flexible")}%0A- Travellers: ${encodeURIComponent(travellers)}${userMessage ? `%0A- Notes: ${encodeURIComponent(userMessage)}` : ""}`;
+    const waMsg = `Hi SFM Travels India! I want a custom quote for my India trip:%0A- Name: ${encodeURIComponent(cleanName)}%0A- Phone: ${encodeURIComponent(cleanPhone)}%0A- Package: ${encodeURIComponent(destinationPkg)}%0A- Travel Date: ${encodeURIComponent(travelDate || "Flexible")}%0A- Travellers: ${encodeURIComponent(travellers)}${userMessage ? `%0A- Notes: ${encodeURIComponent(userMessage.trim())}` : ""}`;
     const waUrl = `https://wa.me/919876543210?text=${waMsg}`;
 
     // 3. Instant UI feedback (<10ms)
@@ -936,8 +934,8 @@ function FastEnquiryModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[99999] bg-slate-950/90 flex items-center justify-center p-3 sm:p-4 pointer-events-auto">
-      <div className="bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-8 relative shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto pointer-events-auto select-text">
+    <div className="fixed inset-0 z-[99999] bg-slate-950/90 flex items-center justify-center p-3 sm:p-4">
+      <div className="bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-8 relative shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
         <button
           onClick={onClose}
           type="button"
@@ -979,7 +977,8 @@ function FastEnquiryModal({
               <select
                 id="sfm_destination_pkg"
                 name="destinationPkg"
-                defaultValue={initialPackageTitle || "Incredible India Holiday Package"}
+                value={destinationPkg}
+                onChange={(e) => setDestinationPkg(e.target.value)}
                 className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 font-medium cursor-pointer"
               >
                 <option value="Incredible India Holiday Package">General Incredible India Package</option>
@@ -998,6 +997,8 @@ function FastEnquiryModal({
                   id="sfm_full_name"
                   type="text"
                   name="fullName"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                   required
                   autoComplete="name"
                   placeholder="e.g. Rahul Sharma"
@@ -1010,6 +1011,8 @@ function FastEnquiryModal({
                   id="sfm_phone_number"
                   type="tel"
                   name="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                   required
                   autoComplete="tel"
                   placeholder="e.g. +91 9876543210"
@@ -1025,6 +1028,8 @@ function FastEnquiryModal({
                   id="sfm_travel_date"
                   type="text"
                   name="travelDate"
+                  value={travelDate}
+                  onChange={(e) => setTravelDate(e.target.value)}
                   autoComplete="off"
                   placeholder="e.g. Next Month / Oct 15"
                   className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text"
@@ -1035,7 +1040,8 @@ function FastEnquiryModal({
                 <select
                   id="sfm_travellers_count"
                   name="travellers"
-                  defaultValue="2 Travellers (Couple)"
+                  value={travellers}
+                  onChange={(e) => setTravellers(e.target.value)}
                   className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 font-medium cursor-pointer"
                 >
                   <option value="1 Traveller (Solo)">1 Traveller (Solo)</option>
@@ -1051,6 +1057,8 @@ function FastEnquiryModal({
               <textarea
                 id="sfm_user_message"
                 name="userMessage"
+                value={userMessage}
+                onChange={(e) => setUserMessage(e.target.value)}
                 rows={2}
                 placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
                 className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text"
