@@ -947,7 +947,7 @@ function FastEnquiryModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[99999] overflow-y-auto p-4 sm:p-6 flex items-center justify-center min-h-screen">
+    <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6">
       {/* Backdrop Overlay */}
       <div
         className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm transition-opacity"
@@ -955,11 +955,11 @@ function FastEnquiryModal({
       />
 
       {/* Modal Card */}
-      <div className="relative z-10 bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl space-y-5 my-8 text-left text-white">
+      <div className="relative z-10 bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl space-y-5 text-left text-white max-h-[90vh] overflow-y-auto">
         <button
           onClick={onClose}
           type="button"
-          className="absolute top-4 right-4 text-slate-400 hover:text-white p-1.5 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors"
+          className="absolute top-4 right-4 text-slate-400 hover:text-white p-1.5 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors z-30"
         >
           <X className="w-5 h-5" />
         </button>
@@ -999,8 +999,8 @@ function FastEnquiryModal({
                 id="sfm_destination_pkg"
                 name="destinationPkg"
                 defaultValue={initialPackageTitle || "Incredible India Holiday Package"}
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 font-medium cursor-pointer relative z-20"
-                style={{ color: "#ffffff", backgroundColor: "#020617" }}
+                className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer relative z-20"
+                style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
               >
                 <option value="Incredible India Holiday Package">General Incredible India Package</option>
                 <option value="Kashmir Paradise & Golden Triangle (6D/5N)">Kashmir Paradise & Golden Triangle (6D/5N)</option>
@@ -1024,8 +1024,8 @@ function FastEnquiryModal({
                   autoFocus
                   autoComplete="name"
                   placeholder="e.g. Rahul Sharma"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text relative z-20"
-                  style={{ color: "#ffffff", backgroundColor: "#020617", caretColor: "#fbbf24" }}
+                  className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
+                  style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
                 />
               </div>
               <div>
@@ -1039,8 +1039,8 @@ function FastEnquiryModal({
                   required
                   autoComplete="tel"
                   placeholder="e.g. +91 9876543210"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text relative z-20"
-                  style={{ color: "#ffffff", backgroundColor: "#020617", caretColor: "#fbbf24" }}
+                  className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
+                  style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
                 />
               </div>
             </div>
@@ -1055,8 +1055,8 @@ function FastEnquiryModal({
                   name="travelDate"
                   defaultValue=""
                   placeholder="e.g. Next Month / Oct 15"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text relative z-20"
-                  style={{ color: "#ffffff", backgroundColor: "#020617", caretColor: "#fbbf24" }}
+                  className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
+                  style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
                 />
               </div>
               <div>
@@ -1066,8 +1066,8 @@ function FastEnquiryModal({
                   id="sfm_travellers_count"
                   name="travellers"
                   defaultValue="2 Travellers (Couple)"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 font-medium cursor-pointer relative z-20"
-                  style={{ color: "#ffffff", backgroundColor: "#020617" }}
+                  className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 font-semibold cursor-pointer relative z-20"
+                  style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
                 >
                   <option value="1 Traveller (Solo)">1 Traveller (Solo)</option>
                   <option value="2 Travellers (Couple)">2 Travellers (Couple)</option>
@@ -1086,8 +1086,8 @@ function FastEnquiryModal({
                 defaultValue=""
                 rows={2}
                 placeholder="e.g. Prefer 5★ resort, houseboat, vegetarian food, train/flight booking..."
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-medium cursor-text relative z-20"
-                style={{ color: "#ffffff", backgroundColor: "#020617", caretColor: "#fbbf24" }}
+                className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-base text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 font-semibold cursor-text relative z-20"
+                style={{ color: "#ffffff", backgroundColor: "#1e293b", opacity: 1 }}
               />
             </div>
 
