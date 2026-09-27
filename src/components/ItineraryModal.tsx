@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { X } from "lucide-react";
-import type { IndiaPackage } from "@/routes/index";
+import type { IndiaPackage } from "@/components/Sections";
 
 interface ItineraryModalProps {
   packageData: IndiaPackage | null;

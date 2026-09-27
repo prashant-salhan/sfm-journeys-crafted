@@ -1,18 +1,20 @@
-import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
 
 export default defineConfig({
-  base: "/",
+  plugins: [react()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
   server: {
     port: 8080,
     host: true,
   },
-  nitro: {
-    preset: "node-server",
-  },
-
-  tanstackStart: {
-    server: {
-      entry: "server",
-    },
+  build: {
+    outDir: ".output/public",
+    emptyOutDir: true,
   },
 });
