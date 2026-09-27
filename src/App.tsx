@@ -203,26 +203,32 @@ function MainContent() {
     <div className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-amber-500 selection:text-slate-950">
       <Navbar onPlanTripClick={() => scrollToEnquiry("Custom India Tour Plan")} />
 
-      {/* Hero Section */}
-      <section className="relative py-16 sm:py-24 px-4 overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50/80 border-b border-slate-200">
+      {/* Hero Section with Video Background */}
+      <section className="relative py-16 sm:py-24 px-4 overflow-hidden bg-gradient-to-b from-amber-50/40 via-white to-slate-50/80 border-b border-slate-200">
         <div className="absolute inset-0 z-0">
-          <img
-            src={sfmHero}
-            alt="Incredible India Taj Mahal & Himalayas"
-            className="w-full h-full object-cover object-center opacity-15 scale-105 filter brightness-110"
-          />
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster={sfmHero}
+            className="w-full h-full object-cover opacity-20 filter brightness-105 contrast-105 scale-105 transition-opacity duration-1000"
+          >
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-top-view-of-a-beach-and-sea-waves-41537-large.mp4" type="video/mp4" />
+            <source src="https://assets.mixkit.co/videos/42998/42998-720.mp4" type="video/mp4" />
+          </video>
           <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.08),transparent_70%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.06),transparent_70%)]" />
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
-          <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 text-amber-700 text-xs font-extrabold px-4 py-2 rounded-full uppercase tracking-widest shadow-sm">
+          <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/25 text-amber-800 text-xs font-extrabold px-4 py-2 rounded-full uppercase tracking-widest shadow-sm backdrop-blur-md">
             <Sparkles className="w-4 h-4 text-amber-600 animate-pulse" /> Discover India's Magic • Unbeatable Handcrafted Journeys
           </div>
 
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-tight">
             Crafting Unforgettable <br className="hidden sm:inline" />
-            <span className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 bg-clip-text text-transparent">
               Journeys Across Incredible India
             </span>
           </h1>
@@ -243,7 +249,7 @@ function MainContent() {
       </section>
 
       {/* Trust & Stats Ticker Bar */}
-      <section className="bg-slate-50 border-b border-slate-200 py-6 px-4">
+      <section className="bg-slate-50 border-b border-slate-200/90 py-6 px-4">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div className="space-y-1">
             <div className="flex items-center justify-center gap-1.5 text-amber-600 font-black text-xl sm:text-2xl">
