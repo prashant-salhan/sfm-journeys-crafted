@@ -22,7 +22,7 @@ export const CurrencySelector: React.FC<{ className?: string }> = ({ className =
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 rounded-full border border-foreground/15 bg-foreground/5 px-3 py-1.5 text-xs font-bold text-foreground transition hover:border-sky/50 hover:bg-foreground/10 focus:outline-none"
+        className="flex items-center gap-1.5 rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-bold text-white transition hover:bg-white/20 focus:outline-none"
         aria-label="Select Currency"
       >
         <span className="text-sm leading-none">{currencyConfig.flag}</span>

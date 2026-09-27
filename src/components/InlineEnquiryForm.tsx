@@ -23,9 +23,10 @@ const getApiBase = () => {
 
 interface InlineEnquiryFormProps {
   initialPackageTitle?: string;
+  source?: string;
 }
 
-export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackageTitle }: InlineEnquiryFormProps) {
+export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackageTitle, source }: InlineEnquiryFormProps) {
   const [submitting, setSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -44,7 +45,7 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
     }
   }, [initialPackageTitle]);
 
-  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -69,20 +70,28 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
       email: cleanEmail,
       destination: cleanTravel,
       message: cleanDesc,
-      source: "india_portal_inline",
+      source: source || "india_portal_popup",
     };
 
-    if (apiBase) {
-      fetch(`${apiBase}/api/enquiries`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      }).catch((err) => console.warn("Backend Enquiry API warning:", err));
+    try {
+      if (apiBase) {
+        const response = await fetch(`${apiBase}/api/enquiries`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (!response.ok) {
+          const errRes = await response.json().catch(() => ({}));
+          console.warn("Backend Enquiry API non-200 status:", response.status, errRes);
+        }
+      }
+    } catch (err) {
+      console.error("Backend Enquiry submission network error:", err);
+    } finally {
+      setSubmitting(false);
+      setSubmittedData({ name: cleanName, phone: cleanPhone, travel: cleanTravel });
+      setSubmitSuccess(true);
     }
-
-    setSubmitting(false);
-    setSubmittedData({ name: cleanName, phone: cleanPhone, travel: cleanTravel });
-    setSubmitSuccess(true);
   };
 
   if (submitSuccess && submittedData) {

@@ -45,7 +45,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick }: NavbarProps) {
 
       {/* Modern Transparent Overlay Curved Navbar */}
       <header className="sticky top-2 sm:top-3 z-50 px-3 sm:px-6 max-w-7xl mx-auto">
-        <div className="bg-slate-950/60 backdrop-blur-xl border border-white/20 rounded-2xl sm:rounded-full px-4 sm:px-6 py-2.5 sm:py-3 shadow-2xl shadow-slate-950/40 flex items-center justify-between transition-all">
+        <div className="bg-slate-950/70 backdrop-blur-xl rounded-2xl sm:rounded-full px-4 sm:px-6 py-2.5 sm:py-3 shadow-2xl shadow-slate-950/50 flex items-center justify-between transition-all">
           {/* Logo */}
           <a
             href="#"
