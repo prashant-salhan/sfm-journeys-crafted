@@ -227,10 +227,12 @@ export function IndiaPortal() {
   }, []);
 
   const handleScrollToEnquiry = useCallback(() => {
-    const el = document.getElementById("enquiry");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+    requestAnimationFrame(() => {
+      const el = document.getElementById("enquiry");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
   }, []);
 
   const handleOpenEnquiryForPkg = useCallback((pkg: IndiaPackage) => {
