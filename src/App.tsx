@@ -206,19 +206,12 @@ function MainContent() {
       {/* Hero Section with Video Background */}
       <section className="relative py-16 sm:py-24 px-4 overflow-hidden bg-gradient-to-b from-amber-50/40 via-white to-slate-50/80 border-b border-slate-200">
         <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            poster={sfmHero}
-            className="w-full h-full object-cover opacity-75 filter brightness-110 contrast-105 saturate-110 scale-105 transition-opacity duration-700 pointer-events-none"
-          >
-            <source src="https://assets.mixkit.co/videos/42998/42998-720.mp4" type="video/mp4" />
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-flying-over-a-mountain-valley-41539-large.mp4" type="video/mp4" />
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-top-view-of-a-beach-and-sea-waves-41537-large.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent pointer-events-none" />
+          <img
+            src={sfmHero}
+            alt="Taj Mahal Incredible India Tourism"
+            className="w-full h-full object-cover object-center opacity-35 filter brightness-110 contrast-105 scale-105 transition-all duration-700 pointer-events-none"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent pointer-events-none" />
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
