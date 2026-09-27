@@ -48,28 +48,28 @@ export const INDIA_REGIONS = [
     location: "Kashmir, Himachal, Golden Triangle, Ladakh",
     desc: "Majestic snow peaks, Dal Lake houseboats, Taj Mahal, hill stations, and ancient spiritual heritage.",
     tags: ["Srinagar", "Gulmarg", "Pahalgam", "Manali", "Taj Mahal"],
-    borderAccent: "hover:border-sky-400",
+    borderAccent: "hover:border-sky-400 hover:shadow-sky-400/20",
   },
   {
     name: "South India & Tropics",
     location: "Kerala, Munnar, Coorg, Hampi, Rameshwaram",
     desc: "Emerald backwaters, lush tea estates, palm groves, and grand Dravidian temples.",
     tags: ["Munnar", "Alleppey", "Thekkady", "Kovalam", "Coorg"],
-    borderAccent: "hover:border-emerald-400",
+    borderAccent: "hover:border-emerald-400 hover:shadow-emerald-400/20",
   },
   {
     name: "West & Royal Rajasthan",
     location: "Jaipur, Udaipur, Jaisalmer Desert, Goa",
     desc: "Royal fortresses, Thar desert camel glamping under stars, and sun-kissed tropical beaches.",
     tags: ["Jaipur", "Udaipur", "Jaisalmer", "Baga Beach", "Old Goa"],
-    borderAccent: "hover:border-amber-400",
+    borderAccent: "hover:border-amber-400 hover:shadow-amber-400/20",
   },
   {
     name: "East & North-East",
     location: "Darjeeling, Sikkim, Meghalaya, Assam",
     desc: "Living root bridges, organic tea gardens, Kaziranga rhinos, and Himalayan monasteries.",
     tags: ["Gangtok", "Darjeeling", "Shillong", "Kaziranga", "Tawang"],
-    borderAccent: "hover:border-purple-400",
+    borderAccent: "hover:border-purple-400 hover:shadow-purple-400/20",
   },
 ];
 
@@ -78,8 +78,8 @@ export const RegionsSection = memo(function RegionsSection() {
     <section id="regions" className="py-24 px-4 bg-slate-50 border-y border-slate-200 relative overflow-hidden">
       <div className="max-w-7xl mx-auto space-y-16 relative z-10">
         <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 text-xs font-extrabold uppercase tracking-widest">
-            <Globe className="w-3.5 h-3.5" /> Regional Circuits & Destinations
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 text-xs font-extrabold uppercase tracking-widest shadow-sm">
+            <Globe className="w-3.5 h-3.5 animate-spin-slow" /> Regional Circuits & Destinations
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
             Explore India by Popular Circuits
@@ -93,12 +93,12 @@ export const RegionsSection = memo(function RegionsSection() {
           {INDIA_REGIONS.map((reg, i) => (
             <div
               key={i}
-              className={`bg-white border border-slate-200/90 p-7 rounded-3xl space-y-5 transition-all duration-300 group shadow-xl shadow-slate-200/60 hover:-translate-y-1.5 ${reg.borderAccent}`}
+              className={`bg-white border border-slate-200/90 p-7 rounded-3xl space-y-5 transition-all duration-300 group shadow-xl shadow-slate-200/60 hover-card-3d ${reg.borderAccent}`}
             >
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-extrabold text-amber-600 uppercase tracking-widest">{reg.name}</span>
-                <div className="p-2 rounded-xl bg-slate-100 text-amber-600 group-hover:bg-amber-500 group-hover:text-slate-950 transition-colors">
-                  <Compass className="w-4 h-4 group-hover:rotate-45 transition-transform" />
+                <div className="p-2 rounded-xl bg-slate-100 text-amber-600 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all duration-300 shadow-sm">
+                  <Compass className="w-4 h-4 group-hover:rotate-45 group-hover:scale-125 transition-transform" />
                 </div>
               </div>
 
@@ -109,7 +109,7 @@ export const RegionsSection = memo(function RegionsSection() {
 
               <div className="pt-2 flex flex-wrap gap-1.5">
                 {reg.tags.map((tag, idx) => (
-                  <span key={idx} className="bg-slate-100 border border-slate-200 text-slate-700 text-[10px] font-bold px-2.5 py-1 rounded-lg">
+                  <span key={idx} className="bg-slate-100 border border-slate-200 text-slate-700 text-[10px] font-bold px-2.5 py-1 rounded-lg transition-transform hover:scale-105">
                     {tag}
                   </span>
                 ))}
@@ -157,8 +157,8 @@ export const TestimonialsSection = memo(function TestimonialsSection() {
     <section className="py-24 px-4 bg-white border-t border-slate-200 relative">
       <div className="max-w-7xl mx-auto space-y-16">
         <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 text-xs font-extrabold uppercase tracking-widest">
-            <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" /> Guest Experiences & Reviews
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 text-xs font-extrabold uppercase tracking-widest shadow-sm">
+            <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500 animate-bounce-subtle" /> Guest Experiences & Reviews
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
             Loved by 50,000+ Happy Travelers
@@ -178,9 +178,9 @@ export const TestimonialsSection = memo(function TestimonialsSection() {
           {reviews.map((rev, idx) => (
             <div
               key={idx}
-              className="bg-slate-50/80 border border-slate-200/90 p-8 rounded-3xl space-y-6 flex flex-col justify-between shadow-xl shadow-slate-200/50 relative group hover:border-amber-400 hover:bg-white transition-all"
+              className="bg-slate-50/80 border border-slate-200/90 p-8 rounded-3xl space-y-6 flex flex-col justify-between shadow-xl shadow-slate-200/50 relative group hover-card-3d hover:border-amber-400 hover:bg-white"
             >
-              <Quote className="w-10 h-10 text-amber-500/15 absolute top-6 right-6" />
+              <Quote className="w-10 h-10 text-amber-500/15 absolute top-6 right-6 transition-transform group-hover:scale-125 group-hover:rotate-12" />
 
               <div className="space-y-4 relative z-10">
                 <div className="flex items-center gap-1 text-amber-500">
@@ -199,7 +199,7 @@ export const TestimonialsSection = memo(function TestimonialsSection() {
                   <h4 className="font-extrabold text-slate-900 text-base">{rev.name}</h4>
                   <p className="text-xs text-slate-500 font-medium">{rev.location} • <span className="text-amber-600 font-bold">{rev.tour}</span></p>
                 </div>
-                <span className="bg-emerald-100 border border-emerald-200 text-emerald-800 text-[10px] font-extrabold px-2.5 py-1 rounded-full shrink-0">
+                <span className="bg-emerald-100 border border-emerald-200 text-emerald-800 text-[10px] font-extrabold px-2.5 py-1 rounded-full shrink-0 shadow-sm">
                   {rev.badge}
                 </span>
               </div>
@@ -215,7 +215,7 @@ export const TravelEssentialsSection = memo(function TravelEssentialsSection() {
   return (
     <section id="essentials" className="py-24 px-4 bg-slate-50/60 max-w-7xl mx-auto space-y-16">
       <div className="text-center space-y-4 max-w-3xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 text-xs font-extrabold uppercase tracking-widest">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 text-xs font-extrabold uppercase tracking-widest shadow-sm">
           <Sparkles className="w-3.5 h-3.5" /> Traveler's Handbook
         </div>
         <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
@@ -227,8 +227,8 @@ export const TravelEssentialsSection = memo(function TravelEssentialsSection() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="bg-white border border-slate-200/90 p-8 rounded-3xl space-y-5 hover:border-amber-400 transition-all shadow-xl shadow-slate-200/50">
-          <div className="p-3.5 w-fit rounded-2xl bg-amber-500/10 text-amber-600 border border-amber-500/20">
+        <div className="bg-white border border-slate-200/90 p-8 rounded-3xl space-y-5 hover-card-3d shadow-xl shadow-slate-200/50">
+          <div className="p-3.5 w-fit rounded-2xl bg-amber-500/10 text-amber-600 border border-amber-500/20 float-3d shadow-sm">
             <Sun className="w-7 h-7" />
           </div>
           <h3 className="text-xl font-extrabold text-slate-900">Best Season to Visit</h3>
@@ -238,8 +238,8 @@ export const TravelEssentialsSection = memo(function TravelEssentialsSection() {
           </p>
         </div>
 
-        <div className="bg-white border border-slate-200/90 p-8 rounded-3xl space-y-5 hover:border-amber-400 transition-all shadow-xl shadow-slate-200/50">
-          <div className="p-3.5 w-fit rounded-2xl bg-amber-500/10 text-amber-600 border border-amber-500/20">
+        <div className="bg-white border border-slate-200/90 p-8 rounded-3xl space-y-5 hover-card-3d shadow-xl shadow-slate-200/50">
+          <div className="p-3.5 w-fit rounded-2xl bg-amber-500/10 text-amber-600 border border-amber-500/20 float-3d shadow-sm">
             <Camera className="w-7 h-7" />
           </div>
           <h3 className="text-xl font-extrabold text-slate-900">Culture & Etiquette</h3>
@@ -248,8 +248,8 @@ export const TravelEssentialsSection = memo(function TravelEssentialsSection() {
           </p>
         </div>
 
-        <div className="bg-white border border-slate-200/90 p-8 rounded-3xl space-y-5 hover:border-amber-400 transition-all shadow-xl shadow-slate-200/50">
-          <div className="p-3.5 w-fit rounded-2xl bg-amber-500/10 text-amber-600 border border-amber-500/20">
+        <div className="bg-white border border-slate-200/90 p-8 rounded-3xl space-y-5 hover-card-3d shadow-xl shadow-slate-200/50">
+          <div className="p-3.5 w-fit rounded-2xl bg-amber-500/10 text-amber-600 border border-amber-500/20 float-3d shadow-sm">
             <Utensils className="w-7 h-7" />
           </div>
           <h3 className="text-xl font-extrabold text-slate-900">Cuisine & Hospitality</h3>
@@ -307,7 +307,7 @@ export const FaqSection = memo(function FaqSection() {
           {faqs.map((faq, idx) => (
             <div
               key={idx}
-              className="bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden transition-all shadow-sm"
+              className="bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden transition-all shadow-sm hover:border-amber-400"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
@@ -351,29 +351,29 @@ export const WhyChooseUsSection = memo(function WhyChooseUsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="space-y-3 p-7 bg-white border border-slate-200/90 rounded-3xl hover:border-amber-400 transition-all shadow-lg shadow-slate-200/50">
-            <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-600 w-fit mx-auto border border-amber-500/20">
+          <div className="space-y-3 p-7 bg-white border border-slate-200/90 rounded-3xl hover-card-3d shadow-lg shadow-slate-200/50">
+            <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-600 w-fit mx-auto border border-amber-500/20 float-3d shadow-sm">
               <ShieldCheck className="w-8 h-8" />
             </div>
             <h3 className="font-extrabold text-slate-900 text-base">Direct Rates Guarantee</h3>
             <p className="text-slate-600 text-xs leading-relaxed font-medium">Direct contracting with 4★/5★ luxury resorts & verified houseboat owners.</p>
           </div>
-          <div className="space-y-3 p-7 bg-white border border-slate-200/90 rounded-3xl hover:border-amber-400 transition-all shadow-lg shadow-slate-200/50">
-            <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-600 w-fit mx-auto border border-amber-500/20">
+          <div className="space-y-3 p-7 bg-white border border-slate-200/90 rounded-3xl hover-card-3d shadow-lg shadow-slate-200/50">
+            <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-600 w-fit mx-auto border border-amber-500/20 float-3d shadow-sm">
               <Clock className="w-8 h-8" />
             </div>
             <h3 className="font-extrabold text-slate-900 text-base">24/7 On-Ground Support</h3>
             <p className="text-slate-600 text-xs leading-relaxed font-medium">Dedicated India tour manager assisting you from arrival to final drop.</p>
           </div>
-          <div className="space-y-3 p-7 bg-white border border-slate-200/90 rounded-3xl hover:border-amber-400 transition-all shadow-lg shadow-slate-200/50">
-            <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-600 w-fit mx-auto border border-amber-500/20">
+          <div className="space-y-3 p-7 bg-white border border-slate-200/90 rounded-3xl hover-card-3d shadow-lg shadow-slate-200/50">
+            <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-600 w-fit mx-auto border border-amber-500/20 float-3d shadow-sm">
               <FileCheck className="w-8 h-8" />
             </div>
             <h3 className="font-extrabold text-slate-900 text-base">Verified Cab Drivers</h3>
             <p className="text-slate-600 text-xs leading-relaxed font-medium">Professional, uniform-clad local drivers with well-maintained air-conditioned vehicles.</p>
           </div>
-          <div className="space-y-3 p-7 bg-white border border-slate-200/90 rounded-3xl hover:border-amber-400 transition-all shadow-lg shadow-slate-200/50">
-            <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-600 w-fit mx-auto border border-amber-500/20">
+          <div className="space-y-3 p-7 bg-white border border-slate-200/90 rounded-3xl hover-card-3d shadow-lg shadow-slate-200/50">
+            <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-600 w-fit mx-auto border border-amber-500/20 float-3d shadow-sm">
               <Users className="w-8 h-8" />
             </div>
             <h3 className="font-extrabold text-slate-900 text-base">50,000+ Happy Guests</h3>

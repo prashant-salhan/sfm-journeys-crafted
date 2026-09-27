@@ -203,23 +203,23 @@ function MainContent() {
     <div className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-amber-500 selection:text-slate-950">
       <Navbar onPlanTripClick={() => scrollToEnquiry("Custom India Tour Plan")} />
 
-      {/* Hero Section with Video Background */}
+      {/* Hero Section */}
       <section className="relative py-16 sm:py-24 px-4 overflow-hidden bg-gradient-to-b from-amber-50/40 via-white to-slate-50/80 border-b border-slate-200">
         <div className="absolute inset-0 z-0">
           <img
             src={sfmHero}
             alt="Taj Mahal Incredible India Tourism"
-            className="w-full h-full object-cover object-center opacity-35 filter brightness-110 contrast-105 scale-105 transition-all duration-700 pointer-events-none"
+            className="w-full h-full object-cover object-center opacity-35 filter brightness-110 contrast-105 kenburns-slow pointer-events-none"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent pointer-events-none" />
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
-          <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/25 text-amber-800 text-xs font-extrabold px-4 py-2 rounded-full uppercase tracking-widest shadow-sm backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 text-amber-800 text-xs font-extrabold px-4 py-2 rounded-full uppercase tracking-widest shadow-sm float-3d">
             <Sparkles className="w-4 h-4 text-amber-600 animate-pulse" /> Discover India's Magic • Unbeatable Handcrafted Journeys
           </div>
 
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-tight">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-tight drop-shadow-sm">
             Crafting Unforgettable <br className="hidden sm:inline" />
             <span className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 bg-clip-text text-transparent">
               Journeys Across Incredible India
@@ -242,27 +242,27 @@ function MainContent() {
       </section>
 
       {/* Trust & Stats Ticker Bar */}
-      <section className="bg-slate-50 border-b border-slate-200/90 py-6 px-4">
+      <section className="bg-slate-50 border-b border-slate-200 py-6 px-4">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          <div className="space-y-1">
+          <div className="space-y-1 hover:scale-105 transition-transform">
             <div className="flex items-center justify-center gap-1.5 text-amber-600 font-black text-xl sm:text-2xl">
               <Users className="w-5 h-5 text-amber-600" /> 50,000+
             </div>
             <p className="text-slate-600 text-xs font-bold">Happy Travelers Hosted</p>
           </div>
-          <div className="space-y-1">
+          <div className="space-y-1 hover:scale-105 transition-transform">
             <div className="flex items-center justify-center gap-1.5 text-amber-600 font-black text-xl sm:text-2xl">
-              <Star className="w-5 h-5 fill-amber-500 text-amber-500" /> 4.9 / 5.0
+              <Star className="w-5 h-5 fill-amber-500 text-amber-500 animate-pulse" /> 4.9 / 5.0
             </div>
             <p className="text-slate-600 text-xs font-bold">Google & TripAdvisor Rating</p>
           </div>
-          <div className="space-y-1">
+          <div className="space-y-1 hover:scale-105 transition-transform">
             <div className="flex items-center justify-center gap-1.5 text-amber-600 font-black text-xl sm:text-2xl">
               <Building className="w-5 h-5 text-amber-600" /> 200+
             </div>
             <p className="text-slate-600 text-xs font-bold">Direct Partner Hotels</p>
           </div>
-          <div className="space-y-1">
+          <div className="space-y-1 hover:scale-105 transition-transform">
             <div className="flex items-center justify-center gap-1.5 text-amber-600 font-black text-xl sm:text-2xl">
               <Clock className="w-5 h-5 text-amber-600" /> 24 / 7
             </div>
@@ -274,7 +274,7 @@ function MainContent() {
       {/* Packages Section */}
       <section id="packages" className="py-24 px-4 max-w-7xl mx-auto space-y-16">
         <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 text-xs font-extrabold uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 text-xs font-extrabold uppercase tracking-widest shadow-sm">
             <Award className="w-3.5 h-3.5" /> Handcrafted Itineraries
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
@@ -303,13 +303,13 @@ function MainContent() {
             {filteredPackages.map((pkg) => (
               <div
                 key={pkg.id}
-                className="bg-white border border-slate-200/90 rounded-3xl overflow-hidden hover:border-amber-400 transition-all duration-300 flex flex-col group shadow-xl shadow-slate-200/60 hover:shadow-2xl hover:-translate-y-1.5"
+                className="bg-white border border-slate-200/90 rounded-3xl overflow-hidden hover:border-amber-400 transition-all duration-300 flex flex-col group shadow-xl shadow-slate-200/60 hover-card-3d"
               >
                 <div className="relative h-60 overflow-hidden">
                   <img
                     src={pkg.image}
                     alt={pkg.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
                   
@@ -366,7 +366,7 @@ function MainContent() {
                       </button>
                       <button
                         onClick={() => scrollToEnquiry(pkg.title)}
-                        className="bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-black px-4 py-2.5 rounded-xl transition-all flex items-center gap-1 cursor-pointer shadow-md shadow-amber-500/20"
+                        className="bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-black px-4 py-2.5 rounded-xl transition-all flex items-center gap-1 cursor-pointer shadow-md shadow-amber-500/20 hover:scale-105"
                       >
                         Book <ArrowRight className="w-3.5 h-3.5" />
                       </button>
@@ -396,7 +396,7 @@ function MainContent() {
 
       {/* Enquiry Form Section */}
       <section ref={enquiryFormRef} id="enquiry" className="py-24 px-4 bg-slate-50 border-t border-slate-200 relative">
-        <div className="max-w-4xl mx-auto bg-white border border-slate-200/90 p-8 sm:p-12 rounded-3xl shadow-2xl shadow-slate-200/80 space-y-8 relative z-10">
+        <div className="max-w-4xl mx-auto bg-white border border-slate-200/90 p-8 sm:p-12 rounded-3xl shadow-2xl shadow-slate-200/80 space-y-8 relative z-10 hover-card-3d">
           <div className="text-center space-y-3">
             <span className="text-xs font-bold uppercase tracking-widest text-amber-600">
               Free Instant Quote
@@ -434,7 +434,7 @@ function MainContent() {
         rel="noreferrer"
         aria-label="Chat on WhatsApp"
         style={{ textDecoration: "none" }}
-        className="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white p-3.5 sm:p-4 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 group cursor-pointer border border-emerald-400/30 no-underline"
+        className="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white p-3.5 sm:p-4 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 group cursor-pointer border border-emerald-400/30 no-underline float-3d"
       >
         <span className="relative flex">
           <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7" />

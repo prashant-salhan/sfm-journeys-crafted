@@ -33,7 +33,7 @@ export function SearchBox({
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-xl border border-slate-200 p-5 sm:p-7 rounded-3xl max-w-3xl mx-auto shadow-2xl shadow-slate-200/80 space-y-5 transition-all hover:border-amber-400/60">
+    <div className="bg-white/95 backdrop-blur-xl border border-slate-200 p-5 sm:p-7 rounded-3xl max-w-3xl mx-auto shadow-2xl shadow-slate-200/80 space-y-5 transition-all hover-card-3d">
       {/* Category Pills */}
       <div className="flex flex-wrap gap-2 justify-center border-b border-slate-100 pb-4">
         {[
@@ -48,8 +48,8 @@ export function SearchBox({
             onClick={() => onTabChange(tab.id)}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeTab === tab.id
-                ? "bg-amber-500 text-slate-950 shadow-md shadow-amber-500/25 scale-102 font-extrabold"
-                : "bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900"
+                ? "bg-amber-500 text-slate-950 shadow-md shadow-amber-500/30 scale-105 font-black ring-2 ring-amber-400/40"
+                : "bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 hover:scale-102"
             }`}
           >
             {tab.label}
@@ -61,7 +61,7 @@ export function SearchBox({
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
           <label htmlFor="sfm_search_query" className="sr-only">Search India Destinations</label>
-          <Search className="absolute left-4 top-3.5 w-4 h-4 text-amber-500 pointer-events-none" />
+          <Search className="absolute left-4 top-3.5 w-4 h-4 text-amber-500 pointer-events-none transition-transform group-hover:scale-110" />
           <input
             id="sfm_search_query"
             name="searchQuery"
@@ -70,15 +70,15 @@ export function SearchBox({
             placeholder="Search destinations, e.g. Kashmir, Houseboat, Taj Mahal, Goa..."
             value={localQuery}
             onChange={handleInputChange}
-            className="w-full bg-slate-50 border border-slate-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-500/20 rounded-xl pl-11 pr-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 font-semibold transition-all outline-none"
+            className="w-full bg-slate-50 border border-slate-300 focus:border-amber-500 focus:bg-white focus:ring-4 focus:ring-amber-500/15 rounded-xl pl-11 pr-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 font-semibold transition-all outline-none"
             style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
           />
         </div>
         <button
           onClick={onGetQuote}
-          className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black px-5 py-3 rounded-xl transition-all flex items-center justify-center gap-2 text-xs sm:text-sm shrink-0 cursor-pointer shadow-lg shadow-amber-500/20 hover:scale-102"
+          className="bg-gradient-to-r from-amber-500 via-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black px-5 py-3 rounded-xl transition-all flex items-center justify-center gap-2 text-xs sm:text-sm shrink-0 cursor-pointer shadow-lg shadow-amber-500/25 hover:scale-103 active:scale-98"
         >
-          <Sparkles className="w-4 h-4" /> Get Custom Quote <ArrowRight className="w-4 h-4" />
+          <Sparkles className="w-4 h-4 text-slate-950 animate-spin-slow" /> Get Custom Quote <ArrowRight className="w-4 h-4" />
         </button>
       </div>
 
@@ -89,7 +89,7 @@ export function SearchBox({
           <button
             key={idx}
             onClick={() => setQuickTag(tag)}
-            className="hover:text-amber-600 font-medium underline decoration-slate-300 underline-offset-4 cursor-pointer"
+            className="hover:text-amber-600 font-bold underline decoration-slate-300 underline-offset-4 hover:scale-105 transition-transform cursor-pointer"
           >
             #{tag}
           </button>
