@@ -90,15 +90,15 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
     const waUrl = `https://wa.me/919876543210?text=${waMsg}`;
 
     return (
-      <div className="bg-gradient-to-b from-emerald-950/80 to-slate-950 border border-emerald-500/40 p-8 sm:p-10 rounded-3xl text-center space-y-6 shadow-2xl animate-fade-in">
-        <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto shadow-inner">
-          <CheckCircle2 className="w-10 h-10 text-emerald-400" />
+      <div className="bg-emerald-50 border border-emerald-200 p-8 sm:p-10 rounded-3xl text-center space-y-6 shadow-xl animate-fade-in">
+        <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 border border-emerald-300 flex items-center justify-center mx-auto shadow-inner">
+          <CheckCircle2 className="w-10 h-10 text-emerald-600" />
         </div>
 
         <div className="space-y-2">
-          <h4 className="text-2xl font-black text-white">Enquiry Submitted Successfully!</h4>
-          <p className="text-slate-300 text-sm max-w-md mx-auto leading-relaxed">
-            Thank you <strong className="text-emerald-400">{submittedData.name}</strong>! Your tour request for <strong>{submittedData.travel}</strong> has been assigned to our senior India destination manager.
+          <h4 className="text-2xl font-black text-slate-900">Enquiry Submitted Successfully!</h4>
+          <p className="text-slate-700 text-sm max-w-md mx-auto leading-relaxed">
+            Thank you <strong className="text-emerald-700">{submittedData.name}</strong>! Your tour request for <strong>{submittedData.travel}</strong> has been assigned to our senior India destination manager.
           </p>
         </div>
 
@@ -107,7 +107,8 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
             href={waUrl}
             target="_blank"
             rel="noreferrer"
-            className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-6 py-3.5 rounded-xl text-xs flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-600/30 cursor-pointer"
+            style={{ textDecoration: "none" }}
+            className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold px-6 py-3.5 rounded-xl text-xs flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-600/20 cursor-pointer"
           >
             💬 Chat on WhatsApp Now
           </a>
@@ -117,7 +118,7 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
               setSubmitSuccess(false);
               setSubmittedData(null);
             }}
-            className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-6 py-3.5 rounded-xl text-xs transition-colors cursor-pointer"
+            className="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-6 py-3.5 rounded-xl text-xs transition-colors cursor-pointer"
           >
             Submit Another Request
           </button>
@@ -127,16 +128,16 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
   }
 
   return (
-    <form noValidate onSubmit={handleFormSubmit} className="space-y-5">
+    <form noValidate onSubmit={handleFormSubmit} className="space-y-4">
       {submitError && (
-        <div className="bg-rose-500/10 border border-rose-500/30 p-4 rounded-2xl text-rose-300 text-xs font-semibold flex items-center gap-2">
+        <div className="bg-rose-50 border border-rose-200 p-4 rounded-2xl text-rose-700 text-xs font-bold flex items-center gap-2">
           <span>⚠️ {submitError}</span>
         </div>
       )}
 
       <div>
-        <label htmlFor="name" className="text-xs font-bold text-slate-300 block mb-1.5 uppercase tracking-wider">
-          Your Full Name <span className="text-amber-400">*</span>
+        <label htmlFor="name" className="text-xs font-bold text-slate-800 block mb-1.5 uppercase tracking-wider">
+          Your Full Name <span className="text-amber-600">*</span>
         </label>
         <input
           id="name"
@@ -147,15 +148,15 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
           autoComplete="off"
           placeholder="e.g. Rahul Sharma"
           required
-          className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 rounded-xl px-4 py-3.5 text-base text-white placeholder:text-slate-500 font-medium transition-all outline-none"
-          style={{ color: "#ffffff", backgroundColor: "#0f172a" }}
+          className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none"
+          style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="phone" className="text-xs font-bold text-slate-300 block mb-1.5 uppercase tracking-wider">
-            Phone / WhatsApp Number <span className="text-amber-400">*</span>
+          <label htmlFor="phone" className="text-xs font-bold text-slate-800 block mb-1.5 uppercase tracking-wider">
+            Phone / WhatsApp Number <span className="text-amber-600">*</span>
           </label>
           <input
             id="phone"
@@ -166,13 +167,13 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
             autoComplete="off"
             placeholder="e.g. +91 98765 43210"
             required
-            className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 rounded-xl px-4 py-3.5 text-base text-white placeholder:text-slate-500 font-medium transition-all outline-none"
-            style={{ color: "#ffffff", backgroundColor: "#0f172a" }}
+            className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none"
+            style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
           />
         </div>
 
         <div>
-          <label htmlFor="email" className="text-xs font-bold text-slate-300 block mb-1.5 uppercase tracking-wider">
+          <label htmlFor="email" className="text-xs font-bold text-slate-800 block mb-1.5 uppercase tracking-wider">
             Email Address
           </label>
           <input
@@ -183,15 +184,15 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
             defaultValue=""
             autoComplete="off"
             placeholder="e.g. rahul@example.com"
-            className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 rounded-xl px-4 py-3.5 text-base text-white placeholder:text-slate-500 font-medium transition-all outline-none"
-            style={{ color: "#ffffff", backgroundColor: "#0f172a" }}
+            className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none"
+            style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="travel" className="text-xs font-bold text-slate-300 block mb-1.5 uppercase tracking-wider">
-          Destination / Tour Package <span className="text-amber-400">*</span>
+        <label htmlFor="travel" className="text-xs font-bold text-slate-800 block mb-1.5 uppercase tracking-wider">
+          Destination / Tour Package <span className="text-amber-600">*</span>
         </label>
         <input
           id="travel"
@@ -202,13 +203,13 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
           autoComplete="off"
           placeholder="e.g. Kashmir, Kerala Houseboat, Royal Rajasthan, Dubai..."
           required
-          className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 rounded-xl px-4 py-3.5 text-base text-white placeholder:text-slate-500 font-medium transition-all outline-none"
-          style={{ color: "#ffffff", backgroundColor: "#0f172a" }}
+          className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none"
+          style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
         />
       </div>
 
       <div>
-        <label htmlFor="description" className="text-xs font-bold text-slate-300 block mb-1.5 uppercase tracking-wider">
+        <label htmlFor="description" className="text-xs font-bold text-slate-800 block mb-1.5 uppercase tracking-wider">
           Trip Details & Special Preferences
         </label>
         <textarea
@@ -218,8 +219,8 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
           defaultValue=""
           rows={3}
           placeholder="e.g. Travel dates, number of guests, budget range, 4-star hotel preferences..."
-          className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 rounded-xl px-4 py-3.5 text-base text-white placeholder:text-slate-500 font-medium transition-all outline-none"
-          style={{ color: "#ffffff", backgroundColor: "#0f172a" }}
+          className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none"
+          style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
         />
       </div>
 
@@ -227,7 +228,7 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
         <button
           type="submit"
           disabled={submitting}
-          className="w-full bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black py-4 rounded-2xl transition-all flex items-center justify-center gap-2 shadow-xl shadow-amber-500/25 text-base cursor-pointer hover:scale-101"
+          className="w-full bg-gradient-to-r from-amber-500 via-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black py-3.5 rounded-2xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 text-sm sm:text-base cursor-pointer hover:scale-101"
         >
           {submitting ? (
             <span>Sending Request...</span>
@@ -239,12 +240,12 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
         </button>
       </div>
 
-      <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-slate-400 pt-2">
-        <span className="flex items-center gap-1"><ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> 100% Privacy Protected</span>
+      <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-slate-600 pt-2 font-medium">
+        <span className="flex items-center gap-1"><ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> 100% Privacy Protected</span>
         <span>•</span>
-        <span className="flex items-center gap-1"><PhoneCall className="w-3.5 h-3.5 text-amber-400" /> Instant Callback in 30 Mins</span>
+        <span className="flex items-center gap-1"><PhoneCall className="w-3.5 h-3.5 text-amber-600" /> Instant Callback in 30 Mins</span>
         <span>•</span>
-        <span className="flex items-center gap-1"><Sparkles className="w-3.5 h-3.5 text-sky-400" /> Best Price Guarantee</span>
+        <span className="flex items-center gap-1"><Sparkles className="w-3.5 h-3.5 text-sky-600" /> Best Price Guarantee</span>
       </div>
     </form>
   );
