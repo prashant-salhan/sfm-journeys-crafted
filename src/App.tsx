@@ -175,18 +175,21 @@ function MainContent() {
   const [isAutoPopUpOpen, setIsAutoPopUpOpen] = useState(false);
 
   useEffect(() => {
+    // 1. Force initial scroll to top of hero section
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
+
+    // 2. Trigger auto pop-up enquiry modal after 800ms
     const timer = setTimeout(() => {
-      const dismissed = sessionStorage.getItem("sfm_popup_dismissed");
-      if (!dismissed) {
-        setIsAutoPopUpOpen(true);
-      }
-    }, 1200);
+      setIsAutoPopUpOpen(true);
+    }, 800);
+
     return () => clearTimeout(timer);
   }, []);
 
   const closeAutoPopUp = () => {
     setIsAutoPopUpOpen(false);
-    sessionStorage.setItem("sfm_popup_dismissed", "true");
   };
 
   const filteredPackages = useMemo(() => {
@@ -476,25 +479,25 @@ function MainContent() {
 
       {/* Auto Pop-Up Enquiry Form Modal */}
       {isAutoPopUpOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
-          <div className="relative w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto hover-card-3d">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
+          <div className="relative w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-amber-500/30 max-h-[90vh] overflow-y-auto hover-card-3d">
             <button
               onClick={closeAutoPopUp}
               aria-label="Close form"
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 bg-slate-100 hover:bg-slate-200 p-2 rounded-full transition-colors cursor-pointer z-10"
+              className="absolute top-4 right-4 text-slate-500 hover:text-slate-950 bg-slate-100 hover:bg-amber-100 p-2.5 rounded-full transition-all cursor-pointer z-10 shadow-sm"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5 font-bold" />
             </button>
 
             <div className="text-center space-y-2 mb-6">
-              <div className="inline-flex items-center gap-1.5 bg-amber-500/10 text-amber-700 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5 text-amber-600" /> Exclusive Offer
+              <div className="inline-flex items-center gap-1.5 bg-amber-500/10 text-amber-800 border border-amber-500/20 text-[11px] font-black px-3.5 py-1 rounded-full uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5 text-amber-600 animate-pulse" /> Free Custom Trip Quote
               </div>
-              <h3 className="text-2xl font-black text-slate-900 tracking-tight">
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                 Plan Your Dream India Trip
               </h3>
-              <p className="text-slate-600 text-xs font-medium">
-                Get a free customized itinerary & best discounted price quote within 30 minutes!
+              <p className="text-slate-600 text-xs sm:text-sm font-medium leading-relaxed">
+                Fill in your travel details to get a customized day-wise itinerary & best pricing quote within 30 minutes!
               </p>
             </div>
 
