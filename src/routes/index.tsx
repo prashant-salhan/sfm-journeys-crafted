@@ -329,86 +329,101 @@ export function IndiaPortal() {
         </div>
 
         {/* Packages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-          {filteredPackages.map((pkg) => (
-            <div
-              key={pkg.id}
-              className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden hover:border-amber-500/50 transition-all duration-300 group flex flex-col"
+        {filteredPackages.length === 0 ? (
+          <div className="bg-slate-900 border border-slate-800 p-8 rounded-3xl text-center space-y-4 max-w-xl mx-auto">
+            <h3 className="text-xl font-bold text-white">No packages matching "{searchQuery}"</h3>
+            <p className="text-slate-400 text-xs sm:text-sm">
+              Don't worry! We build 100% customized tour itineraries for any destination in India or worldwide.
+            </p>
+            <button
+              onClick={handleScrollToEnquiry}
+              className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs cursor-pointer inline-flex items-center gap-2"
             >
-              {/* Image & Badge */}
-              <div className="relative h-64 overflow-hidden">
-                <img
-                  src={pkg.image}
-                  alt={pkg.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
-                <span className="absolute top-4 left-4 bg-amber-500 text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
-                  {pkg.badge}
-                </span>
-                <span className="absolute bottom-4 left-4 bg-slate-900/90 border border-slate-700 text-slate-200 text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5 text-amber-400" /> {pkg.duration}
-                </span>
-              </div>
-
-              {/* Content */}
-              <div className="p-6 flex-1 flex flex-col justify-between space-y-6">
-                <div>
-                  <span className="text-amber-400 text-xs font-bold uppercase tracking-wider block mb-1">
-                    {pkg.category}
+              <Sparkles className="w-4 h-4" /> Request Custom Itinerary Quote
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+            {filteredPackages.map((pkg) => (
+              <div
+                key={pkg.id}
+                className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden hover:border-amber-500/50 transition-all duration-300 group flex flex-col"
+              >
+                {/* Image & Badge */}
+                <div className="relative h-64 overflow-hidden">
+                  <img
+                    src={pkg.image}
+                    alt={pkg.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+                  <span className="absolute top-4 left-4 bg-amber-500 text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
+                    {pkg.badge}
                   </span>
-                  <h3 className="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">
-                    {pkg.title}
-                  </h3>
-                  <p className="text-slate-400 text-xs sm:text-sm mt-2 leading-relaxed">
-                    {pkg.description}
-                  </p>
+                  <span className="absolute bottom-4 left-4 bg-slate-900/90 border border-slate-700 text-slate-200 text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5 text-amber-400" /> {pkg.duration}
+                  </span>
                 </div>
 
-                {/* Inclusions List */}
-                <div className="space-y-2">
-                  <span className="text-xs font-semibold text-slate-300 block">Package Inclusions:</span>
-                  <div className="flex flex-wrap gap-2">
-                    {pkg.inclusions.map((inc, i) => (
-                      <span
-                        key={i}
-                        className="bg-slate-800 border border-slate-700 text-slate-300 text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1"
-                      >
-                        <Check className="w-3 h-3 text-amber-400" /> {inc}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Price & Action Buttons */}
-                <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4">
+                {/* Content */}
+                <div className="p-6 flex-1 flex flex-col justify-between space-y-6">
                   <div>
-                    <span className="text-slate-400 text-[11px] uppercase tracking-wider block">Starting From</span>
-                    <span className="text-2xl font-extrabold text-amber-400">
-                      {formatPrice(pkg.priceInr)}
+                    <span className="text-amber-400 text-xs font-bold uppercase tracking-wider block mb-1">
+                      {pkg.category}
                     </span>
-                    <span className="text-slate-400 text-xs"> / person</span>
+                    <h3 className="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">
+                      {pkg.title}
+                    </h3>
+                    <p className="text-slate-400 text-xs sm:text-sm mt-2 leading-relaxed">
+                      {pkg.description}
+                    </p>
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => setSelectedItineraryPkg(pkg)}
-                      className="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold px-4 py-2.5 rounded-xl border border-slate-700 transition-colors cursor-pointer"
-                    >
-                      Itinerary
-                    </button>
-                    <button
-                      onClick={() => handleOpenEnquiryForPkg(pkg)}
-                      className="bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold px-5 py-2.5 rounded-xl transition-all flex items-center gap-1 shadow-md shadow-amber-500/10 cursor-pointer"
-                    >
-                      Book Now <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
+                  {/* Inclusions List */}
+                  <div className="space-y-2">
+                    <span className="text-xs font-semibold text-slate-300 block">Package Inclusions:</span>
+                    <div className="flex flex-wrap gap-2">
+                      {pkg.inclusions.map((inc, i) => (
+                        <span
+                          key={i}
+                          className="bg-slate-800 border border-slate-700 text-slate-300 text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1"
+                        >
+                          <Check className="w-3 h-3 text-amber-400" /> {inc}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Price & Action Buttons */}
+                  <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                      <span className="text-slate-400 text-[11px] uppercase tracking-wider block">Starting From</span>
+                      <span className="text-2xl font-extrabold text-amber-400">
+                        {formatPrice(pkg.priceInr)}
+                      </span>
+                      <span className="text-slate-400 text-xs"> / person</span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => setSelectedItineraryPkg(pkg)}
+                        className="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold px-4 py-2.5 rounded-xl border border-slate-700 transition-colors cursor-pointer"
+                      >
+                        Itinerary
+                      </button>
+                      <button
+                        onClick={() => handleOpenEnquiryForPkg(pkg)}
+                        className="bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold px-5 py-2.5 rounded-xl transition-all flex items-center gap-1 shadow-md shadow-amber-500/10 cursor-pointer"
+                      >
+                        Book Now <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Pure Static Sections Wrapped with React.memo */}
@@ -522,21 +537,9 @@ function InlineEnquiryForm({ initialPackageTitle }: { initialPackageTitle?: stri
       }).catch((err) => console.warn("Backend Enquiry API warning:", err));
     }
 
-    const waMsg = `Hi SFM Travels India! I want a custom quote for my India trip:%0A- Name: ${encodeURIComponent(cleanName)}%0A- Phone: ${encodeURIComponent(cleanPhone)}${cleanEmail ? `%0A- Email: ${encodeURIComponent(cleanEmail)}` : ""}%0A- Destination: ${encodeURIComponent(cleanTravel)}${cleanDesc ? `%0A- Details: ${encodeURIComponent(cleanDesc)}` : ""}`;
-    const waUrl = `https://wa.me/919876543210?text=${waMsg}`;
-
     setSubmitting(false);
     setSubmittedData({ name: cleanName, phone: cleanPhone, travel: cleanTravel });
     setSubmitSuccess(true);
-
-    try {
-      const win = window.open(waUrl, "_blank");
-      if (!win || win.closed || typeof win.closed === "undefined") {
-        window.location.href = waUrl;
-      }
-    } catch (_) {
-      window.location.href = waUrl;
-    }
   };
 
   if (submitSuccess && submittedData) {
