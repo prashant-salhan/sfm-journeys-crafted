@@ -1,4 +1,4 @@
-import { useState, useTransition, useMemo, useRef } from "react";
+import { useState, useTransition, useMemo, useRef, useEffect } from "react";
 import {
   Sparkles,
   MapPin,
@@ -11,6 +11,7 @@ import {
   Award,
   Users,
   Building,
+  X,
 } from "lucide-react";
 
 import { CurrencyProvider, useCurrency } from "@/context/CurrencyContext";
@@ -171,6 +172,23 @@ function MainContent() {
   const [enquiryPackageTitle, setEnquiryPackageTitle] = useState("");
   const enquiryFormRef = useRef<HTMLDivElement>(null);
 
+  const [isAutoPopUpOpen, setIsAutoPopUpOpen] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const dismissed = sessionStorage.getItem("sfm_popup_dismissed");
+      if (!dismissed) {
+        setIsAutoPopUpOpen(true);
+      }
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const closeAutoPopUp = () => {
+    setIsAutoPopUpOpen(false);
+    sessionStorage.setItem("sfm_popup_dismissed", "true");
+  };
+
   const filteredPackages = useMemo(() => {
     return FEATURED_PACKAGES.filter((pkg) => {
       let matchesTab = true;
@@ -201,10 +219,9 @@ function MainContent() {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-amber-500 selection:text-slate-950">
-      <Navbar onPlanTripClick={() => scrollToEnquiry("Custom India Tour Plan")} />
-
-      {/* Hero Section */}
-      <section className="relative py-16 sm:py-24 px-4 overflow-hidden bg-gradient-to-b from-amber-50/40 via-white to-slate-50/80 border-b border-slate-200">
+      {/* Hero & Floating Overlay Navbar Section */}
+      <div className="relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-between overflow-hidden bg-slate-950 border-b border-slate-200">
+        {/* Full-width Video Background */}
         <div className="absolute inset-0 z-0">
           <video
             autoPlay
@@ -212,26 +229,33 @@ function MainContent() {
             muted
             playsInline
             poster={sfmHero}
-            className="w-full h-full object-cover opacity-60 filter brightness-105 contrast-105 saturate-110 scale-105 transition-opacity duration-700 pointer-events-none"
+            className="w-full h-full object-cover opacity-60 filter brightness-110 contrast-105 saturate-110 scale-105 pointer-events-none"
           >
             <source src="/assets/india.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent pointer-events-none" />
+          {/* Subtle overlay gradients for high readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/30 to-slate-950/85 pointer-events-none" />
         </div>
 
-        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
-          <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 text-amber-800 text-xs font-extrabold px-4 py-2 rounded-full uppercase tracking-widest shadow-sm float-3d">
-            <Sparkles className="w-4 h-4 text-amber-600 animate-pulse" /> Discover India's Magic • Unbeatable Handcrafted Journeys
+        {/* Seamless Transparent Overlay Navbar */}
+        <div className="relative z-50">
+          <Navbar onPlanTripClick={() => scrollToEnquiry("Custom India Tour Plan")} />
+        </div>
+
+        {/* Hero Central Text & Search box */}
+        <section className="relative z-10 py-12 sm:py-16 px-4 max-w-5xl mx-auto text-center space-y-8 my-auto">
+          <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-extrabold px-4 py-2 rounded-full uppercase tracking-widest shadow-xl backdrop-blur-md float-3d">
+            <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" /> Discover India's Magic • Unbeatable Handcrafted Journeys
           </div>
 
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-tight drop-shadow-sm">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-lg">
             Crafting Unforgettable <br className="hidden sm:inline" />
-            <span className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
               Journeys Across Incredible India
             </span>
           </h1>
 
-          <p className="text-slate-600 text-base sm:text-xl max-w-3xl mx-auto font-medium leading-relaxed">
+          <p className="text-slate-200 text-base sm:text-xl max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-md">
             From snowy Himalayan mountains in Kashmir to emerald tea estates in Kerala and royal palaces in Rajasthan. Tailor-made itineraries with 100% price transparency.
           </p>
 
@@ -243,8 +267,8 @@ function MainContent() {
             onSearchChange={(q) => setSearchQuery(q)}
             onGetQuote={() => scrollToEnquiry("Customized Destination Plan")}
           />
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* Trust & Stats Ticker Bar */}
       <section className="bg-slate-50 border-b border-slate-200 py-6 px-4">
@@ -449,6 +473,35 @@ function MainContent() {
           Chat with Specialist
         </span>
       </a>
+
+      {/* Auto Pop-Up Enquiry Form Modal */}
+      {isAutoPopUpOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
+          <div className="relative w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto hover-card-3d">
+            <button
+              onClick={closeAutoPopUp}
+              aria-label="Close form"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 bg-slate-100 hover:bg-slate-200 p-2 rounded-full transition-colors cursor-pointer z-10"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="text-center space-y-2 mb-6">
+              <div className="inline-flex items-center gap-1.5 bg-amber-500/10 text-amber-700 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5 text-amber-600" /> Exclusive Offer
+              </div>
+              <h3 className="text-2xl font-black text-slate-900 tracking-tight">
+                Plan Your Dream India Trip
+              </h3>
+              <p className="text-slate-600 text-xs font-medium">
+                Get a free customized itinerary & best discounted price quote within 30 minutes!
+              </p>
+            </div>
+
+            <InlineEnquiryForm initialPackageTitle="Customized India Vacation" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
