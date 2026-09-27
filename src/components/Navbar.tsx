@@ -24,14 +24,19 @@ export const Navbar = memo(function Navbar({ onPlanTripClick }: NavbarProps) {
           </span>
         </div>
         <div className="hidden md:flex items-center gap-4">
-          <a href="tel:+919876543210" className="no-underline hover:text-slate-900 transition-colors flex items-center gap-1">
+          <a
+            href="tel:+919876543210"
+            style={{ textDecoration: "none" }}
+            className="no-underline text-slate-950 hover:text-slate-900 transition-colors flex items-center gap-1"
+          >
             <Phone className="w-3 h-3" /> +91 98765 43210
           </a>
           <a
             href="https://wa.me/919876543210?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20India%20trip!"
             target="_blank"
             rel="noreferrer"
-            className="no-underline hover:opacity-90 transition-opacity flex items-center gap-1 font-bold"
+            style={{ textDecoration: "none" }}
+            className="no-underline text-slate-950 hover:opacity-90 transition-opacity flex items-center gap-1 font-bold"
           >
             💬 WhatsApp Chat
           </a>
@@ -42,7 +47,11 @@ export const Navbar = memo(function Navbar({ onPlanTripClick }: NavbarProps) {
       <header className="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-md border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-3 no-underline select-none">
+          <a
+            href="#"
+            style={{ textDecoration: "none" }}
+            className="flex items-center gap-3 no-underline select-none"
+          >
             <img src={sfmLogo} alt="SFM Travels Logo" className="h-10 sm:h-12 w-auto object-contain" />
             <div>
               <span className="text-lg sm:text-xl font-black tracking-tight text-white block leading-tight">
@@ -56,16 +65,32 @@ export const Navbar = memo(function Navbar({ onPlanTripClick }: NavbarProps) {
 
           {/* Desktop Nav Links */}
           <nav className="hidden lg:flex items-center gap-8 font-semibold text-sm text-slate-300">
-            <a href="#packages" className="no-underline hover:text-amber-400 transition-colors">
+            <a
+              href="#packages"
+              style={{ textDecoration: "none" }}
+              className="no-underline text-slate-300 hover:text-amber-400 transition-colors"
+            >
               India Packages
             </a>
-            <a href="#regions" className="no-underline hover:text-amber-400 transition-colors">
+            <a
+              href="#regions"
+              style={{ textDecoration: "none" }}
+              className="no-underline text-slate-300 hover:text-amber-400 transition-colors"
+            >
               Regions & Circuits
             </a>
-            <a href="#essentials" className="no-underline hover:text-amber-400 transition-colors">
+            <a
+              href="#essentials"
+              style={{ textDecoration: "none" }}
+              className="no-underline text-slate-300 hover:text-amber-400 transition-colors"
+            >
               Travel Essentials
             </a>
-            <a href="#why-us" className="no-underline hover:text-amber-400 transition-colors">
+            <a
+              href="#why-us"
+              style={{ textDecoration: "none" }}
+              className="no-underline text-slate-300 hover:text-amber-400 transition-colors"
+            >
               Why Choose Us
             </a>
           </nav>
@@ -96,6 +121,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick }: NavbarProps) {
             <a
               href="#packages"
               onClick={() => setMobileMenuOpen(false)}
+              style={{ textDecoration: "none" }}
               className="block text-slate-200 font-semibold no-underline hover:text-amber-400"
             >
               India Packages
@@ -103,6 +129,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick }: NavbarProps) {
             <a
               href="#regions"
               onClick={() => setMobileMenuOpen(false)}
+              style={{ textDecoration: "none" }}
               className="block text-slate-200 font-semibold no-underline hover:text-amber-400"
             >
               Regions & Circuits
@@ -110,6 +137,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick }: NavbarProps) {
             <a
               href="#essentials"
               onClick={() => setMobileMenuOpen(false)}
+              style={{ textDecoration: "none" }}
               className="block text-slate-200 font-semibold no-underline hover:text-amber-400"
             >
               Travel Essentials
@@ -117,6 +145,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick }: NavbarProps) {
             <a
               href="#why-us"
               onClick={() => setMobileMenuOpen(false)}
+              style={{ textDecoration: "none" }}
               className="block text-slate-200 font-semibold no-underline hover:text-amber-400"
             >
               Why Choose Us
