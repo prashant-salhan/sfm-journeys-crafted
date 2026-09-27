@@ -1,5 +1,25 @@
-import { memo } from "react";
-import { Compass, Globe, Sun, Camera, Utensils, ShieldCheck, Clock, FileCheck, Users } from "lucide-react";
+import { useState, memo } from "react";
+import {
+  Compass,
+  Globe,
+  Sun,
+  Camera,
+  Utensils,
+  ShieldCheck,
+  Clock,
+  FileCheck,
+  Users,
+  Star,
+  Quote,
+  ChevronDown,
+  Award,
+  Headphones,
+  CheckCircle2,
+  Sparkles,
+  MapPin,
+  Phone,
+  Mail,
+} from "lucide-react";
 import sfmLogo from "@/assets/sfm-logo.png";
 
 export type PackageItinerary = {
@@ -19,28 +39,60 @@ export type IndiaPackage = {
   badge: string;
   inclusions: string[];
   itinerary: PackageItinerary[];
+  rating?: number;
+  reviewsCount?: number;
 };
 
 export const INDIA_REGIONS = [
-  { name: "North India & Himalayas", location: "Kashmir, Himachal, Golden Triangle, Ladakh", desc: "Majestic snow peaks, Taj Mahal, hill stations, and ancient heritage." },
-  { name: "South India & Tropics", location: "Kerala, Munnar, Coorg, Hampi, Rameshwaram", desc: "Emerald backwaters, lush tea estates, palm groves, and grand Dravidian temples." },
-  { name: "West & Royal Rajasthan", location: "Jaipur, Udaipur, Jaisalmer Desert, Goa", desc: "Royal fortresses, Thar desert camel glamping, and sun-kissed beaches." },
-  { name: "East & North-East", location: "Darjeeling, Sikkim, Meghalaya, Assam", desc: "Living root bridges, tea gardens, Kaziranga rhinos, and Himalayan monasteries." },
+  {
+    name: "North India & Himalayas",
+    location: "Kashmir, Himachal, Golden Triangle, Ladakh",
+    desc: "Majestic snow peaks, Dal Lake houseboats, Taj Mahal, hill stations, and ancient spiritual heritage.",
+    tags: ["Srinagar", "Gulmarg", "Pahalgam", "Manali", "Taj Mahal"],
+    gradient: "from-sky-500/20 via-slate-900 to-slate-950",
+    borderAccent: "hover:border-sky-500/50",
+  },
+  {
+    name: "South India & Tropics",
+    location: "Kerala, Munnar, Coorg, Hampi, Rameshwaram",
+    desc: "Emerald backwaters, lush tea estates, palm groves, and grand Dravidian temples.",
+    tags: ["Munnar", "Alleppey", "Thekkady", "Kovalam", "Coorg"],
+    gradient: "from-emerald-500/20 via-slate-900 to-slate-950",
+    borderAccent: "hover:border-emerald-500/50",
+  },
+  {
+    name: "West & Royal Rajasthan",
+    location: "Jaipur, Udaipur, Jaisalmer Desert, Goa",
+    desc: "Royal fortresses, Thar desert camel glamping under stars, and sun-kissed tropical beaches.",
+    tags: ["Jaipur", "Udaipur", "Jaisalmer", "Baga Beach", "Old Goa"],
+    gradient: "from-amber-500/20 via-slate-900 to-slate-950",
+    borderAccent: "hover:border-amber-500/50",
+  },
+  {
+    name: "East & North-East",
+    location: "Darjeeling, Sikkim, Meghalaya, Assam",
+    desc: "Living root bridges, organic tea gardens, Kaziranga rhinos, and Himalayan monasteries.",
+    tags: ["Gangtok", "Darjeeling", "Shillong", "Kaziranga", "Tawang"],
+    gradient: "from-purple-500/20 via-slate-900 to-slate-950",
+    borderAccent: "hover:border-purple-500/50",
+  },
 ];
 
 export const RegionsSection = memo(function RegionsSection() {
   return (
-    <section id="regions" className="py-20 px-4 bg-gradient-to-b from-slate-900 to-slate-950 border-y border-slate-800">
-      <div className="max-w-7xl mx-auto space-y-12">
-        <div className="text-center space-y-4">
-          <span className="text-xs font-bold uppercase tracking-widest text-amber-400 flex items-center justify-center gap-1">
-            <Globe className="w-4 h-4" /> Regions & Circuits
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Explore India by Regions & Experiences
+    <section id="regions" className="py-24 px-4 bg-gradient-to-b from-slate-950 via-slate-900/60 to-slate-950 border-y border-slate-800 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.05),transparent_50%)] pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto space-y-16 relative z-10">
+        <div className="text-center space-y-4 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold uppercase tracking-widest">
+            <Globe className="w-3.5 h-3.5" /> Regional Circuits & Destinations
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+            Explore India by Popular Circuits
           </h2>
-          <p className="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base">
-            From snow-capped Himalayan peaks in the North to emerald backwaters in the South, choose your destination circuit.
+          <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+            From snow-draped Himalayan mountain passes in the North to serene emerald backwater lagoons in the South, select your dream destination circuit.
           </p>
         </div>
 
@@ -48,14 +100,116 @@ export const RegionsSection = memo(function RegionsSection() {
           {INDIA_REGIONS.map((reg, i) => (
             <div
               key={i}
-              className="bg-slate-950 border border-slate-800 p-6 rounded-2xl space-y-3 hover:border-amber-500/50 transition-all group"
+              className={`bg-slate-900/90 border border-slate-800 p-7 rounded-3xl space-y-5 transition-all duration-300 group shadow-xl hover:-translate-y-1.5 ${reg.borderAccent}`}
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-amber-400 uppercase">{reg.name}</span>
-                <Compass className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform" />
+                <span className="text-[11px] font-extrabold text-amber-400 uppercase tracking-widest">{reg.name}</span>
+                <div className="p-2 rounded-xl bg-slate-800/80 text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-950 transition-colors">
+                  <Compass className="w-4 h-4 group-hover:rotate-45 transition-transform" />
+                </div>
               </div>
-              <h3 className="text-base font-bold text-white">{reg.location}</h3>
-              <p className="text-slate-400 text-xs leading-relaxed">{reg.desc}</p>
+
+              <div className="space-y-2">
+                <h3 className="text-lg font-bold text-white group-hover:text-amber-300 transition-colors">{reg.location}</h3>
+                <p className="text-slate-400 text-xs leading-relaxed">{reg.desc}</p>
+              </div>
+
+              <div className="pt-2 flex flex-wrap gap-1.5">
+                {reg.tags.map((tag, idx) => (
+                  <span key={idx} className="bg-slate-950 border border-slate-800 text-slate-300 text-[10px] font-semibold px-2.5 py-1 rounded-lg">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+});
+
+export const TestimonialsSection = memo(function TestimonialsSection() {
+  const reviews = [
+    {
+      name: "Rahul & Priya Sharma",
+      location: "Mumbai, India",
+      tour: "Kashmir Honeymoon Package (6 Days)",
+      rating: 5,
+      date: "September 2026",
+      comment: "Our Kashmir trip arranged by SFM Travels was beyond incredible! The Dal Lake luxury houseboat and Gulmarg Gondola tickets were seamlessly arranged. Driver Javaid was polite and punctual. 10/10 service!",
+      badge: "Verified Traveler",
+    },
+    {
+      name: "Dr. Ananya Roy",
+      location: "Kolkata, India",
+      tour: "Kerala Backwaters & Tea Villa (5 Days)",
+      rating: 5,
+      date: "August 2026",
+      comment: "The private houseboat in Alleppey and tea estate stay in Munnar were outstanding. Zero hidden charges, transparent pricing, and 24/7 on-ground assistance.",
+      badge: "Family Tour",
+    },
+    {
+      name: "Vikram & Sweety Kapoor",
+      location: "Delhi NCR, India",
+      tour: "Royal Rajasthan Desert Glamping (7 Days)",
+      rating: 5,
+      date: "September 2026",
+      comment: "Glamping under the stars in Thar Desert Jaisalmer was a bucket list experience. The heritage hotel in Udaipur overlooked Pichola Lake. Highly recommend SFM Travels!",
+      badge: "Verified Traveler",
+    },
+  ];
+
+  return (
+    <section className="py-24 px-4 bg-slate-950 border-t border-slate-800 relative">
+      <div className="max-w-7xl mx-auto space-y-16">
+        <div className="text-center space-y-4 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold uppercase tracking-widest">
+            <Star className="w-3.5 h-3.5 fill-amber-400" /> Guest Experiences & Reviews
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+            Loved by 50,000+ Happy Travelers
+          </h2>
+          <div className="flex items-center justify-center gap-2 text-amber-400 font-bold text-sm">
+            <div className="flex text-amber-400">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-4 h-4 fill-amber-400" />
+              ))}
+            </div>
+            <span className="text-white font-extrabold">4.9 / 5.0</span>
+            <span className="text-slate-400 text-xs">(2,500+ Verified Reviews on Google & TripAdvisor)</span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {reviews.map((rev, idx) => (
+            <div
+              key={idx}
+              className="bg-slate-900/80 border border-slate-800 p-8 rounded-3xl space-y-6 flex flex-col justify-between shadow-2xl relative group hover:border-amber-500/40 transition-all"
+            >
+              <Quote className="w-10 h-10 text-amber-500/20 absolute top-6 right-6" />
+
+              <div className="space-y-4 relative z-10">
+                <div className="flex items-center gap-1 text-amber-400">
+                  {[...Array(rev.rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+
+                <p className="text-slate-300 text-sm leading-relaxed font-normal italic">
+                  "{rev.comment}"
+                </p>
+              </div>
+
+              <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+                <div>
+                  <h4 className="font-bold text-white text-base">{rev.name}</h4>
+                  <p className="text-xs text-slate-400">{rev.location} • <span className="text-amber-400">{rev.tour}</span></p>
+                </div>
+                <span className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold px-2.5 py-1 rounded-full shrink-0">
+                  {rev.badge}
+                </span>
+              </div>
             </div>
           ))}
         </div>
@@ -67,39 +221,120 @@ export const RegionsSection = memo(function RegionsSection() {
 export const TravelEssentialsSection = memo(function TravelEssentialsSection() {
   return (
     <section id="essentials" className="py-24 px-4 max-w-7xl mx-auto space-y-16">
-      <div className="text-center space-y-4">
-        <span className="text-xs font-bold uppercase tracking-widest text-amber-400">
-          Traveler's Handbook
-        </span>
+      <div className="text-center space-y-4 max-w-3xl mx-auto">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold uppercase tracking-widest">
+          <Sparkles className="w-3.5 h-3.5" /> Traveler's Handbook
+        </div>
         <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
           India Travel Essentials & Tips
         </h2>
+        <p className="text-slate-400 text-sm sm:text-base">
+          Essential insights prepared by our local destination experts to help you plan a smooth and enjoyable trip across India.
+        </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="bg-slate-900 border border-slate-800 p-8 rounded-3xl space-y-4">
-          <Sun className="w-10 h-10 text-amber-400" />
+        <div className="bg-slate-900 border border-slate-800 p-8 rounded-3xl space-y-5 hover:border-amber-500/40 transition-all shadow-xl">
+          <div className="p-3.5 w-fit rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <Sun className="w-7 h-7" />
+          </div>
           <h3 className="text-xl font-bold text-white">Best Season to Visit</h3>
-          <p className="text-slate-400 text-xs leading-relaxed">
-            <strong>October to March:</strong> Ideal season for Golden Triangle, Rajasthan deserts, Kerala backwaters, and beaches.  
-            <strong>April to July:</strong> Best time for Himalayan snow points in Kashmir, Ladakh, and Himachal.
+          <p className="text-slate-300 text-xs leading-relaxed space-y-2">
+            <strong className="text-amber-400 block">October to March:</strong> Ideal season for Golden Triangle, Rajasthan desert glamping, Kerala backwaters, and Goa beaches.  
+            <strong className="text-amber-400 block mt-2">April to July:</strong> Peak time for Himalayan snow points in Kashmir, Ladakh, and Himachal Pradesh.
           </p>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 p-8 rounded-3xl space-y-4">
-          <Camera className="w-10 h-10 text-amber-400" />
+        <div className="bg-slate-900 border border-slate-800 p-8 rounded-3xl space-y-5 hover:border-amber-500/40 transition-all shadow-xl">
+          <div className="p-3.5 w-fit rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <Camera className="w-7 h-7" />
+          </div>
           <h3 className="text-xl font-bold text-white">Culture & Etiquette</h3>
-          <p className="text-slate-400 text-xs leading-relaxed">
-            India warmly welcomes guests with <em>"Atithi Devo Bhava"</em> (Guest is God). Modest attire is appreciated at spiritual shrines, temples, and heritage monuments.
+          <p className="text-slate-300 text-xs leading-relaxed">
+            India warmly welcomes travelers with the ethos of <em>"Atithi Devo Bhava"</em> (Guest is God). Respectful, modest attire is customary when visiting ancient temples, shrines, and heritage monuments.
           </p>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 p-8 rounded-3xl space-y-4">
-          <Utensils className="w-10 h-10 text-amber-400" />
+        <div className="bg-slate-900 border border-slate-800 p-8 rounded-3xl space-y-5 hover:border-amber-500/40 transition-all shadow-xl">
+          <div className="p-3.5 w-fit rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <Utensils className="w-7 h-7" />
+          </div>
           <h3 className="text-xl font-bold text-white">Cuisine & Hospitality</h3>
-          <p className="text-slate-400 text-xs leading-relaxed">
-            Experience authentic Mughlai kebabs in North India, Rajasthani Royal Thali, spicy Goa seafood, and traditional Kerala Sadhya served on banana leaves.
+          <p className="text-slate-300 text-xs leading-relaxed">
+            Indulge in rich culinary diversity — from authentic Kashmiri Wazwan and Mughlai kebabs in North India to Rajasthani Royal Thali and traditional Keralan Sadhya served on banana leaves.
           </p>
+        </div>
+      </div>
+    </section>
+  );
+});
+
+export const FaqSection = memo(function FaqSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const faqs = [
+    {
+      q: "What is included in the package cost?",
+      a: "Our packages typically include deluxe hotel / houseboat accommodations with breakfast & dinner, private air-conditioned vehicle with dedicated driver, airport transfers, sightseeing tours, and entry tickets as specified in the itinerary.",
+    },
+    {
+      q: "Can I customize the itinerary according to my schedule?",
+      a: "Yes! 100% of our India tour packages are fully customizable. You can adjust the duration, upgrade hotel categories, or add custom destinations like Taj Mahal or houseboat extensions.",
+    },
+    {
+      q: "How do I confirm and secure my booking?",
+      a: "Submit an online enquiry or contact our specialist on WhatsApp. Once your itinerary is finalized, a nominal token advance booking deposit reserves your hotels, driver, and cabs.",
+    },
+    {
+      q: "What is your on-ground support system during the tour?",
+      a: "We assign a dedicated tour manager available 24/7 on WhatsApp & phone throughout your trip from your airport arrival until your departure drop-off.",
+    },
+    {
+      q: "Are vehicles private or shared?",
+      a: "All transfers and sightseeing are strictly in private, well-maintained air-conditioned vehicles (Sedan, SUV, or Tempo Traveller) reserved exclusively for your family or group.",
+    },
+  ];
+
+  return (
+    <section className="py-24 px-4 bg-slate-900/60 border-t border-slate-800">
+      <div className="max-w-4xl mx-auto space-y-12">
+        <div className="text-center space-y-4">
+          <span className="text-xs font-bold uppercase tracking-widest text-amber-400">
+            Got Questions?
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-slate-400 text-sm">
+            Everything you need to know about booking with SFM Travels India DMC.
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          {faqs.map((faq, idx) => (
+            <div
+              key={idx}
+              className="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden transition-all"
+            >
+              <button
+                onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+                className="w-full text-left p-6 flex items-center justify-between gap-4 font-bold text-white text-base hover:text-amber-400 transition-colors"
+              >
+                <span>{faq.q}</span>
+                <ChevronDown
+                  className={`w-5 h-5 text-amber-400 shrink-0 transition-transform duration-300 ${
+                    openIndex === idx ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {openIndex === idx && (
+                <div className="px-6 pb-6 pt-0 text-slate-300 text-xs leading-relaxed border-t border-slate-900/80">
+                  <p className="mt-3">{faq.a}</p>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -108,37 +343,48 @@ export const TravelEssentialsSection = memo(function TravelEssentialsSection() {
 
 export const WhyChooseUsSection = memo(function WhyChooseUsSection() {
   return (
-    <section id="why-us" className="py-20 px-4 bg-slate-900/50 border-t border-slate-800">
+    <section id="why-us" className="py-20 px-4 bg-slate-900 border-t border-slate-800">
       <div className="max-w-7xl mx-auto text-center space-y-12">
-        <div className="space-y-4">
+        <div className="space-y-4 max-w-3xl mx-auto">
           <span className="text-xs font-bold uppercase tracking-widest text-amber-400">
             Why SFM Travels India
           </span>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
             Your Trusted Incredible India Destination Specialist
           </h2>
+          <p className="text-slate-400 text-sm">
+            Direct DMC contracts, transparent pricing, and 100% guest satisfaction guarantee.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="space-y-3 p-6 bg-slate-950 border border-slate-800 rounded-2xl">
-            <ShieldCheck className="w-8 h-8 text-amber-400 mx-auto" />
+          <div className="space-y-3 p-7 bg-slate-950 border border-slate-800 rounded-3xl hover:border-amber-500/40 transition-all shadow-lg">
+            <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-400 w-fit mx-auto border border-amber-500/20">
+              <ShieldCheck className="w-8 h-8" />
+            </div>
             <h3 className="font-bold text-white text-base">Direct Rates Guarantee</h3>
-            <p className="text-slate-400 text-xs">Direct contracting with 4★/5★ luxury resorts & verified houseboat owners.</p>
+            <p className="text-slate-400 text-xs leading-relaxed">Direct contracting with 4★/5★ luxury resorts & verified houseboat owners.</p>
           </div>
-          <div className="space-y-3 p-6 bg-slate-950 border border-slate-800 rounded-2xl">
-            <Clock className="w-8 h-8 text-amber-400 mx-auto" />
+          <div className="space-y-3 p-7 bg-slate-950 border border-slate-800 rounded-3xl hover:border-amber-500/40 transition-all shadow-lg">
+            <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-400 w-fit mx-auto border border-amber-500/20">
+              <Clock className="w-8 h-8" />
+            </div>
             <h3 className="font-bold text-white text-base">24/7 On-Ground Support</h3>
-            <p className="text-slate-400 text-xs">Dedicated India tour manager assisting you from arrival to final drop.</p>
+            <p className="text-slate-400 text-xs leading-relaxed">Dedicated India tour manager assisting you from arrival to final drop.</p>
           </div>
-          <div className="space-y-3 p-6 bg-slate-950 border border-slate-800 rounded-2xl">
-            <FileCheck className="w-8 h-8 text-amber-400 mx-auto" />
+          <div className="space-y-3 p-7 bg-slate-950 border border-slate-800 rounded-3xl hover:border-amber-500/40 transition-all shadow-lg">
+            <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-400 w-fit mx-auto border border-amber-500/20">
+              <FileCheck className="w-8 h-8" />
+            </div>
             <h3 className="font-bold text-white text-base">Verified Cab Drivers</h3>
-            <p className="text-slate-400 text-xs">Professional, uniform-clad local drivers with well-maintained air-conditioned vehicles.</p>
+            <p className="text-slate-400 text-xs leading-relaxed">Professional, uniform-clad local drivers with well-maintained air-conditioned vehicles.</p>
           </div>
-          <div className="space-y-3 p-6 bg-slate-950 border border-slate-800 rounded-2xl">
-            <Users className="w-8 h-8 text-amber-400 mx-auto" />
+          <div className="space-y-3 p-7 bg-slate-950 border border-slate-800 rounded-3xl hover:border-amber-500/40 transition-all shadow-lg">
+            <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-400 w-fit mx-auto border border-amber-500/20">
+              <Users className="w-8 h-8" />
+            </div>
             <h3 className="font-bold text-white text-base">50,000+ Happy Guests</h3>
-            <p className="text-slate-400 text-xs">Over 10 years of experience creating unforgettable journeys across India.</p>
+            <p className="text-slate-400 text-xs leading-relaxed">Over 10 years of experience creating unforgettable journeys across India.</p>
           </div>
         </div>
       </div>
@@ -158,44 +404,63 @@ export const FooterSection = memo(function FooterSection() {
           <p className="text-slate-400 text-xs leading-relaxed">
             SFM Travels India is a licensed Destination Management Company specializing in Incredible India tour packages, Kerala houseboats, Kashmir snow holidays, and Rajasthan palace tours.
           </p>
+          <div className="flex items-center gap-3 text-xs text-amber-400 font-semibold pt-1">
+            <Award className="w-4 h-4" /> <span>Government Recognized Operator</span>
+          </div>
         </div>
 
         <div className="space-y-3">
           <h4 className="text-white text-sm font-bold uppercase tracking-wider">Quick Links</h4>
           <ul className="space-y-2 text-xs text-slate-400">
-            <li><a href="#packages" className="hover:text-amber-400">India Packages</a></li>
-            <li><a href="#regions" className="hover:text-amber-400">Regions & Circuits</a></li>
-            <li><a href="#enquiry" className="hover:text-amber-400 font-bold text-amber-400">Get Free Quote</a></li>
-            <li><a href="#essentials" className="hover:text-amber-400">Travel Essentials</a></li>
-            <li><a href="#why-us" className="hover:text-amber-400">Why Choose Us</a></li>
+            <li><a href="#packages" className="hover:text-amber-400 transition-colors">India Packages</a></li>
+            <li><a href="#regions" className="hover:text-amber-400 transition-colors">Regions & Circuits</a></li>
+            <li><a href="#enquiry" className="hover:text-amber-400 font-bold text-amber-400 transition-colors">Get Free Quote</a></li>
+            <li><a href="#essentials" className="hover:text-amber-400 transition-colors">Travel Essentials</a></li>
+            <li><a href="#why-us" className="hover:text-amber-400 transition-colors">Why Choose Us</a></li>
           </ul>
         </div>
 
         <div className="space-y-3">
           <h4 className="text-white text-sm font-bold uppercase tracking-wider">India Operations</h4>
-          <p className="text-xs text-slate-400 leading-relaxed">
+          <p className="text-xs text-slate-400 leading-relaxed flex items-start gap-2">
+            <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
             Connaught Place, New Delhi, India - 110001
           </p>
-          <p className="text-xs text-slate-400">Call: +91 98765 43210</p>
-          <p className="text-xs text-slate-400">Email: info@sfmtravels.co.in</p>
+          <p className="text-xs text-slate-400 flex items-center gap-2">
+            <Phone className="w-4 h-4 text-amber-400 shrink-0" />
+            <a href="tel:+919876543210" className="hover:text-white transition-colors">+91 98765 43210</a>
+          </p>
+          <p className="text-xs text-slate-400 flex items-center gap-2">
+            <Mail className="w-4 h-4 text-amber-400 shrink-0" />
+            <a href="mailto:info@sfmtravels.co.in" className="hover:text-white transition-colors">info@sfmtravels.co.in</a>
+          </p>
         </div>
 
         <div className="space-y-3">
-          <h4 className="text-white text-sm font-bold uppercase tracking-wider">Custom Plan?</h4>
-          <p className="text-xs text-slate-400">
-            Speak to our senior India travel consultant on WhatsApp for instant customized itineraries.
+          <h4 className="text-white text-sm font-bold uppercase tracking-wider">Need Custom Plan?</h4>
+          <p className="text-xs text-slate-400 leading-relaxed">
+            Speak to our senior India travel consultant on WhatsApp for instant customized day-wise itineraries.
           </p>
           <a
-            href="#enquiry"
-            className="inline-block bg-amber-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs hover:bg-amber-400 transition-colors"
+            href="https://wa.me/919876543210?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20India%20trip!"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2.5 rounded-xl text-xs transition-colors shadow-lg shadow-emerald-600/20"
           >
-            Get Free Quote
+            💬 Chat on WhatsApp
           </a>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto pt-8 border-t border-slate-900 text-center text-xs text-slate-500">
-        © {new Date().getFullYear()} SFM Travels India. All rights reserved. Hosted on sfmtravels.co.in
+      <div className="max-w-7xl mx-auto pt-8 border-t border-slate-900 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>© {new Date().getFullYear()} SFM Travels India. All rights reserved. Hosted on sfmtravels.co.in</div>
+        <div className="flex gap-4 text-[11px] text-slate-400">
+          <a href="#enquiry" className="hover:text-amber-400">Privacy Policy</a>
+          <span>•</span>
+          <a href="#enquiry" className="hover:text-amber-400">Terms of Service</a>
+          <span>•</span>
+          <a href="#enquiry" className="hover:text-amber-400">Cancellation Policy</a>
+        </div>
       </div>
     </footer>
   );
