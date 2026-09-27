@@ -175,7 +175,7 @@ function MainContent() {
   const [isAutoPopUpOpen, setIsAutoPopUpOpen] = useState(false);
 
   useEffect(() => {
-    // 1. Force initial scroll to top of hero section
+    // 1. Force initial scroll to top header/hero section
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     }
@@ -188,8 +188,21 @@ function MainContent() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      if (isAutoPopUpOpen) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "unset";
+      }
+    }
+  }, [isAutoPopUpOpen]);
+
   const closeAutoPopUp = () => {
     setIsAutoPopUpOpen(false);
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
   };
 
   const filteredPackages = useMemo(() => {
@@ -479,8 +492,14 @@ function MainContent() {
 
       {/* Auto Pop-Up Enquiry Form Modal */}
       {isAutoPopUpOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
-          <div className="relative w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-amber-500/30 max-h-[90vh] overflow-y-auto hover-card-3d">
+        <div
+          onClick={closeAutoPopUp}
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in cursor-pointer"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-amber-500/30 max-h-[90vh] overflow-y-auto hover-card-3d cursor-default"
+          >
             <button
               onClick={closeAutoPopUp}
               aria-label="Close form"
