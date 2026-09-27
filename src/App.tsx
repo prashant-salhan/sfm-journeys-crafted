@@ -212,13 +212,12 @@ function MainContent() {
             muted
             playsInline
             poster={sfmHero}
-            className="w-full h-full object-cover opacity-20 filter brightness-105 contrast-105 scale-105 transition-opacity duration-1000"
+            className="w-full h-full object-cover opacity-70 filter brightness-115 contrast-105 saturate-110 scale-105 transition-opacity duration-700 pointer-events-none"
           >
             <source src="https://assets.mixkit.co/videos/preview/mixkit-top-view-of-a-beach-and-sea-waves-41537-large.mp4" type="video/mp4" />
             <source src="https://assets.mixkit.co/videos/42998/42998-720.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.06),transparent_70%)]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/25 to-transparent pointer-events-none" />
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
