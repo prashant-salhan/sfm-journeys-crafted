@@ -206,12 +206,17 @@ function MainContent() {
       {/* Hero Section */}
       <section className="relative py-16 sm:py-24 px-4 overflow-hidden bg-gradient-to-b from-amber-50/40 via-white to-slate-50/80 border-b border-slate-200">
         <div className="absolute inset-0 z-0">
-          <img
-            src={sfmHero}
-            alt="Taj Mahal Incredible India Tourism"
-            className="w-full h-full object-cover object-center opacity-35 filter brightness-110 contrast-105 kenburns-slow pointer-events-none"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent pointer-events-none" />
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster={sfmHero}
+            className="w-full h-full object-cover opacity-60 filter brightness-105 contrast-105 saturate-110 scale-105 transition-opacity duration-700 pointer-events-none"
+          >
+            <source src="/assets/india.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent pointer-events-none" />
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
