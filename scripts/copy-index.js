@@ -14,8 +14,37 @@ if (!fs.existsSync(assetsDir)) {
 }
 
 const files = fs.readdirSync(assetsDir);
-const jsFile = files.find((f) => f.startsWith("index-") && f.endsWith(".js"));
-const cssFile = files.find((f) => f.startsWith("styles-") && f.endsWith(".css"));
+
+// Sort index-*.js files by modification time (newest first)
+const jsFiles = files
+  .filter((f) => f.startsWith("index-") && f.endsWith(".js"))
+  .map((f) => ({
+    name: f,
+    mtime: fs.statSync(path.join(assetsDir, f)).mtimeMs,
+  }))
+  .sort((a, b) => b.mtime - a.mtime);
+
+// Sort styles-*.css files by modification time (newest first)
+const cssFiles = files
+  .filter((f) => f.startsWith("styles-") && f.endsWith(".css"))
+  .map((f) => ({
+    name: f,
+    mtime: fs.statSync(path.join(assetsDir, f)).mtimeMs,
+  }))
+  .sort((a, b) => b.mtime - a.mtime);
+
+const jsFile = jsFiles.length > 0 ? jsFiles[0].name : null;
+const cssFile = cssFiles.length > 0 ? cssFiles[0].name : null;
+
+// Clean up stale older index-*.js files so Vercel doesn't serve cached old assets
+if (jsFiles.length > 1) {
+  for (let i = 1; i < jsFiles.length; i++) {
+    try {
+      fs.unlinkSync(path.join(assetsDir, jsFiles[i].name));
+      console.log(`Removed stale asset: ${jsFiles[i].name}`);
+    } catch (_) {}
+  }
+}
 
 let html = fs.readFileSync(path.join(rootDir, "index.html"), "utf-8");
 
