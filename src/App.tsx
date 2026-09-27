@@ -218,7 +218,7 @@ function MainContent() {
 
         <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/20 via-amber-400/10 to-amber-500/20 border border-amber-500/30 text-amber-400 text-xs font-extrabold px-4 py-2 rounded-full uppercase tracking-widest shadow-lg backdrop-blur-md">
-            <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" /> Direct DMC Operator • Best Price Guarantee
+            <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" /> Discover India's Magic • Unbeatable Handcrafted Journeys
           </div>
 
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-lg">

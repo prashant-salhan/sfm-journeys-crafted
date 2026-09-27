@@ -12,9 +12,8 @@ import {
   Star,
   Quote,
   ChevronDown,
+  ChevronRight,
   Award,
-  Headphones,
-  CheckCircle2,
   Sparkles,
   MapPin,
   Phone,
@@ -306,7 +305,7 @@ export const FaqSection = memo(function FaqSection() {
             Frequently Asked Questions
           </h2>
           <p className="text-slate-400 text-sm">
-            Everything you need to know about booking with SFM Travels India DMC.
+            Everything you need to know about booking with SFM Travels India.
           </p>
         </div>
 
@@ -318,7 +317,7 @@ export const FaqSection = memo(function FaqSection() {
             >
               <button
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-                className="w-full text-left p-6 flex items-center justify-between gap-4 font-bold text-white text-base hover:text-amber-400 transition-colors"
+                className="w-full text-left p-6 flex items-center justify-between gap-4 font-bold text-white text-base hover:text-amber-400 transition-colors cursor-pointer"
               >
                 <span>{faq.q}</span>
                 <ChevronDown
@@ -353,7 +352,7 @@ export const WhyChooseUsSection = memo(function WhyChooseUsSection() {
             Your Trusted Incredible India Destination Specialist
           </h2>
           <p className="text-slate-400 text-sm">
-            Direct DMC contracts, transparent pricing, and 100% guest satisfaction guarantee.
+            Direct contracts, transparent pricing, and 100% guest satisfaction guarantee.
           </p>
         </div>
 
@@ -399,45 +398,100 @@ export const FooterSection = memo(function FooterSection() {
         <div className="space-y-4">
           <div className="flex items-center gap-3">
             <img src={sfmLogo} alt="SFM Travels Logo" className="h-10 w-auto" />
-            <span className="text-lg font-bold text-white">SFM INDIA</span>
+            <div>
+              <span className="text-lg font-black text-white block leading-tight">SFM INDIA</span>
+              <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider block">Smile For Millions</span>
+            </div>
           </div>
           <p className="text-slate-400 text-xs leading-relaxed">
-            SFM Travels India is a licensed Destination Management Company specializing in Incredible India tour packages, Kerala houseboats, Kashmir snow holidays, and Rajasthan palace tours.
+            SFM Travels India specializes in Incredible India tour packages, Kerala houseboats, Kashmir snow holidays, Rajasthan palace tours, and international beach getaways.
           </p>
-          <div className="flex items-center gap-3 text-xs text-amber-400 font-semibold pt-1">
-            <Award className="w-4 h-4" /> <span>Government Recognized Operator</span>
+          <div className="flex items-center gap-2.5 text-xs text-amber-400 font-bold pt-1">
+            <Award className="w-4 h-4 shrink-0" /> <span>Government Recognized Operator</span>
           </div>
         </div>
 
-        <div className="space-y-3">
-          <h4 className="text-white text-sm font-bold uppercase tracking-wider">Quick Links</h4>
-          <ul className="space-y-2 text-xs text-slate-400">
-            <li><a href="#packages" className="hover:text-amber-400 transition-colors">India Packages</a></li>
-            <li><a href="#regions" className="hover:text-amber-400 transition-colors">Regions & Circuits</a></li>
-            <li><a href="#enquiry" className="hover:text-amber-400 font-bold text-amber-400 transition-colors">Get Free Quote</a></li>
-            <li><a href="#essentials" className="hover:text-amber-400 transition-colors">Travel Essentials</a></li>
-            <li><a href="#why-us" className="hover:text-amber-400 transition-colors">Why Choose Us</a></li>
+        {/* Aesthetic Quick Links */}
+        <div className="space-y-4">
+          <div className="space-y-1.5">
+            <h4 className="text-white text-sm font-bold uppercase tracking-wider">Quick Links</h4>
+            <div className="w-10 h-0.5 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full" />
+          </div>
+          <ul className="space-y-2.5 text-xs font-medium text-slate-300">
+            <li>
+              <a
+                href="#packages"
+                className="no-underline hover:text-amber-400 transition-all inline-flex items-center gap-2 group"
+              >
+                <ChevronRight className="w-3.5 h-3.5 text-amber-400 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                <span>India Tour Packages</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#regions"
+                className="no-underline hover:text-amber-400 transition-all inline-flex items-center gap-2 group"
+              >
+                <ChevronRight className="w-3.5 h-3.5 text-amber-400 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                <span>Regions & Circuits</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#enquiry"
+                className="no-underline hover:text-amber-400 font-bold text-amber-400 transition-all inline-flex items-center gap-2 group"
+              >
+                <ChevronRight className="w-3.5 h-3.5 text-amber-400 group-hover:translate-x-1 transition-all" />
+                <span>Get Free Custom Quote</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#essentials"
+                className="no-underline hover:text-amber-400 transition-all inline-flex items-center gap-2 group"
+              >
+                <ChevronRight className="w-3.5 h-3.5 text-amber-400 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                <span>Travel Essentials & Tips</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#why-us"
+                className="no-underline hover:text-amber-400 transition-all inline-flex items-center gap-2 group"
+              >
+                <ChevronRight className="w-3.5 h-3.5 text-amber-400 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                <span>Why Choose Us</span>
+              </a>
+            </li>
           </ul>
         </div>
 
-        <div className="space-y-3">
-          <h4 className="text-white text-sm font-bold uppercase tracking-wider">India Operations</h4>
-          <p className="text-xs text-slate-400 leading-relaxed flex items-start gap-2">
-            <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-            Connaught Place, New Delhi, India - 110001
-          </p>
-          <p className="text-xs text-slate-400 flex items-center gap-2">
-            <Phone className="w-4 h-4 text-amber-400 shrink-0" />
-            <a href="tel:+919876543210" className="hover:text-white transition-colors">+91 98765 43210</a>
-          </p>
-          <p className="text-xs text-slate-400 flex items-center gap-2">
-            <Mail className="w-4 h-4 text-amber-400 shrink-0" />
-            <a href="mailto:info@sfmtravels.co.in" className="hover:text-white transition-colors">info@sfmtravels.co.in</a>
-          </p>
+        <div className="space-y-4">
+          <div className="space-y-1.5">
+            <h4 className="text-white text-sm font-bold uppercase tracking-wider">India Operations</h4>
+            <div className="w-10 h-0.5 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full" />
+          </div>
+          <div className="space-y-2.5 text-xs text-slate-300">
+            <p className="leading-relaxed flex items-start gap-2">
+              <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+              Connaught Place, New Delhi, India - 110001
+            </p>
+            <p className="flex items-center gap-2">
+              <Phone className="w-4 h-4 text-amber-400 shrink-0" />
+              <a href="tel:+919876543210" className="no-underline hover:text-amber-400 transition-colors">+91 98765 43210</a>
+            </p>
+            <p className="flex items-center gap-2">
+              <Mail className="w-4 h-4 text-amber-400 shrink-0" />
+              <a href="mailto:info@sfmtravels.co.in" className="no-underline hover:text-amber-400 transition-colors">info@sfmtravels.co.in</a>
+            </p>
+          </div>
         </div>
 
-        <div className="space-y-3">
-          <h4 className="text-white text-sm font-bold uppercase tracking-wider">Need Custom Plan?</h4>
+        <div className="space-y-4">
+          <div className="space-y-1.5">
+            <h4 className="text-white text-sm font-bold uppercase tracking-wider">Need Custom Plan?</h4>
+            <div className="w-10 h-0.5 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full" />
+          </div>
           <p className="text-xs text-slate-400 leading-relaxed">
             Speak to our senior India travel consultant on WhatsApp for instant customized day-wise itineraries.
           </p>
@@ -445,7 +499,7 @@ export const FooterSection = memo(function FooterSection() {
             href="https://wa.me/919876543210?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20India%20trip!"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2.5 rounded-xl text-xs transition-colors shadow-lg shadow-emerald-600/20"
+            className="no-underline inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2.5 rounded-xl text-xs transition-colors shadow-lg shadow-emerald-600/20"
           >
             💬 Chat on WhatsApp
           </a>
@@ -453,13 +507,13 @@ export const FooterSection = memo(function FooterSection() {
       </div>
 
       <div className="max-w-7xl mx-auto pt-8 border-t border-slate-900 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div>© {new Date().getFullYear()} SFM Travels India. All rights reserved. Hosted on sfmtravels.co.in</div>
+        <div>© {new Date().getFullYear()} SFM Travels India. All rights reserved. Smile For Millions</div>
         <div className="flex gap-4 text-[11px] text-slate-400">
-          <a href="#enquiry" className="hover:text-amber-400">Privacy Policy</a>
+          <a href="#enquiry" className="no-underline hover:text-amber-400 transition-colors">Privacy Policy</a>
           <span>•</span>
-          <a href="#enquiry" className="hover:text-amber-400">Terms of Service</a>
+          <a href="#enquiry" className="no-underline hover:text-amber-400 transition-colors">Terms of Service</a>
           <span>•</span>
-          <a href="#enquiry" className="hover:text-amber-400">Cancellation Policy</a>
+          <a href="#enquiry" className="no-underline hover:text-amber-400 transition-colors">Cancellation Policy</a>
         </div>
       </div>
     </footer>
