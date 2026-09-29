@@ -75,23 +75,19 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
 
     try {
       if (apiBase) {
-        const response = await fetch(`${apiBase}/api/enquiries`, {
+        fetch(`${apiBase}/api/enquiries`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
-        });
-        if (!response.ok) {
-          const errRes = await response.json().catch(() => ({}));
-          console.warn("Backend Enquiry API non-200 status:", response.status, errRes);
-        }
+        }).catch((err) => console.warn("Backend Enquiry submission network warning:", err));
       }
     } catch (err) {
-      console.error("Backend Enquiry submission network error:", err);
-    } finally {
-      setSubmitting(false);
-      setSubmittedData({ name: cleanName, phone: cleanPhone, travel: cleanTravel });
-      setSubmitSuccess(true);
+      console.error("Backend Enquiry submission error:", err);
     }
+    setSubmitting(false);
+    setSubmittedData({ name: cleanName, phone: cleanPhone, travel: cleanTravel });
+    setSubmitSuccess(true);
+
   };
 
   if (submitSuccess && submittedData) {
