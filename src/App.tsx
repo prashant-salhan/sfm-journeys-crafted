@@ -277,14 +277,14 @@ function MainContent() {
           </div>
 
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-lg">
-            Crafting Unforgettable <br className="hidden sm:inline" />
+            Go Where the Map Ends. <br className="hidden sm:inline" />
             <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
-              Journeys Across Incredible India
+              Find Where Your Story Begins.
             </span>
           </h1>
 
           <p className="text-slate-200 text-base sm:text-xl max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-md">
-            From snowy Himalayan mountains in Kashmir to emerald tea estates in Kerala and royal palaces in Rajasthan. Tailor-made itineraries with 100% price transparency.
+            Across continents, cultures and landscapes, we uncover experiences worth travelling for. Every journey is handcrafted around your curiosity, your pace and your idea of extraordinary.
           </p>
 
           <SearchBox
