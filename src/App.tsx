@@ -385,7 +385,7 @@ function MainContent() {
             <Award className="w-3.5 h-3.5" /> Handcrafted Itineraries
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-            Featured India Tour Packages
+            Dream Destinations, One Journey Away.
           </h2>
           <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-medium">
             All-inclusive itineraries with luxury stays, private air-conditioned vehicles, driver-cum-guides, and 24/7 on-ground assistance.

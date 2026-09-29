@@ -37,7 +37,7 @@ export function SearchBox({
       {/* Category Pills */}
       <div className="flex flex-wrap gap-2 justify-center border-b border-slate-100 pb-4">
         {[
-          { id: "all", label: "All India Tours" },
+          { id: "domestic", label: "Domestic Tours" },
           { id: "north", label: "Kashmir & Himalayas" },
           { id: "kerala", label: "Kerala Backwaters" },
           { id: "rajasthan", label: "Royal Rajasthan" },
@@ -49,7 +49,7 @@ export function SearchBox({
             onClick={() => onTabChange(tab.id)}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeTab === tab.id
-                ? "bg-amber-500 text-slate-950 shadow-md shadow-amber-500/30 scale-105 font-black ring-2 ring-amber-400/40"
+                ? "bg-slate-900 text-white shadow-md scale-105 font-black ring-2 ring-slate-800"
                 : "bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 hover:scale-102"
             }`}
           >

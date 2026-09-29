@@ -1,5 +1,5 @@
 import { useState, memo } from "react";
-import { Sparkles, Menu, X, Zap, FileCheck, Phone, Award } from "lucide-react";
+import { Menu, X, Zap, FileCheck, Phone, Award, MapPin, Sparkles } from "lucide-react";
 import sfmLogo from "@/assets/sfm-logo.png";
 import { CurrencySelector } from "@/components/CurrencySelector";
 
@@ -127,9 +127,9 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
             <CurrencySelector className="scale-95" />
             <button
               onClick={onPlanTripClick}
-              className="text-amber-600 hover:text-amber-700 font-black text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer hover:scale-105 transition-all bg-transparent border-none px-2 py-1"
+              className="text-amber-700 hover:text-amber-800 font-black text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer hover:scale-105 transition-all bg-transparent border-none px-2 py-1"
             >
-              <Sparkles className="w-4 h-4 text-amber-500 animate-pulse" />
+              <MapPin className="w-4 h-4 text-amber-600" />
               <span>Plan My Trip</span>
             </button>
           </div>
