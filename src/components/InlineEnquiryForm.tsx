@@ -244,14 +244,6 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
           )}
         </button>
       </div>
-
-      <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-slate-600 pt-2 font-medium">
-        <span className="flex items-center gap-1"><ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> 100% Privacy Protected</span>
-        <span>•</span>
-        <span className="flex items-center gap-1"><PhoneCall className="w-3.5 h-3.5 text-amber-600" /> Instant Callback in 30 Mins</span>
-        <span>•</span>
-        <span className="flex items-center gap-1"><Sparkles className="w-3.5 h-3.5 text-sky-600" /> Best Price Guarantee</span>
-      </div>
     </form>
   );
 });
