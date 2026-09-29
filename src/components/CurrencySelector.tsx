@@ -22,17 +22,17 @@ export const CurrencySelector: React.FC<{ className?: string }> = ({ className =
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-bold text-white transition hover:bg-white/20 focus:outline-none"
+        className="flex items-center gap-1.5 rounded-full bg-amber-500/15 border border-amber-400/40 px-3.5 py-1.5 text-xs font-bold text-slate-900 transition hover:bg-amber-500/25 focus:outline-none shadow-sm"
         aria-label="Select Currency"
       >
         <span className="text-sm leading-none">{currencyConfig.flag}</span>
         <span>{currencyConfig.code} ({currencyConfig.symbol})</span>
-        <ChevronDown size={14} className={`text-foreground/50 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+        <ChevronDown size={14} className={`text-slate-700 transition-transform ${isOpen ? "rotate-180" : ""}`} />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-2xl border border-foreground/15 bg-ink/95 p-1.5 shadow-2xl backdrop-blur-xl z-[99]">
-          <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-sky border-b border-foreground/10 flex items-center justify-between">
+        <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-2xl border border-amber-200 bg-white p-1.5 shadow-2xl backdrop-blur-xl z-[99]">
+          <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-amber-700 border-b border-amber-100 flex items-center justify-between">
             <span>Select Currency</span>
             <Globe size={12} />
           </div>
@@ -49,8 +49,8 @@ export const CurrencySelector: React.FC<{ className?: string }> = ({ className =
                   }}
                   className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-medium transition ${
                     isSelected
-                      ? "bg-sky/20 text-sky font-bold"
-                      : "text-foreground/80 hover:bg-foreground/10 hover:text-foreground"
+                      ? "bg-amber-500/20 text-amber-800 font-bold"
+                      : "text-slate-700 hover:bg-slate-100 hover:text-slate-950"
                   }`}
                 >
                   <div className="flex items-center gap-2">

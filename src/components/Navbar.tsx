@@ -51,9 +51,9 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
         </div>
       </div>
 
-      {/* Modern Transparent Overlay Curved Navbar - Wide & Narrow */}
+      {/* Modern Subtle Light Warm Orange Floating Curved Navbar */}
       <header className="sticky top-2 sm:top-3 z-50 px-2 sm:px-4 max-w-[95%] xl:max-w-[1440px] mx-auto my-1.5">
-        <div className="bg-slate-950/85 backdrop-blur-xl rounded-xl sm:rounded-full px-4 sm:px-7 py-1.5 sm:py-2 shadow-2xl shadow-slate-950/70 border border-white/10 flex items-center justify-between transition-all">
+        <div className="bg-amber-50/95 backdrop-blur-xl rounded-xl sm:rounded-full px-4 sm:px-7 py-1.5 sm:py-2 shadow-xl shadow-slate-950/15 border border-amber-200/90 flex items-center justify-between transition-all">
           {/* Logo */}
           <a
             href="#"
@@ -62,22 +62,22 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
           >
             <img src={sfmLogo} alt="SFM Travels Logo" className="h-7 sm:h-8 w-auto object-contain filter drop-shadow" />
             <div>
-              <span className="text-sm sm:text-base font-black tracking-tight text-white block leading-none drop-shadow-sm">
-                SFM <span className="text-amber-400">TRAVELS</span>
+              <span className="text-sm sm:text-base font-black tracking-tight text-slate-950 block leading-none drop-shadow-sm">
+                SFM <span className="text-amber-600">TRAVELS</span>
               </span>
-              <span className="text-[8px] sm:text-[9px] tracking-widest text-amber-400 font-black uppercase block mt-0.5 drop-shadow-sm">
+              <span className="text-[8px] sm:text-[9px] tracking-widest text-amber-700 font-black uppercase block mt-0.5 drop-shadow-sm">
                 Smile For Millions
               </span>
             </div>
           </a>
 
-          {/* Bright Desktop Nav Links with Vibrant Hover */}
-          <nav className="hidden lg:flex items-center gap-7 font-black text-xs sm:text-sm text-white">
+          {/* High-Contrast Nav Links for Light Background */}
+          <nav className="hidden lg:flex items-center gap-7 font-black text-xs sm:text-sm text-slate-800">
             <a
               href="#packages"
               onClick={() => onSelectCategory?.("domestic")}
               style={{ textDecoration: "none" }}
-              className="no-underline text-white hover:text-amber-400 hover:scale-105 transition-all drop-shadow-sm"
+              className="no-underline text-slate-800 hover:text-amber-600 hover:scale-105 transition-all drop-shadow-sm"
             >
               Domestic Packages
             </a>
@@ -85,14 +85,14 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
               href="#packages"
               onClick={() => onSelectCategory?.("international")}
               style={{ textDecoration: "none" }}
-              className="no-underline text-white hover:text-amber-400 hover:scale-105 transition-all drop-shadow-sm flex items-center gap-1"
+              className="no-underline text-slate-800 hover:text-amber-600 hover:scale-105 transition-all drop-shadow-sm flex items-center gap-1"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" /> International Packages
+              <Sparkles className="w-3.5 h-3.5 text-amber-600 animate-pulse" /> International Packages
             </a>
             <a
               href="#why-us"
               style={{ textDecoration: "none" }}
-              className="no-underline text-white hover:text-amber-400 hover:scale-105 transition-all drop-shadow-sm"
+              className="no-underline text-slate-800 hover:text-amber-600 hover:scale-105 transition-all drop-shadow-sm"
             >
               Why Choose Us
             </a>
@@ -100,10 +100,10 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
 
           {/* Compact Right Actions */}
           <div className="hidden sm:flex items-center gap-3">
-            <CurrencySelector className="scale-95 text-white" />
+            <CurrencySelector className="scale-95" />
             <button
               onClick={onPlanTripClick}
-              className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black px-4 py-2 rounded-full text-xs shadow-lg shadow-amber-500/30 hover:scale-105 transition-all flex items-center gap-1.5 cursor-pointer"
+              className="bg-gradient-to-r from-amber-500 via-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black px-4 py-2 rounded-full text-xs shadow-md shadow-amber-500/25 hover:scale-105 transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <Sparkles className="w-3.5 h-3.5" /> Plan My Trip
             </button>
@@ -112,7 +112,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-white hover:text-amber-400"
+            className="lg:hidden p-2 text-slate-950 hover:text-amber-600"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -120,7 +120,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
 
         {/* Mobile Navigation Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-slate-950/95 backdrop-blur-2xl border border-slate-800 mt-2 rounded-2xl p-5 shadow-2xl space-y-3.5 animate-fade-in">
+          <div className="lg:hidden bg-amber-50/98 backdrop-blur-2xl border border-amber-200 mt-2 rounded-2xl p-5 shadow-2xl space-y-3.5 animate-fade-in">
             <a
               href="#packages"
               onClick={() => {
@@ -128,7 +128,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                 onSelectCategory?.("domestic");
               }}
               style={{ textDecoration: "none" }}
-              className="block text-white font-bold no-underline hover:text-amber-400 text-sm"
+              className="block text-slate-900 font-extrabold no-underline hover:text-amber-600 text-sm"
             >
               Domestic Packages
             </a>
@@ -139,26 +139,26 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                 onSelectCategory?.("international");
               }}
               style={{ textDecoration: "none" }}
-              className="block text-amber-400 font-bold no-underline hover:text-amber-300 text-sm flex items-center gap-1.5"
+              className="block text-amber-700 font-extrabold no-underline hover:text-amber-800 text-sm flex items-center gap-1.5"
             >
-              <Sparkles className="w-3.5 h-3.5" /> International Packages
+              <Sparkles className="w-3.5 h-3.5 text-amber-600" /> International Packages
             </a>
             <a
               href="#why-us"
               onClick={() => setMobileMenuOpen(false)}
               style={{ textDecoration: "none" }}
-              className="block text-white font-bold no-underline hover:text-amber-400 text-sm"
+              className="block text-slate-900 font-extrabold no-underline hover:text-amber-600 text-sm"
             >
               Why Choose Us
             </a>
-            <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
+            <div className="pt-3 border-t border-amber-200 flex items-center justify-between">
               <CurrencySelector className="scale-90" />
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onPlanTripClick();
                 }}
-                className="bg-amber-500 text-slate-950 font-extrabold px-3.5 py-1.5 rounded-full text-xs cursor-pointer"
+                className="bg-amber-500 text-slate-950 font-extrabold px-3.5 py-1.5 rounded-full text-xs cursor-pointer shadow-sm"
               >
                 Plan My Trip
               </button>
