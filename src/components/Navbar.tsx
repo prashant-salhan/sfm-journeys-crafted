@@ -51,21 +51,21 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
         </div>
       </div>
 
-      {/* Modern Transparent Overlay Curved Navbar */}
-      <header className="sticky top-2 sm:top-3 z-50 px-3 sm:px-6 max-w-7xl mx-auto my-2">
-        <div className="bg-slate-950/85 backdrop-blur-xl rounded-2xl sm:rounded-full px-4 sm:px-6 py-2.5 sm:py-3 shadow-2xl shadow-slate-950/70 border border-white/10 flex items-center justify-between transition-all">
+      {/* Modern Transparent Overlay Curved Navbar - Wide & Narrow */}
+      <header className="sticky top-2 sm:top-3 z-50 px-2 sm:px-4 max-w-[95%] xl:max-w-[1440px] mx-auto my-1.5">
+        <div className="bg-slate-950/85 backdrop-blur-xl rounded-xl sm:rounded-full px-4 sm:px-7 py-1.5 sm:py-2 shadow-2xl shadow-slate-950/70 border border-white/10 flex items-center justify-between transition-all">
           {/* Logo */}
           <a
             href="#"
             style={{ textDecoration: "none" }}
             className="flex items-center gap-2.5 no-underline select-none"
           >
-            <img src={sfmLogo} alt="SFM Travels Logo" className="h-9 sm:h-10 w-auto object-contain filter drop-shadow" />
+            <img src={sfmLogo} alt="SFM Travels Logo" className="h-7 sm:h-8 w-auto object-contain filter drop-shadow" />
             <div>
-              <span className="text-base sm:text-lg font-black tracking-tight text-white block leading-none drop-shadow-sm">
+              <span className="text-sm sm:text-base font-black tracking-tight text-white block leading-none drop-shadow-sm">
                 SFM <span className="text-amber-400">TRAVELS</span>
               </span>
-              <span className="text-[9px] sm:text-[10px] tracking-widest text-amber-400 font-black uppercase block mt-0.5 drop-shadow-sm">
+              <span className="text-[8px] sm:text-[9px] tracking-widest text-amber-400 font-black uppercase block mt-0.5 drop-shadow-sm">
                 Smile For Millions
               </span>
             </div>
