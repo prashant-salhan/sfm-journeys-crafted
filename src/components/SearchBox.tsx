@@ -42,6 +42,7 @@ export function SearchBox({
           { id: "kerala", label: "Kerala Backwaters" },
           { id: "rajasthan", label: "Royal Rajasthan" },
           { id: "goa", label: "Goa & Beaches" },
+          { id: "international", label: "International Tours" },
         ].map((tab) => (
           <button
             key={tab.id}
@@ -67,7 +68,7 @@ export function SearchBox({
             name="searchQuery"
             type="text"
             aria-label="Search destinations"
-            placeholder="Search destinations, e.g. Kashmir, Houseboat, Taj Mahal, Goa..."
+            placeholder="Search destinations, e.g. Kashmir, Houseboat, Taj Mahal, Goa, Thailand..."
             value={localQuery}
             onChange={handleInputChange}
             className="w-full bg-slate-50 border border-slate-300 focus:border-amber-500 focus:bg-white focus:ring-4 focus:ring-amber-500/15 rounded-xl pl-11 pr-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 font-semibold transition-all outline-none"
@@ -85,7 +86,7 @@ export function SearchBox({
       {/* Quick Search Tag Shortcuts */}
       <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-slate-500">
         <span className="font-bold text-slate-600">Popular:</span>
-        {["Kashmir", "Kerala Houseboat", "Rajasthan Palace", "Solang Snow", "Dubai"].map((tag, idx) => (
+        {["Kashmir", "Kerala Houseboat", "Rajasthan Palace", "Solang Snow", "Dubai", "Thailand", "Switzerland"].map((tag, idx) => (
           <button
             key={idx}
             onClick={() => setQuickTag(tag)}
