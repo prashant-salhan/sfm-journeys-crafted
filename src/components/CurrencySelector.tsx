@@ -22,12 +22,12 @@ export const CurrencySelector: React.FC<{ className?: string }> = ({ className =
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 rounded-full bg-amber-500/15 border border-amber-400/40 px-3.5 py-1.5 text-xs font-bold text-slate-900 transition hover:bg-amber-500/25 focus:outline-none shadow-sm"
+        className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-black text-slate-800 hover:text-amber-600 transition-colors focus:outline-none bg-transparent cursor-pointer"
         aria-label="Select Currency"
       >
         <span className="text-sm leading-none">{currencyConfig.flag}</span>
         <span>{currencyConfig.code} ({currencyConfig.symbol})</span>
-        <ChevronDown size={14} className={`text-slate-700 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+        <ChevronDown size={14} className={`text-slate-600 transition-transform ${isOpen ? "rotate-180" : ""}`} />
       </button>
 
       {isOpen && (

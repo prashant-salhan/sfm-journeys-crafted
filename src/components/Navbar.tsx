@@ -123,13 +123,14 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
           </nav>
 
           {/* Compact Right Actions */}
-          <div className="hidden sm:flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-4">
             <CurrencySelector className="scale-95" />
             <button
               onClick={onPlanTripClick}
-              className="bg-gradient-to-r from-amber-500 via-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black px-4 py-2 rounded-full text-xs shadow-md shadow-amber-500/25 hover:scale-105 transition-all flex items-center gap-1.5 cursor-pointer"
+              className="text-amber-600 hover:text-amber-700 font-black text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer hover:scale-105 transition-all bg-transparent border-none px-2 py-1"
             >
-              <Sparkles className="w-3.5 h-3.5" /> Plan My Trip
+              <Sparkles className="w-4 h-4 text-amber-500 animate-pulse" />
+              <span>Plan My Trip</span>
             </button>
           </div>
 
