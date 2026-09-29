@@ -14,6 +14,9 @@ import {
   X,
   Plane,
   Globe,
+  Linkedin,
+  Instagram,
+  Facebook,
 } from "lucide-react";
 
 import { CurrencyProvider, useCurrency } from "@/context/CurrencyContext";
@@ -535,23 +538,62 @@ function MainContent() {
       {/* Footer */}
       <FooterSection />
 
-      {/* Floating WhatsApp Chat Button */}
-      <a
-        href="https://wa.me/919876543210?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20India%20trip!"
-        target="_blank"
-        rel="noreferrer"
-        aria-label="Chat on WhatsApp"
-        style={{ textDecoration: "none" }}
-        className="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white p-3.5 sm:p-4 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 group cursor-pointer border border-emerald-400/30 no-underline float-3d"
-      >
-        <span className="relative flex">
-          <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7" />
-          <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-300 rounded-full animate-ping" />
-        </span>
-        <span className="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out text-xs font-extrabold pl-0 group-hover:pl-2">
-          Chat with Specialist
-        </span>
-      </a>
+      {/* Floating Vertically Aligned Social Stack (LinkedIn, Instagram, Facebook, WhatsApp) */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2.5 pointer-events-auto">
+        {/* LinkedIn */}
+        <a
+          href="https://www.linkedin.com/company/sfmtravels/"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="SFM Travels LinkedIn"
+          style={{ textDecoration: "none" }}
+          className="bg-[#0A66C2] hover:bg-[#084e96] text-white p-3 rounded-full shadow-xl flex items-center justify-center transition-all hover:scale-110 cursor-pointer no-underline border border-white/20"
+        >
+          <Linkedin className="w-5 h-5 sm:w-6 sm:h-6" />
+        </a>
+
+        {/* Instagram */}
+        <a
+          href="https://www.instagram.com/official_sfm_travel?stkn=b25sZnBucTJndnZi"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="SFM Travels Instagram"
+          style={{ textDecoration: "none" }}
+          className="bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 hover:opacity-90 text-white p-3 rounded-full shadow-xl flex items-center justify-center transition-all hover:scale-110 cursor-pointer no-underline border border-white/20"
+        >
+          <Instagram className="w-5 h-5 sm:w-6 sm:h-6" />
+        </a>
+
+        {/* Facebook */}
+        <a
+          href="https://www.facebook.com/share/1DyCGDjNKN/"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="SFM Travels Facebook"
+          style={{ textDecoration: "none" }}
+          className="bg-[#1877F2] hover:bg-[#0c63d4] text-white p-3 rounded-full shadow-xl flex items-center justify-center transition-all hover:scale-110 cursor-pointer no-underline border border-white/20"
+        >
+          <Facebook className="w-5 h-5 sm:w-6 sm:h-6" />
+        </a>
+
+        {/* WhatsApp Chat Button */}
+        <a
+          href="https://wa.me/919876543210?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Chat on WhatsApp"
+          style={{ textDecoration: "none" }}
+          className="bg-emerald-500 hover:bg-emerald-600 text-white p-3.5 sm:p-4 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 group cursor-pointer border border-emerald-400/30 no-underline float-3d"
+        >
+          <span className="relative flex">
+            <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7" />
+            <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-300 rounded-full animate-ping" />
+          </span>
+          <span className="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out text-xs font-extrabold pl-0 group-hover:pl-2">
+            Chat with Specialist
+          </span>
+        </a>
+      </div>
 
       {/* Auto Pop-Up Enquiry Form Modal */}
       {isAutoPopUpOpen && (
