@@ -415,6 +415,10 @@ export const FooterSection = memo(function FooterSection() {
             <li>
               <a
                 href="#packages"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("packages")?.scrollIntoView({ behavior: "smooth" });
+                }}
                 style={{ textDecoration: "none" }}
                 className="no-underline text-slate-300 hover:text-amber-400 transition-all inline-flex items-center gap-2 group"
               >
@@ -425,6 +429,10 @@ export const FooterSection = memo(function FooterSection() {
             <li>
               <a
                 href="#packages"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("packages")?.scrollIntoView({ behavior: "smooth" });
+                }}
                 style={{ textDecoration: "none" }}
                 className="no-underline text-slate-300 hover:text-amber-400 transition-all inline-flex items-center gap-2 group"
               >
@@ -435,6 +443,10 @@ export const FooterSection = memo(function FooterSection() {
             <li>
               <a
                 href="#enquiry"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("enquiry")?.scrollIntoView({ behavior: "smooth" });
+                }}
                 style={{ textDecoration: "none" }}
                 className="no-underline font-bold text-amber-400 hover:text-amber-300 transition-all inline-flex items-center gap-2 group"
               >
@@ -445,6 +457,10 @@ export const FooterSection = memo(function FooterSection() {
             <li>
               <a
                 href="#why-us"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("why-us")?.scrollIntoView({ behavior: "smooth" });
+                }}
                 style={{ textDecoration: "none" }}
                 className="no-underline text-slate-300 hover:text-amber-400 transition-all inline-flex items-center gap-2 group"
               >

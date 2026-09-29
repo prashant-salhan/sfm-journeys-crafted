@@ -230,25 +230,35 @@ function MainContent() {
   const [isAutoPopUpOpen, setIsAutoPopUpOpen] = useState(false);
 
   useEffect(() => {
-    // 1. Force initial scroll to top header/hero section on initial mount
+    // 1. Force initial scroll to top header/hero section on initial mount and page refresh
     if (typeof window !== "undefined") {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
       window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
+      if (window.location.hash) {
+        window.history.replaceState(null, "", window.location.pathname + window.location.search);
+      }
+
+      const timerId = setTimeout(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      }, 50);
+
+      const timer1 = setTimeout(() => {
+        setIsAutoPopUpOpen(true);
+      }, 45000);
+
+      const timer2 = setTimeout(() => {
+        setIsAutoPopUpOpen(true);
+      }, 120000);
+
+      return () => {
+        clearTimeout(timerId);
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+      };
     }
-
-    // 2. First auto pop-up enquiry modal at 45 seconds (45,000 ms)
-    const timer1 = setTimeout(() => {
-      setIsAutoPopUpOpen(true);
-    }, 45000);
-
-    // 3. Second auto pop-up enquiry modal at 2 minutes (120,000 ms)
-    const timer2 = setTimeout(() => {
-      setIsAutoPopUpOpen(true);
-    }, 120000);
-
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-    };
   }, []);
 
   useEffect(() => {

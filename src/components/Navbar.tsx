@@ -11,6 +11,28 @@ interface NavbarProps {
 export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    targetId?: string,
+    category?: string,
+    tripTitle?: string
+  ) => {
+    e.preventDefault();
+    if (category) {
+      onSelectCategory?.(category);
+    }
+    if (tripTitle) {
+      onPlanTripClick?.(tripTitle);
+    } else if (targetId) {
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       {/* Top Subtle Sliding Banner */}
@@ -81,6 +103,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
           {/* Logo */}
           <a
             href="#"
+            onClick={(e) => handleNavClick(e)}
             style={{ textDecoration: "none" }}
             className="flex items-center gap-2.5 no-underline select-none"
           >
@@ -99,7 +122,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
           <nav className="hidden lg:flex items-center gap-7 font-black text-xs sm:text-sm">
             <a
               href="#packages"
-              onClick={() => onSelectCategory?.("domestic")}
+              onClick={(e) => handleNavClick(e, "packages", "domestic")}
               style={{ color: "#0f172a", textDecoration: "none" }}
               className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
             >
@@ -107,7 +130,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
             </a>
             <a
               href="#packages"
-              onClick={() => onSelectCategory?.("international")}
+              onClick={(e) => handleNavClick(e, "packages", "international")}
               style={{ color: "#0f172a", textDecoration: "none" }}
               className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
             >
@@ -115,7 +138,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
             </a>
             <a
               href="#enquiry"
-              onClick={() => onPlanTripClick?.("Hotel & Flight Services")}
+              onClick={(e) => handleNavClick(e, "enquiry", undefined, "Hotel & Flight Services")}
               style={{ color: "#0f172a", textDecoration: "none" }}
               className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
             >
@@ -123,7 +146,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
             </a>
             <a
               href="#enquiry"
-              onClick={() => onPlanTripClick?.("Cruise Booking")}
+              onClick={(e) => handleNavClick(e, "enquiry", undefined, "Cruise Booking")}
               style={{ color: "#0f172a", textDecoration: "none" }}
               className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
             >
@@ -131,6 +154,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
             </a>
             <a
               href="#why-us"
+              onClick={(e) => handleNavClick(e, "why-us")}
               style={{ color: "#0f172a", textDecoration: "none" }}
               className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
             >
@@ -165,9 +189,9 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
           <div className="lg:hidden bg-amber-50/98 backdrop-blur-2xl border border-amber-200 mt-2 rounded-2xl p-5 shadow-2xl space-y-3.5 animate-fade-in">
             <a
               href="#packages"
-              onClick={() => {
+              onClick={(e) => {
                 setMobileMenuOpen(false);
-                onSelectCategory?.("domestic");
+                handleNavClick(e, "packages", "domestic");
               }}
               style={{ color: "#0f172a", textDecoration: "none" }}
               className="block font-extrabold text-sm nav-link-item"
@@ -176,9 +200,9 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
             </a>
             <a
               href="#packages"
-              onClick={() => {
+              onClick={(e) => {
                 setMobileMenuOpen(false);
-                onSelectCategory?.("international");
+                handleNavClick(e, "packages", "international");
               }}
               style={{ color: "#0f172a", textDecoration: "none" }}
               className="block font-extrabold text-sm nav-link-item"
@@ -187,9 +211,9 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
             </a>
             <a
               href="#enquiry"
-              onClick={() => {
+              onClick={(e) => {
                 setMobileMenuOpen(false);
-                onPlanTripClick?.("Hotel & Flight Services");
+                handleNavClick(e, "enquiry", undefined, "Hotel & Flight Services");
               }}
               style={{ color: "#0f172a", textDecoration: "none" }}
               className="block font-extrabold text-sm nav-link-item"
@@ -198,9 +222,9 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
             </a>
             <a
               href="#enquiry"
-              onClick={() => {
+              onClick={(e) => {
                 setMobileMenuOpen(false);
-                onPlanTripClick?.("Cruise Booking");
+                handleNavClick(e, "enquiry", undefined, "Cruise Booking");
               }}
               style={{ color: "#0f172a", textDecoration: "none" }}
               className="block font-extrabold text-sm nav-link-item"
@@ -209,7 +233,10 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
             </a>
             <a
               href="#why-us"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => {
+                setMobileMenuOpen(false);
+                handleNavClick(e, "why-us");
+              }}
               style={{ color: "#0f172a", textDecoration: "none" }}
               className="block font-extrabold text-sm nav-link-item"
             >
