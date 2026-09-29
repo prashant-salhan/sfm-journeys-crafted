@@ -449,7 +449,7 @@ export const FooterSection = memo(function FooterSection() {
                 className="no-underline text-slate-300 hover:text-amber-400 transition-all inline-flex items-center gap-2 group"
               >
                 <ChevronRight className="w-3.5 h-3.5 text-amber-400 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-                <span>Why Choose Us</span>
+                <span>About Us</span>
               </a>
             </li>
           </ul>
