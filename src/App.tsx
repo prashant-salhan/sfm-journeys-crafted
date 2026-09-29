@@ -253,36 +253,8 @@ function PackagesCarousel({
     return () => cancelAnimationFrame(animationFrameId);
   }, [isPaused, packages]);
 
-  const scrollManual = (direction: "left" | "right") => {
-    if (containerRef.current) {
-      const amount = 360;
-      containerRef.current.scrollBy({
-        left: direction === "left" ? -amount : amount,
-        behavior: "smooth",
-      });
-    }
-  };
-
   return (
-    <div className="relative group/carousel">
-      {/* Left Navigation Arrow */}
-      <button
-        onClick={() => scrollManual("left")}
-        aria-label="Previous package"
-        className="absolute left-1 sm:-left-4 top-1/2 -translate-y-1/2 z-30 bg-amber-100/90 hover:bg-amber-500 text-amber-900 hover:text-slate-950 p-2.5 sm:p-3 rounded-full shadow-lg border border-amber-300/80 transition-all duration-300 cursor-pointer hover:scale-110 flex items-center justify-center backdrop-blur-md"
-      >
-        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 font-black" />
-      </button>
-
-      {/* Right Navigation Arrow */}
-      <button
-        onClick={() => scrollManual("right")}
-        aria-label="Next package"
-        className="absolute right-1 sm:-right-4 top-1/2 -translate-y-1/2 z-30 bg-amber-100/90 hover:bg-amber-500 text-amber-900 hover:text-slate-950 p-2.5 sm:p-3 rounded-full shadow-lg border border-amber-300/80 transition-all duration-300 cursor-pointer hover:scale-110 flex items-center justify-center backdrop-blur-md"
-      >
-        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 font-black" />
-      </button>
-
+    <div className="relative">
       {/* Horizontal Sliding Container with pause-on-hover */}
       <div
         ref={containerRef}
