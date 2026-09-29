@@ -162,6 +162,56 @@ export const FEATURED_PACKAGES: IndiaPackage[] = [
       { day: 5, title: "Dubai Airport Departure", desc: "Breakfast, free time for gold souk shopping, transfer to airport." },
     ],
   },
+  {
+    id: "thailand-tropical-escape",
+    title: "Thailand Tropical Escape & Island Adventure",
+    category: "International & Luxury",
+    duration: "5 Days / 4 Nights",
+    description: "Bangkok city tour, Chao Phraya River experience, Phuket island excursion, Thai cultural attractions, and leisure time.",
+    priceInr: 39999,
+    image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=800&q=80",
+    badge: "Thailand Special",
+    rating: 4.9,
+    reviewsCount: 260,
+    inclusions: [
+      "4★ Thailand City/Beach Hotel",
+      "Bangkok City Tour",
+      "Phuket Island Excursion",
+      "Chao Phraya River Experience"
+    ],
+    itinerary: [
+      { day: 1, title: "Thailand Arrival & Bangkok Evening", desc: "Arrival at Bangkok International Airport. Check-in at hotel. Evening at leisure to explore nearby markets and local attractions." },
+      { day: 2, title: "Bangkok City Tour & Temples", desc: "Visit Bangkok's iconic temples and cultural landmarks, including Wat Pho and Wat Arun. Enjoy a Chao Phraya River experience and evening at leisure." },
+      { day: 3, title: "Bangkok to Phuket & Beach Leisure", desc: "Morning flight to Phuket. Hotel check-in followed by leisure time at the beach. Evening free to explore Phuket's vibrant surroundings." },
+      { day: 4, title: "Phi Phi Island Adventure", desc: "Full-day island excursion to Phi Phi Islands with scenic beaches, turquoise waters, sightseeing, and opportunities for swimming and relaxation." },
+      { day: 5, title: "Thailand Airport Departure", desc: "Breakfast at hotel. Free time for shopping and leisure before transfer to the airport for departure." }
+    ]
+  },
+  {
+    id: "swiss-alps-lakes",
+    title: "Swiss Alps, Lakes & Scenic Rail Experience",
+    category: "International & Luxury",
+    duration: "5 Days / 4 Nights",
+    description: "Zurich city tour, Lucerne, Interlaken, Swiss Alps experience, scenic train journey, and picturesque mountain landscapes.",
+    priceInr: 89999,
+    image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=800&q=80",
+    badge: "Swiss Special",
+    rating: 5.0,
+    reviewsCount: 310,
+    inclusions: [
+      "4★ Switzerland Hotel",
+      "Zurich City Tour",
+      "Swiss Alps Excursion",
+      "Scenic Train Experience"
+    ],
+    itinerary: [
+      { day: 1, title: "Switzerland Arrival & Zurich", desc: "Arrival at Zurich International Airport. Check-in at hotel. Evening at leisure to explore Zurich's charming old town and lakeside surroundings." },
+      { day: 2, title: "Zurich City Tour & Lucerne", desc: "Explore Zurich's major attractions before travelling to Lucerne. Visit the picturesque Old Town, Chapel Bridge, and Lake Lucerne. Return to hotel." },
+      { day: 3, title: "Interlaken & Swiss Alps", desc: "Travel to Interlaken, surrounded by the Swiss Alps. Enjoy spectacular mountain views and leisure time in this scenic resort town." },
+      { day: 4, title: "Jungfrau Region & Scenic Experience", desc: "Enjoy a memorable Swiss mountain excursion with panoramic Alpine views, followed by free time for shopping and exploring local attractions." },
+      { day: 5, title: "Switzerland Airport Departure", desc: "Breakfast at hotel. Free time for last-minute shopping before transfer to the airport for departure." }
+    ]
+  },
 ];
 
 function MainContent() {
