@@ -401,7 +401,7 @@ export const FooterSection = memo(function FooterSection() {
             SFM Travels specializes in handcrafted Incredible India tour packages, Kerala houseboats, Kashmir snow holidays, Rajasthan palace tours, Dubai luxury holidays, and international beach getaways.
           </p>
           <div className="flex items-center gap-2.5 text-xs text-amber-400 font-bold pt-1">
-            <Award className="w-4 h-4 shrink-0" /> <span>Government Recognized Operator</span>
+            <Award className="w-4 h-4 shrink-0" /> <span>Indian & UAE-Dubai Registered company</span>
           </div>
         </div>
 
@@ -440,16 +440,6 @@ export const FooterSection = memo(function FooterSection() {
               >
                 <ChevronRight className="w-3.5 h-3.5 text-amber-400 group-hover:translate-x-1 transition-all" />
                 <span>Get Free Custom Quote</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#essentials"
-                style={{ textDecoration: "none" }}
-                className="no-underline text-slate-300 hover:text-amber-400 transition-all inline-flex items-center gap-2 group"
-              >
-                <ChevronRight className="w-3.5 h-3.5 text-amber-400 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-                <span>Travel Essentials & Tips</span>
               </a>
             </li>
             <li>

@@ -90,20 +90,6 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
               <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" /> International Packages
             </a>
             <a
-              href="#regions"
-              style={{ textDecoration: "none" }}
-              className="no-underline text-white hover:text-amber-400 hover:scale-105 transition-all drop-shadow-sm"
-            >
-              Regions & Circuits
-            </a>
-            <a
-              href="#essentials"
-              style={{ textDecoration: "none" }}
-              className="no-underline text-white hover:text-amber-400 hover:scale-105 transition-all drop-shadow-sm"
-            >
-              Travel Essentials
-            </a>
-            <a
               href="#why-us"
               style={{ textDecoration: "none" }}
               className="no-underline text-white hover:text-amber-400 hover:scale-105 transition-all drop-shadow-sm"
@@ -156,22 +142,6 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
               className="block text-amber-400 font-bold no-underline hover:text-amber-300 text-sm flex items-center gap-1.5"
             >
               <Sparkles className="w-3.5 h-3.5" /> International Packages
-            </a>
-            <a
-              href="#regions"
-              onClick={() => setMobileMenuOpen(false)}
-              style={{ textDecoration: "none" }}
-              className="block text-white font-bold no-underline hover:text-amber-400 text-sm"
-            >
-              Regions & Circuits
-            </a>
-            <a
-              href="#essentials"
-              onClick={() => setMobileMenuOpen(false)}
-              style={{ textDecoration: "none" }}
-              className="block text-white font-bold no-underline hover:text-amber-400 text-sm"
-            >
-              Travel Essentials
             </a>
             <a
               href="#why-us"

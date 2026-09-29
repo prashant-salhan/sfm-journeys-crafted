@@ -432,14 +432,8 @@ function MainContent() {
         )}
       </section>
 
-      {/* Regions Section */}
-      <RegionsSection />
-
       {/* Customer Testimonials */}
       <TestimonialsSection />
-
-      {/* Travel Essentials */}
-      <TravelEssentialsSection />
 
       {/* FAQs Section */}
       <FaqSection />
