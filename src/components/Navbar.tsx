@@ -122,6 +122,14 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
               Hotel & Flight Services
             </a>
             <a
+              href="#enquiry"
+              onClick={() => onPlanTripClick?.("Cruise Booking")}
+              style={{ textDecoration: "none" }}
+              className="no-underline text-slate-800 hover:text-amber-600 hover:scale-105 transition-all drop-shadow-sm"
+            >
+              Cruise
+            </a>
+            <a
               href="#why-us"
               style={{ textDecoration: "none" }}
               className="no-underline text-slate-800 hover:text-amber-600 hover:scale-105 transition-all drop-shadow-sm"
@@ -186,6 +194,17 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
               className="block text-slate-900 font-extrabold no-underline hover:text-amber-600 text-sm"
             >
               Hotel & Flight Services
+            </a>
+            <a
+              href="#enquiry"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onPlanTripClick?.("Cruise Booking");
+              }}
+              style={{ textDecoration: "none" }}
+              className="block text-slate-900 font-extrabold no-underline hover:text-amber-600 text-sm"
+            >
+              Cruise
             </a>
             <a
               href="#why-us"

@@ -463,7 +463,7 @@ export const FooterSection = memo(function FooterSection() {
           <div className="space-y-2.5 text-xs text-slate-300">
             <p className="leading-relaxed flex items-start gap-2">
               <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-              <span><strong>India:</strong> Connaught Place, New Delhi - 110001</span>
+              <span><strong>India:</strong> 142, Basement Avtar Enclave - Paschim Vihar New Delhi - 110063</span>
             </p>
             <p className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-amber-400 shrink-0" />
