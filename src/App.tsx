@@ -17,6 +17,8 @@ import {
   Linkedin,
   Instagram,
   Facebook,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 import { CurrencyProvider, useCurrency } from "@/context/CurrencyContext";
@@ -216,6 +218,161 @@ export const FEATURED_PACKAGES: IndiaPackage[] = [
     ]
   },
 ];
+
+function PackagesCarousel({
+  packages,
+  formatPrice,
+  setSelectedPackage,
+  scrollToEnquiry,
+}: {
+  packages: IndiaPackage[];
+  formatPrice: (price: number) => string;
+  setSelectedPackage: (pkg: IndiaPackage) => void;
+  scrollToEnquiry: (title?: string) => void;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let animationFrameId: number;
+
+    const scroll = () => {
+      if (!isPaused && container) {
+        container.scrollLeft += 0.8;
+        if (container.scrollLeft >= container.scrollWidth - container.clientWidth - 2) {
+          container.scrollLeft = 0;
+        }
+      }
+      animationFrameId = requestAnimationFrame(scroll);
+    };
+
+    animationFrameId = requestAnimationFrame(scroll);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isPaused, packages]);
+
+  const scrollManual = (direction: "left" | "right") => {
+    if (containerRef.current) {
+      const amount = 360;
+      containerRef.current.scrollBy({
+        left: direction === "left" ? -amount : amount,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  return (
+    <div className="relative group/carousel">
+      {/* Left Navigation Arrow */}
+      <button
+        onClick={() => scrollManual("left")}
+        aria-label="Previous package"
+        className="absolute -left-2 sm:-left-6 top-1/2 -translate-y-1/2 z-20 bg-white/95 hover:bg-amber-500 text-slate-800 hover:text-slate-950 p-3 sm:p-3.5 rounded-full shadow-2xl border border-slate-200 transition-all opacity-0 group-hover/carousel:opacity-100 cursor-pointer hover:scale-110"
+      >
+        <ChevronLeft className="w-5 h-5 font-black" />
+      </button>
+
+      {/* Right Navigation Arrow */}
+      <button
+        onClick={() => scrollManual("right")}
+        aria-label="Next package"
+        className="absolute -right-2 sm:-right-6 top-1/2 -translate-y-1/2 z-20 bg-white/95 hover:bg-amber-500 text-slate-800 hover:text-slate-950 p-3 sm:p-3.5 rounded-full shadow-2xl border border-slate-200 transition-all opacity-0 group-hover/carousel:opacity-100 cursor-pointer hover:scale-110"
+      >
+        <ChevronRight className="w-5 h-5 font-black" />
+      </button>
+
+      {/* Horizontal Sliding Container with pause-on-hover */}
+      <div
+        ref={containerRef}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        onTouchStart={() => setIsPaused(true)}
+        onTouchEnd={() => setIsPaused(false)}
+        className="flex gap-6 overflow-x-auto no-scrollbar py-4 px-2 select-none"
+      >
+        {[...packages, ...packages].map((pkg, idx) => (
+          <div
+            key={`${pkg.id}-${idx}`}
+            className="w-[300px] sm:w-[360px] shrink-0 bg-white border border-slate-200/90 rounded-3xl overflow-hidden hover:border-amber-400 transition-all duration-300 flex flex-col group shadow-xl shadow-slate-200/60 hover-card-3d"
+          >
+            <div className="relative h-60 overflow-hidden">
+              <img
+                src={pkg.image}
+                alt={pkg.title}
+                className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+
+              <span className="absolute top-4 left-4 bg-amber-500 text-slate-950 font-black text-[11px] px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+                {pkg.badge}
+              </span>
+
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                <span className="bg-slate-950/80 backdrop-blur-md text-amber-400 text-xs font-bold px-3 py-1 rounded-lg border border-slate-800 flex items-center gap-1">
+                  <Calendar className="w-3.5 h-3.5" /> {pkg.duration}
+                </span>
+                <span className="bg-slate-950/80 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1 rounded-lg border border-slate-800 flex items-center gap-1">
+                  <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" /> {pkg.rating} ({pkg.reviewsCount})
+                </span>
+              </div>
+            </div>
+
+            <div className="p-6 flex-1 flex flex-col justify-between space-y-6">
+              <div className="space-y-3">
+                <div className="flex items-center gap-1.5 text-xs text-amber-600 font-extrabold uppercase tracking-wider">
+                  <MapPin className="w-3.5 h-3.5" /> {pkg.category}
+                </div>
+                <h3 className="text-xl font-black text-slate-900 group-hover:text-amber-600 transition-colors">
+                  {pkg.title}
+                </h3>
+                <p className="text-slate-600 text-xs leading-relaxed line-clamp-2 font-medium">
+                  {pkg.description}
+                </p>
+
+                <div className="pt-2 space-y-2">
+                  {pkg.inclusions.slice(0, 4).map((inc, i) => (
+                    <div key={i} className="flex items-center gap-2 text-xs text-slate-700 font-medium">
+                      <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 font-bold" />
+                      <span>{inc}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                <div>
+                  <span className="text-slate-500 text-[10px] block uppercase font-extrabold tracking-wider">
+                    Starting From
+                  </span>
+                  <span className="text-xl font-black text-amber-600">
+                    {formatPrice(pkg.priceInr)}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setSelectedPackage(pkg)}
+                    className="bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold px-3.5 py-2.5 rounded-xl transition-colors cursor-pointer"
+                  >
+                    Itinerary
+                  </button>
+                  <button
+                    onClick={() => scrollToEnquiry(pkg.title)}
+                    className="bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-black px-4 py-2.5 rounded-xl transition-all flex items-center gap-1 cursor-pointer shadow-md shadow-amber-500/20 hover:scale-105"
+                  >
+                    Book <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function MainContent() {
   const { formatPrice } = useCurrency();
@@ -426,83 +583,12 @@ function MainContent() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredPackages.map((pkg) => (
-              <div
-                key={pkg.id}
-                className="bg-white border border-slate-200/90 rounded-3xl overflow-hidden hover:border-amber-400 transition-all duration-300 flex flex-col group shadow-xl shadow-slate-200/60 hover-card-3d"
-              >
-                <div className="relative h-60 overflow-hidden">
-                  <img
-                    src={pkg.image}
-                    alt={pkg.title}
-                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-                  
-                  <span className="absolute top-4 left-4 bg-amber-500 text-slate-950 font-black text-[11px] px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
-                    {pkg.badge}
-                  </span>
-
-                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-                    <span className="bg-slate-950/80 backdrop-blur-md text-amber-400 text-xs font-bold px-3 py-1 rounded-lg border border-slate-800 flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5" /> {pkg.duration}
-                    </span>
-                    <span className="bg-slate-950/80 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1 rounded-lg border border-slate-800 flex items-center gap-1">
-                      <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" /> {pkg.rating} ({pkg.reviewsCount})
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-6 flex-1 flex flex-col justify-between space-y-6">
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-1.5 text-xs text-amber-600 font-extrabold uppercase tracking-wider">
-                      <MapPin className="w-3.5 h-3.5" /> {pkg.category}
-                    </div>
-                    <h3 className="text-xl font-black text-slate-900 group-hover:text-amber-600 transition-colors">
-                      {pkg.title}
-                    </h3>
-                    <p className="text-slate-600 text-xs leading-relaxed line-clamp-2 font-medium">
-                      {pkg.description}
-                    </p>
-
-                    <div className="pt-2 space-y-2">
-                      {pkg.inclusions.slice(0, 4).map((inc, i) => (
-                        <div key={i} className="flex items-center gap-2 text-xs text-slate-700 font-medium">
-                          <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 font-bold" />
-                          <span>{inc}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <div>
-                      <span className="text-slate-500 text-[10px] block uppercase font-extrabold tracking-wider">Starting From</span>
-                      <span className="text-xl font-black text-amber-600">
-                        {formatPrice(pkg.priceInr)}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => setSelectedPackage(pkg)}
-                        className="bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold px-3.5 py-2.5 rounded-xl transition-colors cursor-pointer"
-                      >
-                        Itinerary
-                      </button>
-                      <button
-                        onClick={() => scrollToEnquiry(pkg.title)}
-                        className="bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-black px-4 py-2.5 rounded-xl transition-all flex items-center gap-1 cursor-pointer shadow-md shadow-amber-500/20 hover:scale-105"
-                      >
-                        Book <ArrowRight className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <PackagesCarousel
+            packages={filteredPackages}
+            formatPrice={formatPrice}
+            setSelectedPackage={setSelectedPackage}
+            scrollToEnquiry={scrollToEnquiry}
+          />
         )}
       </section>
 
