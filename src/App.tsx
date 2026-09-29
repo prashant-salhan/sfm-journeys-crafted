@@ -392,7 +392,7 @@ function MainContent() {
       <section id="packages" className="py-24 px-4 max-w-7xl mx-auto space-y-16">
         <div className="text-center space-y-4 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 text-xs font-extrabold uppercase tracking-widest shadow-sm">
-            <Award className="w-3.5 h-3.5" /> Handcrafted Itineraries
+            <Award className="w-3.5 h-3.5" /> Tailormade Packages
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
             Dream Destinations, One Journey Away.
