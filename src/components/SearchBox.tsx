@@ -33,7 +33,7 @@ export function SearchBox({
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-xl border border-slate-200 p-5 sm:p-7 rounded-3xl max-w-3xl mx-auto shadow-2xl shadow-slate-200/80 space-y-5 transition-all hover-card-3d">
+    <div className="bg-white/95 backdrop-blur-2xl border border-white/90 p-5 sm:p-7 rounded-3xl max-w-3xl mx-auto shadow-2xl shadow-slate-950/30 space-y-5 transition-all hover-card-3d relative z-30">
       {/* Category Pills */}
       <div className="flex flex-wrap gap-2 justify-center border-b border-slate-100 pb-4">
         {[

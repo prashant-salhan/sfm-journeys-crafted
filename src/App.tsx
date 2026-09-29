@@ -337,19 +337,21 @@ function MainContent() {
             Across continents, cultures and landscapes, we uncover experiences worth travelling for. Every journey is handcrafted around your curiosity, your pace and your idea of extraordinary.
           </p>
 
-          <SearchBox
-            activeTab={activeTab}
-            onTabChange={(tab) => {
-              startTransition(() => setActiveTab(tab));
-            }}
-            onSearchChange={(q) => setSearchQuery(q)}
-            onGetQuote={() => scrollToEnquiry("Customized Destination Plan")}
-          />
+          <div className="relative z-30 translate-y-10 sm:translate-y-16 -mb-12 sm:-mb-20">
+            <SearchBox
+              activeTab={activeTab}
+              onTabChange={(tab) => {
+                startTransition(() => setActiveTab(tab));
+              }}
+              onSearchChange={(q) => setSearchQuery(q)}
+              onGetQuote={() => scrollToEnquiry("Customized Destination Plan")}
+            />
+          </div>
         </section>
       </div>
 
       {/* Trust & Stats Ticker Bar */}
-      <section className="bg-slate-50 border-b border-slate-200 py-6 px-4">
+      <section className="bg-slate-50 border-b border-slate-200 pt-16 sm:pt-24 pb-6 px-4">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div className="space-y-1 hover:scale-105 transition-transform">
             <div className="flex items-center justify-center gap-1.5 text-amber-600 font-black text-xl sm:text-2xl">
