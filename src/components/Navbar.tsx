@@ -1,5 +1,5 @@
 import { useState, memo } from "react";
-import { Sparkles, Menu, X, Zap, FileCheck, Phone } from "lucide-react";
+import { Sparkles, Menu, X, Zap, FileCheck, Phone, Award } from "lucide-react";
 import sfmLogo from "@/assets/sfm-logo.png";
 import { CurrencySelector } from "@/components/CurrencySelector";
 
@@ -13,38 +13,62 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
 
   return (
     <>
-      {/* Top Contact Bar */}
-      <div className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 text-slate-950 text-xs font-bold py-1.5 px-4 flex flex-wrap justify-between items-center z-50 shadow-md">
-        <div className="flex items-center gap-4 mx-auto md:mx-0">
-          <span className="flex items-center gap-1.5">
-            <Zap className="w-3.5 h-3.5" /> Explore India & Worldwide • Smile For Millions
-          </span>
-          <span className="hidden sm:inline opacity-50">|</span>
-          <span className="hidden sm:flex items-center gap-1">
-            <FileCheck className="w-3.5 h-3.5" /> Approved Tour Operator & E-Visa Assistance
-          </span>
+      {/* Top Subtle Sliding Banner */}
+      <div className="bg-slate-950 text-slate-200 border-b border-slate-800 text-xs font-bold py-1.5 px-4 flex justify-between items-center z-50 shadow-sm overflow-hidden">
+        {/* Sliding Ticker Marquee */}
+        <div className="overflow-hidden flex-1 max-w-full mr-4">
+          <div className="animate-marquee-slide flex items-center gap-8 whitespace-nowrap">
+            <span className="flex items-center gap-1.5 text-amber-400">
+              <Zap className="w-3.5 h-3.5 text-amber-400" /> Explore India & Worldwide • Smile For Millions
+            </span>
+            <span className="text-slate-700">|</span>
+            <span className="flex items-center gap-1.5 text-emerald-400 font-black">
+              <Award className="w-3.5 h-3.5 text-emerald-400" /> Indian & UAE-Dubai Registered Company
+            </span>
+            <span className="text-slate-700">|</span>
+            <span className="flex items-center gap-1.5 text-sky-400">
+              <FileCheck className="w-3.5 h-3.5 text-sky-400" /> Approved Tour Operator & E-Visa Assistance
+            </span>
+            <span className="text-slate-700">|</span>
+
+            {/* Duplicate for seamless infinite loop */}
+            <span className="flex items-center gap-1.5 text-amber-400">
+              <Zap className="w-3.5 h-3.5 text-amber-400" /> Explore India & Worldwide • Smile For Millions
+            </span>
+            <span className="text-slate-700">|</span>
+            <span className="flex items-center gap-1.5 text-emerald-400 font-black">
+              <Award className="w-3.5 h-3.5 text-emerald-400" /> Indian & UAE-Dubai Registered Company
+            </span>
+            <span className="text-slate-700">|</span>
+            <span className="flex items-center gap-1.5 text-sky-400">
+              <FileCheck className="w-3.5 h-3.5 text-sky-400" /> Approved Tour Operator & E-Visa Assistance
+            </span>
+            <span className="text-slate-700">|</span>
+          </div>
         </div>
-        <div className="hidden md:flex items-center gap-4 text-xs">
+
+        {/* Right Direct Phone & WhatsApp Links */}
+        <div className="hidden md:flex items-center gap-4 text-xs shrink-0">
           <a
             href="tel:+919876543210"
             style={{ textDecoration: "none" }}
-            className="no-underline text-slate-950 hover:text-slate-900 transition-colors flex items-center gap-1 font-extrabold"
+            className="no-underline text-slate-200 hover:text-amber-400 transition-colors flex items-center gap-1 font-extrabold"
           >
-            <Phone className="w-3 h-3" /> 🇮🇳 +91 98765 43210
+            <Phone className="w-3 h-3 text-amber-400" /> 🇮🇳 +91 98765 43210
           </a>
           <a
             href="tel:+971526973378"
             style={{ textDecoration: "none" }}
-            className="no-underline text-slate-950 hover:text-slate-900 transition-colors flex items-center gap-1 font-extrabold"
+            className="no-underline text-slate-200 hover:text-amber-400 transition-colors flex items-center gap-1 font-extrabold"
           >
-            <Phone className="w-3 h-3" /> 🇦🇪 +971 526973378
+            <Phone className="w-3 h-3 text-amber-400" /> 🇦🇪 +971 526973378
           </a>
           <a
             href="https://wa.me/919876543210?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!"
             target="_blank"
             rel="noreferrer"
             style={{ textDecoration: "none" }}
-            className="no-underline text-slate-950 hover:opacity-90 transition-opacity flex items-center gap-1 font-black"
+            className="no-underline text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1 font-black"
           >
             💬 WhatsApp Chat
           </a>
