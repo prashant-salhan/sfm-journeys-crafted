@@ -96,43 +96,43 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
           </a>
 
           {/* High-Contrast Nav Links for Light Background */}
-          <nav className="hidden lg:flex items-center gap-7 font-black text-xs sm:text-sm text-slate-800">
+          <nav className="hidden lg:flex items-center gap-7 font-black text-xs sm:text-sm">
             <a
               href="#packages"
               onClick={() => onSelectCategory?.("domestic")}
-              style={{ textDecoration: "none" }}
-              className="no-underline text-slate-800 hover:text-amber-600 hover:scale-105 transition-all drop-shadow-sm"
+              style={{ color: "#0f172a", textDecoration: "none" }}
+              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
             >
               Domestic Packages
             </a>
             <a
               href="#packages"
               onClick={() => onSelectCategory?.("international")}
-              style={{ textDecoration: "none" }}
-              className="no-underline text-slate-800 hover:text-amber-600 hover:scale-105 transition-all drop-shadow-sm"
+              style={{ color: "#0f172a", textDecoration: "none" }}
+              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
             >
               International Packages
             </a>
             <a
               href="#enquiry"
               onClick={() => onPlanTripClick?.("Hotel & Flight Services")}
-              style={{ textDecoration: "none" }}
-              className="no-underline text-slate-800 hover:text-amber-600 hover:scale-105 transition-all drop-shadow-sm"
+              style={{ color: "#0f172a", textDecoration: "none" }}
+              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
             >
               Hotel & Flight Services
             </a>
             <a
               href="#enquiry"
               onClick={() => onPlanTripClick?.("Cruise Booking")}
-              style={{ textDecoration: "none" }}
-              className="no-underline text-slate-800 hover:text-amber-600 hover:scale-105 transition-all drop-shadow-sm"
+              style={{ color: "#0f172a", textDecoration: "none" }}
+              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
             >
               Cruise
             </a>
             <a
               href="#why-us"
-              style={{ textDecoration: "none" }}
-              className="no-underline text-slate-800 hover:text-amber-600 hover:scale-105 transition-all drop-shadow-sm"
+              style={{ color: "#0f172a", textDecoration: "none" }}
+              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
             >
               Why Choose Us
             </a>
@@ -143,7 +143,8 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
             <CurrencySelector className="scale-95" />
             <button
               onClick={() => onPlanTripClick()}
-              className="text-amber-700 hover:text-amber-800 font-black text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer hover:scale-105 transition-all bg-transparent border-none px-2 py-1"
+              className="font-black text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer hover:scale-105 transition-all bg-transparent border-none px-2 py-1 nav-link-item"
+              style={{ color: "#d97706" }}
             >
               <MapPin className="w-4 h-4 text-amber-600" />
               <span>Plan My Trip</span>
@@ -168,8 +169,8 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                 setMobileMenuOpen(false);
                 onSelectCategory?.("domestic");
               }}
-              style={{ textDecoration: "none" }}
-              className="block text-slate-900 font-extrabold no-underline hover:text-amber-600 text-sm"
+              style={{ color: "#0f172a", textDecoration: "none" }}
+              className="block font-extrabold text-sm nav-link-item"
             >
               Domestic Packages
             </a>
@@ -179,8 +180,8 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                 setMobileMenuOpen(false);
                 onSelectCategory?.("international");
               }}
-              style={{ textDecoration: "none" }}
-              className="block text-slate-900 font-extrabold no-underline hover:text-amber-600 text-sm"
+              style={{ color: "#0f172a", textDecoration: "none" }}
+              className="block font-extrabold text-sm nav-link-item"
             >
               International Packages
             </a>
@@ -190,8 +191,8 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                 setMobileMenuOpen(false);
                 onPlanTripClick?.("Hotel & Flight Services");
               }}
-              style={{ textDecoration: "none" }}
-              className="block text-slate-900 font-extrabold no-underline hover:text-amber-600 text-sm"
+              style={{ color: "#0f172a", textDecoration: "none" }}
+              className="block font-extrabold text-sm nav-link-item"
             >
               Hotel & Flight Services
             </a>
@@ -201,16 +202,16 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                 setMobileMenuOpen(false);
                 onPlanTripClick?.("Cruise Booking");
               }}
-              style={{ textDecoration: "none" }}
-              className="block text-slate-900 font-extrabold no-underline hover:text-amber-600 text-sm"
+              style={{ color: "#0f172a", textDecoration: "none" }}
+              className="block font-extrabold text-sm nav-link-item"
             >
               Cruise
             </a>
             <a
               href="#why-us"
               onClick={() => setMobileMenuOpen(false)}
-              style={{ textDecoration: "none" }}
-              className="block text-slate-900 font-extrabold no-underline hover:text-amber-600 text-sm"
+              style={{ color: "#0f172a", textDecoration: "none" }}
+              className="block font-extrabold text-sm nav-link-item"
             >
               Why Choose Us
             </a>
