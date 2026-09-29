@@ -12,6 +12,8 @@ import {
   Users,
   Building,
   X,
+  Plane,
+  Globe,
 } from "lucide-react";
 
 import { CurrencyProvider, useCurrency } from "@/context/CurrencyContext";
@@ -268,8 +270,10 @@ function MainContent() {
 
         {/* Hero Central Text & Search box */}
         <section className="relative z-10 py-12 sm:py-16 px-4 max-w-5xl mx-auto text-center space-y-8 my-auto">
-          <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-extrabold px-4 py-2 rounded-full uppercase tracking-widest shadow-xl backdrop-blur-md float-3d">
-            <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" /> Discover India's Magic • Unbeatable Handcrafted Journeys
+          <div className="inline-flex items-center gap-2.5 bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs sm:text-sm font-extrabold px-5 py-2.5 rounded-full uppercase tracking-widest shadow-xl backdrop-blur-md float-3d">
+            <Plane className="w-4 h-4 text-amber-400 -rotate-12 animate-pulse" />
+            <span>The World Awaits Your Story</span>
+            <Globe className="w-4 h-4 text-amber-400 animate-spin-slow" />
           </div>
 
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-lg">
