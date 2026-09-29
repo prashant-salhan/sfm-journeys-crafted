@@ -4,7 +4,7 @@ import sfmLogo from "@/assets/sfm-logo.png";
 import { CurrencySelector } from "@/components/CurrencySelector";
 
 interface NavbarProps {
-  onPlanTripClick: () => void;
+  onPlanTripClick: (title?: string) => void;
   onSelectCategory?: (category: string) => void;
 }
 
@@ -114,6 +114,14 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
               International Packages
             </a>
             <a
+              href="#enquiry"
+              onClick={() => onPlanTripClick?.("Hotel & Flight Services")}
+              style={{ textDecoration: "none" }}
+              className="no-underline text-slate-800 hover:text-amber-600 hover:scale-105 transition-all drop-shadow-sm"
+            >
+              Hotel & Flight Services
+            </a>
+            <a
               href="#why-us"
               style={{ textDecoration: "none" }}
               className="no-underline text-slate-800 hover:text-amber-600 hover:scale-105 transition-all drop-shadow-sm"
@@ -126,7 +134,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
           <div className="hidden sm:flex items-center gap-4">
             <CurrencySelector className="scale-95" />
             <button
-              onClick={onPlanTripClick}
+              onClick={() => onPlanTripClick()}
               className="text-amber-700 hover:text-amber-800 font-black text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer hover:scale-105 transition-all bg-transparent border-none px-2 py-1"
             >
               <MapPin className="w-4 h-4 text-amber-600" />
@@ -167,6 +175,17 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
               className="block text-slate-900 font-extrabold no-underline hover:text-amber-600 text-sm"
             >
               International Packages
+            </a>
+            <a
+              href="#enquiry"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onPlanTripClick?.("Hotel & Flight Services");
+              }}
+              style={{ textDecoration: "none" }}
+              className="block text-slate-900 font-extrabold no-underline hover:text-amber-600 text-sm"
+            >
+              Hotel & Flight Services
             </a>
             <a
               href="#why-us"
