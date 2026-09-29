@@ -236,6 +236,7 @@ function PackagesCarousel({
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+    container.scrollLeft = 0;
 
     let animationFrameId: number;
 
@@ -406,13 +407,14 @@ function MainContent() {
 
   const filteredPackages = useMemo(() => {
     return FEATURED_PACKAGES.filter((pkg) => {
+      const isIntl = pkg.id.includes("dubai") || pkg.id.includes("thailand") || pkg.id.includes("swiss") || pkg.category.toLowerCase().includes("international");
       let matchesTab = true;
       if (activeTab === "north") matchesTab = pkg.id.includes("kashmir") || pkg.id.includes("manali");
       else if (activeTab === "kerala") matchesTab = pkg.id.includes("kerala");
       else if (activeTab === "rajasthan") matchesTab = pkg.id.includes("rajasthan");
       else if (activeTab === "goa") matchesTab = pkg.id.includes("goa");
-      else if (activeTab === "international") matchesTab = pkg.id.includes("dubai") || pkg.category.toLowerCase().includes("international");
-      else if (activeTab === "domestic") matchesTab = !pkg.id.includes("dubai") && !pkg.category.toLowerCase().includes("international");
+      else if (activeTab === "international") matchesTab = isIntl;
+      else if (activeTab === "domestic") matchesTab = !isIntl;
 
       let matchesSearch = true;
       if (searchQuery.trim()) {

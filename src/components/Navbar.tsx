@@ -261,7 +261,10 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
               <button
                 onClick={(e) => {
                   e.preventDefault();
+                  onSelectCategory?.("international");
                   setIsInternationalOpen(!isInternationalOpen);
+                  const el = document.getElementById("packages");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
                 style={{ color: "#0f172a" }}
                 className="nav-link-item flex items-center gap-1 hover:scale-105 transition-all drop-shadow-sm font-black text-xs sm:text-sm bg-transparent border-none cursor-pointer py-1 uppercase"
