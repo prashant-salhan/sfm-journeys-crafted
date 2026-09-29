@@ -212,6 +212,8 @@ function MainContent() {
       else if (activeTab === "kerala") matchesTab = pkg.id.includes("kerala");
       else if (activeTab === "rajasthan") matchesTab = pkg.id.includes("rajasthan");
       else if (activeTab === "goa") matchesTab = pkg.id.includes("goa");
+      else if (activeTab === "international") matchesTab = pkg.id.includes("dubai") || pkg.category.toLowerCase().includes("international");
+      else if (activeTab === "domestic") matchesTab = !pkg.id.includes("dubai") && !pkg.category.toLowerCase().includes("international");
 
       let matchesSearch = true;
       if (searchQuery.trim()) {
@@ -234,11 +236,22 @@ function MainContent() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-amber-500 selection:text-slate-950">
-      {/* Hero & Floating Overlay Navbar Section */}
-      <div className="relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-between overflow-hidden bg-slate-950 border-b border-slate-200">
+    <div className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-amber-500 selection:text-slate-950 relative">
+      {/* Top Navbar Sticky across full page */}
+      <div className="sticky top-0 z-50 w-full pointer-events-auto">
+        <Navbar
+          onPlanTripClick={() => scrollToEnquiry("Custom Tour Plan")}
+          onSelectCategory={(cat) => {
+            setActiveTab(cat);
+            document.getElementById("packages")?.scrollIntoView({ behavior: "smooth" });
+          }}
+        />
+      </div>
+
+      {/* Hero & Video Background Container */}
+      <div className="relative -mt-20 sm:-mt-24 pt-20 sm:pt-24 min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-between bg-slate-950 border-b border-slate-200">
         {/* Full-width Video Background */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 overflow-hidden">
           <video
             autoPlay
             loop
@@ -251,11 +264,6 @@ function MainContent() {
           </video>
           {/* Subtle overlay gradients for high readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/30 to-slate-950/85 pointer-events-none" />
-        </div>
-
-        {/* Seamless Transparent Overlay Navbar */}
-        <div className="relative z-50">
-          <Navbar onPlanTripClick={() => scrollToEnquiry("Custom India Tour Plan")} />
         </div>
 
         {/* Hero Central Text & Search box */}

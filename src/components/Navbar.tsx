@@ -5,9 +5,10 @@ import { CurrencySelector } from "@/components/CurrencySelector";
 
 interface NavbarProps {
   onPlanTripClick: () => void;
+  onSelectCategory?: (category: string) => void;
 }
 
-export const Navbar = memo(function Navbar({ onPlanTripClick }: NavbarProps) {
+export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -16,11 +17,11 @@ export const Navbar = memo(function Navbar({ onPlanTripClick }: NavbarProps) {
       <div className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 text-slate-950 text-xs font-bold py-1.5 px-4 flex flex-wrap justify-between items-center z-50 shadow-md">
         <div className="flex items-center gap-4 mx-auto md:mx-0">
           <span className="flex items-center gap-1.5">
-            <Zap className="w-3.5 h-3.5" /> Explore Incredible India • Smile For Millions
+            <Zap className="w-3.5 h-3.5" /> Explore India & Worldwide • Smile For Millions
           </span>
           <span className="hidden sm:inline opacity-50">|</span>
           <span className="hidden sm:flex items-center gap-1">
-            <FileCheck className="w-3.5 h-3.5" /> Approved India Tour Operator & E-Visa Assistance
+            <FileCheck className="w-3.5 h-3.5" /> Approved Tour Operator & E-Visa Assistance
           </span>
         </div>
         <div className="hidden md:flex items-center gap-4 text-xs">
@@ -29,10 +30,17 @@ export const Navbar = memo(function Navbar({ onPlanTripClick }: NavbarProps) {
             style={{ textDecoration: "none" }}
             className="no-underline text-slate-950 hover:text-slate-900 transition-colors flex items-center gap-1 font-extrabold"
           >
-            <Phone className="w-3 h-3" /> +91 98765 43210
+            <Phone className="w-3 h-3" /> 🇮🇳 +91 98765 43210
           </a>
           <a
-            href="https://wa.me/919876543210?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20India%20trip!"
+            href="tel:+971526973378"
+            style={{ textDecoration: "none" }}
+            className="no-underline text-slate-950 hover:text-slate-900 transition-colors flex items-center gap-1 font-extrabold"
+          >
+            <Phone className="w-3 h-3" /> 🇦🇪 +971 526973378
+          </a>
+          <a
+            href="https://wa.me/919876543210?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!"
             target="_blank"
             rel="noreferrer"
             style={{ textDecoration: "none" }}
@@ -44,8 +52,8 @@ export const Navbar = memo(function Navbar({ onPlanTripClick }: NavbarProps) {
       </div>
 
       {/* Modern Transparent Overlay Curved Navbar */}
-      <header className="sticky top-3 sm:top-5 z-50 px-3 sm:px-6 max-w-7xl mx-auto mt-2 sm:mt-3.5">
-        <div className="bg-slate-950/75 backdrop-blur-xl rounded-2xl sm:rounded-full px-4 sm:px-6 py-2.5 sm:py-3 shadow-2xl shadow-slate-950/60 flex items-center justify-between transition-all">
+      <header className="sticky top-2 sm:top-3 z-50 px-3 sm:px-6 max-w-7xl mx-auto my-2">
+        <div className="bg-slate-950/85 backdrop-blur-xl rounded-2xl sm:rounded-full px-4 sm:px-6 py-2.5 sm:py-3 shadow-2xl shadow-slate-950/70 border border-white/10 flex items-center justify-between transition-all">
           {/* Logo */}
           <a
             href="#"
@@ -55,7 +63,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick }: NavbarProps) {
             <img src={sfmLogo} alt="SFM Travels Logo" className="h-9 sm:h-10 w-auto object-contain filter drop-shadow" />
             <div>
               <span className="text-base sm:text-lg font-black tracking-tight text-white block leading-none drop-shadow-sm">
-                SFM <span className="text-amber-400">INDIA</span>
+                SFM <span className="text-amber-400">TRAVELS</span>
               </span>
               <span className="text-[9px] sm:text-[10px] tracking-widest text-amber-400 font-black uppercase block mt-0.5 drop-shadow-sm">
                 Smile For Millions
@@ -64,13 +72,22 @@ export const Navbar = memo(function Navbar({ onPlanTripClick }: NavbarProps) {
           </a>
 
           {/* Bright Desktop Nav Links with Vibrant Hover */}
-          <nav className="hidden lg:flex items-center gap-8 font-black text-xs sm:text-sm text-white">
+          <nav className="hidden lg:flex items-center gap-7 font-black text-xs sm:text-sm text-white">
             <a
               href="#packages"
+              onClick={() => onSelectCategory?.("domestic")}
               style={{ textDecoration: "none" }}
               className="no-underline text-white hover:text-amber-400 hover:scale-105 transition-all drop-shadow-sm"
             >
-              India Packages
+              Domestic Packages
+            </a>
+            <a
+              href="#packages"
+              onClick={() => onSelectCategory?.("international")}
+              style={{ textDecoration: "none" }}
+              className="no-underline text-white hover:text-amber-400 hover:scale-105 transition-all drop-shadow-sm flex items-center gap-1"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" /> International Packages
             </a>
             <a
               href="#regions"
@@ -120,11 +137,25 @@ export const Navbar = memo(function Navbar({ onPlanTripClick }: NavbarProps) {
           <div className="lg:hidden bg-slate-950/95 backdrop-blur-2xl border border-slate-800 mt-2 rounded-2xl p-5 shadow-2xl space-y-3.5 animate-fade-in">
             <a
               href="#packages"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onSelectCategory?.("domestic");
+              }}
               style={{ textDecoration: "none" }}
               className="block text-white font-bold no-underline hover:text-amber-400 text-sm"
             >
-              India Packages
+              Domestic Packages
+            </a>
+            <a
+              href="#packages"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onSelectCategory?.("international");
+              }}
+              style={{ textDecoration: "none" }}
+              className="block text-amber-400 font-bold no-underline hover:text-amber-300 text-sm flex items-center gap-1.5"
+            >
+              <Sparkles className="w-3.5 h-3.5" /> International Packages
             </a>
             <a
               href="#regions"

@@ -393,12 +393,12 @@ export const FooterSection = memo(function FooterSection() {
           <div className="flex items-center gap-3">
             <img src={sfmLogo} alt="SFM Travels Logo" className="h-10 w-auto" />
             <div>
-              <span className="text-lg font-black text-white block leading-tight">SFM INDIA</span>
+              <span className="text-lg font-black text-white block leading-tight">SFM TRAVELS</span>
               <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider block">Smile For Millions</span>
             </div>
           </div>
           <p className="text-slate-400 text-xs leading-relaxed">
-            SFM Travels India specializes in Incredible India tour packages, Kerala houseboats, Kashmir snow holidays, Rajasthan palace tours, and international beach getaways.
+            SFM Travels specializes in handcrafted Incredible India tour packages, Kerala houseboats, Kashmir snow holidays, Rajasthan palace tours, Dubai luxury holidays, and international beach getaways.
           </p>
           <div className="flex items-center gap-2.5 text-xs text-amber-400 font-bold pt-1">
             <Award className="w-4 h-4 shrink-0" /> <span>Government Recognized Operator</span>
@@ -419,17 +419,17 @@ export const FooterSection = memo(function FooterSection() {
                 className="no-underline text-slate-300 hover:text-amber-400 transition-all inline-flex items-center gap-2 group"
               >
                 <ChevronRight className="w-3.5 h-3.5 text-amber-400 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-                <span>India Tour Packages</span>
+                <span>Domestic Tour Packages</span>
               </a>
             </li>
             <li>
               <a
-                href="#regions"
+                href="#packages"
                 style={{ textDecoration: "none" }}
                 className="no-underline text-slate-300 hover:text-amber-400 transition-all inline-flex items-center gap-2 group"
               >
                 <ChevronRight className="w-3.5 h-3.5 text-amber-400 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-                <span>Regions & Circuits</span>
+                <span>International Tour Packages</span>
               </a>
             </li>
             <li>
@@ -467,17 +467,23 @@ export const FooterSection = memo(function FooterSection() {
 
         <div className="space-y-4">
           <div className="space-y-1.5">
-            <h4 className="text-white text-sm font-bold uppercase tracking-wider">India Operations</h4>
+            <h4 className="text-white text-sm font-bold uppercase tracking-wider">Contact & Offices</h4>
             <div className="w-10 h-0.5 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full" />
           </div>
           <div className="space-y-2.5 text-xs text-slate-300">
             <p className="leading-relaxed flex items-start gap-2">
               <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-              Connaught Place, New Delhi, India - 110001
+              <span><strong>India:</strong> Connaught Place, New Delhi - 110001</span>
             </p>
             <p className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-amber-400 shrink-0" />
+              <span className="font-bold text-amber-400">India:</span>
               <a href="tel:+919876543210" style={{ textDecoration: "none" }} className="no-underline text-slate-300 hover:text-amber-400 transition-colors">+91 98765 43210</a>
+            </p>
+            <p className="flex items-center gap-2">
+              <Phone className="w-4 h-4 text-amber-400 shrink-0" />
+              <span className="font-bold text-amber-400">UAE / Dubai:</span>
+              <a href="tel:+971526973378" style={{ textDecoration: "none" }} className="no-underline text-slate-300 hover:text-amber-400 transition-colors">+971 526973378</a>
             </p>
             <p className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-amber-400 shrink-0" />
@@ -492,10 +498,10 @@ export const FooterSection = memo(function FooterSection() {
             <div className="w-10 h-0.5 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full" />
           </div>
           <p className="text-xs text-slate-400 leading-relaxed">
-            Speak to our senior India travel consultant on WhatsApp for instant customized day-wise itineraries.
+            Speak to our senior travel consultant on WhatsApp for instant customized day-wise itineraries.
           </p>
           <a
-            href="https://wa.me/919876543210?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20India%20trip!"
+            href="https://wa.me/919876543210?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!"
             target="_blank"
             rel="noreferrer"
             style={{ textDecoration: "none" }}
@@ -507,7 +513,7 @@ export const FooterSection = memo(function FooterSection() {
       </div>
 
       <div className="max-w-7xl mx-auto pt-8 border-t border-slate-900 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div>© {new Date().getFullYear()} SFM Travels India. All rights reserved. Smile For Millions</div>
+        <div>© {new Date().getFullYear()} SFM Travels. All rights reserved. Smile For Millions</div>
         <div className="flex gap-4 text-[11px] text-slate-400">
           <a href="#enquiry" style={{ textDecoration: "none" }} className="no-underline text-slate-400 hover:text-amber-400 transition-colors">Privacy Policy</a>
           <span>•</span>
