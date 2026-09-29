@@ -227,17 +227,25 @@ function MainContent() {
   const [isAutoPopUpOpen, setIsAutoPopUpOpen] = useState(false);
 
   useEffect(() => {
-    // 1. Force initial scroll to top header/hero section
+    // 1. Force initial scroll to top header/hero section on initial mount
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     }
 
-    // 2. Trigger auto pop-up enquiry modal after 800ms
-    const timer = setTimeout(() => {
+    // 2. First auto pop-up enquiry modal at 45 seconds (45,000 ms)
+    const timer1 = setTimeout(() => {
       setIsAutoPopUpOpen(true);
-    }, 800);
+    }, 45000);
 
-    return () => clearTimeout(timer);
+    // 3. Second auto pop-up enquiry modal at 2 minutes (120,000 ms)
+    const timer2 = setTimeout(() => {
+      setIsAutoPopUpOpen(true);
+    }, 120000);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
   }, []);
 
   useEffect(() => {
@@ -252,9 +260,6 @@ function MainContent() {
 
   const closeAutoPopUp = () => {
     setIsAutoPopUpOpen(false);
-    if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-    }
   };
 
   const filteredPackages = useMemo(() => {
