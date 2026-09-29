@@ -109,9 +109,9 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
               href="#packages"
               onClick={() => onSelectCategory?.("international")}
               style={{ textDecoration: "none" }}
-              className="no-underline text-slate-800 hover:text-amber-600 hover:scale-105 transition-all drop-shadow-sm flex items-center gap-1"
+              className="no-underline text-slate-800 hover:text-amber-600 hover:scale-105 transition-all drop-shadow-sm"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-600 animate-pulse" /> International Packages
+              International Packages
             </a>
             <a
               href="#why-us"
@@ -164,9 +164,9 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                 onSelectCategory?.("international");
               }}
               style={{ textDecoration: "none" }}
-              className="block text-amber-700 font-extrabold no-underline hover:text-amber-800 text-sm flex items-center gap-1.5"
+              className="block text-slate-900 font-extrabold no-underline hover:text-amber-600 text-sm"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-600" /> International Packages
+              International Packages
             </a>
             <a
               href="#why-us"
