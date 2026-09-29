@@ -134,7 +134,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
               style={{ color: "#0f172a", textDecoration: "none" }}
               className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
             >
-              Why Choose Us
+              About Us
             </a>
           </nav>
 
@@ -213,7 +213,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
               style={{ color: "#0f172a", textDecoration: "none" }}
               className="block font-extrabold text-sm nav-link-item"
             >
-              Why Choose Us
+              About Us
             </a>
             <div className="pt-3 border-t border-amber-200 flex items-center justify-between">
               <CurrencySelector className="scale-90" />
