@@ -471,19 +471,19 @@ function MainContent() {
         <section className="relative z-10 py-12 sm:py-16 px-4 max-w-5xl mx-auto text-center space-y-8 my-auto">
           <div className="inline-flex items-center gap-2.5 bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs sm:text-sm font-extrabold px-5 py-2.5 rounded-full uppercase tracking-widest shadow-xl backdrop-blur-md float-3d">
             <Plane className="w-4 h-4 text-amber-400 -rotate-12 animate-pulse" />
-            <span>We Plan - You Travel - Memories</span>
+            <span>We Plan - You Travel - Memories Follow</span>
             <Globe className="w-4 h-4 text-amber-400 animate-spin-slow" />
           </div>
 
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-lg">
-            Go Where the Map Ends. <br className="hidden sm:inline" />
+            Travel Professionals <br className="hidden sm:inline" />
             <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
-              Find Where Your Story Begins.
+              Office In Delhi & Dubai
             </span>
           </h1>
 
           <p className="text-slate-200 text-base sm:text-xl max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-md">
-            Across continents, cultures and landscapes, we uncover experiences worth travelling for. Every journey is handcrafted around your curiosity, your pace and your idea of extraordinary.
+            We Understand the true value of your vacation & make sure it goes above your expectations!!
           </p>
 
           <div className="relative z-30 translate-y-10 sm:translate-y-16 -mb-12 sm:-mb-20">
@@ -648,7 +648,7 @@ function MainContent() {
 
         {/* WhatsApp Chat Button */}
         <a
-          href="https://wa.me/919876543210?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!"
+          href="https://wa.me/971526973378?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!"
           target="_blank"
           rel="noreferrer"
           aria-label="Chat on WhatsApp"

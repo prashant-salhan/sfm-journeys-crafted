@@ -489,7 +489,7 @@ export const FooterSection = memo(function FooterSection() {
             <p className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-amber-400 shrink-0" />
               <span className="font-bold text-amber-400">UAE / Dubai:</span>
-              <a href="tel:+971526973378" style={{ textDecoration: "none" }} className="no-underline text-slate-300 hover:text-amber-400 transition-colors">+971 526973378</a>
+              <a href="tel:+971526973378" style={{ textDecoration: "none" }} className="no-underline text-slate-300 hover:text-amber-400 transition-colors">+971 52 697 3378</a>
             </p>
             <p className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-amber-400 shrink-0" />
@@ -507,7 +507,7 @@ export const FooterSection = memo(function FooterSection() {
             Speak to our senior travel consultant on WhatsApp for instant customized day-wise itineraries.
           </p>
           <a
-            href="https://wa.me/919876543210?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!"
+            href="https://wa.me/971526973378?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!"
             target="_blank"
             rel="noreferrer"
             style={{ textDecoration: "none" }}

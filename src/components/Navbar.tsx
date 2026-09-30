@@ -205,10 +205,10 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
             style={{ textDecoration: "none" }}
             className="no-underline text-slate-200 hover:text-amber-400 transition-colors flex items-center gap-1 font-extrabold"
           >
-            <Phone className="w-3 h-3 text-amber-400" /> 🇦🇪 +971 526973378
+            <Phone className="w-3 h-3 text-amber-400" /> 🇦🇪 +971 52 697 3378
           </a>
           <a
-            href="https://wa.me/919876543210?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!"
+            href="https://wa.me/971526973378?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!"
             target="_blank"
             rel="noreferrer"
             style={{ textDecoration: "none" }}
@@ -254,7 +254,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
             {/* International Packages Mega Dropdown */}
             <div
               ref={dropdownRef}
-              className="relative py-2"
+              className="py-2"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
@@ -280,7 +280,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
               {/* Mega Dropdown Panel */}
               {isInternationalOpen && (
                 <div
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[92vw] max-w-5xl bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-slate-950/20 z-[100] animate-fade-in text-slate-900"
+                  className="absolute top-full left-0 right-0 mx-auto mt-2 w-[95vw] max-w-5xl bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-slate-950/20 z-[100] animate-fade-in text-slate-900"
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                 >
@@ -291,7 +291,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                           <div key={groupIdx} className="space-y-2">
                             <h4
                               onClick={(e) => handleDestinationClick(e, group.title)}
-                              className="text-sm font-extrabold text-amber-600 tracking-tight hover:underline cursor-pointer"
+                              className="text-sm font-extrabold text-slate-800 tracking-tight hover:text-amber-600 hover:underline cursor-pointer"
                             >
                               {group.title}
                             </h4>
@@ -398,7 +398,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                     <div key={idx} className="space-y-1.5">
                       <h5
                         onClick={(e) => handleDestinationClick(e, group.title)}
-                        className="text-xs font-black text-amber-600 uppercase cursor-pointer hover:underline"
+                        className="text-xs font-black text-slate-800 uppercase cursor-pointer hover:text-amber-600 hover:underline"
                       >
                         {group.title}
                       </h5>

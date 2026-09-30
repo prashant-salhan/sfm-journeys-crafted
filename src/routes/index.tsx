@@ -460,7 +460,7 @@ export function IndiaPortal() {
 
       {/* Floating WhatsApp Agent */}
       <a
-        href="https://wa.me/919876543210?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20India%20trip!"
+        href="https://wa.me/971526973378?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!"
         target="_blank"
         rel="noreferrer"
         className="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white p-4 rounded-full shadow-2xl shadow-emerald-500/40 hover:scale-110 transition-all flex items-center justify-center group"

@@ -91,8 +91,8 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
   };
 
   if (submitSuccess && submittedData) {
-    const waMsg = `Hi SFM Travels India! I submitted an enquiry for ${encodeURIComponent(submittedData.travel)} (Name: ${encodeURIComponent(submittedData.name)}, Phone: ${encodeURIComponent(submittedData.phone)}). Please share my day-wise itinerary.`;
-    const waUrl = `https://wa.me/919876543210?text=${waMsg}`;
+    const waMsg = `Hi SFM Travels! I submitted an enquiry for ${encodeURIComponent(submittedData.travel)} (Name: ${encodeURIComponent(submittedData.name)}, Phone: ${encodeURIComponent(submittedData.phone)}). Please share my day-wise itinerary.`;
+    const waUrl = `https://wa.me/971526973378?text=${waMsg}`;
 
     return (
       <div className="bg-emerald-50 border border-emerald-200 p-8 sm:p-10 rounded-3xl text-center space-y-6 shadow-xl animate-fade-in">
