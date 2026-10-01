@@ -13,7 +13,7 @@ export const CircularSocialMenu = memo(function CircularSocialMenu() {
       icon: Linkedin,
       bg: "bg-[#0A66C2] hover:bg-[#084e96] border-blue-400/40",
       shadow: "shadow-blue-500/50",
-      angle: 0, // Top
+      angle: 0, // 12 o'clock
     },
     {
       id: "instagram",
@@ -22,7 +22,7 @@ export const CircularSocialMenu = memo(function CircularSocialMenu() {
       icon: Instagram,
       bg: "bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 hover:opacity-95 border-pink-400/40",
       shadow: "shadow-pink-500/50",
-      angle: 90, // Right
+      angle: 90, // 3 o'clock
     },
     {
       id: "facebook",
@@ -31,7 +31,7 @@ export const CircularSocialMenu = memo(function CircularSocialMenu() {
       icon: Facebook,
       bg: "bg-[#1877F2] hover:bg-[#0c63d4] border-blue-400/40",
       shadow: "shadow-blue-600/50",
-      angle: 180, // Bottom
+      angle: 180, // 6 o'clock
     },
     {
       id: "whatsapp",
@@ -40,7 +40,7 @@ export const CircularSocialMenu = memo(function CircularSocialMenu() {
       icon: MessageCircle,
       bg: "bg-emerald-500 hover:bg-emerald-600 border-emerald-300/40",
       shadow: "shadow-emerald-500/50",
-      angle: 270, // Left
+      angle: 270, // 9 o'clock
     },
   ];
 
@@ -55,9 +55,17 @@ export const CircularSocialMenu = memo(function CircularSocialMenu() {
         setIsPaused(false);
       }}
     >
+      {/* Large Invisible Hit Area Ring to prevent premature onMouseLeave */}
+      {isOpen && (
+        <div
+          className="absolute -inset-28 rounded-full pointer-events-auto z-10"
+          onMouseEnter={() => setIsOpen(true)}
+        />
+      )}
+
       {/* Outer Revolving Orbit Ring */}
       <div
-        className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${
+        className={`absolute inset-0 flex items-center justify-center transition-all duration-300 z-20 ${
           isOpen ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-50 pointer-events-none"
         }`}
       >
@@ -78,10 +86,10 @@ export const CircularSocialMenu = memo(function CircularSocialMenu() {
                 className="absolute flex items-center justify-center pointer-events-auto z-30"
                 style={{
                   transform: `translate(${x}px, ${y}px)`,
-                  width: "52px",
-                  height: "52px",
-                  marginLeft: "-26px",
-                  marginTop: "-26px",
+                  width: "56px",
+                  height: "56px",
+                  marginLeft: "-28px",
+                  marginTop: "-28px",
                 }}
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
