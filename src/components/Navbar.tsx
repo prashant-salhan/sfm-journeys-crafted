@@ -194,11 +194,11 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
         {/* Right Direct Phone & WhatsApp Links */}
         <div className="hidden md:flex items-center gap-4 text-xs shrink-0">
           <a
-            href="tel:+919876543210"
+            href="tel:+919999779351"
             style={{ textDecoration: "none" }}
             className="no-underline text-slate-200 hover:text-amber-400 transition-colors flex items-center gap-1 font-extrabold"
           >
-            <Phone className="w-3 h-3 text-amber-400" /> 🇮🇳 +91 98765 43210
+            <Phone className="w-3 h-3 text-amber-400" /> 🇮🇳 +91 99997 79351
           </a>
           <a
             href="tel:+971526973378"

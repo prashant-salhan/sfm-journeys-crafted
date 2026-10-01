@@ -170,7 +170,7 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
             ref={phoneRef}
             defaultValue=""
             autoComplete="off"
-            placeholder="e.g. +91 98765 43210"
+            placeholder="e.g. +91 99997 79351"
             required
             className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none"
             style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}

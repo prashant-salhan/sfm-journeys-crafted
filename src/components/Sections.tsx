@@ -484,7 +484,7 @@ export const FooterSection = memo(function FooterSection() {
             <p className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-amber-400 shrink-0" />
               <span className="font-bold text-amber-400">India:</span>
-              <a href="tel:+919876543210" style={{ textDecoration: "none" }} className="no-underline text-slate-300 hover:text-amber-400 transition-colors">+91 98765 43210</a>
+              <a href="tel:+919999779351" style={{ textDecoration: "none" }} className="no-underline text-slate-300 hover:text-amber-400 transition-colors">+91 99997 79351</a>
             </p>
             <p className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-amber-400 shrink-0" />
