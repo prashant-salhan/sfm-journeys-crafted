@@ -452,20 +452,28 @@ function MainContent() {
 
       {/* Hero & Video Background Container */}
       <div className="relative -mt-20 sm:-mt-24 pt-20 sm:pt-24 min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-between bg-slate-950 border-b border-slate-200">
-        {/* Full-width Video Background */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
+        {/* Full-width Video/Hero Background */}
+        <div className="absolute inset-0 z-0 overflow-hidden bg-slate-950">
+          {/* Crisp High-Res Hero Image for Mobile Devices */}
+          <img
+            src={sfmHero}
+            alt="SFM Travels Hero"
+            className="w-full h-full object-cover object-center opacity-50 filter brightness-105 contrast-105 block md:hidden pointer-events-none"
+          />
+
+          {/* Smooth Video Background for Desktop/Tablet */}
           <video
             autoPlay
             loop
             muted
             playsInline
             poster={sfmHero}
-            className="w-full h-full object-cover opacity-60 filter brightness-110 contrast-105 saturate-110 scale-105 pointer-events-none"
+            className="w-full h-full object-cover opacity-60 filter brightness-110 contrast-105 saturate-110 hidden md:block pointer-events-none"
           >
             <source src="/assets/india.mp4" type="video/mp4" />
           </video>
           {/* Subtle overlay gradients for high readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/30 to-slate-950/85 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/40 to-slate-950/90 pointer-events-none" />
         </div>
 
         {/* Hero Central Text & Search box */}
