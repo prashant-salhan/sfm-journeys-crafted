@@ -21,6 +21,7 @@ import { Navbar } from "@/components/Navbar";
 import { SearchBox } from "@/components/SearchBox";
 import { ItineraryModal } from "@/components/ItineraryModal";
 import { InlineEnquiryForm } from "@/components/InlineEnquiryForm";
+import { CircularSocialMenu } from "@/components/CircularSocialMenu";
 import {
   RegionsSection,
   TravelEssentialsSection,
@@ -458,18 +459,8 @@ export function IndiaPortal() {
       {/* Pure Footer Component */}
       <FooterSection />
 
-      {/* Floating WhatsApp Agent */}
-      <a
-        href="https://wa.me/919999779351?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!"
-        target="_blank"
-        rel="noreferrer"
-        className="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white p-4 rounded-full shadow-2xl shadow-emerald-500/40 hover:scale-110 transition-all flex items-center justify-center group"
-      >
-        <Send className="w-6 h-6" />
-        <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-in-out whitespace-nowrap text-xs font-bold pl-0 group-hover:pl-2">
-          Chat on WhatsApp
-        </span>
-      </a>
+      {/* Floating Circular Revolving Social Menu */}
+      <CircularSocialMenu />
 
       {/* Day-by-Day Itinerary Modal */}
       <ItineraryModal

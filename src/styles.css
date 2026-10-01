@@ -74,6 +74,29 @@
   animation-play-state: paused;
 }
 
+@keyframes spin-orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes counter-spin-orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+.animate-spin-orbit {
+  animation: spin-orbit 14s linear infinite;
+}
+
+.animate-counter-spin-orbit {
+  animation: counter-spin-orbit 14s linear infinite;
+}
+
+.animate-spin-orbit:hover,
+.animate-spin-orbit:hover .animate-counter-spin-orbit {
+  animation-play-state: paused;
+}
+
 .nav-link-item {
   color: #0f172a !important;
   text-decoration: none !important;
