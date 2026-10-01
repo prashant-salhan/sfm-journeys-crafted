@@ -208,7 +208,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
             <Phone className="w-3 h-3 text-amber-400" /> 🇦🇪 +971 52 697 3378
           </a>
           <a
-            href="https://wa.me/971526973378?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!"
+            href="https://wa.me/919999779351?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!"
             target="_blank"
             rel="noreferrer"
             style={{ textDecoration: "none" }}

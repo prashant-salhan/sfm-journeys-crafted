@@ -507,7 +507,7 @@ export const FooterSection = memo(function FooterSection() {
             Speak to our senior travel consultant on WhatsApp for instant customized day-wise itineraries.
           </p>
           <a
-            href="https://wa.me/971526973378?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!"
+            href="https://wa.me/919999779351?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!"
             target="_blank"
             rel="noreferrer"
             style={{ textDecoration: "none" }}
