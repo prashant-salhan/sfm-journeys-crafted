@@ -12,7 +12,7 @@ export const CircularSocialMenu = memo(function CircularSocialMenu() {
       href: "https://www.linkedin.com/company/sfmtravels/",
       icon: Linkedin,
       bg: "bg-[#0A66C2] hover:bg-[#084e96] border-blue-400/40",
-      shadow: "shadow-blue-500/50",
+      shadow: "shadow-blue-500/40",
       angle: 0, // 12 o'clock
     },
     {
@@ -21,7 +21,7 @@ export const CircularSocialMenu = memo(function CircularSocialMenu() {
       href: "https://www.instagram.com/official_sfm_travel?stkn=b25sZnBucTJndnZi",
       icon: Instagram,
       bg: "bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 hover:opacity-95 border-pink-400/40",
-      shadow: "shadow-pink-500/50",
+      shadow: "shadow-pink-500/40",
       angle: 90, // 3 o'clock
     },
     {
@@ -30,7 +30,7 @@ export const CircularSocialMenu = memo(function CircularSocialMenu() {
       href: "https://www.facebook.com/share/1DyCGDjNKN/",
       icon: Facebook,
       bg: "bg-[#1877F2] hover:bg-[#0c63d4] border-blue-400/40",
-      shadow: "shadow-blue-600/50",
+      shadow: "shadow-blue-600/40",
       angle: 180, // 6 o'clock
     },
     {
@@ -39,12 +39,12 @@ export const CircularSocialMenu = memo(function CircularSocialMenu() {
       href: "https://wa.me/919999779351?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!",
       icon: MessageCircle,
       bg: "bg-emerald-500 hover:bg-emerald-600 border-emerald-300/40",
-      shadow: "shadow-emerald-500/50",
+      shadow: "shadow-emerald-500/40",
       angle: 270, // 9 o'clock
     },
   ];
 
-  const radius = 90; // distance from center in px
+  const radius = 78; // compact distance from center in px
 
   return (
     <div
@@ -58,7 +58,7 @@ export const CircularSocialMenu = memo(function CircularSocialMenu() {
       {/* Large Invisible Hit Area Ring to prevent premature onMouseLeave */}
       {isOpen && (
         <div
-          className="absolute -inset-28 rounded-full pointer-events-auto z-10"
+          className="absolute -inset-24 rounded-full pointer-events-auto z-10"
           onMouseEnter={() => setIsOpen(true)}
         />
       )}
@@ -86,10 +86,10 @@ export const CircularSocialMenu = memo(function CircularSocialMenu() {
                 className="absolute flex items-center justify-center pointer-events-auto z-30"
                 style={{
                   transform: `translate(${x}px, ${y}px)`,
-                  width: "56px",
-                  height: "56px",
-                  marginLeft: "-28px",
-                  marginTop: "-28px",
+                  width: "42px",
+                  height: "42px",
+                  marginLeft: "-21px",
+                  marginTop: "-21px",
                 }}
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
@@ -105,11 +105,11 @@ export const CircularSocialMenu = memo(function CircularSocialMenu() {
                     textDecoration: "none",
                     animationPlayState: isPaused ? "paused" : "running",
                   }}
-                  className={`no-underline ${item.bg} text-white p-3.5 rounded-full shadow-2xl flex items-center justify-center transition-all duration-200 hover:scale-130 cursor-pointer border ${item.shadow} ${
+                  className={`no-underline ${item.bg} text-white w-10 h-10 rounded-full shrink-0 shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-125 cursor-pointer border ${item.shadow} ${
                     isOpen ? "animate-counter-spin-orbit" : ""
                   }`}
                 >
-                  <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" />
+                  <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                 </a>
               </div>
             );
@@ -117,30 +117,30 @@ export const CircularSocialMenu = memo(function CircularSocialMenu() {
         </div>
       </div>
 
-      {/* Main Single Central Button */}
+      {/* Main Single Central Button - Perfectly Round & Compact Circle */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Connect with Social Media"
-        className={`relative z-40 p-4 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 cursor-pointer border float-3d group ${
+        className={`relative z-40 w-12 h-12 rounded-full shrink-0 shadow-xl flex items-center justify-center transition-all duration-300 cursor-pointer border float-3d group ${
           isOpen
-            ? "bg-amber-500 text-slate-950 border-amber-300 scale-110 shadow-amber-500/50"
-            : "bg-emerald-500 hover:bg-emerald-600 text-white border-emerald-300/40 shadow-emerald-500/40 hover:scale-110"
+            ? "bg-amber-500 text-slate-950 border-amber-300 scale-105 shadow-amber-500/40"
+            : "bg-emerald-500 hover:bg-emerald-600 text-white border-emerald-300/40 shadow-emerald-500/40 hover:scale-105"
         }`}
       >
         <span className="relative flex items-center justify-center">
           {isOpen ? (
-            <Share2 className="w-6 h-6 sm:w-7 sm:h-7 transition-transform rotate-45" />
+            <Share2 className="w-5 h-5 sm:w-6 sm:h-6 transition-transform rotate-45" />
           ) : (
             <>
-              <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7" />
-              <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-300 rounded-full animate-ping" />
+              <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" />
+              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-300 rounded-full animate-ping" />
             </>
           )}
         </span>
 
         {/* Hover Badge / Tooltip */}
-        <span className="absolute right-full mr-3 whitespace-nowrap bg-slate-950/90 backdrop-blur-md text-amber-300 text-xs font-black px-3.5 py-1.5 rounded-full border border-slate-800 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none flex items-center gap-1.5">
-          <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+        <span className="absolute right-full mr-3 whitespace-nowrap bg-slate-950/90 backdrop-blur-md text-amber-300 text-[11px] font-black px-3 py-1 rounded-full border border-slate-800 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none flex items-center gap-1.5">
+          <Sparkles className="w-3 h-3 text-amber-400" />
           {isOpen ? (isPaused ? "Click to Visit Social Page" : "Revolving Social Media Links") : "Connect & WhatsApp Us"}
         </span>
       </button>
