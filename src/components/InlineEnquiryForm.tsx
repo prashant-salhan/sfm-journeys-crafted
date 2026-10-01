@@ -153,7 +153,7 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
           autoComplete="off"
           placeholder="e.g. Rahul Sharma"
           required
-          className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none"
+          className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-base sm:text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none"
           style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
         />
       </div>
@@ -172,7 +172,7 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
             autoComplete="off"
             placeholder="e.g. +91 99997 79351"
             required
-            className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none"
+            className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-base sm:text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none"
             style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
           />
         </div>
@@ -189,7 +189,7 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
             defaultValue=""
             autoComplete="off"
             placeholder="e.g. rahul@example.com"
-            className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none"
+            className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-base sm:text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none"
             style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
           />
         </div>
@@ -208,7 +208,7 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
           autoComplete="off"
           placeholder="e.g. Kashmir, Kerala Houseboat, Royal Rajasthan, Dubai..."
           required
-          className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none"
+          className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-base sm:text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none"
           style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
         />
       </div>
@@ -224,7 +224,7 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
           defaultValue=""
           rows={3}
           placeholder="e.g. Travel dates, number of guests, budget range, 4-star hotel preferences..."
-          className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none"
+          className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-base sm:text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none"
           style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
         />
       </div>

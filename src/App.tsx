@@ -269,7 +269,7 @@ function PackagesCarousel({
         {[...packages, ...packages].map((pkg, idx) => (
           <div
             key={`${pkg.id}-${idx}`}
-            className="w-[300px] sm:w-[360px] shrink-0 bg-white border border-slate-200/90 rounded-3xl overflow-hidden hover:border-amber-400 transition-all duration-300 flex flex-col group shadow-xl shadow-slate-200/60 hover-card-3d"
+            className="w-[85vw] max-w-[360px] min-w-[270px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl overflow-hidden hover:border-amber-400 transition-all duration-300 flex flex-col group shadow-xl shadow-slate-200/60 hover-card-3d"
           >
             <div className="relative h-60 overflow-hidden">
               <img

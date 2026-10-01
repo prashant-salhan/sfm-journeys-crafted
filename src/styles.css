@@ -122,9 +122,17 @@
     background-color: #ffffff;
     color: #0f172a;
     font-family: var(--font-sans);
+    overflow-x: hidden;
+    max-w-full: 100%;
+    width: 100%;
   }
 
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-w-full: 100%;
+    width: 100%;
+  }
 }
 
 .no-scrollbar::-webkit-scrollbar {

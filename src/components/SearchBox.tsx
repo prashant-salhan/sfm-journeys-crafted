@@ -33,9 +33,9 @@ export function SearchBox({
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-2xl border border-white/90 p-5 sm:p-7 rounded-3xl max-w-3xl mx-auto shadow-2xl shadow-slate-950/30 space-y-5 transition-all hover-card-3d relative z-30">
+    <div className="bg-white/95 backdrop-blur-2xl border border-white/90 p-4 sm:p-7 rounded-2xl sm:rounded-3xl max-w-3xl mx-auto shadow-2xl shadow-slate-950/30 space-y-4 sm:space-y-5 transition-all hover-card-3d relative z-30">
       {/* Category Pills */}
-      <div className="flex flex-wrap gap-2 justify-center border-b border-slate-100 pb-4">
+      <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center border-b border-slate-100 pb-3 sm:pb-4">
         {[
           { id: "domestic", label: "Domestic Tours" },
           { id: "north", label: "Kashmir & Himalayas" },
@@ -47,7 +47,7 @@ export function SearchBox({
           <button
             key={tab.id}
             onClick={() => onTabChange(tab.id)}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition-all cursor-pointer ${
               activeTab === tab.id
                 ? "bg-slate-900 text-white shadow-md scale-105 font-black ring-2 ring-slate-800"
                 : "bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 hover:scale-102"
@@ -62,7 +62,7 @@ export function SearchBox({
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
           <label htmlFor="sfm_search_query" className="sr-only">Search India Destinations</label>
-          <Search className="absolute left-4 top-3.5 w-4 h-4 text-amber-500 pointer-events-none transition-transform group-hover:scale-110" />
+          <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-amber-500 pointer-events-none transition-transform group-hover:scale-110" />
           <input
             id="sfm_search_query"
             name="searchQuery"
@@ -71,7 +71,7 @@ export function SearchBox({
             placeholder="Search destinations, e.g. Kashmir, Houseboat, Taj Mahal, Goa, Thailand..."
             value={localQuery}
             onChange={handleInputChange}
-            className="w-full bg-slate-50 border border-slate-300 focus:border-amber-500 focus:bg-white focus:ring-4 focus:ring-amber-500/15 rounded-xl pl-11 pr-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 font-semibold transition-all outline-none"
+            className="w-full bg-slate-50 border border-slate-300 focus:border-amber-500 focus:bg-white focus:ring-4 focus:ring-amber-500/15 rounded-xl pl-10 sm:pl-11 pr-3 sm:pr-4 py-3 text-base sm:text-sm text-slate-900 placeholder:text-slate-400 font-semibold transition-all outline-none"
             style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
           />
         </div>
