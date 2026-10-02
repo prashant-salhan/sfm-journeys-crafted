@@ -43,6 +43,7 @@ export function SearchBox({
           { id: "rajasthan", label: "Royal Rajasthan" },
           { id: "goa", label: "Goa & Beaches" },
           { id: "international", label: "International Tours" },
+          { id: "singapore", label: "Singapore Special" },
         ].map((tab) => (
           <button
             key={tab.id}

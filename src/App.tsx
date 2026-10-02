@@ -459,6 +459,7 @@ function MainContent() {
       else if (activeTab === "kerala") matchesTab = pkg.id.includes("kerala");
       else if (activeTab === "rajasthan") matchesTab = pkg.id.includes("rajasthan");
       else if (activeTab === "goa") matchesTab = pkg.id.includes("goa");
+      else if (activeTab === "singapore") matchesTab = pkg.id.includes("singapore") || pkg.title.toLowerCase().includes("singapore");
       else if (activeTab === "international") matchesTab = isIntl;
       else if (activeTab === "domestic") matchesTab = !isIntl;
 
