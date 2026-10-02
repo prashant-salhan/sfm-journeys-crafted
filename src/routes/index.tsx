@@ -189,6 +189,50 @@ const INDIA_PACKAGES: IndiaPackage[] = [
       { day: 6, title: "Return Drop to Chandigarh/Delhi", desc: "Drive back with fond Himalayan memories for evening drop." },
     ],
   },
+  {
+    id: "singapore-complete-experience",
+    title: "Complete Singapore Experience",
+    category: "International & Luxury",
+    duration: "5 Days / 4 Nights",
+    description:
+      "Night Safari with tram ride, Sentosa Island cable car & Oceanarium, full day Universal Studios, and Gardens by the Bay & Sands SkyPark.",
+    priceInr: 44999,
+    image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80",
+    badge: "Singapore Special",
+    inclusions: [
+      "4★ Hotel & Return Flights",
+      "Daily Breakfast Included",
+      "Night Safari & Sentosa Cable Car",
+      "Universal Studios & Sands SkyPark",
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: "Welcome to Singapore & Night Safari",
+        desc: "Arrive at Changi Airport, enjoy a private transfer to your hotel, and settle in. In the evening, explore the famous Night Safari with a guided tram ride and live fire show.",
+      },
+      {
+        day: 2,
+        title: "Singapore City Tour & Sentosa Island",
+        desc: "Discover Merlion Park and Singapore's iconic skyline before heading to Sentosa. Enjoy a cable car ride, Singapore Oceanarium, selected 5-in-1 attractions, and the 7:30 PM Wings of Time show.",
+      },
+      {
+        day: 3,
+        title: "Universal Studios Singapore",
+        desc: "Spend a full day exploring movie-themed zones, thrilling rides, family attractions, entertainment, and immersive experiences at Universal Studios Singapore.",
+      },
+      {
+        day: 4,
+        title: "Gardens by the Bay & Sands SkyPark",
+        desc: "Explore the Flower Dome and misty Cloud Forest before enjoying panoramic city views from the Sands SkyPark Observation Deck.",
+      },
+      {
+        day: 5,
+        title: "Goodbye Singapore",
+        desc: "Enjoy breakfast, check out from the hotel, and take your private transfer to Changi Airport for your return flight.",
+      },
+    ],
+  },
 ];
 
 declare global {
