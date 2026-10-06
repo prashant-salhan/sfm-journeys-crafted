@@ -40,6 +40,7 @@ export type IndiaPackage = {
   itinerary: PackageItinerary[];
   rating?: number;
   reviewsCount?: number;
+  detailsUrl?: string;
 };
 
 export const INDIA_REGIONS = [

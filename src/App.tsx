@@ -227,6 +227,7 @@ export const FEATURED_PACKAGES: IndiaPackage[] = [
     priceInr: 44999,
     image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80",
     badge: "Singapore Special",
+    detailsUrl: "/singapore-itinerary",
     rating: 4.9,
     reviewsCount: 320,
     inclusions: [

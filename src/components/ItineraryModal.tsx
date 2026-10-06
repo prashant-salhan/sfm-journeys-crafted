@@ -1,5 +1,6 @@
 import { memo } from "react";
-import { X } from "lucide-react";
+import { X, ExternalLink } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import type { IndiaPackage } from "@/components/Sections";
 
 interface ItineraryModalProps {
@@ -16,6 +17,9 @@ export const ItineraryModal = memo(function ItineraryModal({
   formatPrice,
 }: ItineraryModalProps) {
   if (!packageData) return null;
+
+  const hasDetailsPage = Boolean(packageData.detailsUrl || packageData.id.includes("singapore"));
+  const detailsTarget = packageData.detailsUrl || "/singapore-itinerary";
 
   return (
     <>
@@ -63,7 +67,7 @@ export const ItineraryModal = memo(function ItineraryModal({
             ))}
           </div>
 
-          <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+          <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4">
             <div>
               <span className="text-slate-400 text-[11px] block">Price Per Person</span>
               <span className="text-xl font-extrabold text-amber-400">
@@ -71,13 +75,26 @@ export const ItineraryModal = memo(function ItineraryModal({
               </span>
             </div>
 
-            <button
-              type="button"
-              onClick={() => onBook(packageData)}
-              className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-xl text-xs transition-colors cursor-pointer"
-            >
-              Book This Itinerary
-            </button>
+            <div className="flex items-center gap-3">
+              {hasDetailsPage && (
+                <Link
+                  to={detailsTarget}
+                  onClick={onClose}
+                  className="bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 hover:border-amber-400 font-bold px-4 py-3 rounded-xl text-xs transition-all cursor-pointer inline-flex items-center gap-1.5 shadow-sm"
+                >
+                  <span>More Details</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </Link>
+              )}
+
+              <button
+                type="button"
+                onClick={() => onBook(packageData)}
+                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-xl text-xs transition-colors cursor-pointer"
+              >
+                Book This Itinerary
+              </button>
+            </div>
           </div>
         </div>
       </div>
