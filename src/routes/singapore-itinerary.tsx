@@ -27,6 +27,7 @@ import {
   Ticket,
   Camera,
   Layers,
+  Building,
 } from "lucide-react";
 
 import sfmLogo from "@/assets/sfm-logo.png";
@@ -718,7 +719,7 @@ export function SingaporeItineraryPage() {
                 <p className="text-xs text-slate-400">
                   Want to add extra days, upgrade your hotel, or request private transfers? Send us a message for an instant custom quote.
                 </p>
-                <InlineEnquiryForm defaultDestination="Singapore - Complete Experience" />
+                <InlineEnquiryForm initialPackageTitle="Singapore - Complete Experience" source="singapore_itinerary_page" />
               </div>
             </div>
           </div>
