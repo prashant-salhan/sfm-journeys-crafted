@@ -1,20 +1,22 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": ".output/public",
-  "cleanUrls": true,
   "build": {
     "env": {
       "DANGEROUSLY_DEPLOY_VULNERABLE_TANSTACK_START_XSS": "1"
     }
   },
-  "rewrites": [
+  "routes": [
     {
-      "source": "/assets/(.*)",
-      "destination": "/assets/$1"
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
     },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
