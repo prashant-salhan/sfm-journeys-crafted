@@ -129,7 +129,7 @@ function Logo({ className = "" }: { className?: string }) {
   );
 }
 
-function AboutPage() {
+export function AboutPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeImage, setActiveImage] = useState<{ src: string; title: string } | null>(null);
 

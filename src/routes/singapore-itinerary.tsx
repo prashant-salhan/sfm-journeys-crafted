@@ -84,7 +84,7 @@ const HIGHLIGHTS = [
   { icon: Ticket, title: "All Sightseeing", desc: "Universal, Sentosa, SkyPark" },
 ];
 
-function SingaporeItineraryPage() {
+export function SingaporeItineraryPage() {
   const { formatPrice } = useCurrency();
   const [activeTab, setActiveTab] = useState<"itinerary" | "inclusions" | "transfers">("itinerary");
 

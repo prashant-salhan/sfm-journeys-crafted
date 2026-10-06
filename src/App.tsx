@@ -27,6 +27,8 @@ import { SearchBox } from "@/components/SearchBox";
 import { InlineEnquiryForm } from "@/components/InlineEnquiryForm";
 import { ItineraryModal } from "@/components/ItineraryModal";
 import { CircularSocialMenu } from "@/components/CircularSocialMenu";
+import { SingaporeItineraryPage } from "@/routes/singapore-itinerary";
+import { AboutPage } from "@/routes/about";
 import {
   RegionsSection,
   TestimonialsSection,
@@ -706,6 +708,34 @@ function MainContent() {
 }
 
 export default function App() {
+  const [pathname, setPathname] = useState(() =>
+    typeof window !== "undefined" ? window.location.pathname : "/"
+  );
+
+  useEffect(() => {
+    const onPopState = () => {
+      setPathname(window.location.pathname);
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
+  if (pathname.includes("/singapore-itinerary") || pathname.includes("/singapore")) {
+    return (
+      <CurrencyProvider>
+        <SingaporeItineraryPage />
+      </CurrencyProvider>
+    );
+  }
+
+  if (pathname.includes("/about")) {
+    return (
+      <CurrencyProvider>
+        <AboutPage />
+      </CurrencyProvider>
+    );
+  }
+
   return (
     <CurrencyProvider>
       <MainContent />
