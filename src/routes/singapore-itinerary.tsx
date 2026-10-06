@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowLeft,
   Calendar,
@@ -100,15 +100,15 @@ function SingaporeItineraryPage() {
       <header className="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link
-              to="/"
+            <a
+              href="/"
               className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors bg-slate-800/60 hover:bg-slate-800 px-3 py-1.5 rounded-xl text-xs font-semibold"
             >
               <ArrowLeft className="w-4 h-4 text-amber-400" />
               <span>Back to Home</span>
-            </Link>
+            </a>
             <div className="h-6 w-[1px] bg-slate-800 hidden sm:block" />
-            <Link to="/" className="flex items-center gap-2">
+            <a href="/" className="flex items-center gap-2">
               <img src={sfmLogo} alt="SFM Travels Logo" className="h-10 w-auto object-contain" />
               <div className="hidden md:block">
                 <span className="text-base font-extrabold text-white tracking-tight block">SFM TRAVELS</span>
@@ -116,7 +116,7 @@ function SingaporeItineraryPage() {
                   Smile For Millions
                 </span>
               </div>
-            </Link>
+            </a>
           </div>
 
           <div className="flex items-center gap-3 sm:gap-4">
@@ -144,7 +144,7 @@ function SingaporeItineraryPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-xs text-slate-400 mb-6">
-              <Link to="/" className="hover:text-amber-400 transition-colors">Home</Link>
+              <a href="/" className="hover:text-amber-400 transition-colors">Home</a>
               <span>/</span>
               <span className="text-slate-300 font-medium">International Packages</span>
               <span>/</span>

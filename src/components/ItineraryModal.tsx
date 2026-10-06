@@ -1,6 +1,5 @@
 import { memo } from "react";
 import { X, ExternalLink } from "lucide-react";
-import { Link } from "@tanstack/react-router";
 import type { IndiaPackage } from "@/components/Sections";
 
 interface ItineraryModalProps {
@@ -77,14 +76,14 @@ export const ItineraryModal = memo(function ItineraryModal({
 
             <div className="flex items-center gap-3">
               {hasDetailsPage && (
-                <Link
-                  to={detailsTarget}
+                <a
+                  href={detailsTarget}
                   onClick={onClose}
                   className="bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 hover:border-amber-400 font-bold px-4 py-3 rounded-xl text-xs transition-all cursor-pointer inline-flex items-center gap-1.5 shadow-sm"
                 >
                   <span>More Details</span>
                   <ExternalLink className="w-3.5 h-3.5" />
-                </Link>
+                </a>
               )}
 
               <button
