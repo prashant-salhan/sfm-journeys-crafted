@@ -313,7 +313,10 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                                         setMobileMenuOpen(false);
                                         window.location.href = "/singapore-itinerary";
                                       }}
-                                      className="text-left text-xs font-semibold text-slate-600 hover:text-amber-600 transition-colors py-0.5 no-underline block w-full"
+                                      style={{ color: "#475569", textDecoration: "none" }}
+                                      onMouseEnter={(e) => (e.currentTarget.style.color = "#d97706")}
+                                      onMouseLeave={(e) => (e.currentTarget.style.color = "#475569")}
+                                      className="text-left text-xs font-semibold hover:text-amber-600 transition-colors py-0.5 no-underline block w-full"
                                     >
                                       {item}
                                     </a>
@@ -440,7 +443,10 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                                   setMobileMenuOpen(false);
                                   window.location.href = "/singapore-itinerary";
                                 }}
-                                className="text-left text-xs font-medium text-slate-700 hover:text-amber-600 py-1 no-underline block"
+                                style={{ color: "#334155", textDecoration: "none" }}
+                                onMouseEnter={(e) => (e.currentTarget.style.color = "#d97706")}
+                                onMouseLeave={(e) => (e.currentTarget.style.color = "#334155")}
+                                className="text-left text-xs font-medium hover:text-amber-600 py-1 no-underline block"
                               >
                                 {item}
                               </a>
