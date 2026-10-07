@@ -1,4 +1,4 @@
-import { useState, useTransition, useMemo, useRef, useEffect } from "react";
+import { useState, useTransition, useMemo, useRef, useEffect, useCallback } from "react";
 import {
   Sparkles,
   MapPin,
@@ -280,44 +280,83 @@ function PackagesCarousel({
   scrollToEnquiry: (title?: string) => void;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isPaused, setIsPaused] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScrollState = useCallback(() => {
+    const el = containerRef.current;
+    if (el) {
+      setCanScrollLeft(el.scrollLeft > 10);
+      setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
+    }
+  }, []);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-    container.scrollLeft = 0;
+    checkScrollState();
+    const el = containerRef.current;
+    if (el) {
+      el.addEventListener("scroll", checkScrollState, { passive: true });
+      window.addEventListener("resize", checkScrollState);
+      return () => {
+        el.removeEventListener("scroll", checkScrollState);
+        window.removeEventListener("resize", checkScrollState);
+      };
+    }
+  }, [checkScrollState, packages]);
 
-    let animationFrameId: number;
+  const handleScrollLeft = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollBy({ left: -360, behavior: "smooth" });
+    }
+  };
 
-    const scroll = () => {
-      if (!isPaused && container) {
-        container.scrollLeft += 0.8;
-        if (container.scrollLeft >= container.scrollWidth - container.clientWidth - 2) {
-          container.scrollLeft = 0;
-        }
-      }
-      animationFrameId = requestAnimationFrame(scroll);
-    };
-
-    animationFrameId = requestAnimationFrame(scroll);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [isPaused, packages]);
+  const handleScrollRight = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollBy({ left: 360, behavior: "smooth" });
+    }
+  };
 
   return (
-    <div className="relative">
-      {/* Horizontal Sliding Container with pause-on-hover */}
+    <div className="relative group/carousel px-2 sm:px-4">
+      {/* Left Manual Arrow Button */}
+      <button
+        onClick={handleScrollLeft}
+        type="button"
+        aria-label="Scroll left"
+        disabled={!canScrollLeft}
+        className={`absolute -left-2 sm:-left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-slate-900/90 border border-amber-500/40 text-amber-400 flex items-center justify-center shadow-2xl transition-all duration-300 cursor-pointer ${
+          canScrollLeft
+            ? "opacity-90 hover:opacity-100 hover:bg-amber-500 hover:text-slate-950 hover:scale-110 active:scale-95 shadow-amber-500/20"
+            : "opacity-30 cursor-not-allowed border-slate-800 text-slate-600 bg-slate-900/50"
+        }`}
+      >
+        <ChevronLeft className="w-6 h-6 stroke-[3]" />
+      </button>
+
+      {/* Right Manual Arrow Button */}
+      <button
+        onClick={handleScrollRight}
+        type="button"
+        aria-label="Scroll right"
+        disabled={!canScrollRight}
+        className={`absolute -right-2 sm:-right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-slate-900/90 border border-amber-500/40 text-amber-400 flex items-center justify-center shadow-2xl transition-all duration-300 cursor-pointer ${
+          canScrollRight
+            ? "opacity-90 hover:opacity-100 hover:bg-amber-500 hover:text-slate-950 hover:scale-110 active:scale-95 shadow-amber-500/20"
+            : "opacity-30 cursor-not-allowed border-slate-800 text-slate-600 bg-slate-900/50"
+        }`}
+      >
+        <ChevronRight className="w-6 h-6 stroke-[3]" />
+      </button>
+
+      {/* Manual Horizontal Sliding Container */}
       <div
         ref={containerRef}
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-        onTouchStart={() => setIsPaused(true)}
-        onTouchEnd={() => setIsPaused(false)}
-        className="flex gap-6 overflow-x-auto no-scrollbar py-4 px-2 select-none"
+        className="flex gap-6 overflow-x-auto no-scrollbar py-4 px-2 select-none scroll-smooth snap-x snap-mandatory"
       >
-        {[...packages, ...packages].map((pkg, idx) => (
+        {packages.map((pkg) => (
           <div
-            key={`${pkg.id}-${idx}`}
-            className="w-[85vw] max-w-[360px] min-w-[270px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl overflow-hidden hover:border-amber-400 transition-all duration-300 flex flex-col group shadow-xl shadow-slate-200/60 hover-card-3d"
+            key={pkg.id}
+            className="w-[85vw] max-w-[360px] min-w-[270px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl overflow-hidden hover:border-amber-400 transition-all duration-300 flex flex-col group shadow-xl shadow-slate-200/60 hover-card-3d snap-start"
           >
             <div className="relative h-60 overflow-hidden">
               <img
