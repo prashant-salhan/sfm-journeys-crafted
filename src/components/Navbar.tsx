@@ -313,10 +313,10 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                                         setMobileMenuOpen(false);
                                         window.location.href = "/singapore-itinerary";
                                       }}
-                                      style={{ color: "#475569", textDecoration: "none" }}
+                                      style={{ color: "#475569", textDecoration: "none", fontSize: "13px" }}
                                       onMouseEnter={(e) => (e.currentTarget.style.color = "#d97706")}
                                       onMouseLeave={(e) => (e.currentTarget.style.color = "#475569")}
-                                      className="text-left text-xs font-semibold hover:text-amber-600 transition-colors py-0.5 no-underline block w-full"
+                                      className="text-left text-[13px] sm:text-xs font-bold hover:text-amber-600 transition-colors py-0.5 no-underline block w-full font-sans leading-normal"
                                     >
                                       {item}
                                     </a>
@@ -326,7 +326,8 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                                   <button
                                     key={itemIdx}
                                     onClick={(e) => handleDestinationClick(e, item)}
-                                    className="text-left text-xs font-semibold text-slate-600 hover:text-amber-600 transition-colors py-0.5 bg-transparent border-none cursor-pointer w-full"
+                                    style={{ fontSize: "13px" }}
+                                    className="text-left text-[13px] sm:text-xs font-bold text-slate-600 hover:text-amber-600 transition-colors py-0.5 bg-transparent border-none cursor-pointer w-full font-sans leading-normal"
                                   >
                                     {item}
                                   </button>
@@ -443,10 +444,10 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                                   setMobileMenuOpen(false);
                                   window.location.href = "/singapore-itinerary";
                                 }}
-                                style={{ color: "#334155", textDecoration: "none" }}
+                                style={{ color: "#334155", textDecoration: "none", fontSize: "13px" }}
                                 onMouseEnter={(e) => (e.currentTarget.style.color = "#d97706")}
                                 onMouseLeave={(e) => (e.currentTarget.style.color = "#334155")}
-                                className="text-left text-xs font-medium hover:text-amber-600 py-1 no-underline block"
+                                className="text-left text-[13px] font-bold hover:text-amber-600 py-1 no-underline block font-sans leading-normal"
                               >
                                 {item}
                               </a>
@@ -456,7 +457,8 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                             <button
                               key={itemIdx}
                               onClick={(e) => handleDestinationClick(e, item)}
-                              className="text-left text-xs font-medium text-slate-700 hover:text-amber-600 py-1 bg-transparent border-none cursor-pointer"
+                              style={{ fontSize: "13px" }}
+                              className="text-left text-[13px] font-bold text-slate-700 hover:text-amber-600 py-1 bg-transparent border-none cursor-pointer font-sans leading-normal"
                             >
                               {item}
                             </button>
