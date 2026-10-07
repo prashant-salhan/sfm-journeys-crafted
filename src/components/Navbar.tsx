@@ -128,8 +128,16 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
     e.preventDefault();
     setIsInternationalOpen(false);
     setMobileMenuOpen(false);
-    if (destination.toLowerCase() === "singapore") {
-      window.location.href = "/singapore-itinerary";
+    const destKey = destination.toLowerCase();
+    const dedicatedRoutes: Record<string, string> = {
+      singapore: "/singapore-itinerary",
+      vietnam: "/vietnam-itinerary",
+      thailand: "/thailand-itinerary",
+      europe: "/europe-itinerary",
+      japan: "/japan-itinerary",
+    };
+    if (dedicatedRoutes[destKey]) {
+      window.location.href = dedicatedRoutes[destKey];
       return;
     }
     onPlanTripClick?.(`International Package - ${destination}`);
@@ -301,17 +309,26 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                             </h4>
                             <div className="flex flex-col space-y-1">
                               {group.items.map((item, itemIdx) => {
-                                if (item.toLowerCase() === "singapore") {
+                                const destKey = item.toLowerCase();
+                                const dedicatedRoutes: Record<string, string> = {
+                                  singapore: "/singapore-itinerary",
+                                  vietnam: "/vietnam-itinerary",
+                                  thailand: "/thailand-itinerary",
+                                  europe: "/europe-itinerary",
+                                  japan: "/japan-itinerary",
+                                };
+                                const routeUrl = dedicatedRoutes[destKey];
+                                if (routeUrl) {
                                   return (
                                     <a
                                       key={itemIdx}
-                                      href="/singapore-itinerary"
+                                      href={routeUrl}
                                       onClick={(e) => {
                                         e.preventDefault();
                                         e.stopPropagation();
                                         setIsInternationalOpen(false);
                                         setMobileMenuOpen(false);
-                                        window.location.href = "/singapore-itinerary";
+                                        window.location.href = routeUrl;
                                       }}
                                       style={{ color: "#475569", textDecoration: "none", fontSize: "13px" }}
                                       onMouseEnter={(e) => (e.currentTarget.style.color = "#d97706")}
@@ -432,17 +449,26 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                       </h5>
                       <div className="grid grid-cols-2 gap-1 pl-1">
                         {group.items.map((item, itemIdx) => {
-                          if (item.toLowerCase() === "singapore") {
+                          const destKey = item.toLowerCase();
+                          const dedicatedRoutes: Record<string, string> = {
+                            singapore: "/singapore-itinerary",
+                            vietnam: "/vietnam-itinerary",
+                            thailand: "/thailand-itinerary",
+                            europe: "/europe-itinerary",
+                            japan: "/japan-itinerary",
+                          };
+                          const routeUrl = dedicatedRoutes[destKey];
+                          if (routeUrl) {
                             return (
                               <a
                                 key={itemIdx}
-                                href="/singapore-itinerary"
+                                href={routeUrl}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   e.stopPropagation();
                                   setIsInternationalOpen(false);
                                   setMobileMenuOpen(false);
-                                  window.location.href = "/singapore-itinerary";
+                                  window.location.href = routeUrl;
                                 }}
                                 style={{ color: "#334155", textDecoration: "none", fontSize: "13px" }}
                                 onMouseEnter={(e) => (e.currentTarget.style.color = "#d97706")}

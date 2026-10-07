@@ -28,6 +28,10 @@ import { InlineEnquiryForm } from "@/components/InlineEnquiryForm";
 import { ItineraryModal } from "@/components/ItineraryModal";
 import { CircularSocialMenu } from "@/components/CircularSocialMenu";
 import { SingaporeItineraryPage } from "@/routes/singapore-itinerary";
+import { VietnamItineraryPage } from "@/routes/vietnam-itinerary";
+import { ThailandItineraryPage } from "@/routes/thailand-itinerary";
+import { EuropeItineraryPage } from "@/routes/europe-itinerary";
+import { JapanItineraryPage } from "@/routes/japan-itinerary";
 import { AboutPage } from "@/routes/about";
 import {
   RegionsSection,
@@ -765,6 +769,38 @@ export default function App() {
     return (
       <CurrencyProvider>
         <SingaporeItineraryPage />
+      </CurrencyProvider>
+    );
+  }
+
+  if (pathname.includes("/vietnam-itinerary") || pathname.includes("/vietnam")) {
+    return (
+      <CurrencyProvider>
+        <VietnamItineraryPage />
+      </CurrencyProvider>
+    );
+  }
+
+  if (pathname.includes("/thailand-itinerary") || pathname.includes("/thailand")) {
+    return (
+      <CurrencyProvider>
+        <ThailandItineraryPage />
+      </CurrencyProvider>
+    );
+  }
+
+  if (pathname.includes("/europe-itinerary") || pathname.includes("/europe")) {
+    return (
+      <CurrencyProvider>
+        <EuropeItineraryPage />
+      </CurrencyProvider>
+    );
+  }
+
+  if (pathname.includes("/japan-itinerary") || pathname.includes("/japan")) {
+    return (
+      <CurrencyProvider>
+        <JapanItineraryPage />
       </CurrencyProvider>
     );
   }
