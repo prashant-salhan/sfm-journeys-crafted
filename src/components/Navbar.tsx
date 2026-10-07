@@ -128,6 +128,10 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
     e.preventDefault();
     setIsInternationalOpen(false);
     setMobileMenuOpen(false);
+    if (destination.toLowerCase() === "singapore") {
+      window.location.href = "/singapore-itinerary";
+      return;
+    }
     onPlanTripClick?.(`International Package - ${destination}`);
   };
 
@@ -296,15 +300,32 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                               {group.title}
                             </h4>
                             <div className="flex flex-col space-y-1">
-                              {group.items.map((item, itemIdx) => (
-                                <button
-                                  key={itemIdx}
-                                  onClick={(e) => handleDestinationClick(e, item)}
-                                  className="text-left text-xs font-semibold text-slate-600 hover:text-amber-600 transition-colors py-0.5 bg-transparent border-none cursor-pointer w-full"
-                                >
-                                  {item}
-                                </button>
-                              ))}
+                              {group.items.map((item, itemIdx) => {
+                                if (item.toLowerCase() === "singapore") {
+                                  return (
+                                    <a
+                                      key={itemIdx}
+                                      href="/singapore-itinerary"
+                                      onClick={() => {
+                                        setIsInternationalOpen(false);
+                                        setMobileMenuOpen(false);
+                                      }}
+                                      className="text-left text-xs font-semibold text-slate-600 hover:text-amber-600 transition-colors py-0.5 no-underline block w-full"
+                                    >
+                                      {item}
+                                    </a>
+                                  );
+                                }
+                                return (
+                                  <button
+                                    key={itemIdx}
+                                    onClick={(e) => handleDestinationClick(e, item)}
+                                    className="text-left text-xs font-semibold text-slate-600 hover:text-amber-600 transition-colors py-0.5 bg-transparent border-none cursor-pointer w-full"
+                                  >
+                                    {item}
+                                  </button>
+                                );
+                              })}
                             </div>
                           </div>
                         ))}
@@ -403,15 +424,32 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                         {group.title}
                       </h5>
                       <div className="grid grid-cols-2 gap-1 pl-1">
-                        {group.items.map((item, itemIdx) => (
-                          <button
-                            key={itemIdx}
-                            onClick={(e) => handleDestinationClick(e, item)}
-                            className="text-left text-xs font-medium text-slate-700 hover:text-amber-600 py-1 bg-transparent border-none cursor-pointer"
-                          >
-                            {item}
-                          </button>
-                        ))}
+                        {group.items.map((item, itemIdx) => {
+                          if (item.toLowerCase() === "singapore") {
+                            return (
+                              <a
+                                key={itemIdx}
+                                href="/singapore-itinerary"
+                                onClick={() => {
+                                  setIsInternationalOpen(false);
+                                  setMobileMenuOpen(false);
+                                }}
+                                className="text-left text-xs font-medium text-slate-700 hover:text-amber-600 py-1 no-underline block"
+                              >
+                                {item}
+                              </a>
+                            );
+                          }
+                          return (
+                            <button
+                              key={itemIdx}
+                              onClick={(e) => handleDestinationClick(e, item)}
+                              className="text-left text-xs font-medium text-slate-700 hover:text-amber-600 py-1 bg-transparent border-none cursor-pointer"
+                            >
+                              {item}
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
                   ))}
