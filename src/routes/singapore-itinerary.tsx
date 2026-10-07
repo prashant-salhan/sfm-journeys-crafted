@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowLeft,
@@ -88,6 +88,10 @@ const HIGHLIGHTS = [
 export function SingaporeItineraryPage() {
   const { formatPrice } = useCurrency();
   const [activeTab, setActiveTab] = useState<"itinerary" | "inclusions" | "transfers">("itinerary");
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, []);
 
   const priceInr = 44999;
   const whatsappNumber = "919999779351";

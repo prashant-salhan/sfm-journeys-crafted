@@ -752,12 +752,14 @@ export default function App() {
   );
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     const onPopState = () => {
       setPathname(window.location.pathname);
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     };
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
-  }, []);
+  }, [pathname]);
 
   if (pathname.includes("/singapore-itinerary") || pathname.includes("/singapore")) {
     return (
