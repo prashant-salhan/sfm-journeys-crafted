@@ -306,9 +306,12 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                                     <a
                                       key={itemIdx}
                                       href="/singapore-itinerary"
-                                      onClick={() => {
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
                                         setIsInternationalOpen(false);
                                         setMobileMenuOpen(false);
+                                        window.location.href = "/singapore-itinerary";
                                       }}
                                       className="text-left text-xs font-semibold text-slate-600 hover:text-amber-600 transition-colors py-0.5 no-underline block w-full"
                                     >
@@ -430,9 +433,12 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                               <a
                                 key={itemIdx}
                                 href="/singapore-itinerary"
-                                onClick={() => {
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
                                   setIsInternationalOpen(false);
                                   setMobileMenuOpen(false);
+                                  window.location.href = "/singapore-itinerary";
                                 }}
                                 className="text-left text-xs font-medium text-slate-700 hover:text-amber-600 py-1 no-underline block"
                               >
