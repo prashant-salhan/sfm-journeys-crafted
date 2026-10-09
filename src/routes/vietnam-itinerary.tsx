@@ -37,6 +37,20 @@ import { InlineEnquiryForm } from "@/components/InlineEnquiryForm";
 import { CircularSocialMenu } from "@/components/CircularSocialMenu";
 import { FooterSection } from "@/components/Sections";
 
+// Vietnam Package Images
+import hero1Pic from "@/assets/vietnam/hero-1.webp";
+import hero2Pic from "@/assets/vietnam/hero-2.jpg";
+import day1Pic from "@/assets/vietnam/day1.webp";
+import day2Pic from "@/assets/vietnam/day2.jpg";
+import day3Pic from "@/assets/vietnam/day3.jpg";
+import day4Pic from "@/assets/vietnam/day4.jpeg";
+import day5Pic from "@/assets/vietnam/day5.jpg";
+import day6Pic from "@/assets/vietnam/day6.jpg";
+import day7Pic from "@/assets/vietnam/day7.jpg";
+import day8Pic from "@/assets/vietnam/day8.jpg";
+import day9Pic from "@/assets/vietnam/day9.jpg";
+import day10Pic from "@/assets/vietnam/day10.jpg";
+
 export const Route = createFileRoute("/vietnam-itinerary")({
   head: () => ({
     meta: [
@@ -81,60 +95,70 @@ const ITINERARY_DAYS = [
     title: "Arrival in Hanoi – Private City Tour & Train Street Experience",
     desc: "Welcome to Vietnam! Arrive at Noi Bai International Airport in Hanoi. Meet your SFM representative for a private transfer to your 4-star hotel. After check-in, embark on a private Hanoi City Tour: visit serene Hoan Kiem Lake, Ngoc Son Temple, and walk through the historic Old Quarter with its lively shopfronts and 36 traditional streets. Visit the famous Hanoi Train Street from an authorized viewing area to watch life along the railway. Overnight in Hanoi.",
     tags: ["Private Airport Transfer", "Hoan Kiem Lake", "Hanoi Old Quarter", "Train Street"],
+    image: day1Pic,
   },
   {
     day: 2,
     title: "Full-Day Ha Long Bay Cruise Excursion & Kayaking",
     desc: "After breakfast, depart Hanoi by shared luxury shuttle bus through the Red River Delta to Tuan Chau Harbor in Ha Long Bay. Board a traditional cruise vessel and sail past thousands of towering limestone karst islands rising from emerald waters. Enjoy a freshly prepared seafood lunch onboard. Explore natural limestone caves (such as Sung Sot Cave), and enjoy kayaking or a bamboo boat ride through tranquil lagoons. Return to Hanoi by shuttle bus for overnight stay.",
     tags: ["Ha Long Bay Cruise", "Limestone Karsts", "Sung Sot Cave", "Seafood Lunch", "Kayaking"],
+    image: day2Pic,
   },
   {
     day: 3,
     title: "Ninh Binh – Hoa Lu Ancient Capital, Trang An Boat Tour & Mua Cave",
     desc: "Embark on a full-day excursion to Ninh Binh, known as 'Ha Long Bay on Land'. Visit Hoa Lu, the 10th-century feudal capital of Vietnam, and admire Dinh & Le dynasty temples. Continue to Trang An UNESCO World Heritage site for a 2-hour scenic rowboat journey through winding waterways, limestone valleys, and water caves. Optional climb up 500 steep stone steps at Mua Cave for panoramic views over Tam Coc rice fields and rivers. Return to Hanoi for night stay.",
     tags: ["Hoa Lu Ancient Capital", "Trang An Sampan Boat", "Water Caves", "Mua Cave Viewpoint"],
+    image: day3Pic,
   },
   {
     day: 4,
     title: "Flight from Hanoi to Da Nang & Coastal Relaxation",
     desc: "Enjoy breakfast at your hotel, check out, and meet your driver for a private transfer to Hanoi Airport. Board your domestic flight to Da Nang, the coastal capital of central Vietnam. Upon arrival, private transfer to your 4-star beachside hotel. Spend the rest of the day relaxing on My Khe Beach or strolling along the Dragon Bridge and Han River waterfront. Overnight in Da Nang.",
     tags: ["Domestic Flight", "Private Transfers", "Da Nang Arrival", "My Khe Beach"],
+    image: day4Pic,
   },
   {
     day: 5,
     title: "Cam Thanh Coconut Forest, Marble Mountains & Hoi An Evening Lanterns",
     desc: "After breakfast, head to Cam Thanh Coconut Village to navigate peaceful waterways in traditional bamboo basket boats. Continue to the Marble Mountains to explore limestone caves, Buddhist pagodas, and panoramic coastal views. In the late afternoon, arrive in UNESCO-listed Hoi An Ancient Town. Stroll along historic Japanese Covered Bridge, ancient merchant houses, and night market illuminated by thousands of silk lanterns. Return to Da Nang for night stay.",
     tags: ["Coconut Basket Boat", "Marble Mountains", "Hoi An Ancient Town", "Evening Lanterns"],
+    image: day5Pic,
   },
   {
     day: 6,
     title: "Full-Day Ba Na Hills – Golden Bridge & French Village",
     desc: "Travel to Sun World Ba Na Hills mountain resort. Ride the world-record non-stop cable car up to 1,487 meters elevation. Walk across the world-famous Golden Bridge held up by giant stone hands offering breathtaking views over the Annamite Mountains. Explore the picturesque French Village, Le Jardin D'Amour flower gardens, Linh Ung Pagoda, and ride the thrilling Alpine Coaster. Return to Da Nang for overnight stay.",
     tags: ["Ba Na Hills Cable Car", "Golden Bridge", "French Village", "Alpine Coaster"],
+    image: day6Pic,
   },
   {
     day: 7,
     title: "Flight from Da Nang to Ho Chi Minh City (Saigon) & Leisure",
     desc: "After breakfast, check out from hotel and private transfer to Da Nang Airport for your flight to Ho Chi Minh City (Saigon). Upon arrival at Tan Son Nhat Airport, private transfer to your 4-star city center hotel. Balance of the day is free to explore Saigon's vibrant cafés, Ben Thanh Night Market, or Nguyen Hue Walking Street at your own pace. Overnight in Ho Chi Minh City.",
     tags: ["Domestic Flight", "Ho Chi Minh City Arrival", "Saigon Night Life"],
+    image: day7Pic,
   },
   {
     day: 8,
     title: "Cu Chi Tunnels Historical Tour & Mekong Delta River Cruise",
     desc: "Full-day historical and countryside excursion. First, visit the famous Cu Chi Tunnels—a 250km underground network built during the Vietnam War. Crawl through historic tunnel sections, see hidden trapdoors, and learn about guerrilla strategies. Next, head to the fertile Mekong Delta region. Board a riverboat at My Tho to cruise past fruit orchards, coconut groves, and river island communities. Taste local honey tea, tropical fruits, and coconut candy. Return to Saigon for night stay.",
     tags: ["Cu Chi Tunnels", "Mekong Delta Cruise", "Fruit Orchards", "Coconut Candy Workshop"],
+    image: day8Pic,
   },
   {
     day: 9,
     title: "Ho Chi Minh City Day at Leisure – Markets & French Colonial Landmarks",
     desc: "Enjoy a relaxing free day in Ho Chi Minh City. Shop for souvenirs, coffee, and silk at Ben Thanh Market or Takashimaya Mall. Take self-guided photos at French colonial landmarks including the historic Central Post Office, Saigon Notre-Dame Cathedral, War Remnants Museum, and Independence Palace. Overnight in Ho Chi Minh City.",
     tags: ["Ben Thanh Market", "Saigon Post Office", "Notre-Dame Cathedral", "Free Shopping Day"],
+    image: day9Pic,
   },
   {
     day: 10,
     title: "Hotel Check-out, Private Airport Transfer & Return Flight",
     desc: "Enjoy your final hotel breakfast in Saigon. Check out and meet your private driver for transfer to Tan Son Nhat International Airport. Board your return international flight home, carrying unforgettable memories of Vietnam's grand north-to-south journey.",
     tags: ["Hotel Check-out", "Private Airport Transfer", "Return International Flight"],
+    image: day10Pic,
   },
 ];
 
@@ -230,6 +254,32 @@ export function VietnamItineraryPage() {
                     </span>
                     <span className="flex items-center gap-1.5 font-medium text-amber-300">
                       <Star className="w-4 h-4 text-amber-400 fill-amber-400" /> 4.9 (460+ Reviews)
+                    </span>
+                  </div>
+                </div>
+
+                {/* Top 2 Banner Pictures */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="relative group overflow-hidden rounded-2xl border border-slate-800/90 shadow-xl aspect-[16/10]">
+                    <img
+                      src={hero1Pic}
+                      alt="Vietnam Ha Long Bay & Karsts"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
+                    <span className="absolute bottom-3 left-3 text-xs font-bold text-amber-300 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/30">
+                      Ha Long Bay & Limestone Karsts
+                    </span>
+                  </div>
+                  <div className="relative group overflow-hidden rounded-2xl border border-slate-800/90 shadow-xl aspect-[16/10]">
+                    <img
+                      src={hero2Pic}
+                      alt="Vietnam Golden Bridge & Heritage"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
+                    <span className="absolute bottom-3 left-3 text-xs font-bold text-amber-300 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/30">
+                      Golden Bridge & Cultural Wonders
                     </span>
                   </div>
                 </div>
@@ -367,7 +417,7 @@ export function VietnamItineraryPage() {
                   {ITINERARY_DAYS.map((day) => (
                     <div
                       key={day.day}
-                      className="bg-slate-900/60 border border-slate-800/90 rounded-2xl p-6 hover:border-slate-700 transition-all space-y-3"
+                      className="bg-slate-900/60 border border-slate-800/90 rounded-2xl p-6 hover:border-slate-700 transition-all space-y-4"
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="bg-amber-500/20 text-amber-300 text-xs font-black px-3 py-1 rounded-lg border border-amber-500/30">
@@ -379,7 +429,19 @@ export function VietnamItineraryPage() {
                       </div>
 
                       <h3 className="text-lg font-bold text-white">{day.title}</h3>
-                      <p className="text-slate-300 text-sm leading-relaxed font-normal">{day.desc}</p>
+
+                      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                        <div className="md:col-span-5 overflow-hidden rounded-2xl border border-slate-800/90 aspect-[16/10] relative group">
+                          <img
+                            src={day.image}
+                            alt={day.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="md:col-span-7 space-y-3">
+                          <p className="text-slate-300 text-sm leading-relaxed font-normal">{day.desc}</p>
+                        </div>
+                      </div>
 
                       <div className="flex flex-wrap gap-2 pt-2">
                         {day.tags.map((tag, idx) => (

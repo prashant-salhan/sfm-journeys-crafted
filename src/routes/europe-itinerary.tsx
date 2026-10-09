@@ -39,6 +39,17 @@ import { InlineEnquiryForm } from "@/components/InlineEnquiryForm";
 import { CircularSocialMenu } from "@/components/CircularSocialMenu";
 import { FooterSection } from "@/components/Sections";
 
+// Europe Package Images
+import hero1Pic from "@/assets/europe/hero-1.jpeg";
+import hero2Pic from "@/assets/europe/hero-2.jpeg";
+import day1Pic from "@/assets/europe/day1.jpeg";
+import day2Pic from "@/assets/europe/day2.jpg";
+import day3Pic from "@/assets/europe/day3.webp";
+import day4Pic from "@/assets/europe/day4.jpg";
+import day5Pic from "@/assets/europe/day5.avif";
+import day6Pic from "@/assets/europe/day6.jpeg";
+import day7Pic from "@/assets/europe/day7.jpg";
+
 export const Route = createFileRoute("/europe-itinerary")({
   head: () => ({
     meta: [
@@ -85,42 +96,49 @@ const ITINERARY_DAYS = [
     title: "Arrival in Paris – City of Lights Welcome",
     desc: "Arrive at Paris International Airport (CDG/ORY), meet your private driver guide and transfer comfortably to your 4-star city hotel. Check in and relax. Spend the remainder of your day at leisure taking in the historic cafés, Haussmann architecture, and romantic atmosphere of Paris. Overnight in Paris.",
     tags: ["Private Airport Transfer", "Paris Arrival", "City of Lights"],
+    image: day1Pic,
   },
   {
     day: 2,
     title: "Paris Hop-On Hop-Off City Tour, Seine River Cruise & Eiffel Tower Summit",
     desc: "After breakfast, explore Paris at your own pace using the Hop-On Hop-Off sightseeing bus. View iconic landmarks including Louvre Museum, Arc de Triomphe, Champs-Élysées, and Place de la Concorde. Enjoy a 1-hour Seine River Cruise sailing beneath historic bridges past riverside monuments. Ascend by lift to the Eiffel Tower Summit for breathtaking 360-degree panoramic views of Paris. Overnight in Paris.",
     tags: ["Hop-On Hop-Off Bus", "Seine River Cruise", "Eiffel Tower Summit Lift", "Arc de Triomphe"],
+    image: day2Pic,
   },
   {
     day: 3,
     title: "Full Day Disneyland Paris Adventure (1 Day / 1 Park Pass)",
     desc: "After breakfast, travel to Disneyland Paris. Enjoy a full magical day at Disneyland Park with your included 1 Day / 1 Park pass. Step into fairytale lands: Main Street U.S.A., Fantasyland, Adventureland, Discoveryland, and Frontierland. Enjoy family rides, movie-inspired attractions, Disney character meet-and-greets, and spectacular evening shows. Return to hotel. Overnight in Paris.",
     tags: ["Disneyland Paris 1 Day Pass", "Fantasyland Rides", "Disney Parade & Shows"],
+    image: day3Pic,
   },
   {
     day: 4,
     title: "High-Speed Train from Paris to Switzerland & Bern Old Town",
     desc: "Check out after breakfast and transfer to Paris railway station. Board your high-speed TGV train across the French countryside to Geneva or Basel (approx. 3 hrs). Continue via Swiss scenic rail to your confirmed 4-star hotel in Bern or Zurich. If time permits, explore the UNESCO World Heritage Bern Old Town with its medieval clock towers and arcade streets. Overnight in Switzerland.",
     tags: ["High-Speed TGV Train", "Paris to Switzerland", "Swiss Travel Pass", "Bern Old Town"],
+    image: day4Pic,
   },
   {
     day: 5,
     title: "Mount Titlis Cable Car Excursion & Scenic Lake Lucerne Cruise",
     desc: "After breakfast, travel by Swiss public transport towards Engelberg. Ascend Mount Titlis via revolving TITLIS Rotair cable car up to 3,020 meters elevation. Walk across the thrilling Titlis Cliff Walk (Europe's highest suspension bridge), explore the natural Glacier Cave, and enjoy snow panoramas. Later, travel to Lucerne and board a scenic Lake Lucerne Cruise across mountain-framed blue waters. Overnight in Switzerland.",
     tags: ["Mount Titlis Cable Car", "Glacier Cave", "Titlis Cliff Walk", "Lake Lucerne Cruise"],
+    image: day5Pic,
   },
   {
     day: 6,
     title: "Lindt Home of Chocolate, Zurich Old Town & Rhine Falls",
     desc: "After breakfast, travel by public transport to Kilchberg for the Lindt Home of Chocolate museum. Marvel at the 9-meter chocolate fountain, learn Swiss chocolate history, and enjoy interactive tastings. Next, walk through Zurich's historic Old Town along the Limmat River and Bahnhofstrasse shopping avenue. Continue to Rhine Falls near Schaffhausen to witness Europe's most powerful waterfall. Return to hotel. Overnight in Switzerland.",
     tags: ["Lindt Chocolate Museum", "Zurich Old Town", "Limmat River", "Rhine Falls Waterfall"],
+    image: day6Pic,
   },
   {
     day: 7,
     title: "Departure from Switzerland",
     desc: "Enjoy breakfast at your hotel, check out, and take your private airport transfer to Zurich or Geneva Airport. Board your return economy-class flight home, carrying magical memories of Paris and the Swiss Alps.",
     tags: ["Hotel Check-out", "Private Airport Transfer", "Return Flight"],
+    image: day7Pic,
   },
 ];
 
@@ -230,6 +248,32 @@ export function EuropeItineraryPage() {
                   </div>
                 </div>
 
+                {/* Top 2 Banner Pictures */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="relative group overflow-hidden rounded-2xl border border-slate-800/90 shadow-xl aspect-[16/10]">
+                    <img
+                      src={hero1Pic}
+                      alt="Paris & Eiffel Tower"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
+                    <span className="absolute bottom-3 left-3 text-xs font-bold text-amber-300 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/30">
+                      Paris & Eiffel Tower
+                    </span>
+                  </div>
+                  <div className="relative group overflow-hidden rounded-2xl border border-slate-800/90 shadow-xl aspect-[16/10]">
+                    <img
+                      src={hero2Pic}
+                      alt="Swiss Alps & Mount Titlis"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
+                    <span className="absolute bottom-3 left-3 text-xs font-bold text-amber-300 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/30">
+                      Swiss Alps & Mount Titlis
+                    </span>
+                  </div>
+                </div>
+
                 <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-medium bg-slate-900/80 p-5 rounded-2xl border border-slate-800">
                   A memorable journey through Parisian landmarks, scenic Swiss railways, Alpine peaks, lakes and chocolate experiences. Features prebooked Eiffel Tower summit lift access, Seine River Cruise, Disneyland Paris 1 Day/1 Park pass, high-speed TGV train to Switzerland, 3-consecutive-day Swiss Travel Pass, Mount Titlis cable car, Lake Lucerne cruise, Lindt Home of Chocolate, and Rhine Falls.
                 </p>
@@ -260,7 +304,7 @@ export function EuropeItineraryPage() {
               <div className="lg:col-span-4">
                 <div className="bg-slate-900/90 border border-amber-500/30 rounded-3xl p-6 shadow-2xl shadow-slate-950/80 backdrop-blur-xl relative overflow-hidden">
                   <div className="absolute top-0 right-0 bg-gradient-to-l from-amber-500 to-amber-600 text-slate-950 text-[10px] font-black uppercase px-4 py-1 rounded-bl-xl tracking-wider">
-                    Premium Europe Offer
+                    Bestseller Europe Combo
                   </div>
 
                   <div className="space-y-4">
@@ -275,7 +319,7 @@ export function EuropeItineraryPage() {
                         <span className="text-xs text-slate-400">/ person (twin sharing)</span>
                       </div>
                       <p className="text-[11px] text-emerald-400 font-medium mt-1">
-                        ✔ Includes 4★ Hotel Stay, Breakfast, Flights & High-Speed Rail
+                        ✔ Includes 4★ Hotels, Flights, TGV Train & Passes
                       </p>
                     </div>
 
@@ -302,15 +346,15 @@ export function EuropeItineraryPage() {
                     <div className="pt-3 border-t border-slate-800/80 space-y-2 text-[11px] text-slate-400">
                       <div className="flex items-center gap-2">
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                        <span>100% Customized European Itinerary</span>
+                        <span>Prebooked Eiffel Summit & Disneyland Passes</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                        <span>Complete Schengen Visa Assistance</span>
+                        <span>Includes 3-Day Swiss Travel Pass</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                        <span>24/7 On-Trip Support & Rail Coordination</span>
+                        <span>Schengen Visa Document Support</span>
                       </div>
                     </div>
                   </div>
@@ -351,7 +395,7 @@ export function EuropeItineraryPage() {
                   : "text-slate-400 hover:text-slate-200"
               }`}
             >
-              Transport & Service Summary
+              Transfers & Rail Pass Summary
             </button>
           </div>
 
@@ -363,7 +407,7 @@ export function EuropeItineraryPage() {
                   {ITINERARY_DAYS.map((day) => (
                     <div
                       key={day.day}
-                      className="bg-slate-900/60 border border-slate-800/90 rounded-2xl p-6 hover:border-slate-700 transition-all space-y-3"
+                      className="bg-slate-900/60 border border-slate-800/90 rounded-2xl p-6 hover:border-slate-700 transition-all space-y-4"
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="bg-amber-500/20 text-amber-300 text-xs font-black px-3 py-1 rounded-lg border border-amber-500/30">
@@ -375,7 +419,19 @@ export function EuropeItineraryPage() {
                       </div>
 
                       <h3 className="text-lg font-bold text-white">{day.title}</h3>
-                      <p className="text-slate-300 text-sm leading-relaxed font-normal">{day.desc}</p>
+
+                      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                        <div className="md:col-span-5 overflow-hidden rounded-2xl border border-slate-800/90 aspect-[16/10] relative group">
+                          <img
+                            src={day.image}
+                            alt={day.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="md:col-span-7 space-y-3">
+                          <p className="text-slate-300 text-sm leading-relaxed font-normal">{day.desc}</p>
+                        </div>
+                      </div>
 
                       <div className="flex flex-wrap gap-2 pt-2">
                         {day.tags.map((tag, idx) => (
@@ -412,14 +468,13 @@ export function EuropeItineraryPage() {
                   <div className="pt-6 border-t border-slate-800">
                     <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
                       <Info className="w-5 h-5 text-amber-400" />
-                      <span>Important Information & Booking Notes</span>
+                      <span>Important Europe Travel Notes</span>
                     </h3>
                     <ul className="list-disc list-inside text-xs text-slate-400 space-y-2 leading-relaxed">
-                      <li>The Swiss Travel Pass covers 3 consecutive days for public trains, buses, and boats across Switzerland.</li>
-                      <li>Mount Titlis cable car pass and Lake Lucerne cruise tickets are included in the contracted package.</li>
-                      <li>Eiffel Tower summit lift access, Disneyland Paris 1 Day/1 Park, and Lindt Chocolate tickets carry confirmed timed-entry slots.</li>
-                      <li>Self-guided sightseeing using Swiss public transport network with 24/7 travel coordination support.</li>
-                      <li>Schengen Visa fees and mandatory European tourist city taxes payable directly at hotels unless specified.</li>
+                      <li>Schengen Visa assistance and flight/hotel proof vouchers are provided upon booking confirmation.</li>
+                      <li>Swiss Travel Pass grants unlimited access to Swiss Travel System trains, buses, panoramas, and public boats for 3 consecutive days.</li>
+                      <li>Eiffel Tower Summit Lift tickets and Disneyland Paris admission passes are pre-reserved.</li>
+                      <li>City tourist taxes (approx. €3-€7 per person per night) are payable directly at hotel reception in Paris and Switzerland.</li>
                     </ul>
                   </div>
                 </div>
@@ -430,15 +485,15 @@ export function EuropeItineraryPage() {
                   <div>
                     <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
                       <Train className="w-5 h-5 text-amber-400" />
-                      <span>Transport & Journey Arrangements</span>
+                      <span>Transfers & Rail Pass Breakdown</span>
                     </h3>
                     
                     <div className="overflow-x-auto">
                       <table className="w-full text-left text-xs text-slate-300 border-collapse">
                         <thead>
                           <tr className="border-b border-slate-800 text-amber-400 font-bold">
-                            <th className="py-2.5 px-3">Journey / Leg</th>
-                            <th className="py-2.5 px-3">Arrangement & Transport Basis</th>
+                            <th className="py-2.5 px-3">Journey Leg</th>
+                            <th className="py-2.5 px-3">Transfer Basis / Ticket Type</th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-800/60">
@@ -461,10 +516,10 @@ export function EuropeItineraryPage() {
               <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sticky top-28 space-y-4">
                 <h3 className="text-lg font-bold text-white flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-amber-400" />
-                  <span>Customize This Package</span>
+                  <span>Customize This Europe Trip</span>
                 </h3>
                 <p className="text-xs text-slate-400">
-                  Want to add Rome, Venice, Amsterdam, or extra nights in Switzerland? Send us a message for an instant custom quote.
+                  Want to add Jungfraujoch, Mount Pilatus, or extra nights in Paris/Zurich? Send us a message for a custom itinerary.
                 </p>
                 <InlineEnquiryForm initialPackageTitle="Paris & Swiss Alps Special (06N/07D)" source="europe_itinerary_page" />
               </div>
