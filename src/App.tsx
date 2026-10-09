@@ -32,6 +32,7 @@ import { VietnamItineraryPage } from "@/routes/vietnam-itinerary";
 import { ThailandItineraryPage } from "@/routes/thailand-itinerary";
 import { EuropeItineraryPage } from "@/routes/europe-itinerary";
 import { JapanItineraryPage } from "@/routes/japan-itinerary";
+import { BaliItineraryPage } from "@/routes/bali-itinerary";
 import { AboutPage } from "@/routes/about";
 import {
   RegionsSection,
@@ -801,6 +802,14 @@ export default function App() {
     return (
       <CurrencyProvider>
         <JapanItineraryPage />
+      </CurrencyProvider>
+    );
+  }
+
+  if (pathname.includes("/bali-itinerary") || pathname.includes("/bali")) {
+    return (
+      <CurrencyProvider>
+        <BaliItineraryPage />
       </CurrencyProvider>
     );
   }

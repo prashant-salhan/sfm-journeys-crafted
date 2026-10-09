@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as BaliItineraryRouteImport } from './routes/bali-itinerary'
 import { Route as EuropeItineraryRouteImport } from './routes/europe-itinerary'
 import { Route as JapanItineraryRouteImport } from './routes/japan-itinerary'
 import { Route as SingaporeItineraryRouteImport } from './routes/singapore-itinerary'
@@ -25,6 +26,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BaliItineraryRoute = BaliItineraryRouteImport.update({
+  id: '/bali-itinerary',
+  path: '/bali-itinerary',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EuropeItineraryRoute = EuropeItineraryRouteImport.update({
@@ -56,6 +62,7 @@ const VietnamItineraryRoute = VietnamItineraryRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bali-itinerary': typeof BaliItineraryRoute
   '/europe-itinerary': typeof EuropeItineraryRoute
   '/japan-itinerary': typeof JapanItineraryRoute
   '/singapore-itinerary': typeof SingaporeItineraryRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bali-itinerary': typeof BaliItineraryRoute
   '/europe-itinerary': typeof EuropeItineraryRoute
   '/japan-itinerary': typeof JapanItineraryRoute
   '/singapore-itinerary': typeof SingaporeItineraryRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bali-itinerary': typeof BaliItineraryRoute
   '/europe-itinerary': typeof EuropeItineraryRoute
   '/japan-itinerary': typeof JapanItineraryRoute
   '/singapore-itinerary': typeof SingaporeItineraryRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/bali-itinerary'
     | '/europe-itinerary'
     | '/japan-itinerary'
     | '/singapore-itinerary'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/bali-itinerary'
     | '/europe-itinerary'
     | '/japan-itinerary'
     | '/singapore-itinerary'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/bali-itinerary'
     | '/europe-itinerary'
     | '/japan-itinerary'
     | '/singapore-itinerary'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BaliItineraryRoute: typeof BaliItineraryRoute
   EuropeItineraryRoute: typeof EuropeItineraryRoute
   JapanItineraryRoute: typeof JapanItineraryRoute
   SingaporeItineraryRoute: typeof SingaporeItineraryRoute
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bali-itinerary': {
+      id: '/bali-itinerary'
+      path: '/bali-itinerary'
+      fullPath: '/bali-itinerary'
+      preLoaderRoute: typeof BaliItineraryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/europe-itinerary': {
@@ -178,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BaliItineraryRoute: BaliItineraryRoute,
   EuropeItineraryRoute: EuropeItineraryRoute,
   JapanItineraryRoute: JapanItineraryRoute,
   SingaporeItineraryRoute: SingaporeItineraryRoute,
