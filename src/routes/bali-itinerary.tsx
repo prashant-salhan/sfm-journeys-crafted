@@ -409,11 +409,13 @@ export function BaliItineraryPage() {
 
                       {/* Day Photo & Description Card Layout */}
                       <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
-                        <div className="md:col-span-5 overflow-hidden rounded-xl border border-slate-800/90 aspect-[16/10] relative group">
+                        <div className="md:col-span-5 overflow-hidden rounded-xl border border-slate-800/90 bg-slate-950 flex items-center justify-center relative group aspect-[16/10] max-h-72">
                           <img
                             src={day.image}
                             alt={day.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            className={`w-full h-full group-hover:scale-105 transition-transform duration-500 ${
+                              day.day === 4 || day.day === 6 || day.day === 7 ? "object-contain p-1" : "object-cover"
+                            }`}
                           />
                         </div>
                         <div className="md:col-span-7 space-y-3">

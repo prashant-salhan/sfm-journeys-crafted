@@ -725,11 +725,11 @@ export function SingaporeItineraryPage() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
-                      <div className="md:col-span-5 overflow-hidden rounded-2xl border border-slate-800/90 aspect-[16/10] relative group">
+                      <div className="md:col-span-5 overflow-hidden rounded-2xl border border-slate-800/90 bg-slate-950 flex items-center justify-center p-2 relative group aspect-square md:aspect-auto max-h-80">
                         <img
                           src={goodbyeSingaporePic}
                           alt="Goodbye Singapore Flight & Departure"
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          className="w-full h-auto max-h-72 object-contain rounded-xl group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
                       <div className="md:col-span-7 space-y-3">
