@@ -39,6 +39,16 @@ import { InlineEnquiryForm } from "@/components/InlineEnquiryForm";
 import { CircularSocialMenu } from "@/components/CircularSocialMenu";
 import { FooterSection } from "@/components/Sections";
 
+// Bali Package Images
+import hero1Pic from "@/assets/bali/hero-1.jpg";
+import hero2Pic from "@/assets/bali/hero-2.avif";
+import nusaPenidaPic from "@/assets/bali/nusa-penida.jpeg";
+import kecakDancePic from "@/assets/bali/kecak-dance.jpg";
+import candleDinnerPic from "@/assets/bali/candle-dinner.jpg";
+import ubudVillaPic from "@/assets/bali/ubud-villa.jpeg";
+import floatingBreakfastPic from "@/assets/bali/floating-breakfast.jpeg";
+import goodbyeBaliPic from "@/assets/bali/goodbye-bali.jpg";
+
 export const Route = createFileRoute("/bali-itinerary")({
   head: () => ({
     meta: [
@@ -82,42 +92,49 @@ const ITINERARY_DAYS = [
     title: "Welcome to Bali – Romantic Arrival",
     desc: "Arrive at Ngurah Rai International Airport (DPS) in Denpasar and meet your driver for a private transfer to your 4-star hotel in Kuta or Seminyak. Check in and enjoy the rest of the day at leisure. Bali’s tropical atmosphere, beaches and relaxed hospitality offer a lovely beginning to your honeymoon. Overnight in Kuta / Seminyak.",
     tags: ["Private Airport Transfer", "Kuta / Seminyak 4★ Hotel", "Beachside Leisure"],
+    image: hero1Pic,
   },
   {
     day: 2,
     title: "Nusa Penida Island Adventure",
     desc: "Full-day trip to Nusa Penida Island. Admire the famous T-Rex-shaped headland at Kelingking Beach viewpoint with soaring cliffs and bright blue sea. See Broken Beach's circular coastal cove connected to the ocean through a natural stone arch. View rock pools at Angel's Billabong, and relax by the scenic beach and clear waters of Crystal Bay. Return by fast boat to Bali mainland. Overnight in Kuta / Seminyak.",
     tags: ["Nusa Penida Fast Boat", "Kelingking Beach T-Rex View", "Broken Beach", "Angel's Billabong", "Crystal Bay"],
+    image: nusaPenidaPic,
   },
   {
     day: 3,
     title: "Water Sports, Uluwatu Sunset & Kecak Dance",
     desc: "Enjoy included Jet Ski, Banana Boat and Flying Fish activities under operator supervision at Tanjung Benoa beach. In the late afternoon, explore the cliffside Uluwatu Temple precinct overlooking the Indian Ocean at sunset. Watch a traditional open-air Kecak & Fire Dance performance featuring chanting, storytelling and fire effects. Private land transfers. Overnight in Kuta / Seminyak.",
     tags: ["Jet Ski & Banana Boat", "Flying Fish Water Sport", "Uluwatu Temple Sunset", "Kecak Fire Dance Show"],
+    image: kecakDancePic,
   },
   {
     day: 4,
     title: "Tanah Lot Temple & Romantic Candlelight Dinner",
     desc: "Visit the famous Tanah Lot Sea Temple on a rocky offshore outcrop surrounded by crashing waves. In the evening, enjoy a specially arranged romantic Candlelight Dinner with honeymoon decorations and a cozy atmosphere. Private transfers. Overnight in Kuta / Seminyak.",
     tags: ["Tanah Lot Sea Temple", "Romantic Candlelight Dinner", "Honeymoon Floral Setup"],
+    image: candleDinnerPic,
   },
   {
     day: 5,
     title: "Ubud Private Pool Villa Check-in & 2-Hour Balinese Spa",
     desc: "Check out from your resort and transfer privately to Ubud. Settle into your luxury Private Pool Villa surrounded by tropical greenery. Unwind with an included 2-Hour traditional Balinese Spa & Massage treatment designed for couples to relax and rejuvenate. Overnight in Ubud Private Pool Villa.",
     tags: ["Ubud Private Pool Villa", "2-Hour Balinese Couple Spa", "Tropical Villa Relaxation"],
+    image: ubudVillaPic,
   },
   {
     day: 6,
     title: "Floating Breakfast & Villa Leisure",
     desc: "Enjoy a specially arranged Floating Breakfast tray served right in your private villa pool. Keep the rest of the day free to relax at the villa or independently explore nearby Ubud art markets, Monkey Forest and rice terraces without a fixed tour schedule. Overnight in Ubud Private Pool Villa.",
     tags: ["Floating Breakfast in Pool", "Private Pool Villa Leisure", "Ubud Exploration"],
+    image: floatingBreakfastPic,
   },
   {
     day: 7,
     title: "Goodbye Bali – Departure",
     desc: "After breakfast, check out from your villa and meet your driver for a private transfer to Ngurah Rai International Airport for your return flight home. Take home unforgettable memories of island scenery, culture and villa relaxation.",
     tags: ["Villa Check-out", "Private Airport Transfer", "Return Flight"],
+    image: goodbyeBaliPic,
   },
 ];
 
@@ -217,6 +234,33 @@ export function BaliItineraryPage() {
                   </div>
                 </div>
 
+                {/* Top Showcase Images (Photos 1 & 2) placed before description */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 pb-2">
+                  <div className="relative group overflow-hidden rounded-2xl border border-slate-800/90 shadow-xl aspect-[16/10]">
+                    <img
+                      src={hero1Pic}
+                      alt="Bali Tropical Beach & Resort Experience"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
+                    <span className="absolute bottom-3 left-3 text-xs font-bold text-amber-300 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/30">
+                      Tropical Beach & Resort Stay
+                    </span>
+                  </div>
+                  <div className="relative group overflow-hidden rounded-2xl border border-slate-800/90 shadow-xl aspect-[16/10]">
+                    <img
+                      src={hero2Pic}
+                      alt="Bali Luxury Private Pool Villa"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
+                    <span className="absolute bottom-3 left-3 text-xs font-bold text-amber-300 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/30">
+                      Luxury Private Pool Villa
+                    </span>
+                  </div>
+                </div>
+
+                {/* Package Overview Description */}
                 <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-medium bg-slate-900/80 p-5 rounded-2xl border border-slate-800">
                   A romantic Bali escape combining tropical beaches, island adventures, sunset performances and a peaceful private-pool villa retreat. Enjoy 4 nights at a 4-star beachside resort in Kuta/Seminyak, 2 nights in a luxury Ubud Private Pool Villa, floating breakfast in your villa pool, 2-hour Balinese spa massage, romantic candlelight dinner with flower decoration, water sports (Jet Ski, Banana Boat, Flying Fish), Uluwatu Kecak Dance, Tanah Lot Temple, and Nusa Penida island speedboat excursion.
                 </p>
@@ -350,7 +394,7 @@ export function BaliItineraryPage() {
                   {ITINERARY_DAYS.map((day) => (
                     <div
                       key={day.day}
-                      className="bg-slate-900/60 border border-slate-800/90 rounded-2xl p-6 hover:border-slate-700 transition-all space-y-3"
+                      className="bg-slate-900/60 border border-slate-800/90 rounded-2xl p-6 hover:border-slate-700 transition-all space-y-4"
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="bg-amber-500/20 text-amber-300 text-xs font-black px-3 py-1 rounded-lg border border-amber-500/30">
@@ -361,18 +405,31 @@ export function BaliItineraryPage() {
                         </div>
                       </div>
 
-                      <h3 className="text-lg font-bold text-white">{day.title}</h3>
-                      <p className="text-slate-300 text-sm leading-relaxed font-normal">{day.desc}</p>
+                      <h3 className="text-lg sm:text-xl font-bold text-white">{day.title}</h3>
 
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {day.tags.map((tag, idx) => (
-                          <span
-                            key={idx}
-                            className="bg-slate-800/80 text-slate-300 text-[11px] font-medium px-2.5 py-0.5 rounded-md border border-slate-700/60"
-                          >
-                            #{tag}
-                          </span>
-                        ))}
+                      {/* Day Photo & Description Card Layout */}
+                      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                        <div className="md:col-span-5 overflow-hidden rounded-xl border border-slate-800/90 aspect-[16/10] relative group">
+                          <img
+                            src={day.image}
+                            alt={day.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="md:col-span-7 space-y-3">
+                          <p className="text-slate-300 text-sm leading-relaxed font-normal">{day.desc}</p>
+
+                          <div className="flex flex-wrap gap-1.5 pt-1">
+                            {day.tags.map((tag, idx) => (
+                              <span
+                                key={idx}
+                                className="bg-slate-800/80 text-slate-300 text-[11px] font-medium px-2.5 py-0.5 rounded-md border border-slate-700/60"
+                              >
+                                #{tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ))}
