@@ -37,6 +37,17 @@ import { InlineEnquiryForm } from "@/components/InlineEnquiryForm";
 import { CircularSocialMenu } from "@/components/CircularSocialMenu";
 import { FooterSection } from "@/components/Sections";
 
+// Singapore Package Images
+import hero1Pic from "@/assets/singapore/hero-1.jpg";
+import hero2Pic from "@/assets/singapore/hero-2.jpg";
+import nightSafariPic from "@/assets/singapore/night-safari.jpg";
+import singaporeCityPic from "@/assets/singapore/singapore-city.jpeg";
+import sentosaPic from "@/assets/singapore/sentosa.jpeg";
+import universalPic from "@/assets/singapore/universal-studios.jpg";
+import gardensByTheBayPic from "@/assets/singapore/gardens-by-the-bay.webp";
+import skyParkPic from "@/assets/singapore/skypark.jpg";
+import goodbyeSingaporePic from "@/assets/singapore/goodbye-singapore.jpeg";
+
 export const Route = createFileRoute("/singapore-itinerary")({
   head: () => ({
     meta: [
@@ -174,7 +185,33 @@ export function SingaporeItineraryPage() {
                   Complete Singapore Experience
                 </h1>
 
-                <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                {/* Top Showcase Images (Photos 1 & 2) placed before description */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 pb-2">
+                  <div className="relative group overflow-hidden rounded-2xl border border-slate-800/90 shadow-xl aspect-[16/10]">
+                    <img
+                      src={hero1Pic}
+                      alt="Singapore City Skyline & Marina Bay"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
+                    <span className="absolute bottom-3 left-3 text-xs font-bold text-amber-300 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/30">
+                      Singapore City Skyline
+                    </span>
+                  </div>
+                  <div className="relative group overflow-hidden rounded-2xl border border-slate-800/90 shadow-xl aspect-[16/10]">
+                    <img
+                      src={hero2Pic}
+                      alt="Singapore Iconic Waterfront & Attractions"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
+                    <span className="absolute bottom-3 left-3 text-xs font-bold text-amber-300 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/30">
+                      Futuristic Skyline & Waterfront
+                    </span>
+                  </div>
+                </div>
+
+                <p className="text-slate-300 text-sm sm:text-base leading-relaxed bg-slate-900/80 p-5 rounded-2xl border border-slate-800">
                   Discover the best of Singapore in five exciting days. From the city's futuristic skyline and world-famous attractions to wildlife after dark, Sentosa Island, Universal Studios, Gardens by the Bay, and Sands SkyPark—this package brings together Singapore's must-have experiences in one well-planned holiday.
                 </p>
 
@@ -311,9 +348,21 @@ export function SingaporeItineraryPage() {
                       </span>
                     </div>
 
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      Arrive at Singapore Changi Airport, complete the immigration formalities and meet our representative for your private transfer to the hotel. Check in, relax and get ready to begin your Singapore holiday with one of the city's most unique wildlife experiences.
-                    </p>
+                    {/* Day 1 Image & Description */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                      <div className="md:col-span-5 overflow-hidden rounded-2xl border border-slate-800/90 aspect-[16/10] relative group">
+                        <img
+                          src={nightSafariPic}
+                          alt="Singapore Night Safari Tram Ride & Wildlife"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                      <div className="md:col-span-7 space-y-3">
+                        <p className="text-slate-300 text-sm leading-relaxed">
+                          Arrive at Singapore Changi Airport, complete the immigration formalities and meet our representative for your private transfer to the hotel. Check in, relax and get ready to begin your Singapore holiday with one of the city's most unique wildlife experiences.
+                        </p>
+                      </div>
+                    </div>
 
                     <div className="bg-slate-950/70 border border-amber-500/20 rounded-2xl p-5 space-y-4">
                       <h4 className="text-base font-bold text-amber-400 flex items-center gap-2">
@@ -393,38 +442,48 @@ export function SingaporeItineraryPage() {
                       Enjoy breakfast at the hotel. Start your day with a Half-Day Singapore City Tour on SIC basis, giving you an introduction to the city's modern architecture, multicultural neighbourhoods and famous landmarks.
                     </p>
 
-                    {/* City Tour & Merlion */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-4 space-y-2">
-                        <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                          <Building className="w-4 h-4 text-amber-400" />
-                          <span>🏙️ Singapore City Tour</span>
-                        </h4>
-                        <p className="text-xs text-slate-400 leading-relaxed">
-                          Drive through Singapore's most interesting areas while experiencing how beautifully the country combines modern skyscrapers, heritage neighbourhoods and greenery.
-                        </p>
+                    {/* City Tour & Merlion with Photo */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                      <div className="md:col-span-5 overflow-hidden rounded-2xl border border-slate-800/90 aspect-[16/10] relative group">
+                        <img
+                          src={singaporeCityPic}
+                          alt="Singapore City Tour & Merlion Park"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
                       </div>
-
-                      <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-4 space-y-2">
-                        <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                          <Camera className="w-4 h-4 text-amber-400" />
-                          <span>🦁 Merlion Park</span>
-                        </h4>
-                        <p className="text-xs text-slate-400 leading-relaxed">
-                          Stop at Singapore's iconic Merlion (half-lion, half-fish). Enjoy views across Marina Bay with Marina Bay Sands and Singapore's skyline as your background.
-                        </p>
+                      <div className="md:col-span-7 space-y-3">
+                        <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-4 space-y-2">
+                          <h4 className="text-sm font-bold text-white flex items-center gap-2">
+                            <Building className="w-4 h-4 text-amber-400" />
+                            <span>🏙️ Singapore City Tour & Merlion Park</span>
+                          </h4>
+                          <p className="text-xs text-slate-400 leading-relaxed">
+                            Drive through Singapore's most iconic districts and stop at Merlion Park. Take stunning photos with the famous Merlion statue and Marina Bay Sands in the backdrop.
+                          </p>
+                        </div>
                       </div>
                     </div>
 
-                    {/* Sentosa Section */}
+                    {/* Sentosa Section with Photo */}
                     <div className="bg-slate-950/70 border border-sky-500/20 rounded-2xl p-5 space-y-4">
-                      <h4 className="text-base font-bold text-sky-400 flex items-center gap-2">
-                        <Waves className="w-5 h-5 text-sky-400" />
-                        <span>🏝️ Sentosa Island – Full-Day Experience</span>
-                      </h4>
-                      <p className="text-xs text-slate-300 leading-relaxed">
-                        Continue towards Singapore's famous entertainment island—Sentosa. Sentosa brings together beaches, entertainment, attractions, marine experiences and beautiful views, making it one of the most enjoyable days of the holiday.
-                      </p>
+                      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                        <div className="md:col-span-5 overflow-hidden rounded-2xl border border-slate-800/90 aspect-[16/10] relative group">
+                          <img
+                            src={sentosaPic}
+                            alt="Sentosa Island Cable Car & Cableway Experience"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="md:col-span-7 space-y-2">
+                          <h4 className="text-base font-bold text-sky-400 flex items-center gap-2">
+                            <Waves className="w-5 h-5 text-sky-400" />
+                            <span>🏝️ Sentosa Island – Full-Day Experience</span>
+                          </h4>
+                          <p className="text-xs text-slate-300 leading-relaxed">
+                            Continue towards Singapore's famous entertainment island—Sentosa. Sentosa brings together beaches, cable cars, attractions, marine experiences and Wings of Time night show!
+                          </p>
+                        </div>
+                      </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                         <div className="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-1.5">
@@ -496,9 +555,20 @@ export function SingaporeItineraryPage() {
                       </span>
                     </div>
 
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      Enjoy breakfast at the hotel. Today is dedicated to one of Singapore's most exciting attractions—Universal Studios Singapore. Transfer to Sentosa on SIC basis and spend the day inside a world inspired by movies, adventure and imagination.
-                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                      <div className="md:col-span-5 overflow-hidden rounded-2xl border border-slate-800/90 aspect-[16/10] relative group">
+                        <img
+                          src={universalPic}
+                          alt="Universal Studios Singapore Globe & Theme Park"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                      <div className="md:col-span-7 space-y-3">
+                        <p className="text-slate-300 text-sm leading-relaxed">
+                          Enjoy breakfast at the hotel. Today is dedicated to one of Singapore's most exciting attractions—Universal Studios Singapore. Transfer to Sentosa on SIC basis and spend the day inside a world inspired by movies, adventure and imagination.
+                        </p>
+                      </div>
+                    </div>
 
                     <div className="bg-slate-950/70 border border-amber-500/20 rounded-2xl p-5 space-y-4">
                       <h4 className="text-base font-bold text-amber-400 flex items-center gap-2">
@@ -558,14 +628,26 @@ export function SingaporeItineraryPage() {
                       After breakfast, get ready to experience Singapore's famous combination of nature, architecture and futuristic city planning. Proceed for the sightseeing on SIC basis.
                     </p>
 
+                    {/* Gardens by the Bay with Photo */}
                     <div className="bg-slate-950/70 border border-emerald-500/20 rounded-2xl p-5 space-y-4">
-                      <h4 className="text-base font-bold text-emerald-400 flex items-center gap-2">
-                        <Sun className="w-5 h-5 text-emerald-400" />
-                        <span>🌿 Gardens by the Bay</span>
-                      </h4>
-                      <p className="text-xs text-slate-300 leading-relaxed">
-                        Step into one of Singapore's most extraordinary attractions. Gardens by the Bay combines plants from around the world with enormous glass conservatories and futuristic architecture.
-                      </p>
+                      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                        <div className="md:col-span-5 overflow-hidden rounded-2xl border border-slate-800/90 aspect-[16/10] relative group">
+                          <img
+                            src={gardensByTheBayPic}
+                            alt="Gardens by the Bay Supertree Grove & Domes"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="md:col-span-7 space-y-2">
+                          <h4 className="text-base font-bold text-emerald-400 flex items-center gap-2">
+                            <Sun className="w-5 h-5 text-emerald-400" />
+                            <span>🌿 Gardens by the Bay (Flower Dome & Cloud Forest)</span>
+                          </h4>
+                          <p className="text-xs text-slate-300 leading-relaxed">
+                            Step into one of Singapore's most extraordinary attractions. Gardens by the Bay combines plants from around the world with enormous glass conservatories and futuristic architecture.
+                          </p>
+                        </div>
+                      </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                         <div className="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-1.5">
@@ -594,18 +676,29 @@ export function SingaporeItineraryPage() {
                       </div>
                     </div>
 
-                    {/* Sands SkyPark */}
-                    <div className="bg-slate-950/70 border border-amber-500/20 rounded-2xl p-5 space-y-3">
-                      <h4 className="text-base font-bold text-amber-400 flex items-center gap-2">
-                        <Sparkles className="w-5 h-5 text-amber-400" />
-                        <span>🌆 Sands SkyPark Observation Deck</span>
-                      </h4>
-                      <p className="text-xs text-slate-300 leading-relaxed">
-                        Finish the sightseeing experience by travelling high above Singapore to the Sands SkyPark Observation Deck at Marina Bay Sands. From high above the city, enjoy panoramic views across Marina Bay, Gardens by the Bay and Singapore's spectacular skyline.
-                      </p>
-                      <div className="bg-slate-900 p-3 rounded-xl border border-slate-800 text-[11px] text-slate-400">
-                        <span className="font-semibold text-slate-200 block">Recommended Duration:</span>
-                        <span>Approximately 1–1.5 Hours</span>
+                    {/* Sands SkyPark with Photo */}
+                    <div className="bg-slate-950/70 border border-amber-500/20 rounded-2xl p-5 space-y-4">
+                      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                        <div className="md:col-span-5 overflow-hidden rounded-2xl border border-slate-800/90 aspect-[16/10] relative group">
+                          <img
+                            src={skyParkPic}
+                            alt="Marina Bay Sands SkyPark Observation Deck"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="md:col-span-7 space-y-2">
+                          <h4 className="text-base font-bold text-amber-400 flex items-center gap-2">
+                            <Sparkles className="w-5 h-5 text-amber-400" />
+                            <span>🌆 Sands SkyPark Observation Deck</span>
+                          </h4>
+                          <p className="text-xs text-slate-300 leading-relaxed">
+                            Finish the sightseeing experience by travelling high above Singapore to the Sands SkyPark Observation Deck at Marina Bay Sands. From high above the city, enjoy panoramic views across Marina Bay, Gardens by the Bay and Singapore's spectacular skyline.
+                          </p>
+                          <div className="bg-slate-900 p-3 rounded-xl border border-slate-800 text-[11px] text-slate-400">
+                            <span className="font-semibold text-slate-200 block">Recommended Duration:</span>
+                            <span>Approximately 1–1.5 Hours</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
@@ -631,15 +724,26 @@ export function SingaporeItineraryPage() {
                       </span>
                     </div>
 
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      Enjoy your final breakfast at the hotel. Depending upon your flight schedule, enjoy some free time for last-minute shopping or relaxation. Check out from the hotel and meet your driver for your Private Transfer to Singapore Changi Airport. Board your return economy-class flight with wonderful memories of Singapore!
-                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                      <div className="md:col-span-5 overflow-hidden rounded-2xl border border-slate-800/90 aspect-[16/10] relative group">
+                        <img
+                          src={goodbyeSingaporePic}
+                          alt="Goodbye Singapore Flight & Departure"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                      <div className="md:col-span-7 space-y-3">
+                        <p className="text-slate-300 text-sm leading-relaxed">
+                          Enjoy your final breakfast at the hotel. Depending upon your flight schedule, enjoy some free time for last-minute shopping or relaxation. Check out from the hotel and meet your driver for your Private Transfer to Singapore Changi Airport. Board your return economy-class flight with wonderful memories of Singapore!
+                        </p>
 
-                    <div className="bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-2xl text-center space-y-1">
-                      <h4 className="text-sm font-bold text-emerald-400">Tour Ends – Memories Continue!</h4>
-                      <p className="text-xs text-slate-300">
-                        SFM Travels thanks you for choosing us for your Singapore holiday.
-                      </p>
+                        <div className="bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-2xl text-center space-y-1">
+                          <h4 className="text-sm font-bold text-emerald-400">Tour Ends – Memories Continue!</h4>
+                          <p className="text-xs text-slate-300">
+                            SFM Travels thanks you for choosing us for your Singapore holiday.
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
