@@ -34,6 +34,7 @@ import { EuropeItineraryPage } from "@/routes/europe-itinerary";
 import { JapanItineraryPage } from "@/routes/japan-itinerary";
 import { BaliItineraryPage } from "@/routes/bali-itinerary";
 import { MalaysiaItineraryPage } from "@/routes/malaysia-itinerary";
+import { SingaporeCruiseItineraryPage } from "@/routes/singapore-cruise-itinerary";
 import { AboutPage } from "@/routes/about";
 import {
   RegionsSection,
@@ -766,6 +767,14 @@ export default function App() {
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
   }, [pathname]);
+
+  if (pathname.includes("/singapore-cruise-itinerary") || pathname.includes("/singapore-cruise")) {
+    return (
+      <CurrencyProvider>
+        <SingaporeCruiseItineraryPage />
+      </CurrencyProvider>
+    );
+  }
 
   if (pathname.includes("/singapore-itinerary") || pathname.includes("/singapore")) {
     return (

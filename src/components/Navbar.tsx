@@ -97,8 +97,12 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isInternationalOpen, setIsInternationalOpen] = useState(false);
   const [mobileInternationalOpen, setMobileInternationalOpen] = useState(false);
+  const [isCruiseOpen, setIsCruiseOpen] = useState(false);
+  const [mobileCruiseOpen, setMobileCruiseOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const cruiseDropdownRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const cruiseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLElement>,
@@ -161,11 +165,15 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsInternationalOpen(false);
       }
+      if (cruiseDropdownRef.current && !cruiseDropdownRef.current.contains(event.target as Node)) {
+        setIsCruiseOpen(false);
+      }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (cruiseTimeoutRef.current) clearTimeout(cruiseTimeoutRef.current);
     };
   }, []);
 
@@ -372,14 +380,73 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
             >
               Hotel & Flight Services
             </a>
-            <a
-              href="#enquiry"
-              onClick={(e) => handleNavClick(e, "enquiry", undefined, "Cruise Booking")}
-              style={{ color: "#0f172a", textDecoration: "none" }}
-              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
+            {/* Cruise Dropdown */}
+            <div
+              ref={cruiseDropdownRef}
+              className="py-2"
+              onMouseEnter={() => {
+                if (cruiseTimeoutRef.current) clearTimeout(cruiseTimeoutRef.current);
+                setIsCruiseOpen(true);
+              }}
+              onMouseLeave={() => {
+                cruiseTimeoutRef.current = setTimeout(() => {
+                  setIsCruiseOpen(false);
+                }, 200);
+              }}
             >
-              Cruise
-            </a>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsCruiseOpen(!isCruiseOpen);
+                }}
+                style={{ color: "#0f172a" }}
+                className="nav-link-item flex items-center gap-1 hover:scale-105 transition-all drop-shadow-sm font-black text-xs sm:text-sm bg-transparent border-none cursor-pointer py-1 uppercase"
+              >
+                <span>Cruise</span>
+                <ChevronDown
+                  className={`w-4 h-4 text-amber-600 transition-transform duration-200 ${
+                    isCruiseOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {/* Cruise Dropdown Panel */}
+              {isCruiseOpen && (
+                <div
+                  className="absolute top-full mt-2 w-64 bg-white border border-slate-200/90 rounded-2xl p-3 shadow-2xl shadow-slate-950/20 z-[100] animate-fade-in text-slate-900"
+                  onMouseEnter={() => {
+                    if (cruiseTimeoutRef.current) clearTimeout(cruiseTimeoutRef.current);
+                    setIsCruiseOpen(true);
+                  }}
+                  onMouseLeave={() => {
+                    cruiseTimeoutRef.current = setTimeout(() => {
+                      setIsCruiseOpen(false);
+                    }, 200);
+                  }}
+                >
+                  <a
+                    href="/singapore-cruise-itinerary"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setIsCruiseOpen(false);
+                      setIsInternationalOpen(false);
+                      setMobileMenuOpen(false);
+                      window.location.href = "/singapore-cruise-itinerary";
+                    }}
+                    style={{ color: "#475569", textDecoration: "none", fontSize: "13px" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#d97706")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "#475569")}
+                    className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-amber-50 text-[13px] font-bold transition-all no-underline block w-full font-sans"
+                  >
+                    <span>Singapore Cruise</span>
+                    <span className="text-[10px] bg-amber-500/10 text-amber-700 font-extrabold px-2 py-0.5 rounded-full border border-amber-500/20">
+                      6N / 7D
+                    </span>
+                  </a>
+                </div>
+              )}
+            </div>
             <a
               href="#why-us"
               onClick={(e) => handleNavClick(e, "why-us")}
@@ -514,17 +581,44 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
             >
               Hotel & Flight Services
             </a>
-            <a
-              href="#enquiry"
-              onClick={(e) => {
-                setMobileMenuOpen(false);
-                handleNavClick(e, "enquiry", undefined, "Cruise Booking");
-              }}
-              style={{ color: "#0f172a", textDecoration: "none" }}
-              className="block font-extrabold text-sm nav-link-item"
-            >
-              Cruise
-            </a>
+            {/* Mobile Cruise Dropdown */}
+            <div className="space-y-2">
+              <button
+                onClick={() => setMobileCruiseOpen(!mobileCruiseOpen)}
+                className="w-full flex items-center justify-between font-extrabold text-sm text-slate-900 bg-transparent border-none cursor-pointer py-1"
+              >
+                <span>Cruise</span>
+                <ChevronDown
+                  className={`w-4 h-4 text-amber-600 transition-transform ${
+                    mobileCruiseOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {mobileCruiseOpen && (
+                <div className="pl-3 border-l-2 border-amber-400 space-y-2 py-1">
+                  <a
+                    href="/singapore-cruise-itinerary"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setMobileCruiseOpen(false);
+                      setMobileMenuOpen(false);
+                      window.location.href = "/singapore-cruise-itinerary";
+                    }}
+                    style={{ color: "#334155", textDecoration: "none", fontSize: "13px" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#d97706")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "#334155")}
+                    className="flex items-center justify-between text-[13px] font-bold hover:text-amber-600 py-1.5 no-underline font-sans"
+                  >
+                    <span>🚢 Singapore Cruise</span>
+                    <span className="text-[10px] bg-amber-500/10 text-amber-700 font-extrabold px-2 py-0.5 rounded-full border border-amber-500/20">
+                      6N / 7D
+                    </span>
+                  </a>
+                </div>
+              )}
+            </div>
             <a
               href="#why-us"
               onClick={(e) => {
