@@ -38,6 +38,14 @@ import { InlineEnquiryForm } from "@/components/InlineEnquiryForm";
 import { CircularSocialMenu } from "@/components/CircularSocialMenu";
 import { FooterSection } from "@/components/Sections";
 
+// Malaysia Package Images
+import hero1Pic from "@/assets/malaysia/hero-1.jpeg";
+import hero2Pic from "@/assets/malaysia/hero-2.avif";
+import day1Pic from "@/assets/malaysia/day1-arrival.jpeg";
+import day2Pic from "@/assets/malaysia/day2-city-tour.jpeg";
+import day3Pic from "@/assets/malaysia/day3-genting.jpeg";
+import day4Pic from "@/assets/malaysia/day4-departure.jpeg";
+
 export const Route = createFileRoute("/malaysia-itinerary")({
   head: () => ({
     meta: [
@@ -77,24 +85,28 @@ const ITINERARY_DAYS = [
     title: "Arrival in Kuala Lumpur & Shared Coach Transfer",
     desc: "Arrive at Kuala Lumpur International Airport (KLIA), complete immigration and meet your local SFM representative for a shared coach (SIC) transfer to your 3-star hotel. Check in and enjoy the remaining day at leisure. Explore nearby cafés, shopping streets, or street food markets at your own pace. Overnight stay in Kuala Lumpur.",
     tags: ["KLIA SIC Airport Transfer", "3★ KL Hotel", "Evening Leisure"],
+    image: day1Pic,
   },
   {
     day: 2,
     title: "Half-Day Kuala Lumpur City Sightseeing Tour",
     desc: "After breakfast, proceed on a shared coach (SIC) city tour. Enjoy photo stops at the famous Petronas Twin Towers (exterior skybridge view), Merdeka Square (historic independence square with colonial architecture), National Mosque (Masjid Negara exterior view), and King's Palace (Istana Negara ornate entrance gates). Return to hotel. Afternoon and evening at leisure. Overnight in Kuala Lumpur.",
     tags: ["Petronas Twin Towers Photo Stop", "Merdeka Square", "National Mosque", "King's Palace"],
+    image: day2Pic,
   },
   {
     day: 3,
     title: "Genting Highlands Excursion & Two-Way Awana SkyWay Cable Car",
     desc: "After breakfast, depart on SIC basis for a full-day excursion to Genting Highlands, a mountain resort known for cooler weather and forest views. Board the Awana SkyWay cable car for a scenic two-way ride in a standard gondola above lush rainforests. Enjoy free time to explore resort shopping, restaurants, and entertainment areas independently, with an optional stop at Chin Swee Caves Temple. Return to KL by shared coach. Overnight in Kuala Lumpur.",
     tags: ["Genting Highlands Excursion", "Awana SkyWay Two-Way Cable Car", "Chin Swee Temple", "Resort Free Time"],
+    image: day3Pic,
   },
   {
     day: 4,
     title: "Hotel Check-out & Departure Transfer",
     desc: "Enjoy breakfast at your hotel, check out, and take your scheduled SIC transfer to Kuala Lumpur International Airport. Depart with fond memories of Kuala Lumpur's landmarks and Genting's mountain scenery.",
     tags: ["Hotel Check-out", "KLIA SIC Airport Transfer", "Return Flight"],
+    image: day4Pic,
   },
 ];
 
@@ -198,6 +210,32 @@ export function MalaysiaItineraryPage() {
                     </span>
                     <span className="flex items-center gap-1.5 font-medium text-amber-300">
                       <Star className="w-4 h-4 text-amber-400 fill-amber-400" /> 4.8 (350+ Reviews)
+                    </span>
+                  </div>
+                </div>
+
+                {/* Top Showcase Images (Photos 1 & 2) placed before description */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 pb-2">
+                  <div className="relative group overflow-hidden rounded-2xl border border-slate-800/90 shadow-xl aspect-[16/10]">
+                    <img
+                      src={hero1Pic}
+                      alt="Kuala Lumpur City Skyline & Petronas Twin Towers"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
+                    <span className="absolute bottom-3 left-3 text-xs font-bold text-amber-300 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/30">
+                      Kuala Lumpur Petronas Towers
+                    </span>
+                  </div>
+                  <div className="relative group overflow-hidden rounded-2xl border border-slate-800/90 shadow-xl aspect-[16/10]">
+                    <img
+                      src={hero2Pic}
+                      alt="Batu Caves & Genting Highlands Awana SkyWay"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
+                    <span className="absolute bottom-3 left-3 text-xs font-bold text-amber-300 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/30">
+                      Batu Caves & Genting Cable Car
                     </span>
                   </div>
                 </div>
@@ -335,7 +373,7 @@ export function MalaysiaItineraryPage() {
                   {ITINERARY_DAYS.map((day) => (
                     <div
                       key={day.day}
-                      className="bg-slate-900/60 border border-slate-800/90 rounded-2xl p-6 hover:border-slate-700 transition-all space-y-3"
+                      className="bg-slate-900/60 border border-slate-800/90 rounded-2xl p-6 hover:border-slate-700 transition-all space-y-4"
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="bg-amber-500/20 text-amber-300 text-xs font-black px-3 py-1 rounded-lg border border-amber-500/30">
@@ -346,18 +384,31 @@ export function MalaysiaItineraryPage() {
                         </div>
                       </div>
 
-                      <h3 className="text-lg font-bold text-white">{day.title}</h3>
-                      <p className="text-slate-300 text-sm leading-relaxed font-normal">{day.desc}</p>
+                      <h3 className="text-lg sm:text-xl font-bold text-white">{day.title}</h3>
 
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {day.tags.map((tag, idx) => (
-                          <span
-                            key={idx}
-                            className="bg-slate-800/80 text-slate-300 text-[11px] font-medium px-2.5 py-0.5 rounded-md border border-slate-700/60"
-                          >
-                            #{tag}
-                          </span>
-                        ))}
+                      {/* Day Photo & Description Card Layout */}
+                      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                        <div className="md:col-span-5 overflow-hidden rounded-2xl border border-slate-800/90 aspect-[16/10] relative group bg-slate-950 flex items-center justify-center">
+                          <img
+                            src={day.image}
+                            alt={day.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="md:col-span-7 space-y-3">
+                          <p className="text-slate-300 text-sm leading-relaxed font-normal">{day.desc}</p>
+
+                          <div className="flex flex-wrap gap-1.5 pt-1">
+                            {day.tags.map((tag, idx) => (
+                              <span
+                                key={idx}
+                                className="bg-slate-800/80 text-slate-300 text-[11px] font-medium px-2.5 py-0.5 rounded-md border border-slate-700/60"
+                              >
+                                #{tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ))}

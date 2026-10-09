@@ -39,6 +39,17 @@ import { InlineEnquiryForm } from "@/components/InlineEnquiryForm";
 import { CircularSocialMenu } from "@/components/CircularSocialMenu";
 import { FooterSection } from "@/components/Sections";
 
+// Singapore Cruise Package Images
+import hero1Pic from "@/assets/singapore-cruise/hero-1.webp";
+import hero2Pic from "@/assets/singapore-cruise/hero-2.jpeg";
+import day1Pic from "@/assets/singapore-cruise/day1-night-safari.jpeg";
+import day2Pic from "@/assets/singapore-cruise/day2-gardens-skypark.jpg";
+import day3Pic from "@/assets/singapore-cruise/day3-sentosa.jpeg";
+import day4Pic from "@/assets/singapore-cruise/day4-universal.jpg";
+import day5Pic from "@/assets/singapore-cruise/day5-cruise-embarkation.jpeg";
+import day6Pic from "@/assets/singapore-cruise/day6-cruise-leisure.jpeg";
+import day7Pic from "@/assets/singapore-cruise/day7-cruise-disembarkation.webp";
+
 export const Route = createFileRoute("/singapore-cruise-itinerary")({
   head: () => ({
     meta: [
@@ -81,42 +92,49 @@ const ITINERARY_DAYS = [
     title: "Arrival in Singapore & Night Safari Wildlife Experience",
     desc: "Arrive at Singapore Changi Airport, complete immigration and meet your representative for a private hotel transfer. Check in to your 4-star hotel and relax. In the evening, head out for the Night Safari—the world's first nocturnal wildlife park. Board the guided tram passing through different wildlife zones to observe animals active after dark. Enjoy the Creatures of the Night presentation showcasing nocturnal animal abilities. Return by shared coach for night stay in Singapore.",
     tags: ["Private Airport Transfer", "Night Safari Tram Ride", "Creatures of the Night Show", "4★ Singapore Hotel"],
+    image: day1Pic,
   },
   {
     day: 2,
     title: "City Tour, Gardens by the Bay (Flower Dome & Cloud Forest) & Sands SkyPark",
     desc: "After breakfast, join a half-day Singapore City Tour highlighting Merlion Park, the Civic District, and cultural precincts like Chinatown or Little India. In the afternoon, visit Gardens by the Bay to explore the seasonal floral displays of the Flower Dome and the misty indoor mountain waterfall of Cloud Forest. Ascend to the Sands SkyPark Observation Deck at Marina Bay Sands for breathtaking 360-degree skyline views. Return to hotel on SIC basis for overnight stay.",
     tags: ["Half-Day City Tour", "Merlion Park", "Gardens by the Bay", "Cloud Forest & Flower Dome", "Sands SkyPark"],
+    image: day2Pic,
   },
   {
     day: 3,
     title: "Sentosa Island 5-in-1 Combo (Cable Car, Oceanarium & Wings of Time)",
     desc: "Embark on a full-day excursion to Sentosa Island. Take the scenic Singapore Cable Car ride above the harbor with spectacular aerial views. Visit the Singapore Oceanarium to explore immersive marine habitats and marvel at diverse underwater species. In the evening, witness the mesmerising Wings of Time 7:30 PM waterfront show featuring music, lasers, water jets, and pyrotechnics. Return by shared coach for night stay in Singapore.",
     tags: ["Sentosa Cable Car", "Singapore Oceanarium", "Wings of Time 7:30 PM Show", "5-in-1 Combo"],
+    image: day3Pic,
   },
   {
     day: 4,
     title: "Full-Day Universal Studios Singapore Theme Park",
     desc: "Enjoy breakfast at your hotel before traveling on SIC coach to Universal Studios Singapore on Resort World Sentosa. Spend an action-packed day exploring 7 movie-inspired zones: Hollywood, New York, Sci-Fi City (Transformers & Battlestar Galactica), Ancient Egypt, The Lost World, Far Far Away, and Minion Land. Experience thrilling rides, character meet-and-greets, and live shows. Return to hotel for night stay.",
     tags: ["Universal Studios Singapore", "Transformers 3D Ride", "Battlestar Galactica Coasters", "Minion Land"],
+    image: day4Pic,
   },
   {
     day: 5,
     title: "Hotel Check-out & Embarkation on Luxury Cruise (Balcony Cabin)",
     desc: "Enjoy breakfast, check out from your hotel, and transfer to the Singapore Cruise Terminal. Complete check-in, customs, and security procedures to board your luxury cruise ship. Settle into your spacious Private Balcony Cabin with spectacular sea views. Explore the ship's floating resort amenities, swimming pools, lounges, and enjoy delicious gourmet dinners at included dining venues. Overnight aboard the cruise in a balcony cabin.",
     tags: ["Cruise Terminal Transfer", "Luxury Cruise Boarding", "Private Balcony Cabin", "Included Onboard Dining"],
+    image: day5Pic,
   },
   {
     day: 6,
     title: "Full Day Cruise Leisure, Ocean Views, Dining & Entertainment at Sea",
     desc: "Wake up to endless ocean views from your private balcony. Enjoy breakfast onboard and spend the day at your own leisure. Take advantage of shipboard facilities including swimming pools, waterslides, fitness centers, whirlpools, live music lounges, and scheduled Broadway-style evening shows. Enjoy complimentary lunch and dinner at designated main dining rooms. Overnight aboard the cruise in a balcony cabin.",
     tags: ["Ocean Views from Balcony", "Deck Pools & Waterslides", "Broadway Live Shows", "Gourmet Meals at Sea"],
+    image: day6Pic,
   },
   {
     day: 7,
     title: "Cruise Disembarkation & Return Flight to Home City",
     desc: "Enjoy breakfast onboard as the ship docks at the Singapore Cruise Terminal. Complete disembarkation formalities and transfer to Singapore Changi Airport for your return economy-class flight. Depart with unforgettable memories of your Singapore city exploration and luxury balcony cruise vacation.",
     tags: ["Cruise Disembarkation", "Changi Airport Transfer", "Return Flight"],
+    image: day7Pic,
   },
 ];
 
@@ -212,6 +230,32 @@ export function SingaporeCruiseItineraryPage() {
                     </span>
                     <span className="flex items-center gap-1.5 font-medium text-amber-300">
                       <Star className="w-4 h-4 text-amber-400 fill-amber-400" /> 5.0 (490+ Reviews)
+                    </span>
+                  </div>
+                </div>
+
+                {/* Top Showcase Images (Photos 1 & 2) placed before description */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 pb-2">
+                  <div className="relative group overflow-hidden rounded-2xl border border-slate-800/90 shadow-xl aspect-[16/10]">
+                    <img
+                      src={hero1Pic}
+                      alt="Singapore City & Luxury Cruise Experience 1"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
+                    <span className="absolute bottom-3 left-3 text-xs font-bold text-amber-300 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/30">
+                      Singapore Luxury Cruise
+                    </span>
+                  </div>
+                  <div className="relative group overflow-hidden rounded-2xl border border-slate-800/90 shadow-xl aspect-[16/10]">
+                    <img
+                      src={hero2Pic}
+                      alt="Luxury Cruise Deck & Ocean Views 2"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
+                    <span className="absolute bottom-3 left-3 text-xs font-bold text-amber-300 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/30">
+                      Private Balcony & Deck Views
                     </span>
                   </div>
                 </div>
@@ -349,7 +393,7 @@ export function SingaporeCruiseItineraryPage() {
                   {ITINERARY_DAYS.map((day) => (
                     <div
                       key={day.day}
-                      className="bg-slate-900/60 border border-slate-800/90 rounded-2xl p-6 hover:border-slate-700 transition-all space-y-3"
+                      className="bg-slate-900/60 border border-slate-800/90 rounded-2xl p-6 hover:border-slate-700 transition-all space-y-4"
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="bg-amber-500/20 text-amber-300 text-xs font-black px-3 py-1 rounded-lg border border-amber-500/30">
@@ -360,18 +404,31 @@ export function SingaporeCruiseItineraryPage() {
                         </div>
                       </div>
 
-                      <h3 className="text-lg font-bold text-white">{day.title}</h3>
-                      <p className="text-slate-300 text-sm leading-relaxed font-normal">{day.desc}</p>
+                      <h3 className="text-lg sm:text-xl font-bold text-white">{day.title}</h3>
 
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {day.tags.map((tag, idx) => (
-                          <span
-                            key={idx}
-                            className="bg-slate-800/80 text-slate-300 text-[11px] font-medium px-2.5 py-0.5 rounded-md border border-slate-700/60"
-                          >
-                            #{tag}
-                          </span>
-                        ))}
+                      {/* Day Photo & Description Card Layout */}
+                      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                        <div className="md:col-span-5 overflow-hidden rounded-2xl border border-slate-800/90 aspect-[16/10] relative group bg-slate-950 flex items-center justify-center">
+                          <img
+                            src={day.image}
+                            alt={day.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="md:col-span-7 space-y-3">
+                          <p className="text-slate-300 text-sm leading-relaxed font-normal">{day.desc}</p>
+
+                          <div className="flex flex-wrap gap-1.5 pt-1">
+                            {day.tags.map((tag, idx) => (
+                              <span
+                                key={idx}
+                                className="bg-slate-800/80 text-slate-300 text-[11px] font-medium px-2.5 py-0.5 rounded-md border border-slate-700/60"
+                              >
+                                #{tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ))}
