@@ -136,6 +136,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
       europe: "/europe-itinerary",
       japan: "/japan-itinerary",
       bali: "/bali-itinerary",
+      malaysia: "/malaysia-itinerary",
     };
     if (dedicatedRoutes[destKey]) {
       window.location.href = dedicatedRoutes[destKey];
@@ -318,6 +319,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                                   europe: "/europe-itinerary",
                                   japan: "/japan-itinerary",
                                   bali: "/bali-itinerary",
+                                  malaysia: "/malaysia-itinerary",
                                 };
                                 const routeUrl = dedicatedRoutes[destKey];
                                 if (routeUrl) {
@@ -459,6 +461,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                             europe: "/europe-itinerary",
                             japan: "/japan-itinerary",
                             bali: "/bali-itinerary",
+                            malaysia: "/malaysia-itinerary",
                           };
                           const routeUrl = dedicatedRoutes[destKey];
                           if (routeUrl) {
