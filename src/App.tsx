@@ -279,28 +279,27 @@ export const FEATURED_PACKAGES: IndiaPackage[] = [
   },
   {
     id: "malaysia-budget-friendly",
-    title: "Malaysia Budget Friendly Tour",
+    title: "Malaysia Budget Friendly",
     category: "International & Luxury",
-    duration: "5 Days / 4 Nights",
-    description: "Kuala Lumpur city tour, Petronas Twin Towers photo stop, Batu Caves temple, Genting Highlands Awana SkyWay cable car, and Chin Swee temple.",
-    priceInr: 29999,
+    duration: "4 Days / 3 Nights",
+    description: "Explore Kuala Lumpur City Sightseeing Tour, Petronas Twin Towers photo stop, Merdeka Square, and Awana SkyWay Cable Car to Genting Highlands.",
+    priceInr: 18999,
     image: malaysiaHeroPic,
     badge: "Malaysia Special",
     detailsUrl: "/malaysia-itinerary",
     rating: 4.8,
     reviewsCount: 290,
     inclusions: [
-      "4★ Kuala Lumpur Hotel Stay",
+      "03 Nights 3★ Hotel in Kuala Lumpur",
       "Daily Hotel Breakfast",
-      "Petronas Towers & Batu Caves",
-      "Genting Awana SkyWay Cable Car"
+      "Half-Day KL City Sightseeing Tour",
+      "Genting Highlands & Awana Cable Car"
     ],
     itinerary: [
-      { day: 1, title: "Arrival in Kuala Lumpur & Hotel Check-in", desc: "Airport pickup, hotel check-in. Evening free to explore Bukit Bintang & Jalan Alor night market." },
-      { day: 2, title: "Half-Day KL City Tour & Petronas Towers", desc: "King's Palace, National Monument, Independence Square, chocolate boutique, and Petronas Twin Towers." },
-      { day: 3, title: "Genting Highlands & Awana SkyWay Cable Car", desc: "Enroute visit rainbow Batu Caves temple. Cable car ride up Genting Highlands & Chin Swee Caves Temple." },
-      { day: 4, title: "Full Day Free for Shopping & Exploration", desc: "Leisure day for shopping at Pavilion KL, Suria KLCC, Mid Valley, or Sunway Lagoon theme park." },
-      { day: 5, title: "Hotel Check-out & Airport Departure", desc: "Breakfast, checkout, and private transfer to KLIA for return flight." }
+      { day: 1, title: "Arrival in Kuala Lumpur & Shared Coach Transfer", desc: "Arrive at KLIA, meet representative for shared coach (SIC) transfer to your 3-star hotel. Check in and leisure evening." },
+      { day: 2, title: "Half-Day Kuala Lumpur City Sightseeing Tour", desc: "Petronas Twin Towers exterior photo stop, Merdeka Square, National Mosque, and King's Palace." },
+      { day: 3, title: "Genting Highlands Excursion & Two-Way Awana SkyWay Cable Car", desc: "Full-day Genting Highlands excursion with two-way Awana SkyWay cable car tickets." },
+      { day: 4, title: "Hotel Check-out & Departure Transfer", desc: "Breakfast, check out, and scheduled shared coach transfer to KLIA for return flight." }
     ]
   },
   {
