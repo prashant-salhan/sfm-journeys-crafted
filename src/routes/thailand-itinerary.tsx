@@ -39,6 +39,27 @@ import { InlineEnquiryForm } from "@/components/InlineEnquiryForm";
 import { CircularSocialMenu } from "@/components/CircularSocialMenu";
 import { FooterSection } from "@/components/Sections";
 
+// Top Showcase Images
+import hero1Pic from "@/assets/thailand/hero-1.avif";
+import hero2Pic from "@/assets/thailand/hero-2.webp";
+import bangkokPattayaHeroPic from "@/assets/thailand/bangkok-pattaya-hero.webp";
+
+// Bangkok & Pattaya Photos
+import bpDay1Pic from "@/assets/thailand/bp-day1-arrival.jpeg";
+import bpDay2Pic from "@/assets/thailand/bp-day2-coral-island.jpg";
+import bpDay3Pic from "@/assets/thailand/bp-day3-alcazar.jpg";
+import bpDay4Pic from "@/assets/thailand/bp-day4-city-tour.jpg";
+import bpDay5Pic from "@/assets/thailand/bp-day5-safari-world.jpg";
+import bpDay6Pic from "@/assets/thailand/bp-day6-departure.jpeg";
+
+// Phuket & Krabi Photos
+import pkDay1Pic from "@/assets/thailand/pk-day1-ao-nang.webp";
+import pkDay2Pic from "@/assets/thailand/pk-day2-seven-islands.jpg";
+import pkDay3Pic from "@/assets/thailand/pk-day3-krabi-phuket.jpg";
+import pkDay4Pic from "@/assets/thailand/pk-day4-phi-phi.jpg";
+import pkDay5Pic from "@/assets/thailand/pk-day5-promthep.webp";
+import pkDay6Pic from "@/assets/thailand/pk-day6-departure.jpg";
+
 export const Route = createFileRoute("/thailand-itinerary")({
   head: () => ({
     meta: [
@@ -89,36 +110,42 @@ const BANGKOK_PATTAYA_PACKAGE = {
       title: "Arrival in Bangkok • Transfer to Pattaya & Evening at Leisure",
       desc: "Arrive at Bangkok Airport, meet your local SFM representative and join your shared SIC transfer to Pattaya (approx. 2 hours). Check in at your 4-star hotel in Pattaya and relax. Spend the evening exploring Pattaya's lively beachfront, local night markets, and dining venues at your own leisure. Overnight in Pattaya.",
       tags: ["Bangkok Airport SIC Transfer", "Pattaya Arrival", "Beachfront Leisure"],
+      image: bpDay1Pic,
     },
     {
       day: 2,
       title: "Coral Island (Koh Larn) Speedboat Adventure with Lunch",
       desc: "After breakfast, join the shared excursion to Coral Island (Koh Larn) by speedboat. Relax on white sandy beaches, swim in clear waters, or participate in optional water sports (parasailing, sea walking, banana boat). Enjoy an included local lunch on the island before returning by boat to Pattaya. Overnight in Pattaya.",
       tags: ["Coral Island Speedboat", "Koh Larn Beach", "Included Lunch", "Water Sports"],
+      image: bpDay2Pic,
     },
     {
       day: 3,
       title: "Pattaya Leisure & Evening Alcazar Cabaret Show",
       desc: "Enjoy breakfast at your hotel and free time for shopping or independent sightseeing in Pattaya. In the evening, transfer on SIC basis for the famous Alcazar Cabaret Show. Watch a colorful theatrical performance featuring elaborate costumes, music, dance, and high-energy stage productions. Overnight in Pattaya.",
       tags: ["Pattaya Free Day", "Alcazar Cabaret Show", "Entertainment"],
+      image: bpDay3Pic,
     },
     {
       day: 4,
       title: "Pattaya to Bangkok Transfer & Half-Day City Tour",
       desc: "After breakfast, check out and travel to Bangkok. Join the contracted half-day Bangkok City Tour on SIC basis. Visit traditional temples such as Wat Traimit (Golden Buddha Temple with solid-gold Buddha image) and Wat Benchamabophit (Marble Temple). Check in to your 4-star Bangkok hotel and spend the evening shopping at Siam Paragon or CentralWorld. Overnight in Bangkok.",
       tags: ["Pattaya to Bangkok Transfer", "Bangkok City Tour", "Golden Buddha", "Marble Temple"],
+      image: bpDay4Pic,
     },
     {
       day: 5,
       title: "Full-Day Safari World & Marine Park with Lunch",
       desc: "After breakfast, enjoy a full-day excursion to Safari World and Marine Park. Drive through the open animal habitats of Safari Park to observe giraffes, zebras, lions, and tigers. At the Marine Park, enjoy spectacular live shows including Dolphin Show, Sea Lion Show, and stunt performances. Includes a buffet lunch. Return to Bangkok hotel for overnight stay.",
       tags: ["Safari World Drive-Through", "Marine Park Dolphin Show", "Buffet Lunch"],
+      image: bpDay5Pic,
     },
     {
       day: 6,
       title: "Departure from Bangkok",
       desc: "Enjoy breakfast at your hotel, check out, and join the scheduled SIC transfer to Bangkok Airport for your return flight home. Tour ends with wonderful Thailand memories.",
       tags: ["Hotel Check-out", "Bangkok Airport SIC Transfer", "Return Flight"],
+      image: bpDay6Pic,
     },
   ],
   transfers: [
@@ -173,36 +200,42 @@ const PHUKET_KRABI_PACKAGE = {
       title: "Arrival in Krabi • Private Transfer & Ao Nang Beach",
       desc: "Arrive at Krabi International Airport (KBV) and meet your driver for a private transfer to your 4-star hotel in Krabi. Check in and spend the afternoon at leisure. Explore Ao Nang beach, waterfront cafés, and scenic limestone rock cliffs. Overnight in Krabi.",
       tags: ["Krabi Airport Private Transfer", "Ao Nang Beach", "Limestone Cliffs"],
+      image: pkDay1Pic,
     },
     {
       day: 2,
       title: "Seven Islands Sunset Boat Tour with Dinner",
       desc: "Enjoy breakfast and free time in the morning. In the afternoon, embark on the Seven Islands boat excursion. Visit Chicken Island (famous chicken-head rock), Poda Island (white sand beaches & cliffs), and Tup Island (walk across the natural sandbar at low tide). Enjoy a breathtaking Andaman Sea sunset and included dinner before returning to Krabi. Overnight in Krabi.",
       tags: ["Seven Islands Boat Tour", "Chicken Island", "Poda Island", "Tup Sandbar", "Sunset Dinner"],
+      image: pkDay2Pic,
     },
     {
       day: 3,
       title: "Private Transfer from Krabi to Phuket",
       desc: "After breakfast, check out and travel by private AC vehicle to Phuket (approx. 3–4 hours scenic drive). Check in to your 4-star hotel in Phuket. Spend the rest of the day relaxing on Patong, Kata, or Karon beach, or exploring local night markets. Overnight in Phuket.",
       tags: ["Private Inter-Hotel Transfer", "Krabi to Phuket Drive", "Phuket Beach Leisure"],
+      image: pkDay3Pic,
     },
     {
       day: 4,
       title: "Full-Day Phi Phi Islands Speedboat Tour",
       desc: "After breakfast, depart for a full-day Phi Phi Islands speedboat excursion on SIC basis. Visit Maya Bay (famous sheltered bay surrounded by limestone cliffs), swim in the crystal-clear emerald waters of Pileh Lagoon, visit Phi Phi Don island for lunch, and enjoy snorkelling among tropical coral reefs. Return to Phuket hotel for night stay.",
       tags: ["Phi Phi Islands Speedboat", "Maya Bay", "Pileh Lagoon", "Phi Phi Don", "Snorkelling"],
+      image: pkDay4Pic,
     },
     {
       day: 5,
       title: "Phuket Leisure Day • Beach, Old Town & Promthep Cape",
       desc: "Enjoy a buffet breakfast and a full free day to relax at the beach, explore colorful Sino-Portuguese architecture in Phuket Old Town, or visit Promthep Cape for sunset views. Optional excursions available. Overnight in Phuket.",
       tags: ["Phuket Free Day", "Phuket Old Town", "Beach Relaxation", "Promthep Sunset"],
+      image: pkDay5Pic,
     },
     {
       day: 6,
       title: "Departure from Phuket",
       desc: "After breakfast, check out from hotel and meet your private driver for transfer to Phuket International Airport (HKT) according to your flight schedule. Tour ends with wonderful southern Thailand island memories.",
       tags: ["Hotel Check-out", "Phuket Airport Private Transfer", "Return Flight"],
+      image: pkDay6Pic,
     },
   ],
   transfers: [
@@ -407,6 +440,32 @@ export function ThailandItineraryPage() {
                   </div>
                 </div>
 
+                {/* Top Showcase Images (Photos 1 & 2) placed before description */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 pb-2">
+                  <div className="relative group overflow-hidden rounded-2xl border border-slate-800/90 shadow-xl aspect-[16/10]">
+                    <img
+                      src={hero1Pic}
+                      alt="Thailand Tropical Experience 1"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
+                    <span className="absolute bottom-3 left-3 text-xs font-bold text-amber-300 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/30">
+                      Tropical Beach & Islands
+                    </span>
+                  </div>
+                  <div className="relative group overflow-hidden rounded-2xl border border-slate-800/90 shadow-xl aspect-[16/10]">
+                    <img
+                      src={hero2Pic}
+                      alt="Thailand Resort & Sightseeing Experience 2"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
+                    <span className="absolute bottom-3 left-3 text-xs font-bold text-amber-300 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/30">
+                      Resorts & City Excursions
+                    </span>
+                  </div>
+                </div>
+
                 <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-medium bg-slate-900/80 p-5 rounded-2xl border border-slate-800">
                   {currentPkg.overview}
                 </p>
@@ -540,7 +599,7 @@ export function ThailandItineraryPage() {
                   {currentPkg.itinerary.map((day) => (
                     <div
                       key={day.day}
-                      className="bg-slate-900/60 border border-slate-800/90 rounded-2xl p-6 hover:border-slate-700 transition-all space-y-3"
+                      className="bg-slate-900/60 border border-slate-800/90 rounded-2xl p-6 hover:border-slate-700 transition-all space-y-4"
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="bg-amber-500/20 text-amber-300 text-xs font-black px-3 py-1 rounded-lg border border-amber-500/30">
@@ -551,18 +610,31 @@ export function ThailandItineraryPage() {
                         </div>
                       </div>
 
-                      <h3 className="text-lg font-bold text-white">{day.title}</h3>
-                      <p className="text-slate-300 text-sm leading-relaxed font-normal">{day.desc}</p>
+                      <h3 className="text-lg sm:text-xl font-bold text-white">{day.title}</h3>
 
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {day.tags.map((tag, idx) => (
-                          <span
-                            key={idx}
-                            className="bg-slate-800/80 text-slate-300 text-[11px] font-medium px-2.5 py-0.5 rounded-md border border-slate-700/60"
-                          >
-                            #{tag}
-                          </span>
-                        ))}
+                      {/* Day Photo & Description Card Layout */}
+                      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                        <div className="md:col-span-5 overflow-hidden rounded-2xl border border-slate-800/90 aspect-[16/10] relative group bg-slate-950 flex items-center justify-center">
+                          <img
+                            src={day.image}
+                            alt={day.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="md:col-span-7 space-y-3">
+                          <p className="text-slate-300 text-sm leading-relaxed font-normal">{day.desc}</p>
+
+                          <div className="flex flex-wrap gap-1.5 pt-1">
+                            {day.tags.map((tag, idx) => (
+                              <span
+                                key={idx}
+                                className="bg-slate-800/80 text-slate-300 text-[11px] font-medium px-2.5 py-0.5 rounded-md border border-slate-700/60"
+                              >
+                                #{tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ))}
