@@ -16,6 +16,13 @@ import goaImage from "@/assets/sfm-goa.jpg";
 import manaliImage from "@/assets/sfm-manali.jpg";
 import heroImage from "@/assets/sfm-hero.jpg";
 
+import baliHeroPic from "@/assets/bali/hero-1.jpg";
+import vietnamHeroPic from "@/assets/vietnam/hero-1.webp";
+import europeHeroPic from "@/assets/europe/hero-1.jpeg";
+import malaysiaHeroPic from "@/assets/malaysia/hero-1.jpeg";
+import thailandHeroPic from "@/assets/thailand/hero-1.avif";
+import singaporeHeroPic from "@/assets/singapore/hero-1.jpg";
+
 import { useCurrency } from "@/context/CurrencyContext";
 import { Navbar } from "@/components/Navbar";
 import { SearchBox } from "@/components/SearchBox";
@@ -33,20 +40,20 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SFM Travels India | Incredible India Holidays, Kerala, Kashmir & Rajasthan Tours" },
+      { title: "SFM Travels | Incredible India & World International Holiday Packages" },
       {
         name: "description",
         content:
-          "Official India Tourism Portal. Book luxury Incredible India holiday packages, Golden Triangle tours, Kashmir snow escapes, Kerala backwater houseboats, and Goa beach vacations.",
+          "Official SFM Travels Portal. Book luxury holiday packages for Singapore, Bali, Vietnam, Europe, Malaysia, Thailand, Kashmir, Kerala, Rajasthan & Goa.",
       },
       {
         property: "og:title",
-        content: "SFM Travels India | Incredible India Tourism & Custom Tour Packages",
+        content: "SFM Travels | Incredible India & International Holiday Packages",
       },
       {
         property: "og:description",
         content:
-          "Discover Incredible India with SFM Travels. Best price guarantee for Kerala houseboats, Kashmir tours, Rajasthan royal palaces, and Goa beach holidays.",
+          "Discover Incredible India & Worldwide International Destinations with SFM Travels. Best price guarantee with custom day-wise itineraries.",
       },
       { property: "og:type", content: "website" },
     ],
@@ -197,7 +204,7 @@ const INDIA_PACKAGES: IndiaPackage[] = [
     description:
       "Night Safari with tram ride, Sentosa Island cable car & Oceanarium, full day Universal Studios, and Gardens by the Bay & Sands SkyPark.",
     priceInr: 44999,
-    image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80",
+    image: singaporeHeroPic,
     badge: "Singapore Special",
     detailsUrl: "/singapore-itinerary",
     inclusions: [
@@ -207,31 +214,146 @@ const INDIA_PACKAGES: IndiaPackage[] = [
       "Universal Studios & Sands SkyPark",
     ],
     itinerary: [
-      {
-        day: 1,
-        title: "Welcome to Singapore & Night Safari",
-        desc: "Arrive at Changi Airport, enjoy a private transfer to your hotel, and settle in. In the evening, explore the famous Night Safari with a guided tram ride and live fire show.",
-      },
-      {
-        day: 2,
-        title: "Singapore City Tour & Sentosa Island",
-        desc: "Discover Merlion Park and Singapore's iconic skyline before heading to Sentosa. Enjoy a cable car ride, Singapore Oceanarium, selected 5-in-1 attractions, and the 7:30 PM Wings of Time show.",
-      },
-      {
-        day: 3,
-        title: "Universal Studios Singapore",
-        desc: "Spend a full day exploring movie-themed zones, thrilling rides, family attractions, entertainment, and immersive experiences at Universal Studios Singapore.",
-      },
-      {
-        day: 4,
-        title: "Gardens by the Bay & Sands SkyPark",
-        desc: "Explore the Flower Dome and misty Cloud Forest before enjoying panoramic city views from the Sands SkyPark Observation Deck.",
-      },
-      {
-        day: 5,
-        title: "Goodbye Singapore",
-        desc: "Enjoy breakfast, check out from the hotel, and take your private transfer to Changi Airport for your return flight.",
-      },
+      { day: 1, title: "Welcome to Singapore & Night Safari", desc: "Arrive at Changi Airport, private transfer to hotel. In the evening, explore the famous Night Safari with tram ride." },
+      { day: 2, title: "Singapore City Tour & Sentosa Island", desc: "Merlion Park, city sights, Sentosa cable car, Oceanarium, 5-in-1 combo & Wings of Time show." },
+      { day: 3, title: "Universal Studios Singapore", desc: "Full day at Universal Studios theme park with thrilling rides & character meet-and-greets." },
+      { day: 4, title: "Gardens by the Bay & Sands SkyPark", desc: "Flower Dome, Cloud Forest conservatory, and 360-degree views from Sands SkyPark." },
+      { day: 5, title: "Goodbye Singapore", desc: "Breakfast, hotel checkout, and private airport transfer for return flight." },
+    ],
+  },
+  {
+    id: "bali-honeymoon-special",
+    title: "Bali Honeymoon Special",
+    category: "International & Luxury",
+    duration: "7 Days / 6 Nights",
+    description:
+      "Private pool villa, Kintamani volcano, Ubud swing & rice terraces, Nusa Penida island tour, Tanah Lot & Uluwatu Kecak dance.",
+    priceInr: 39999,
+    image: baliHeroPic,
+    badge: "Bali Special",
+    detailsUrl: "/bali-itinerary",
+    inclusions: [
+      "06N Stay (Hotel & Pool Villa)",
+      "Romantic Candle Light Dinner",
+      "Nusa Penida Island Tour",
+      "Ubud Swing & Tanah Lot Sunset",
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival in Bali & Private Check-in", desc: "Meet & greet at Denpasar Airport, private transfer to hotel, welcome flower garland and leisure evening." },
+      { day: 2, title: "Kintamani Volcano & Ubud Swing", desc: "Batur volcano views, Tegalalang rice terraces, jungle swing ride, and Luwak coffee plantation." },
+      { day: 3, title: "Full-Day West Nusa Penida Island Tour", desc: "Fast boat to Nusa Penida. Visit Kelingking T-Rex Beach, Broken Beach, Angel's Billabong, and Crystal Bay." },
+      { day: 4, title: "Bedugul Water Temple & Tanah Lot", desc: "Ulun Danu Beratan Temple on Lake Beratan and iconic Tanah Lot ocean temple sunset." },
+      { day: 5, title: "Uluwatu Temple & Kecak Dance", desc: "Waterblow Beach, Uluwatu cliffside temple, Kecak dance performance, and Jimbaran Bay seafood dinner." },
+      { day: 6, title: "Private Pool Villa & Candlelight Dinner", desc: "Transfer to luxury private pool villa. Floating breakfast experience & evening romantic candlelight dinner." },
+      { day: 7, title: "Hotel Check-out & Airport Transfer", desc: "Breakfast, free time for souvenir shopping at Kuta art market, and drop at Denpasar airport." },
+    ],
+  },
+  {
+    id: "vietnam-amazing-tour",
+    title: "Amazing Vietnam North-to-South",
+    category: "International & Luxury",
+    duration: "10 Days / 9 Nights",
+    description:
+      "North-to-South Vietnam tour: Hanoi Train Street, Ha Long Bay day cruise, Ninh Binh, Hoi An lanterns, Ba Na Hills Golden Bridge & Mekong Delta.",
+    priceInr: 54999,
+    image: vietnamHeroPic,
+    badge: "Vietnam Special",
+    detailsUrl: "/vietnam-itinerary",
+    inclusions: [
+      "4★ Hotel Stays in 3 Cities",
+      "Ha Long Bay Cruise & Lunch",
+      "Ba Na Hills Golden Bridge Pass",
+      "Cu Chi Tunnels & Mekong Cruise",
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival in Hanoi & Train Street", desc: "Private airport pickup, Hanoi Old Quarter walk, Hoan Kiem Lake, and Train Street viewing." },
+      { day: 2, title: "Ha Long Bay Cruise Excursion & Kayaking", desc: "Luxury shuttle bus to Ha Long Bay. Sail past limestone karsts, Sung Sot cave & seafood lunch." },
+      { day: 3, title: "Ninh Binh – Hoa Lu & Trang An Boat Tour", desc: "Ancient capital Hoa Lu, Trang An UNESCO sampan boat ride, and optional Mua Cave climb." },
+      { day: 4, title: "Flight to Da Nang & Coastal Relaxation", desc: "Fly to Da Nang, check-in beachside hotel, My Khe Beach relaxation." },
+      { day: 5, title: "Coconut Forest, Marble Mountains & Hoi An", desc: "Bamboo basket boat ride, Marble Mountains caves, and Hoi An Ancient Town lantern night." },
+      { day: 6, title: "Ba Na Hills & Golden Bridge", desc: "World record cable car ride, Golden Bridge held by giant hands, and French Village." },
+      { day: 7, title: "Flight to Ho Chi Minh City (Saigon)", desc: "Internal flight to Saigon, private hotel transfer, Ben Thanh night market leisure." },
+      { day: 8, title: "Cu Chi Tunnels & Mekong Delta Cruise", desc: "Historical Cu Chi underground tunnels and Mekong River fruit orchard boat cruise." },
+      { day: 9, title: "Saigon City Leisure & Landmarks", desc: "French colonial landmarks, Central Post Office, Notre-Dame Cathedral, and shopping." },
+      { day: 10, title: "Saigon Check-out & Flight Home", desc: "Breakfast, souvenir shopping, and private transfer to Tan Son Nhat airport." },
+    ],
+  },
+  {
+    id: "europe-paris-swiss-alps",
+    title: "Paris & Swiss Alps Special",
+    category: "International & Luxury",
+    duration: "7 Days / 6 Nights",
+    description:
+      "03N Paris + 03N Switzerland with Eiffel Tower Summit lift, Seine cruise, Disneyland, high-speed TGV train, Swiss Travel Pass & Mount Titlis.",
+    priceInr: 119999,
+    image: europeHeroPic,
+    badge: "Europe Special",
+    detailsUrl: "/europe-itinerary",
+    inclusions: [
+      "03N Paris + 03N Swiss 4★ Hotels",
+      "Eiffel Summit Lift & Seine Cruise",
+      "Disneyland Paris Admission Ticket",
+      "Mount Titlis & Swiss Travel Pass",
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival in Paris – City of Lights", desc: "Private transfer to Paris 4★ hotel. Evening at leisure exploring Parisian cafés." },
+      { day: 2, title: "Paris Hop-On Bus, Seine Cruise & Eiffel Summit", desc: "Hop-On Hop-Off city tour, 1-hr Seine River cruise, and lift access to Eiffel Tower summit." },
+      { day: 3, title: "Full Day Disneyland Paris Adventure", desc: "Full magical day at Disneyland Park with included 1 Day / 1 Park pass." },
+      { day: 4, title: "High-Speed TGV Train to Switzerland & Bern", desc: "High-speed train to Geneva/Basel, scenic rail to hotel in Bern/Zurich." },
+      { day: 5, title: "Mount Titlis Cable Car & Lake Lucerne Cruise", desc: "Revolving TITLIS Rotair cable car to 3,020m, Cliff Walk, and Lake Lucerne steamer cruise." },
+      { day: 6, title: "Lindt Chocolate Museum, Zurich & Rhine Falls", desc: "Lindt chocolate fountain museum, Zurich Old Town walk, and Rhine Falls waterfall." },
+      { day: 7, title: "Departure from Switzerland", desc: "Hotel breakfast, private airport transfer to Zurich/Geneva airport for return flight." },
+    ],
+  },
+  {
+    id: "malaysia-budget-friendly",
+    title: "Malaysia Budget Friendly Tour",
+    category: "International & Luxury",
+    duration: "5 Days / 4 Nights",
+    description:
+      "Kuala Lumpur city tour, Petronas Twin Towers photo stop, Batu Caves temple, Genting Highlands Awana SkyWay cable car, and Chin Swee temple.",
+    priceInr: 29999,
+    image: malaysiaHeroPic,
+    badge: "Malaysia Special",
+    detailsUrl: "/malaysia-itinerary",
+    inclusions: [
+      "4★ Kuala Lumpur Hotel Stay",
+      "Daily Hotel Breakfast",
+      "Petronas Towers & Batu Caves",
+      "Genting Awana SkyWay Cable Car",
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival in Kuala Lumpur & Hotel Check-in", desc: "Airport pickup, hotel check-in. Evening free to explore Bukit Bintang & Jalan Alor night market." },
+      { day: 2, title: "Half-Day KL City Tour & Petronas Towers", desc: "King's Palace, National Monument, Independence Square, chocolate boutique, and Petronas Twin Towers." },
+      { day: 3, title: "Genting Highlands & Awana SkyWay Cable Car", desc: "Enroute visit rainbow Batu Caves temple. Cable car ride up Genting Highlands & Chin Swee Caves Temple." },
+      { day: 4, title: "Full Day Free for Shopping & Exploration", desc: "Leisure day for shopping at Pavilion KL, Suria KLCC, Mid Valley, or Sunway Lagoon theme park." },
+      { day: 5, title: "Hotel Check-out & Airport Departure", desc: "Breakfast, checkout, and private transfer to KLIA for return flight." },
+    ],
+  },
+  {
+    id: "thailand-tropical-escape",
+    title: "Thailand Tropical Escape & Island Adventure",
+    category: "International & Luxury",
+    duration: "6 Days / 5 Nights",
+    description:
+      "Bangkok Golden Buddha, Pattaya Coral Island speedboat ride, Alcazar Cabaret Show, Phuket Phi Phi island cruise & Promthep Cape sunset.",
+    priceInr: 39999,
+    image: thailandHeroPic,
+    badge: "Thailand Special",
+    detailsUrl: "/thailand-itinerary",
+    inclusions: [
+      "4★ Bangkok & Island Hotels",
+      "Coral Island Speedboat Tour & Lunch",
+      "Alcazar Cabaret Show Pass",
+      "Phi Phi Island Speedboat Cruise",
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival in Bangkok & Transfer to Pattaya", desc: "Airport pickup, transfer to Pattaya, hotel check-in. Evening Alcazar Cabaret Show." },
+      { day: 2, title: "Coral Island Speedboat Excursion & Lunch", desc: "Speedboat to Coral Island (Koh Larn) for water sports & Indian buffet lunch." },
+      { day: 3, title: "Pattaya to Bangkok Temple & City Tour", desc: "Drive to Bangkok, visit Golden Buddha & Marble Temple, Gems Gallery, and shopping." },
+      { day: 4, title: "Flight to Phuket & Beach Relaxation", desc: "Fly to Phuket, check-in beach resort, Patong Beach nightlife & Bangla Road." },
+      { day: 5, title: "Phi Phi Island Speedboat Cruise & Lunch", desc: "Full-day speedboat excursion to Maya Bay, Pileh Lagoon, Monkey Beach & Phi Phi Don." },
+      { day: 6, title: "Hotel Check-out & Phuket Airport Departure", desc: "Breakfast, souvenir shopping, and airport transfer for return flight." },
     ],
   },
 ];
@@ -289,23 +411,21 @@ export function IndiaPortal() {
 
   const filteredPackages = useMemo(() => {
     return INDIA_PACKAGES.filter((pkg) => {
-      const matchesTab =
-        activeTab === "all"
-          ? true
-          : activeTab === "north"
-          ? pkg.category.toLowerCase().includes("mountain") || pkg.category.toLowerCase().includes("heritage")
-          : activeTab === "kerala"
-          ? pkg.category.toLowerCase().includes("backwaters")
-          : activeTab === "rajasthan"
-          ? pkg.category.toLowerCase().includes("royal")
-          : activeTab === "goa"
-          ? pkg.category.toLowerCase().includes("beach")
-          : true;
+      const isIntl = Boolean(pkg.detailsUrl) || pkg.id.includes("singapore") || pkg.id.includes("bali") || pkg.id.includes("vietnam") || pkg.id.includes("europe") || pkg.id.includes("malaysia") || pkg.id.includes("thailand") || pkg.category.toLowerCase().includes("international");
+      let matchesTab = true;
+      if (activeTab === "north") matchesTab = pkg.category.toLowerCase().includes("mountain") || pkg.category.toLowerCase().includes("heritage");
+      else if (activeTab === "kerala") matchesTab = pkg.category.toLowerCase().includes("backwaters");
+      else if (activeTab === "rajasthan") matchesTab = pkg.category.toLowerCase().includes("royal");
+      else if (activeTab === "goa") matchesTab = pkg.category.toLowerCase().includes("beach");
+      else if (activeTab === "singapore") matchesTab = pkg.id.includes("singapore") || pkg.title.toLowerCase().includes("singapore");
+      else if (activeTab === "international") matchesTab = isIntl;
+      else if (activeTab === "domestic") matchesTab = !isIntl;
 
       const matchesSearch =
         !searchQuery ||
         pkg.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        pkg.description.toLowerCase().includes(searchQuery.toLowerCase());
+        pkg.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        pkg.category.toLowerCase().includes(searchQuery.toLowerCase());
 
       return matchesTab && matchesSearch;
     });
@@ -321,7 +441,7 @@ export function IndiaPortal() {
         <div className="absolute inset-0 z-0">
           <img
             src={heroImage}
-            alt="Incredible India Tourism Taj Mahal & Himalayas"
+            alt="Incredible India Tourism Taj Mahal & World Travel"
             className="w-full h-full object-cover object-center opacity-30"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/50" />
@@ -329,18 +449,18 @@ export function IndiaPortal() {
 
         <div className="relative z-10 max-w-5xl mx-auto text-center space-y-6 sm:space-y-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold tracking-wider uppercase">
-            <Sparkles className="w-4 h-4" /> Official Incredible India Tourism Portal
+            <Sparkles className="w-4 h-4" /> SFM Travels • Incredible India & International Holidays
           </div>
 
           <h1 className="text-3xl sm:text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-tight">
-            Discover <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500">INCREDIBLE INDIA</span>
+            Discover <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500">WORLD & INDIA TOURS</span>
           </h1>
 
           <p className="text-base sm:text-xl text-slate-300 max-w-3xl mx-auto font-light leading-relaxed">
-            Experience royal Rajasthan palaces, Kashmir paradise snow peaks, Kerala backwater houseboats, Goa tropical beaches, and Golden Triangle heritage tours.
+            Experience Singapore, Bali, Vietnam, Paris & Swiss Alps, Malaysia, Thailand, Kashmir, Kerala, Rajasthan, and Goa with curated handcrafted packages.
           </p>
 
-          {/* Isolated SearchBox widget — typing only updates SearchBox internal state */}
+          {/* Isolated SearchBox widget */}
           <SearchBox
             activeTab={activeTab}
             onTabChange={setActiveTab}
@@ -357,23 +477,23 @@ export function IndiaPortal() {
               <CheckCircle2 className="w-4 h-4 text-amber-400" /> Custom Private Itineraries
             </span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-amber-400" /> 24/7 On-Ground India Support
+              <CheckCircle2 className="w-4 h-4 text-amber-400" /> 24/7 Dedicated Guest Assistance
             </span>
           </div>
         </div>
       </section>
 
-      {/* Curated India Packages Section */}
+      {/* Curated Packages Section */}
       <section id="packages" className="py-24 px-4 max-w-7xl mx-auto">
         <div className="text-center space-y-4 mb-16">
           <span className="text-xs font-bold uppercase tracking-widest text-amber-400">
-            JNTO-Inspired Curated Experiences
+            SFM Handcrafted Journeys
           </span>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Handcrafted India Holiday Packages
+            Featured Tour Packages
           </h2>
           <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">
-            All packages include luxury accommodations, private cab transfers, daily breakfast, sightseeing passes, and 24/7 dedicated local tour guides.
+            All packages include luxury accommodations, private cab transfers, daily breakfast, sightseeing passes, and 24/7 dedicated support.
           </p>
         </div>
 
@@ -501,10 +621,7 @@ export function IndiaPortal() {
         </div>
       </section>
 
-      {/* Pure Footer Component */}
       <FooterSection />
-
-      {/* Floating Circular Revolving Social Menu */}
       <CircularSocialMenu />
 
       {/* Day-by-Day Itinerary Modal */}
@@ -520,5 +637,3 @@ export function IndiaPortal() {
     </div>
   );
 }
-
-

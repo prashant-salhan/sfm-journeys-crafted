@@ -54,6 +54,13 @@ import sfmGoa from "@/assets/sfm-goa.jpg";
 import sfmManali from "@/assets/sfm-manali.jpg";
 import sfmDubai from "@/assets/sfm-dubai.jpg";
 
+import baliHeroPic from "@/assets/bali/hero-1.jpg";
+import vietnamHeroPic from "@/assets/vietnam/hero-1.webp";
+import europeHeroPic from "@/assets/europe/hero-1.jpeg";
+import malaysiaHeroPic from "@/assets/malaysia/hero-1.jpeg";
+import thailandHeroPic from "@/assets/thailand/hero-1.avif";
+import singaporeHeroPic from "@/assets/singapore/hero-1.jpg";
+
 export const FEATURED_PACKAGES: IndiaPackage[] = [
   {
     id: "kashmir-paradise",
@@ -158,83 +165,13 @@ export const FEATURED_PACKAGES: IndiaPackage[] = [
     ],
   },
   {
-    id: "dubai-glamour",
-    title: "Dubai Glamour & Desert Safari Experience",
-    category: "International & Luxury",
-    duration: "5 Days / 4 Nights",
-    description: "Burj Khalifa 124th floor, Desert Safari with BBQ dinner, Dhow Cruise, and Miracle Garden.",
-    priceInr: 34999,
-    image: sfmDubai,
-    badge: "International",
-    rating: 5.0,
-    reviewsCount: 160,
-    inclusions: ["4★ Dubai City Hotel", "Burj Khalifa Ticket", "Desert Safari + BBQ", "Marina Dhow Cruise"],
-    itinerary: [
-      { day: 1, title: "Dubai Arrival & Dhow Dinner Cruise", desc: "Arrival at Dubai International Airport. Check-in hotel. Evening Marina Dhow Cruise with buffet dinner." },
-      { day: 2, title: "Dubai City Tour & Burj Khalifa", desc: "Half-day city tour visiting Dubai Frame, Jumeirah Beach, and Burj Khalifa 124th floor observatory." },
-      { day: 3, title: "Dune Bashing Desert Safari", desc: "Morning at leisure. Afternoon 4x4 Desert Safari with dune bashing, camel rides, belly dance & BBQ dinner." },
-      { day: 4, title: "Miracle Garden & Dubai Mall Shopping", desc: "Visit world's largest natural flower garden and Dubai Mall fountain show." },
-      { day: 5, title: "Dubai Airport Departure", desc: "Breakfast, free time for gold souk shopping, transfer to airport." },
-    ],
-  },
-  {
-    id: "thailand-tropical-escape",
-    title: "Thailand Tropical Escape & Island Adventure",
-    category: "International & Luxury",
-    duration: "5 Days / 4 Nights",
-    description: "Bangkok city tour, Chao Phraya River experience, Phuket island excursion, Thai cultural attractions, and leisure time.",
-    priceInr: 39999,
-    image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=800&q=80",
-    badge: "Thailand Special",
-    rating: 4.9,
-    reviewsCount: 260,
-    inclusions: [
-      "4★ Thailand City/Beach Hotel",
-      "Bangkok City Tour",
-      "Phuket Island Excursion",
-      "Chao Phraya River Experience"
-    ],
-    itinerary: [
-      { day: 1, title: "Thailand Arrival & Bangkok Evening", desc: "Arrival at Bangkok International Airport. Check-in at hotel. Evening at leisure to explore nearby markets and local attractions." },
-      { day: 2, title: "Bangkok City Tour & Temples", desc: "Visit Bangkok's iconic temples and cultural landmarks, including Wat Pho and Wat Arun. Enjoy a Chao Phraya River experience and evening at leisure." },
-      { day: 3, title: "Bangkok to Phuket & Beach Leisure", desc: "Morning flight to Phuket. Hotel check-in followed by leisure time at the beach. Evening free to explore Phuket's vibrant surroundings." },
-      { day: 4, title: "Phi Phi Island Adventure", desc: "Full-day island excursion to Phi Phi Islands with scenic beaches, turquoise waters, sightseeing, and opportunities for swimming and relaxation." },
-      { day: 5, title: "Thailand Airport Departure", desc: "Breakfast at hotel. Free time for shopping and leisure before transfer to the airport for departure." }
-    ]
-  },
-  {
-    id: "swiss-alps-lakes",
-    title: "Swiss Alps, Lakes & Scenic Rail Experience",
-    category: "International & Luxury",
-    duration: "5 Days / 4 Nights",
-    description: "Zurich city tour, Lucerne, Interlaken, Swiss Alps experience, scenic train journey, and picturesque mountain landscapes.",
-    priceInr: 89999,
-    image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=800&q=80",
-    badge: "Swiss Special",
-    rating: 5.0,
-    reviewsCount: 310,
-    inclusions: [
-      "4★ Switzerland Hotel",
-      "Zurich City Tour",
-      "Swiss Alps Excursion",
-      "Scenic Train Experience"
-    ],
-    itinerary: [
-      { day: 1, title: "Switzerland Arrival & Zurich", desc: "Arrival at Zurich International Airport. Check-in at hotel. Evening at leisure to explore Zurich's charming old town and lakeside surroundings." },
-      { day: 2, title: "Zurich City Tour & Lucerne", desc: "Explore Zurich's major attractions before travelling to Lucerne. Visit the picturesque Old Town, Chapel Bridge, and Lake Lucerne. Return to hotel." },
-      { day: 3, title: "Interlaken & Swiss Alps", desc: "Travel to Interlaken, surrounded by the Swiss Alps. Enjoy spectacular mountain views and leisure time in this scenic resort town." },
-      { day: 4, title: "Jungfrau Region & Scenic Experience", desc: "Enjoy a memorable Swiss mountain excursion with panoramic Alpine views, followed by free time for shopping and exploring local attractions." },
-      { day: 5, title: "Switzerland Airport Departure", desc: "Breakfast at hotel. Free time for last-minute shopping before transfer to the airport for departure." }
-    ]
-  },
-  {
     id: "singapore-complete-experience",
     title: "Complete Singapore Experience",
     category: "International & Luxury",
     duration: "5 Days / 4 Nights",
     description: "Night Safari with tram ride, Sentosa Island cable car & Oceanarium, full day Universal Studios, and Gardens by the Bay & Sands SkyPark.",
     priceInr: 44999,
-    image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80",
+    image: singaporeHeroPic,
     badge: "Singapore Special",
     detailsUrl: "/singapore-itinerary",
     rating: 4.9,
@@ -246,33 +183,153 @@ export const FEATURED_PACKAGES: IndiaPackage[] = [
       "Universal Studios & Sands SkyPark"
     ],
     itinerary: [
-      {
-        day: 1,
-        title: "Welcome to Singapore & Night Safari",
-        desc: "Arrive at Changi Airport, enjoy a private transfer to your hotel, and settle in. In the evening, explore the famous Night Safari with a guided tram ride and live fire show."
-      },
-      {
-        day: 2,
-        title: "Singapore City Tour & Sentosa Island",
-        desc: "Discover Merlion Park and Singapore's iconic skyline before heading to Sentosa. Enjoy a cable car ride, Singapore Oceanarium, selected 5-in-1 attractions, and the 7:30 PM Wings of Time show."
-      },
-      {
-        day: 3,
-        title: "Universal Studios Singapore",
-        desc: "Spend a full day exploring movie-themed zones, thrilling rides, family attractions, entertainment, and immersive experiences at Universal Studios Singapore."
-      },
-      {
-        day: 4,
-        title: "Gardens by the Bay & Sands SkyPark",
-        desc: "Explore the Flower Dome and misty Cloud Forest before enjoying panoramic city views from the Sands SkyPark Observation Deck."
-      },
-      {
-        day: 5,
-        title: "Goodbye Singapore",
-        desc: "Enjoy breakfast, check out from the hotel, and take your private transfer to Changi Airport for your return flight."
-      }
+      { day: 1, title: "Welcome to Singapore & Night Safari", desc: "Arrive at Changi Airport, private transfer to hotel. In the evening, explore the famous Night Safari with tram ride." },
+      { day: 2, title: "Singapore City Tour & Sentosa Island", desc: "Merlion Park, city sights, Sentosa cable car, Oceanarium, 5-in-1 combo & Wings of Time show." },
+      { day: 3, title: "Universal Studios Singapore", desc: "Full day at Universal Studios theme park with thrilling rides & character meet-and-greets." },
+      { day: 4, title: "Gardens by the Bay & Sands SkyPark", desc: "Flower Dome, Cloud Forest conservatory, and 360-degree views from Sands SkyPark." },
+      { day: 5, title: "Goodbye Singapore", desc: "Breakfast, hotel checkout, and private airport transfer for return flight." }
     ]
   },
+  {
+    id: "bali-honeymoon-special",
+    title: "Bali Honeymoon Special",
+    category: "International & Luxury",
+    duration: "7 Days / 6 Nights",
+    description: "Private pool villa, Kintamani volcano, Ubud swing & rice terraces, Nusa Penida island tour, Tanah Lot & Uluwatu Kecak dance.",
+    priceInr: 39999,
+    image: baliHeroPic,
+    badge: "Bali Special",
+    detailsUrl: "/bali-itinerary",
+    rating: 4.9,
+    reviewsCount: 410,
+    inclusions: [
+      "06N Stay (Hotel & Pool Villa)",
+      "Romantic Candle Light Dinner",
+      "Nusa Penida Island Tour",
+      "Ubud Swing & Tanah Lot Sunset"
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival in Bali & Private Check-in", desc: "Meet & greet at Denpasar Airport, private transfer to hotel, welcome flower garland and leisure evening." },
+      { day: 2, title: "Kintamani Volcano & Ubud Swing", desc: "Batur volcano views, Tegalalang rice terraces, jungle swing ride, and Luwak coffee plantation." },
+      { day: 3, title: "Full-Day West Nusa Penida Island Tour", desc: "Fast boat to Nusa Penida. Visit Kelingking T-Rex Beach, Broken Beach, Angel's Billabong, and Crystal Bay." },
+      { day: 4, title: "Bedugul Water Temple & Tanah Lot", desc: "Ulun Danu Beratan Temple on Lake Beratan and iconic Tanah Lot ocean temple sunset." },
+      { day: 5, title: "Uluwatu Temple & Kecak Dance", desc: "Waterblow Beach, Uluwatu cliffside temple, Kecak dance performance, and Jimbaran Bay seafood dinner." },
+      { day: 6, title: "Private Pool Villa & Candlelight Dinner", desc: "Transfer to luxury private pool villa. Floating breakfast experience & evening romantic candlelight dinner." },
+      { day: 7, title: "Hotel Check-out & Airport Transfer", desc: "Breakfast, free time for souvenir shopping at Kuta art market, and drop at Denpasar airport." }
+    ]
+  },
+  {
+    id: "vietnam-amazing-tour",
+    title: "Amazing Vietnam North-to-South",
+    category: "International & Luxury",
+    duration: "10 Days / 9 Nights",
+    description: "North-to-South Vietnam tour: Hanoi Train Street, Ha Long Bay day cruise, Ninh Binh, Hoi An lanterns, Ba Na Hills Golden Bridge & Mekong Delta.",
+    priceInr: 54999,
+    image: vietnamHeroPic,
+    badge: "Vietnam Special",
+    detailsUrl: "/vietnam-itinerary",
+    rating: 4.9,
+    reviewsCount: 460,
+    inclusions: [
+      "4★ Hotel Stays in 3 Cities",
+      "Ha Long Bay Cruise & Lunch",
+      "Ba Na Hills Golden Bridge Pass",
+      "Cu Chi Tunnels & Mekong Cruise"
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival in Hanoi & Train Street", desc: "Private airport pickup, Hanoi Old Quarter walk, Hoan Kiem Lake, and Train Street viewing." },
+      { day: 2, title: "Ha Long Bay Cruise Excursion & Kayaking", desc: "Luxury shuttle bus to Ha Long Bay. Sail past limestone karsts, Sung Sot cave & seafood lunch." },
+      { day: 3, title: "Ninh Binh – Hoa Lu & Trang An Boat Tour", desc: "Ancient capital Hoa Lu, Trang An UNESCO sampan boat ride, and optional Mua Cave climb." },
+      { day: 4, title: "Flight to Da Nang & Coastal Relaxation", desc: "Fly to Da Nang, check-in beachside hotel, My Khe Beach relaxation." },
+      { day: 5, title: "Coconut Forest, Marble Mountains & Hoi An", desc: "Bamboo basket boat ride, Marble Mountains caves, and Hoi An Ancient Town lantern night." },
+      { day: 6, title: "Ba Na Hills & Golden Bridge", desc: "World record cable car ride, Golden Bridge held by giant hands, and French Village." },
+      { day: 7, title: "Flight to Ho Chi Minh City (Saigon)", desc: "Internal flight to Saigon, private hotel transfer, Ben Thanh night market leisure." },
+      { day: 8, title: "Cu Chi Tunnels & Mekong Delta Cruise", desc: "Historical Cu Chi underground tunnels and Mekong River fruit orchard boat cruise." },
+      { day: 9, title: "Saigon City Leisure & Landmarks", desc: "French colonial landmarks, Central Post Office, Notre-Dame Cathedral, and shopping." },
+      { day: 10, title: "Saigon Check-out & Flight Home", desc: "Breakfast, souvenir shopping, and private transfer to Tan Son Nhat airport." }
+    ]
+  },
+  {
+    id: "europe-paris-swiss-alps",
+    title: "Paris & Swiss Alps Special",
+    category: "International & Luxury",
+    duration: "7 Days / 6 Nights",
+    description: "03N Paris + 03N Switzerland with Eiffel Tower Summit lift, Seine cruise, Disneyland, high-speed TGV train, Swiss Travel Pass & Mount Titlis.",
+    priceInr: 119999,
+    image: europeHeroPic,
+    badge: "Europe Special",
+    detailsUrl: "/europe-itinerary",
+    rating: 4.9,
+    reviewsCount: 540,
+    inclusions: [
+      "03N Paris + 03N Swiss 4★ Hotels",
+      "Eiffel Summit Lift & Seine Cruise",
+      "Disneyland Paris Admission Ticket",
+      "Mount Titlis & Swiss Travel Pass"
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival in Paris – City of Lights", desc: "Private transfer to Paris 4★ hotel. Evening at leisure exploring Parisian cafés." },
+      { day: 2, title: "Paris Hop-On Bus, Seine Cruise & Eiffel Summit", desc: "Hop-On Hop-Off city tour, 1-hr Seine River cruise, and lift access to Eiffel Tower summit." },
+      { day: 3, title: "Full Day Disneyland Paris Adventure", desc: "Full magical day at Disneyland Park with included 1 Day / 1 Park pass." },
+      { day: 4, title: "High-Speed TGV Train to Switzerland & Bern", desc: "High-speed train to Geneva/Basel, scenic rail to hotel in Bern/Zurich." },
+      { day: 5, title: "Mount Titlis Cable Car & Lake Lucerne Cruise", desc: "Revolving TITLIS Rotair cable car to 3,020m, Cliff Walk, and Lake Lucerne steamer cruise." },
+      { day: 6, title: "Lindt Chocolate Museum, Zurich & Rhine Falls", desc: "Lindt chocolate fountain museum, Zurich Old Town walk, and Rhine Falls waterfall." },
+      { day: 7, title: "Departure from Switzerland", desc: "Hotel breakfast, private airport transfer to Zurich/Geneva airport for return flight." }
+    ]
+  },
+  {
+    id: "malaysia-budget-friendly",
+    title: "Malaysia Budget Friendly Tour",
+    category: "International & Luxury",
+    duration: "5 Days / 4 Nights",
+    description: "Kuala Lumpur city tour, Petronas Twin Towers photo stop, Batu Caves temple, Genting Highlands Awana SkyWay cable car, and Chin Swee temple.",
+    priceInr: 29999,
+    image: malaysiaHeroPic,
+    badge: "Malaysia Special",
+    detailsUrl: "/malaysia-itinerary",
+    rating: 4.8,
+    reviewsCount: 290,
+    inclusions: [
+      "4★ Kuala Lumpur Hotel Stay",
+      "Daily Hotel Breakfast",
+      "Petronas Towers & Batu Caves",
+      "Genting Awana SkyWay Cable Car"
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival in Kuala Lumpur & Hotel Check-in", desc: "Airport pickup, hotel check-in. Evening free to explore Bukit Bintang & Jalan Alor night market." },
+      { day: 2, title: "Half-Day KL City Tour & Petronas Towers", desc: "King's Palace, National Monument, Independence Square, chocolate boutique, and Petronas Twin Towers." },
+      { day: 3, title: "Genting Highlands & Awana SkyWay Cable Car", desc: "Enroute visit rainbow Batu Caves temple. Cable car ride up Genting Highlands & Chin Swee Caves Temple." },
+      { day: 4, title: "Full Day Free for Shopping & Exploration", desc: "Leisure day for shopping at Pavilion KL, Suria KLCC, Mid Valley, or Sunway Lagoon theme park." },
+      { day: 5, title: "Hotel Check-out & Airport Departure", desc: "Breakfast, checkout, and private transfer to KLIA for return flight." }
+    ]
+  },
+  {
+    id: "thailand-tropical-escape",
+    title: "Thailand Tropical Escape & Island Adventure",
+    category: "International & Luxury",
+    duration: "6 Days / 5 Nights",
+    description: "Bangkok Golden Buddha, Pattaya Coral Island speedboat ride, Alcazar Cabaret Show, Phuket Phi Phi island cruise & Promthep Cape sunset.",
+    priceInr: 39999,
+    image: thailandHeroPic,
+    badge: "Thailand Special",
+    detailsUrl: "/thailand-itinerary",
+    rating: 4.9,
+    reviewsCount: 380,
+    inclusions: [
+      "4★ Bangkok & Island Hotels",
+      "Coral Island Speedboat Tour & Lunch",
+      "Alcazar Cabaret Show Pass",
+      "Phi Phi Island Speedboat Cruise"
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival in Bangkok & Transfer to Pattaya", desc: "Airport pickup, transfer to Pattaya, hotel check-in. Evening Alcazar Cabaret Show." },
+      { day: 2, title: "Coral Island Speedboat Excursion & Lunch", desc: "Speedboat to Coral Island (Koh Larn) for water sports & Indian buffet lunch." },
+      { day: 3, title: "Pattaya to Bangkok Temple & City Tour", desc: "Drive to Bangkok, visit Golden Buddha & Marble Temple, Gems Gallery, and shopping." },
+      { day: 4, title: "Flight to Phuket & Beach Relaxation", desc: "Fly to Phuket, check-in beach resort, Patong Beach nightlife & Bangla Road." },
+      { day: 5, title: "Phi Phi Island Speedboat Cruise & Lunch", desc: "Full-day speedboat excursion to Maya Bay, Pileh Lagoon, Monkey Beach & Phi Phi Don." },
+      { day: 6, title: "Hotel Check-out & Phuket Airport Departure", desc: "Breakfast, souvenir shopping, and airport transfer for return flight." }
+    ]
+  }
 ];
 
 function PackagesCarousel({

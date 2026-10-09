@@ -17,8 +17,20 @@ export const ItineraryModal = memo(function ItineraryModal({
 }: ItineraryModalProps) {
   if (!packageData) return null;
 
-  const hasDetailsPage = Boolean(packageData.detailsUrl || packageData.id.includes("singapore"));
-  const detailsTarget = packageData.detailsUrl || "/singapore-itinerary";
+  const getDetailsTarget = (pkg: IndiaPackage) => {
+    if (pkg.detailsUrl) return pkg.detailsUrl;
+    const idOrTitle = (pkg.id + " " + pkg.title).toLowerCase();
+    if (idOrTitle.includes("bali")) return "/bali-itinerary";
+    if (idOrTitle.includes("vietnam")) return "/vietnam-itinerary";
+    if (idOrTitle.includes("europe") || idOrTitle.includes("swiss") || idOrTitle.includes("paris")) return "/europe-itinerary";
+    if (idOrTitle.includes("malaysia")) return "/malaysia-itinerary";
+    if (idOrTitle.includes("thailand")) return "/thailand-itinerary";
+    if (idOrTitle.includes("singapore")) return "/singapore-itinerary";
+    return null;
+  };
+
+  const detailsTarget = getDetailsTarget(packageData);
+  const hasDetailsPage = Boolean(detailsTarget);
 
   return (
     <>
@@ -45,7 +57,7 @@ export const ItineraryModal = memo(function ItineraryModal({
 
           <div className="space-y-2">
             <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">
-              JNTO-Style Day-by-Day Tour Itinerary
+              Day-by-Day Detailed Tour Itinerary
             </span>
             <h3 className="text-2xl font-extrabold text-white">
               {packageData.title}
@@ -75,7 +87,7 @@ export const ItineraryModal = memo(function ItineraryModal({
             </div>
 
             <div className="flex items-center gap-3">
-              {hasDetailsPage && (
+              {hasDetailsPage && detailsTarget && (
                 <a
                   href={detailsTarget}
                   onClick={onClose}
