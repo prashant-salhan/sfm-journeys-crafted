@@ -30,6 +30,7 @@ import {
   Building,
   Heart,
   Flower2,
+  Palmtree,
 } from "lucide-react";
 
 import sfmLogo from "@/assets/sfm-logo.png";
