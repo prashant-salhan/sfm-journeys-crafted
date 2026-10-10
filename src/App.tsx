@@ -642,8 +642,8 @@ function MainContent() {
             </span>
           </h1>
 
-          <p className="text-slate-200 text-base sm:text-xl max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-md">
-            We Understand the true value of your vacation & make sure it goes above your expectations!!
+          <p className="text-slate-200 text-base sm:text-xl max-w-3xl mx-auto font-bold leading-relaxed drop-shadow-md">
+            We Understand the true value of your vacation and make sure it goes above your expectations!!
           </p>
 
           <div className="relative z-30 translate-y-10 sm:translate-y-16 -mb-12 sm:-mb-20">
