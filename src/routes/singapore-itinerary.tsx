@@ -216,19 +216,19 @@ export function SingaporeItineraryPage() {
                 </p>
 
                 {/* Highlights Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-3 pt-4">
                   {HIGHLIGHTS.map((item, idx) => {
                     const Icon = item.icon;
                     return (
                       <div
                         key={idx}
-                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-3 text-center space-y-1 hover:border-amber-500/40 transition-colors"
+                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-3 text-center space-y-1 hover:border-amber-500/40 transition-colors min-w-0"
                       >
                         <div className="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto">
                           <Icon className="w-4 h-4" />
                         </div>
-                        <h4 className="text-xs font-bold text-white leading-tight">{item.title}</h4>
-                        <p className="text-[10px] text-slate-400">{item.desc}</p>
+                        <h4 className="text-xs font-bold text-white leading-tight break-words">{item.title}</h4>
+                        <p className="text-[10px] sm:text-[11px] text-slate-400 break-words">{item.desc}</p>
                       </div>
                     );
                   })}

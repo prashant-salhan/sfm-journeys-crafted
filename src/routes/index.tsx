@@ -555,10 +555,10 @@ export function IndiaPortal() {
                     <span className="text-amber-400 text-xs font-bold uppercase tracking-wider block mb-1">
                       {pkg.category}
                     </span>
-                    <h3 className="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">
+                    <h3 className="text-xl font-bold text-white group-hover:text-amber-400 transition-colors break-words">
                       {pkg.title}
                     </h3>
-                    <p className="text-slate-400 text-xs sm:text-sm mt-2 leading-relaxed">
+                    <p className="text-slate-400 text-xs sm:text-sm mt-2 leading-relaxed break-words">
                       {pkg.description}
                     </p>
                   </div>
@@ -570,16 +570,16 @@ export function IndiaPortal() {
                       {pkg.inclusions.map((inc, i) => (
                         <span
                           key={i}
-                          className="bg-slate-800 border border-slate-700 text-slate-300 text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1"
+                          className="bg-slate-800 border border-slate-700 text-slate-300 text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1 max-w-full break-words"
                         >
-                          <Check className="w-3 h-3 text-amber-400" /> {inc}
+                          <Check className="w-3 h-3 text-amber-400 shrink-0" /> <span>{inc}</span>
                         </span>
                       ))}
                     </div>
                   </div>
 
                   {/* Price & Action Buttons */}
-                  <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4">
+                  <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
                     <div>
                       <span className="text-slate-400 text-[11px] uppercase tracking-wider block">Starting From</span>
                       <span className="text-2xl font-extrabold text-amber-400">

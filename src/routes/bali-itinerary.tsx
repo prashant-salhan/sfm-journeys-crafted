@@ -266,20 +266,20 @@ export function BaliItineraryPage() {
                 </p>
 
                 {/* Highlights Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
                   {HIGHLIGHTS.map((h, i) => {
                     const IconComp = h.icon;
                     return (
                       <div
                         key={i}
-                        className="bg-slate-900/60 border border-slate-800/80 hover:border-amber-500/40 p-3.5 rounded-xl transition-all flex items-start gap-3"
+                        className="bg-slate-900/60 border border-slate-800/80 hover:border-amber-500/40 p-3 sm:p-3.5 rounded-xl transition-all flex items-start gap-3 min-w-0"
                       >
                         <div className="bg-amber-500/10 text-amber-400 p-2 rounded-lg shrink-0">
                           <IconComp className="w-4 h-4" />
                         </div>
-                        <div>
-                          <h4 className="text-xs font-bold text-white leading-snug">{h.title}</h4>
-                          <p className="text-[11px] text-slate-400 font-medium">{h.desc}</p>
+                        <div className="min-w-0 flex-1">
+                          <h4 className="text-xs sm:text-sm font-bold text-white leading-snug break-words">{h.title}</h4>
+                          <p className="text-[11px] sm:text-xs text-slate-400 font-medium break-words mt-0.5">{h.desc}</p>
                         </div>
                       </div>
                     );

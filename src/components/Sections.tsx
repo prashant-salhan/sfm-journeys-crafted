@@ -238,7 +238,7 @@ export const TestimonialsSection = memo(function TestimonialsSection() {
                   </span>
                 </div>
 
-                <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-medium italic">
+                <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-medium italic break-words">
                   "{rev.comment}"
                 </p>
               </div>
