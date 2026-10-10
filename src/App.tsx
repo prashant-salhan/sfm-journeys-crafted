@@ -699,7 +699,7 @@ function MainContent() {
             Dream Destinations, One Journey Away.
           </h2>
           <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-medium">
-            All-inclusive itineraries with luxury stays, private air-conditioned vehicles, driver-cum-guides, and 24/7 on-ground assistance.
+            ALL-INCLUSIVE ITINERARIES WITH LUXURY STAYS, PRIVATE AIR-CONDITIONED VEHICLES, DRIVER-CUM-GUIDES, AND 24/7 ON-GROUND ASSISTANCE.
           </p>
         </div>
 
