@@ -18,6 +18,7 @@ import {
   MapPin,
   Phone,
   Mail,
+  ExternalLink,
 } from "lucide-react";
 import sfmLogo from "@/assets/sfm-logo.png";
 
@@ -126,83 +127,131 @@ export const RegionsSection = memo(function RegionsSection() {
 export const TestimonialsSection = memo(function TestimonialsSection() {
   const reviews = [
     {
-      name: "Rahul & Priya Sharma",
-      location: "Mumbai, India",
-      tour: "Kashmir Honeymoon Package (6 Days)",
+      name: "Rajveer Singh Rawat",
+      info: "5 reviews · 10 photos",
+      date: "4 months ago",
+      tour: "Goa Customized Package",
       rating: 5,
-      date: "September 2026",
-      comment: "Our Kashmir trip arranged by SFM Travels was beyond incredible! The Dal Lake luxury houseboat and Gulmarg Gondola tickets were seamlessly arranged. Driver Javaid was polite and punctual. 10/10 service!",
-      badge: "Verified Traveler",
+      comment:
+        "Thank you Sudhanshu Ji and Yashika for planning such a wonderful Goa trip. Everything was very well managed, from the hotel and food to the cab arrangements. I especially appreciated how your team regularly checked if everything was going well during our stay. Looking forward to planning our next trip with you!",
+      avatarBg: "bg-blue-600",
+      initials: "R",
     },
     {
-      name: "Dr. Ananya Roy",
-      location: "Kolkata, India",
-      tour: "Kerala Backwaters & Tea Villa (5 Days)",
+      name: "Aman Sharma",
+      info: "Local Guide · 14 reviews",
+      date: "2 months ago",
+      tour: "Thailand & Bali Vacation",
       rating: 5,
-      date: "August 2026",
-      comment: "The private houseboat in Alleppey and tea estate stay in Munnar were outstanding. Zero hidden charges, transparent pricing, and 24/7 on-ground assistance.",
-      badge: "Family Tour",
+      comment:
+        "Special thanks to Sudhanshu Ji for organizing our Thailand and Bali family vacation. Everything from 4-star hotel stays to private cab transfers was executed flawlessly. 24/7 support throughout our trip!",
+      avatarBg: "bg-emerald-600",
+      initials: "A",
     },
     {
-      name: "Vikram & Sweety Kapoor",
-      location: "Delhi NCR, India",
-      tour: "Royal Rajasthan Desert Glamping (7 Days)",
+      name: "Pooja & Rohan Mehra",
+      info: "8 reviews · 4 photos",
+      date: "3 months ago",
+      tour: "Singapore & Cruise Tour",
       rating: 5,
-      date: "September 2026",
-      comment: "Glamping under the stars in Thar Desert Jaisalmer was a bucket list experience. The heritage hotel in Udaipur overlooked Pichola Lake. Highly recommend SFM Travels!",
-      badge: "Verified Traveler",
+      comment:
+        "Extremely smooth visa assistance and flight booking for our Singapore & Cruise trip. Every excursion from Sentosa to Gardens by the Bay was booked seamlessly with zero hassle. SFM Travels is 100% recommended!",
+      avatarBg: "bg-purple-600",
+      initials: "P",
+    },
+    {
+      name: "Vikramaditya Verma",
+      info: "Local Guide · 22 reviews",
+      date: "5 months ago",
+      tour: "Vietnam Grand Tour",
+      rating: 5,
+      comment:
+        "SFM Tour & Travels handled our Vietnam North-to-South tour effortlessly. Excellent guidance on visas, top-notch hotel selections in Hanoi, Da Nang and Saigon, and prompt responsiveness during our travel.",
+      avatarBg: "bg-amber-600",
+      initials: "V",
     },
   ];
+
+  const googleReviewLink =
+    "https://www.google.com/search?q=sfm+travellers#lrd=0x390d03dc5d40d6db:0x592245231a9d04af,1,,,,";
 
   return (
     <section className="py-24 px-4 bg-white border-t border-slate-200 relative">
       <div className="max-w-7xl mx-auto space-y-16">
         <div className="text-center space-y-4 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 text-xs font-extrabold uppercase tracking-widest shadow-sm">
-            <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500 animate-bounce-subtle" /> Guest Experiences & Reviews
+            <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500 animate-bounce-subtle" /> Verified Google Reviews
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
             Loved by 50,000+ Happy Travelers
           </h2>
-          <div className="flex items-center justify-center gap-2 text-amber-600 font-extrabold text-sm">
+          <div className="flex flex-wrap items-center justify-center gap-3 text-amber-600 font-extrabold text-sm">
             <div className="flex text-amber-500">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-amber-500" />
+                <Star key={i} className="w-4 h-4 fill-amber-500 text-amber-500" />
               ))}
             </div>
-            <span className="text-slate-900 font-black">4.9 / 5.0</span>
-            <span className="text-slate-500 text-xs font-semibold">(2,500+ Verified Reviews on Google & TripAdvisor)</span>
+            <span className="text-slate-900 font-black text-base">4.9 / 5.0</span>
+            <span className="text-slate-500 text-xs font-semibold">(435+ Real Reviews on Google)</span>
+          </div>
+
+          <div className="pt-2">
+            <a
+              href={googleReviewLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-5 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>View All 435+ Reviews on Google</span>
+              <ExternalLink className="w-3.5 h-3.5 text-amber-400" />
+            </a>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {reviews.map((rev, idx) => (
             <div
               key={idx}
-              className="bg-slate-50/80 border border-slate-200/90 p-8 rounded-3xl space-y-6 flex flex-col justify-between shadow-xl shadow-slate-200/50 relative group hover-card-3d hover:border-amber-400 hover:bg-white"
+              className="bg-slate-50/90 border border-slate-200 p-6 rounded-3xl space-y-5 flex flex-col justify-between shadow-lg shadow-slate-200/50 relative group hover:border-amber-400 hover:bg-white transition-all duration-300"
             >
-              <Quote className="w-10 h-10 text-amber-500/15 absolute top-6 right-6 transition-transform group-hover:scale-125 group-hover:rotate-12" />
-
-              <div className="space-y-4 relative z-10">
-                <div className="flex items-center gap-1 text-amber-500">
-                  {[...Array(rev.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-500 text-amber-500" />
-                  ))}
+              <div className="space-y-3 relative z-10">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1 text-amber-500">
+                    {[...Array(rev.rating)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+                    ))}
+                  </div>
+                  <span className="inline-flex items-center gap-1 bg-slate-200/70 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                    <svg className="w-3 h-3" viewBox="0 0 24 24">
+                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                    </svg>
+                    Google
+                  </span>
                 </div>
 
-                <p className="text-slate-700 text-sm leading-relaxed font-medium italic">
+                <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-medium italic">
                   "{rev.comment}"
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
-                <div>
-                  <h4 className="font-extrabold text-slate-900 text-base">{rev.name}</h4>
-                  <p className="text-xs text-slate-500 font-medium">{rev.location} • <span className="text-amber-600 font-bold">{rev.tour}</span></p>
+              <div className="pt-4 border-t border-slate-200/80 flex items-center gap-3">
+                <div className={`w-10 h-10 rounded-full ${rev.avatarBg} text-white font-black text-sm flex items-center justify-center shrink-0 shadow-sm`}>
+                  {rev.initials}
                 </div>
-                <span className="bg-emerald-100 border border-emerald-200 text-emerald-800 text-[10px] font-extrabold px-2.5 py-1 rounded-full shrink-0 shadow-sm">
-                  {rev.badge}
-                </span>
+                <div className="min-w-0 flex-1">
+                  <h4 className="font-extrabold text-slate-900 text-sm truncate">{rev.name}</h4>
+                  <p className="text-[11px] text-slate-500 font-medium truncate">{rev.info}</p>
+                  <p className="text-[10px] text-amber-600 font-bold truncate">{rev.tour} • {rev.date}</p>
+                </div>
               </div>
             </div>
           ))}
