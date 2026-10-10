@@ -255,7 +255,7 @@ const INDIA_PACKAGES: IndiaPackage[] = [
     duration: "10 Days / 9 Nights",
     description:
       "North-to-South Vietnam tour: Hanoi Train Street, Ha Long Bay day cruise, Ninh Binh, Hoi An lanterns, Ba Na Hills Golden Bridge & Mekong Delta.",
-    priceInr: 54999,
+    priceInr: 62000,
     image: vietnamHeroPic,
     badge: "Vietnam Special",
     detailsUrl: "/vietnam-itinerary",

@@ -170,10 +170,10 @@ export function VietnamItineraryPage() {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, []);
 
-  const priceInr = 54999;
+  const priceInr = 62000;
   const whatsappNumber = "919999779351";
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    "Hi SFM Travels! I want to book / inquire about the Amazing Vietnam North-to-South (10 Days / 9 Nights, ₹54,999/person) package."
+    "Hi SFM Travels! I want to book / inquire about the Amazing Vietnam North-to-South (10 Days / 9 Nights, ₹62,000/person, Min 02 Person Required) package."
   )}`;
 
   return (
@@ -328,6 +328,9 @@ export function VietnamItineraryPage() {
                         </span>
                         <span className="text-xs text-slate-400">/ person (twin sharing)</span>
                       </div>
+                      <p className="text-xs text-amber-300 font-semibold mt-1">
+                        (Min 02 Person Required)
+                      </p>
                       <p className="text-[11px] text-emerald-400 font-medium mt-1">
                         ✔ Includes 4★ Hotels, Flights, Ha Long Cruise & All Excursions
                       </p>
