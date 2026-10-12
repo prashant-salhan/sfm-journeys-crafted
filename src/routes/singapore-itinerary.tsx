@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import {
   ArrowLeft,
   Calendar,
@@ -49,6 +49,9 @@ import skyParkPic from "@/assets/singapore/skypark.jpg";
 import goodbyeSingaporePic from "@/assets/singapore/goodbye-singapore.jpeg";
 
 export const Route = createFileRoute("/singapore-itinerary")({
+  beforeLoad: () => {
+    throw redirect({ to: "/singapore-cruise-itinerary" });
+  },
   head: () => ({
     meta: [
       { title: "Complete Singapore Experience (5 Days / 4 Nights) | SFM Travels" },

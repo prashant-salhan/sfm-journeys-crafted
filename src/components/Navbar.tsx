@@ -134,7 +134,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
     setMobileMenuOpen(false);
     const destKey = destination.toLowerCase();
     const dedicatedRoutes: Record<string, string> = {
-      singapore: "/singapore-itinerary",
+      singapore: "/singapore-cruise-itinerary",
       vietnam: "/vietnam-itinerary",
       thailand: "/thailand-itinerary",
       europe: "/europe-itinerary",

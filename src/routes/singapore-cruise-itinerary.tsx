@@ -53,11 +53,11 @@ import day7Pic from "@/assets/singapore-cruise/day7-cruise-disembarkation.webp";
 export const Route = createFileRoute("/singapore-cruise-itinerary")({
   head: () => ({
     meta: [
-      { title: "Singapore with Luxury Cruise (7 Days / 6 Nights) | SFM Travels" },
+      { title: "Singapore + Genting Dream Cruise (6 Nights / 7 Days) | SFM Travels" },
       {
         name: "description",
         content:
-          "4 Nights Singapore 4-Star Hotel + 2 Nights Luxury Balcony Cruise with Night Safari, Universal Studios, Gardens by the Bay & Sentosa with SFM Travels.",
+          "4 Nights 4-Star Singapore Hotel + 2 Nights Genting Dream Cruise with Return Flights, Visa, Night Safari, Sentosa Island, Universal Studios & Gardens by the Bay with SFM Travels.",
       },
     ],
   }),
@@ -65,75 +65,78 @@ export const Route = createFileRoute("/singapore-cruise-itinerary")({
 });
 
 const INCLUSIONS = [
-  "04 Nights accommodation at 4-Star Hotel in Singapore with Daily Breakfast",
-  "02 Nights accommodation on a Luxury Cruise in a Private Balcony Cabin",
-  "Standard Meals at Included Dining Venues onboard the Cruise",
-  "Return Economy-Class Flight Tickets",
-  "Night Safari Experience with Tram Ride & Creatures of the Night Show",
-  "Half-Day Singapore City Tour (Merlion Park, Chinatown & Little India)",
-  "Full-Day Sentosa 5-in-1 Combo (Cable Car, Oceanarium & Wings of Time 7:30 PM Show)",
-  "Full-Day Universal Studios Singapore Admission Pass",
-  "Gardens by the Bay (Flower Dome & Cloud Forest) + Sands SkyPark Deck Pass",
-  "Private Airport Pick-up Transfer & Arranged Cruise Terminal Transfers",
-  "Sightseeing & Attraction Transfers on SIC / Shared Coach Basis",
+  "Return Flight Tickets Included",
+  "04 Nights accommodation in 4-Star Property in Singapore with Daily Breakfast",
+  "02 Nights accommodation onboard Genting Dream Cruise",
+  "Standard Meals at Included Dining Venues onboard Genting Dream Cruise",
+  "Singapore Visa Assistance / Visa Included",
+  "Day 1: Arrival Meet & Greet, Changi Airport Transfer & Evening Night Safari (Unlimited Tram & Animal Show) on SIC basis",
+  "Day 2: Full-Day Sentosa Island Experience (One-way Cable Car, Madame Tussauds, Images of Singapore, Ultimate Film Star & Wings of Time) on SIC basis",
+  "Day 3: Full-Day Universal Studios Singapore Admission Ticket",
+  "Day 4: Half-Day Singapore City Tour + Gardens by the Bay (Cloud Forest, Flower Dome & Jurassic Park) + Marina Bay Sands Observation Deck",
+  "Day 5: Hotel Check-out & Transfer to Singapore Cruise Port for Genting Dream embarkation",
+  "Day 6: Full Day onboard Genting Dream Cruise at Sea with Entertainment & Meals",
+  "Day 7: Cruise Disembarkation & Transfer to Singapore Changi Airport for Departure",
+  "All listed sightseeing and required transfers on SIC / arranged basis",
 ];
 
 const HIGHLIGHTS = [
-  { icon: Ship, title: "Balcony Cruise Stay", desc: "2 Nights Ocean Balcony" },
-  { icon: Hotel, title: "4★ Singapore Hotel", desc: "4 Nights City Resort" },
-  { icon: Ticket, title: "Universal Studios", desc: "Full Day Pass Included" },
-  { icon: Waves, title: "Sentosa 5-in-1", desc: "Cable Car & Oceanarium" },
-  { icon: Compass, title: "Night Safari & SkyPark", desc: "Gardens & Tram Ride" },
+  { icon: Ship, title: "Genting Dream Cruise", desc: "2 Nights Ocean Cruise" },
+  { icon: Hotel, title: "4★ Property Stay", desc: "4 Nights Singapore 4-Star Hotel" },
+  { icon: Plane, title: "Return Flights", desc: "Flight Tickets Included" },
+  { icon: Ticket, title: "Universal Studios", desc: "Full-Day Admission Ticket" },
+  { icon: Waves, title: "Sentosa Full-Day", desc: "Cable Car, Madame Tussauds & Wings of Time" },
+  { icon: Compass, title: "City Tour & Gardens", desc: "Cloud Forest, Flower Dome & MBS Deck" },
 ];
 
 const ITINERARY_DAYS = [
   {
     day: 1,
-    title: "Arrival in Singapore & Night Safari Wildlife Experience",
-    desc: "Arrive at Singapore Changi Airport, complete immigration and meet your representative for a private hotel transfer. Check in to your 4-star hotel and relax. In the evening, head out for the Night Safari—the world's first nocturnal wildlife park. Board the guided tram passing through different wildlife zones to observe animals active after dark. Enjoy the Creatures of the Night presentation showcasing nocturnal animal abilities. Return by shared coach for night stay in Singapore.",
-    tags: ["Private Airport Transfer", "Night Safari Tram Ride", "Creatures of the Night Show", "4★ Singapore Hotel"],
+    title: "Arrival in Singapore | Night Safari",
+    desc: "Meet and greet at Singapore Changi Airport. Private/arranged transfer from the airport to the 4-star hotel; check-in (subject to hotel check-in time). In the evening, visit the world-renowned Night Safari, including unlimited tram ride and animal show. Sightseeing basis: SIC (Seat-in-Coach).",
+    tags: ["Changi Airport Meet & Greet", "Hotel Transfer", "Night Safari", "Unlimited Tram Ride", "Animal Show", "SIC Basis"],
     image: day1Pic,
   },
   {
     day: 2,
-    title: "City Tour, Gardens by the Bay (Flower Dome & Cloud Forest) & Sands SkyPark",
-    desc: "After breakfast, join a half-day Singapore City Tour highlighting Merlion Park, the Civic District, and cultural precincts like Chinatown or Little India. In the afternoon, visit Gardens by the Bay to explore the seasonal floral displays of the Flower Dome and the misty indoor mountain waterfall of Cloud Forest. Ascend to the Sands SkyPark Observation Deck at Marina Bay Sands for breathtaking 360-degree skyline views. Return to hotel on SIC basis for overnight stay.",
-    tags: ["Half-Day City Tour", "Merlion Park", "Gardens by the Bay", "Cloud Forest & Flower Dome", "Sands SkyPark"],
-    image: day2Pic,
-  },
-  {
-    day: 3,
-    title: "Sentosa Island 5-in-1 Combo (Cable Car, Oceanarium & Wings of Time)",
-    desc: "Embark on a full-day excursion to Sentosa Island. Take the scenic Singapore Cable Car ride above the harbor with spectacular aerial views. Visit the Singapore Oceanarium to explore immersive marine habitats and marvel at diverse underwater species. In the evening, witness the mesmerising Wings of Time 7:30 PM waterfront show featuring music, lasers, water jets, and pyrotechnics. Return by shared coach for night stay in Singapore.",
-    tags: ["Sentosa Cable Car", "Singapore Oceanarium", "Wings of Time 7:30 PM Show", "5-in-1 Combo"],
+    title: "Sentosa Island Full-Day Experience",
+    desc: "Full-day Sentosa Island sightseeing on SIC basis. Includes one-way scenic cable car, Madame Tussauds, Images of Singapore, Ultimate Film Star Experience, and the iconic Wings of Time waterfront night show. Return to hotel for night stay.",
+    tags: ["Sentosa Full-Day Tour", "One-Way Cable Car", "Madame Tussauds", "Images of Singapore", "Ultimate Film Star", "Wings of Time", "SIC Basis"],
     image: day3Pic,
   },
   {
-    day: 4,
-    title: "Full-Day Universal Studios Singapore Theme Park",
-    desc: "Enjoy breakfast at your hotel before traveling on SIC coach to Universal Studios Singapore on Resort World Sentosa. Spend an action-packed day exploring 7 movie-inspired zones: Hollywood, New York, Sci-Fi City (Transformers & Battlestar Galactica), Ancient Egypt, The Lost World, Far Far Away, and Minion Land. Experience thrilling rides, character meet-and-greets, and live shows. Return to hotel for night stay.",
-    tags: ["Universal Studios Singapore", "Transformers 3D Ride", "Battlestar Galactica Coasters", "Minion Land"],
+    day: 3,
+    title: "Universal Studios Singapore",
+    desc: "Full-day visit to Universal Studios Singapore on Resorts World Sentosa. Admission ticket is included so you can experience world-class themed zones, cutting-edge rides, and shows. Transfers and ticket type confirmed in final booking.",
+    tags: ["Universal Studios Singapore", "Full-Day Visit", "Admission Ticket Included", "Resorts World Sentosa"],
     image: day4Pic,
   },
   {
+    day: 4,
+    title: "Singapore City Tour | Gardens by the Bay | Marina Bay Sands",
+    desc: "Half-day Singapore City Tour exploring key landmarks and civic districts. Visit Gardens by the Bay, including Cloud Forest, Flower Dome, and Jurassic Park. Continue to the Marina Bay Sands Observation Deck for breathtaking panoramic views of Singapore.",
+    tags: ["Singapore City Tour", "Gardens by the Bay", "Cloud Forest & Flower Dome", "Jurassic Park", "Marina Bay Sands SkyPark"],
+    image: day2Pic,
+  },
+  {
     day: 5,
-    title: "Hotel Check-out & Embarkation on Luxury Cruise (Balcony Cabin)",
-    desc: "Enjoy breakfast, check out from your hotel, and transfer to the Singapore Cruise Terminal. Complete check-in, customs, and security procedures to board your luxury cruise ship. Settle into your spacious Private Balcony Cabin with spectacular sea views. Explore the ship's floating resort amenities, swimming pools, lounges, and enjoy delicious gourmet dinners at included dining venues. Overnight aboard the cruise in a balcony cabin.",
-    tags: ["Cruise Terminal Transfer", "Luxury Cruise Boarding", "Private Balcony Cabin", "Included Onboard Dining"],
+    title: "Hotel Check-out | Transfer to Cruise Port (Genting Dream Embarkation)",
+    desc: "Check out from the hotel as per hotel policy. Transfer to Singapore Cruise Port for Genting Dream cruise embarkation. Cruise check-in, boarding time, port terminal, and luggage arrangements confirmed against sailing schedule. Settle onboard and enjoy the ship's luxury facilities.",
+    tags: ["Hotel Check-out", "Cruise Port Transfer", "Genting Dream Embarkation", "Sailing Check-in"],
     image: day5Pic,
   },
   {
     day: 6,
-    title: "Full Day Cruise Leisure, Ocean Views, Dining & Entertainment at Sea",
-    desc: "Wake up to endless ocean views from your private balcony. Enjoy breakfast onboard and spend the day at your own leisure. Take advantage of shipboard facilities including swimming pools, waterslides, fitness centers, whirlpools, live music lounges, and scheduled Broadway-style evening shows. Enjoy complimentary lunch and dinner at designated main dining rooms. Overnight aboard the cruise in a balcony cabin.",
-    tags: ["Ocean Views from Balcony", "Deck Pools & Waterslides", "Broadway Live Shows", "Gourmet Meals at Sea"],
+    title: "Genting Dream Cruise (Full Day Onboard)",
+    desc: "Full day onboard Genting Dream cruise. Cruise itinerary, meals, cabin category, onboard inclusions, and entertainment at sea. Enjoy swimming pools, waterslides, Broadway-style theater shows, and delicious dining at included venues.",
+    tags: ["Genting Dream Cruise", "Full Day at Sea", "Onboard Meals Included", "Live Shows & Activities"],
     image: day6Pic,
   },
   {
     day: 7,
-    title: "Cruise Disembarkation & Return Flight to Home City",
-    desc: "Enjoy breakfast onboard as the ship docks at the Singapore Cruise Terminal. Complete disembarkation formalities and transfer to Singapore Changi Airport for your return economy-class flight. Depart with unforgettable memories of your Singapore city exploration and luxury balcony cruise vacation.",
-    tags: ["Cruise Disembarkation", "Changi Airport Transfer", "Return Flight"],
+    title: "Cruise Disembarkation | Changi Airport Departure",
+    desc: "Disembark from Genting Dream cruise as per the ship's arrival schedule. Transfer to Singapore Changi Airport. Enjoy Singapore Changi Airport and Jewel before departure; flight timing allows sufficient time after disembarkation.",
+    tags: ["Cruise Disembarkation", "Changi Airport Transfer", "Jewel Changi", "Departure Flight"],
     image: day7Pic,
   },
 ];
@@ -146,10 +149,10 @@ export function SingaporeCruiseItineraryPage() {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, []);
 
-  const priceInr = 59999;
+  const priceInr = 124000;
   const whatsappNumber = "919999779351";
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    "Hi SFM Travels! I want to book / inquire about the Singapore with Luxury Cruise (7 Days / 6 Nights, ₹59,999/person) package."
+    "Hi SFM Travels! I want to book / inquire about the Singapore + Genting Dream Cruise (6 Nights / 7 Days, ₹124,000/person) package."
   )}`;
 
   return (
@@ -206,7 +209,7 @@ export function SingaporeCruiseItineraryPage() {
               <span>/</span>
               <span className="text-slate-300 font-medium">Cruise Packages</span>
               <span>/</span>
-              <span className="text-amber-400 font-semibold">Singapore with Luxury Cruise</span>
+              <span className="text-amber-400 font-semibold">Singapore + Genting Dream Cruise</span>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -214,22 +217,22 @@ export function SingaporeCruiseItineraryPage() {
               <div className="lg:col-span-8 space-y-6">
                 <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/20 to-cyan-500/20 text-amber-300 border border-amber-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide">
                   <Ship className="w-4 h-4 text-amber-400 animate-pulse" />
-                  <span>Singapore Cruise Special • 4★ Hotel + 2N Balcony Cruise</span>
+                  <span>Singapore Special • 4★ Property + Genting Dream Cruise</span>
                 </div>
 
                 <div className="space-y-3">
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
-                    Singapore with Luxury Cruise
+                    Singapore + Genting Dream Cruise
                   </h1>
                   <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-slate-300">
                     <span className="flex items-center gap-1.5 font-bold text-amber-400 bg-amber-400/10 px-3 py-1 rounded-lg border border-amber-400/20">
                       <Clock className="w-4 h-4" /> 06 Nights / 07 Days
                     </span>
                     <span className="flex items-center gap-1.5 font-medium">
-                      <Hotel className="w-4 h-4 text-emerald-400" /> 04N Singapore 4★ Hotel + 02N Balcony Cruise
+                      <Hotel className="w-4 h-4 text-emerald-400" /> 04N 4★ Property + 02N Genting Dream Cruise
                     </span>
                     <span className="flex items-center gap-1.5 font-medium text-amber-300">
-                      <Star className="w-4 h-4 text-amber-400 fill-amber-400" /> 5.0 (490+ Reviews)
+                      <Star className="w-4 h-4 text-amber-400 fill-amber-400" /> 5.0 (520+ Reviews)
                     </span>
                   </div>
                 </div>
@@ -239,29 +242,29 @@ export function SingaporeCruiseItineraryPage() {
                   <div className="relative group overflow-hidden rounded-2xl border border-slate-800/90 shadow-xl aspect-[16/10]">
                     <img
                       src={hero1Pic}
-                      alt="Singapore City & Luxury Cruise Experience 1"
+                      alt="Singapore City & Genting Dream Cruise Experience 1"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
                     <span className="absolute bottom-3 left-3 text-xs font-bold text-amber-300 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/30">
-                      Singapore Luxury Cruise
+                      Singapore + Genting Dream Cruise
                     </span>
                   </div>
                   <div className="relative group overflow-hidden rounded-2xl border border-slate-800/90 shadow-xl aspect-[16/10]">
                     <img
                       src={hero2Pic}
-                      alt="Luxury Cruise Deck & Ocean Views 2"
+                      alt="Genting Dream Cruise Deck & Ocean Views 2"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
                     <span className="absolute bottom-3 left-3 text-xs font-bold text-amber-300 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/30">
-                      Private Balcony & Deck Views
+                      Genting Dream Cruise Experience
                     </span>
                   </div>
                 </div>
 
                 <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-medium bg-slate-900/80 p-5 rounded-2xl border border-slate-800">
-                  A memorable combination of Singapore’s iconic attractions, wildlife encounters, island adventures, theme-park thrills and two relaxing nights at sea in a private balcony cabin. Explore Night Safari, Universal Studios Singapore, Gardens by the Bay, Sands SkyPark, and Sentosa Island before embarking on a luxury ocean liner.
+                  A comprehensive 6 Nights / 7 Days vacation combining 4 nights in a 4-star Singapore property with 2 nights onboard the Genting Dream cruise. Includes return flights, visa assistance, Night Safari with unlimited tram, full-day Sentosa Island experience, Universal Studios Singapore, Singapore City Tour, Gardens by the Bay (Cloud Forest, Flower Dome & Jurassic Park), and Marina Bay Sands Observation Deck.
                 </p>
 
                 {/* Highlights Grid */}
@@ -290,22 +293,22 @@ export function SingaporeCruiseItineraryPage() {
               <div className="lg:col-span-4">
                 <div className="bg-slate-900/90 border border-amber-500/30 rounded-3xl p-6 shadow-2xl shadow-slate-950/80 backdrop-blur-xl relative overflow-hidden">
                   <div className="absolute top-0 right-0 bg-gradient-to-l from-amber-500 to-amber-600 text-slate-950 text-[10px] font-black uppercase px-4 py-1 rounded-bl-xl tracking-wider">
-                    Luxury Combination
+                    All-Inclusive Package
                   </div>
 
                   <div className="space-y-4">
                     <div>
                       <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider block">
-                        Special Package Offer
+                        Special Package Price
                       </span>
                       <div className="flex items-baseline gap-2 mt-1">
                         <span className="text-3xl sm:text-4xl font-black text-amber-400">
                           {formatPrice(priceInr)}
                         </span>
-                        <span className="text-xs text-slate-400">/ person (twin sharing)</span>
+                        <span className="text-xs text-slate-400">/ person (min 02 person)</span>
                       </div>
                       <p className="text-[11px] text-emerald-400 font-medium mt-1">
-                        ✔ Includes 4★ Hotel, 2N Balcony Cruise, Universal Studios & Flights
+                        ✔ Flights, 4★ Hotel, Genting Dream Cruise & Visa Included
                       </p>
                     </div>
 
@@ -332,15 +335,19 @@ export function SingaporeCruiseItineraryPage() {
                     <div className="pt-3 border-t border-slate-800/80 space-y-2 text-[11px] text-slate-400">
                       <div className="flex items-center gap-2">
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                        <span>Private Balcony Cabin Guaranteed</span>
+                        <span>4-Star Property Accommodation (4 Nights)</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                        <span>All Meals Included Onboard Cruise</span>
+                        <span>Genting Dream Cruise Experience (2 Nights)</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                        <span>Singapore E-Visa Assistance Included</span>
+                        <span>Universal Studios & Sentosa Full Day</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                        <span>Return Flights & Visa Assistance Included</span>
                       </div>
                     </div>
                   </div>
@@ -458,11 +465,12 @@ export function SingaporeCruiseItineraryPage() {
                       <span>Important Operational & Booking Notes</span>
                     </h3>
                     <ul className="list-disc list-inside text-xs text-slate-400 space-y-2 leading-relaxed">
-                      <li>Confirm cruise line, ship, sailing dates, terminal, and balcony cabin category before final booking confirmation.</li>
-                      <li>Standard meals are included at designated dining venues onboard the cruise; specialty dining restaurants, beverages, gratuities, and shore excursions carry extra charges if selected.</li>
-                      <li>Gardens by the Bay tickets include Flower Dome & Cloud Forest; Sands SkyPark admission slots are subject to availability.</li>
-                      <li>Flight details, baggage allowance, and visa/entry requirements verified based on passport nationality.</li>
-                      <li>Schedules, attraction opening hours, show availability, and park maintenance are subject to management changes.</li>
+                      <li>Technical costing brief based on the requested itinerary. All timings, cruise details, attraction access, hotel allocation, transfers, and final inclusions are subject to availability and supplier confirmation.</li>
+                      <li>Package components include: Return flights, 4-star property accommodation with daily breakfast, visa assistance/visa, listed sightseeing on SIC basis, required transfers, and Genting Dream cruise.</li>
+                      <li>Standard meals are included at designated dining venues onboard Genting Dream cruise; specialty dining restaurants, beverages, gratuities, and optional shore excursions carry extra charges if selected.</li>
+                      <li>Universal Studios Singapore full-day admission ticket included; transfers and ticket type confirmed in final costing.</li>
+                      <li>Genting Dream cruise check-in, boarding time, port terminal, and luggage arrangements to be confirmed against confirmed sailing schedule.</li>
+                      <li>Flight timing must allow sufficient buffer time after cruise disembarkation on Day 7.</li>
                     </ul>
                   </div>
                 </div>
@@ -486,24 +494,24 @@ export function SingaporeCruiseItineraryPage() {
                         </thead>
                         <tbody className="divide-y divide-slate-800/60">
                           <tr>
-                            <td className="py-2.5 px-3 font-semibold text-white">Airport → Singapore Hotel</td>
-                            <td className="py-2.5 px-3 text-emerald-400 font-medium">Private AC Vehicle</td>
+                            <td className="py-2.5 px-3 font-semibold text-white">Changi Airport → Singapore 4★ Hotel</td>
+                            <td className="py-2.5 px-3 text-emerald-400 font-medium">Arranged / Private Transfer</td>
                           </tr>
                           <tr>
-                            <td className="py-2.5 px-3 font-semibold text-white">Night Safari / City Tour / Gardens / SkyPark / Sentosa / Universal Studios</td>
-                            <td className="py-2.5 px-3 text-amber-300 font-medium">SIC / Shared Coach</td>
+                            <td className="py-2.5 px-3 font-semibold text-white">Night Safari / Sentosa / Universal Studios / City Tour / Gardens / MBS</td>
+                            <td className="py-2.5 px-3 text-amber-300 font-medium">SIC (Seat-in-Coach) Basis</td>
                           </tr>
                           <tr>
-                            <td className="py-2.5 px-3 font-semibold text-white">Singapore Hotel → Cruise Terminal</td>
-                            <td className="py-2.5 px-3 text-slate-300">Arranged / Included Transfer</td>
+                            <td className="py-2.5 px-3 font-semibold text-white">Singapore Hotel → Singapore Cruise Port</td>
+                            <td className="py-2.5 px-3 text-slate-300">Arranged Cruise Port Transfer</td>
                           </tr>
                           <tr>
-                            <td className="py-2.5 px-3 font-semibold text-white">Cruise Terminal → Singapore Airport</td>
-                            <td className="py-2.5 px-3 text-slate-300">Arranged / Included Transfer</td>
+                            <td className="py-2.5 px-3 font-semibold text-white">Singapore Cruise Port → Changi Airport</td>
+                            <td className="py-2.5 px-3 text-slate-300">Arranged Airport Departure Transfer</td>
                           </tr>
                           <tr>
-                            <td className="py-2.5 px-3 font-semibold text-white">Flight Tickets</td>
-                            <td className="py-2.5 px-3 text-emerald-400 font-medium">Return Economy Class</td>
+                            <td className="py-2.5 px-3 font-semibold text-white">Flights & Visa</td>
+                            <td className="py-2.5 px-3 text-emerald-400 font-medium">Return Economy Flights + Visa Assistance Included</td>
                           </tr>
                         </tbody>
                       </table>
@@ -523,7 +531,7 @@ export function SingaporeCruiseItineraryPage() {
                 <p className="text-xs text-slate-400">
                   Want to upgrade your cabin, extend nights, or customize flights? Send us a message for an instant custom quote.
                 </p>
-                <InlineEnquiryForm initialPackageTitle="Singapore with Luxury Cruise (06N/07D)" source="singapore_cruise_itinerary_page" />
+                <InlineEnquiryForm initialPackageTitle="Singapore + Genting Dream Cruise (06N/07D)" source="singapore_cruise_itinerary_page" />
               </div>
             </div>
           </div>
