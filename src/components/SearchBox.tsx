@@ -37,13 +37,17 @@ export function SearchBox({
       {/* Category Pills */}
       <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center border-b border-slate-100 pb-3 sm:pb-4">
         {[
+          { id: "all", label: "All Packages" },
+          { id: "singapore", label: "Singapore" },
+          { id: "bali", label: "Bali" },
+          { id: "thailand", label: "Thailand" },
+          { id: "vietnam", label: "Vietnam" },
+          { id: "europe", label: "Europe & Swiss" },
+          { id: "malaysia", label: "Malaysia" },
+          { id: "international", label: "All International" },
           { id: "domestic", label: "Domestic Tours" },
-          { id: "north", label: "Kashmir & Himalayas" },
-          { id: "kerala", label: "Kerala Backwaters" },
-          { id: "rajasthan", label: "Royal Rajasthan" },
-          { id: "goa", label: "Goa & Beaches" },
-          { id: "international", label: "International Tours" },
-          { id: "singapore", label: "Singapore Special" },
+          { id: "kashmir", label: "Kashmir" },
+          { id: "kerala", label: "Kerala" },
         ].map((tab) => (
           <button
             key={tab.id}
@@ -87,7 +91,7 @@ export function SearchBox({
       {/* Quick Search Tag Shortcuts */}
       <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-slate-500">
         <span className="font-bold text-slate-600">Popular:</span>
-        {["Kashmir", "Kerala Houseboat", "Rajasthan Palace", "Solang Snow", "Dubai", "Thailand", "Switzerland"].map((tag, idx) => (
+        {["Singapore", "Bali", "Thailand", "Vietnam", "Europe", "Malaysia", "Kashmir", "Kerala"].map((tag, idx) => (
           <button
             key={idx}
             onClick={() => setQuickTag(tag)}

@@ -428,13 +428,19 @@ export function IndiaPortal() {
     return INDIA_PACKAGES.filter((pkg) => {
       const isIntl = Boolean(pkg.detailsUrl) || pkg.id.includes("singapore") || pkg.id.includes("bali") || pkg.id.includes("vietnam") || pkg.id.includes("europe") || pkg.id.includes("malaysia") || pkg.id.includes("thailand") || pkg.category.toLowerCase().includes("international");
       let matchesTab = true;
-      if (activeTab === "north") matchesTab = pkg.category.toLowerCase().includes("mountain") || pkg.category.toLowerCase().includes("heritage");
-      else if (activeTab === "kerala") matchesTab = pkg.category.toLowerCase().includes("backwaters");
-      else if (activeTab === "rajasthan") matchesTab = pkg.category.toLowerCase().includes("royal");
-      else if (activeTab === "goa") matchesTab = pkg.category.toLowerCase().includes("beach");
-      else if (activeTab === "singapore") matchesTab = pkg.id.includes("singapore") || pkg.title.toLowerCase().includes("singapore");
+      if (activeTab === "all") matchesTab = true;
       else if (activeTab === "international") matchesTab = isIntl;
       else if (activeTab === "domestic") matchesTab = !isIntl;
+      else if (activeTab === "singapore") matchesTab = pkg.id.includes("singapore") || pkg.title.toLowerCase().includes("singapore");
+      else if (activeTab === "bali") matchesTab = pkg.id.includes("bali") || pkg.title.toLowerCase().includes("bali");
+      else if (activeTab === "thailand") matchesTab = pkg.id.includes("thailand") || pkg.title.toLowerCase().includes("thailand");
+      else if (activeTab === "vietnam") matchesTab = pkg.id.includes("vietnam") || pkg.title.toLowerCase().includes("vietnam");
+      else if (activeTab === "europe") matchesTab = pkg.id.includes("europe") || pkg.title.toLowerCase().includes("paris") || pkg.title.toLowerCase().includes("swiss");
+      else if (activeTab === "malaysia") matchesTab = pkg.id.includes("malaysia") || pkg.title.toLowerCase().includes("malaysia");
+      else if (activeTab === "kashmir" || activeTab === "north") matchesTab = pkg.category.toLowerCase().includes("mountain") || pkg.title.toLowerCase().includes("kashmir");
+      else if (activeTab === "kerala") matchesTab = pkg.category.toLowerCase().includes("backwaters") || pkg.title.toLowerCase().includes("kerala");
+      else if (activeTab === "rajasthan") matchesTab = pkg.category.toLowerCase().includes("royal") || pkg.title.toLowerCase().includes("rajasthan");
+      else if (activeTab === "goa") matchesTab = pkg.category.toLowerCase().includes("beach") || pkg.title.toLowerCase().includes("goa");
 
       const matchesSearch =
         !searchQuery ||
