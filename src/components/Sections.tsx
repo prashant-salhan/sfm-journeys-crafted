@@ -11,7 +11,6 @@ import {
   Users,
   Star,
   Quote,
-  ChevronDown,
   ChevronRight,
   Award,
   Sparkles,
@@ -313,7 +312,7 @@ export const TravelEssentialsSection = memo(function TravelEssentialsSection() {
 });
 
 export const FaqSection = memo(function FaqSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const faqs = [
     {
@@ -354,30 +353,54 @@ export const FaqSection = memo(function FaqSection() {
         </div>
 
         <div className="space-y-4">
-          {faqs.map((faq, idx) => (
-            <div
-              key={idx}
-              className="bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden transition-all shadow-sm hover:border-amber-400"
-            >
-              <button
-                onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-                className="w-full text-left p-6 flex items-center justify-between gap-4 font-bold text-slate-900 text-base hover:text-amber-600 transition-colors cursor-pointer"
+          {faqs.map((faq, idx) => {
+            const isExpanded = hoveredIndex === idx;
+            return (
+              <div
+                key={idx}
+                onMouseEnter={() => setHoveredIndex(idx)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                onClick={() => setHoveredIndex(isExpanded ? null : idx)}
+                className={`bg-slate-50 border rounded-2xl overflow-hidden transition-all duration-300 shadow-sm cursor-pointer group ${
+                  isExpanded
+                    ? "border-amber-400 bg-amber-50/25 shadow-md ring-1 ring-amber-400/30"
+                    : "border-slate-200 hover:border-amber-300 hover:bg-slate-50/80"
+                }`}
               >
-                <span>{faq.q}</span>
-                <ChevronDown
-                  className={`w-5 h-5 text-amber-600 shrink-0 transition-transform duration-300 ${
-                    openIndex === idx ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              {openIndex === idx && (
-                <div className="px-6 pb-6 pt-0 text-slate-600 text-xs leading-relaxed border-t border-slate-200/80 font-medium">
-                  <p className="mt-3">{faq.a}</p>
+                <div className="w-full text-left p-6 flex items-center gap-4 transition-colors">
+                  <span
+                    className={`w-7 h-7 rounded-lg text-xs font-black flex items-center justify-center shrink-0 transition-colors ${
+                      isExpanded
+                        ? "bg-amber-500 text-slate-950 shadow-sm"
+                        : "bg-slate-200 text-slate-600 group-hover:bg-amber-100 group-hover:text-amber-800"
+                    }`}
+                  >
+                    0{idx + 1}
+                  </span>
+                  <span
+                    className={`text-base sm:text-lg font-bold transition-colors ${
+                      isExpanded ? "text-amber-700" : "text-slate-900 group-hover:text-amber-700"
+                    }`}
+                  >
+                    {faq.q}
+                  </span>
                 </div>
-              )}
-            </div>
-          ))}
+
+                {/* Smooth Slide Down / Collapse on Cursor Hover with Pure CSS Grid */}
+                <div
+                  className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+                    isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="px-6 pb-6 pt-1 text-slate-600 text-xs sm:text-sm leading-relaxed border-t border-slate-200/70 font-medium">
+                      <p className="mt-3 text-slate-700 leading-relaxed">{faq.a}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
