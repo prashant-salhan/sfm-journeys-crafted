@@ -22,6 +22,7 @@ import europeHeroPic from "@/assets/europe/hero-1.jpeg";
 import malaysiaHeroPic from "@/assets/malaysia/hero-1.jpeg";
 import thailandHeroPic from "@/assets/thailand/hero-1.avif";
 import singaporeHeroPic from "@/assets/singapore/hero-1.jpg";
+import singaporeCruiseHeroPic from "@/assets/singapore-cruise/hero-1.webp";
 
 import { useCurrency } from "@/context/CurrencyContext";
 import { Navbar } from "@/components/Navbar";
@@ -197,6 +198,31 @@ const INDIA_PACKAGES: IndiaPackage[] = [
     ],
   },
   {
+    id: "singapore-cruise-package",
+    title: "Singapore + Cruise Package",
+    category: "International & Luxury",
+    duration: "5 Days / 4 Nights",
+    description:
+      "4 Nights in 4-Star Singapore property + cruise component. Includes return flights, visa, Night Safari, Sentosa Island, Universal Studios, Gardens by the Bay & MBS Observation Deck.",
+    priceInr: 95000,
+    image: singaporeHeroPic,
+    badge: "Singapore + Cruise",
+    detailsUrl: "/singapore-itinerary",
+    inclusions: [
+      "Return Flights & 4★ Hotel Stay",
+      "Cruise Component Included",
+      "Universal Studios & Sentosa Pass",
+      "Night Safari, Gardens & MBS Deck",
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival in Singapore | Night Safari", desc: "Meet & greet at Changi Airport, hotel transfer, evening Night Safari with unlimited tram ride & animal show (SIC)." },
+      { day: 2, title: "Sentosa Island – Full-Day Experience", desc: "Full-day Sentosa tour: one-way cable car, Madame Tussauds, Images of Singapore, Ultimate Film Star & Wings of Time (SIC)." },
+      { day: 3, title: "Universal Studios Singapore", desc: "Full-day visit to Universal Studios Singapore theme park with admission ticket included." },
+      { day: 4, title: "Singapore City Tour | Gardens by the Bay | Marina Bay Sands", desc: "Half-day city tour, Gardens by the Bay (Cloud Forest, Flower Dome & Jurassic Park), and Marina Bay Sands Observation Deck." },
+      { day: 5, title: "Departure from Singapore", desc: "Hotel check-out and departure transfer to Singapore Changi Airport." },
+    ],
+  },
+  {
     id: "singapore-genting-dream-cruise",
     title: "Singapore + Genting Dream Cruise",
     category: "International & Luxury",
@@ -204,8 +230,8 @@ const INDIA_PACKAGES: IndiaPackage[] = [
     description:
       "4 Nights 4-Star Singapore hotel + 2 Nights Genting Dream Cruise. Includes return flights, visa, Night Safari, Sentosa Island, Universal Studios, Gardens by the Bay & MBS Observation Deck.",
     priceInr: 124000,
-    image: singaporeHeroPic,
-    badge: "Singapore Special",
+    image: singaporeCruiseHeroPic,
+    badge: "Genting Dream Cruise",
     detailsUrl: "/singapore-cruise-itinerary",
     inclusions: [
       "Return Flights & 4★ Hotel Stay",

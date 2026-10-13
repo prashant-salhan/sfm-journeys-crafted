@@ -25,7 +25,8 @@ export const ItineraryModal = memo(function ItineraryModal({
     if (idOrTitle.includes("europe") || idOrTitle.includes("swiss") || idOrTitle.includes("paris")) return "/europe-itinerary";
     if (idOrTitle.includes("malaysia")) return "/malaysia-itinerary";
     if (idOrTitle.includes("thailand")) return "/thailand-itinerary";
-    if (idOrTitle.includes("singapore")) return "/singapore-cruise-itinerary";
+    if (idOrTitle.includes("genting")) return "/singapore-cruise-itinerary";
+    if (idOrTitle.includes("singapore")) return "/singapore-itinerary";
     return null;
   };
 
