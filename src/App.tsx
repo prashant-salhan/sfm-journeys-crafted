@@ -45,6 +45,7 @@ import {
   FooterSection,
   type IndiaPackage,
 } from "@/components/Sections";
+import { JourneyInFramesSection } from "@/components/JourneyInFramesSection";
 
 import sfmHero from "@/assets/sfm-hero.jpg";
 import sfmKashmir from "@/assets/sfm-kashmir.jpg";
@@ -727,8 +728,11 @@ function MainContent() {
         )}
       </section>
 
-      {/* Customer Testimonials */}
+      {/* Customer Testimonials / Reviews */}
       <TestimonialsSection />
+
+      {/* Journey In Frames (Pure CSS Realistic Reflection Gallery - Slides with Cursor) */}
+      <JourneyInFramesSection />
 
       {/* FAQs Section */}
       <FaqSection />

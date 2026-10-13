@@ -34,9 +34,11 @@ import {
   RegionsSection,
   TravelEssentialsSection,
   WhyChooseUsSection,
+  TestimonialsSection,
   FooterSection,
   type IndiaPackage,
 } from "@/components/Sections";
+import { JourneyInFramesSection } from "@/components/JourneyInFramesSection";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -648,6 +650,8 @@ export function IndiaPortal() {
       {/* Pure Static Sections Wrapped with React.memo */}
       <RegionsSection />
       <TravelEssentialsSection />
+      <TestimonialsSection />
+      <JourneyInFramesSection />
       <WhyChooseUsSection />
 
       {/* Inline Quick Enquiry Section on Page */}
