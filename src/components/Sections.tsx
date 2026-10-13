@@ -127,92 +127,70 @@ export const RegionsSection = memo(function RegionsSection() {
 export const TestimonialsSection = memo(function TestimonialsSection() {
   const reviews = [
     {
-      name: "Rajveer Singh Rawat",
-      info: "5 reviews · 10 photos",
+      name: "Naveen Vattani",
+      info: "Verified Google Reviewer",
       date: "4 months ago",
-      tour: "Goa Customized Package",
+      tour: "Singapore Customized Tour",
       rating: 5,
       comment:
-        "Thank you Sudhanshu Ji and Yashika for planning such a wonderful Goa trip. Everything was very well managed, from the hotel and food to the cab arrangements. I especially appreciated how your team regularly checked if everything was going well during our stay. Looking forward to planning our next trip with you!",
+        "We had an amazing experience exploring Singapore, all thanks to the fantastic team at SFM Tours. They tailored the itinerary beautifully to match our preferences, ensuring we got to experience the best of the city without any hassle. The local execution, coordination, and on-ground support were top-notch and highly professional. We will definitely be booking our future international trips with them!\n\nSpecial Thanks to there team Members Mr. Raj Sharma and Mr. Rahul Sunar.",
       avatar: "/avatars/user-1.jpg",
-      isLocalGuide: false,
+      reviewUrl: "https://maps.app.goo.gl/uEf6qR2xuYQLBZpeA",
     },
     {
-      name: "Aman Sharma",
-      info: "Local Guide · 14 reviews",
-      date: "2 months ago",
-      tour: "Thailand & Bali Vacation",
-      rating: 5,
-      comment:
-        "Special thanks to Sudhanshu Ji for organizing our Thailand and Bali family vacation. Everything from 4-star hotel stays to private cab transfers was executed flawlessly. 24/7 support throughout our trip!",
-      avatar: "/avatars/user-2.jpg",
-      isLocalGuide: true,
-    },
-    {
-      name: "Pooja & Rohan Mehra",
-      info: "8 reviews · 4 photos",
-      date: "3 months ago",
-      tour: "Singapore & Cruise Tour",
-      rating: 5,
-      comment:
-        "Extremely smooth visa assistance and flight booking for our Singapore & Cruise trip. Every excursion from Sentosa to Gardens by the Bay was booked seamlessly with zero hassle. SFM Travels is 100% recommended!",
-      avatar: "/avatars/user-3.jpg",
-      isLocalGuide: false,
-    },
-    {
-      name: "Vikramaditya Verma",
-      info: "Local Guide · 22 reviews",
-      date: "5 months ago",
-      tour: "Vietnam Grand Tour",
-      rating: 5,
-      comment:
-        "SFM Tour & Travels handled our Vietnam North-to-South tour effortlessly. Excellent guidance on visas, top-notch hotel selections in Hanoi, Da Nang and Saigon, and prompt responsiveness during our travel.",
-      avatar: "/avatars/user-4.jpg",
-      isLocalGuide: true,
-    },
-    {
-      name: "Dr. Shalini Mukhopadhyay",
-      info: "7 reviews · 12 photos",
-      date: "1 month ago",
-      tour: "Kashmir Paradise Tour",
-      rating: 5,
-      comment:
-        "Our Kashmir trip with SFM Travels was beyond breathtaking! From the luxury houseboat in Dal Lake to the snow activities in Gulmarg, their local team took care of our family like their own. Very honest pricing and zero hidden costs.",
-      avatar: "/avatars/user-5.jpg",
-      isLocalGuide: false,
-    },
-    {
-      name: "Karan & Sneha Kapoor",
-      info: "Local Guide · 18 reviews",
-      date: "2 months ago",
-      tour: "Dubai Extravaganza Tour",
-      rating: 5,
-      comment:
-        "Booked our honeymoon trip to Dubai with SFM Travels. Desert safari, Burj Khalifa at the top, and private yacht experience were all arranged seamlessly. Yashika was available on WhatsApp 24/7. Thank you so much!",
-      avatar: "/avatars/user-6.jpg",
-      isLocalGuide: true,
-    },
-    {
-      name: "Deepak Singhal",
-      info: "6 reviews · 9 photos",
-      date: "3 months ago",
-      tour: "Kerala Backwaters & Munnar",
-      rating: 5,
-      comment:
-        "Flawless Kerala holiday package with SFM! Beautiful tea estate resort in Munnar and delicious authentic food in Alleppey premium houseboat. The chauffeur was very courteous and punctual throughout our 6-day tour.",
-      avatar: "/avatars/user-7.jpg",
-      isLocalGuide: false,
-    },
-    {
-      name: "Ananya Deshmukh",
-      info: "Local Guide · 11 reviews",
+      name: "Rajveer Singh Rawat",
+      info: "Verified Google Reviewer",
       date: "4 months ago",
-      tour: "Himachal Scenic Escape",
+      tour: "Goa Customized Tour",
       rating: 5,
       comment:
-        "Traveled to Manali & Shimla with SFM Travels. Truly transparent service, no hidden costs, and exceptional customer care from start to finish. Already planning our next international trip with them!",
-      avatar: "/avatars/user-8.jpg",
-      isLocalGuide: true,
+        "Thank you Sudhanshu Ji and Yashika for planning such a wonderful Goa trip. Everything was very well managed, from the hotel and food to the cab arrangements. I especially appreciated how your team regularly checked if everything was going smoothly. It was a great experience and truly enjoyable. Thanks again for making the trip memorable!",
+      avatar: "/avatars/user-2.jpg",
+      reviewUrl: "https://maps.app.goo.gl/LSyBaARBENy9HnRP9",
+    },
+    {
+      name: "Pankaj Damahe",
+      info: "Verified Google Reviewer",
+      date: "5 months ago",
+      tour: "Singapore Family Tour",
+      rating: 5,
+      comment:
+        "Thank you SFM tour and travels team for making my family trip to Singapore memorable. Thank you Sudhanshu, Rahul and Raj means a lot ❤️🙏",
+      avatar: "/avatars/user-3.jpg",
+      reviewUrl: "https://maps.app.goo.gl/XLx8UQL1xB7cJV4b8",
+    },
+    {
+      name: "Suraj Thakur",
+      info: "Verified Google Reviewer",
+      date: "1 year ago",
+      tour: "Bali Vacation Package",
+      rating: 5,
+      comment:
+        "I recently booked a Bali package with SFM Tour and Travel, and I was blown away by the experience! The itinerary was well-planned, and the accommodations were top-notch. The team was responsive and helpful throughout the trip.\n\nSpecial thanks to Rahul for his exceptional corporation and coordination. He went above and beyond to ensure that our trip was seamless and enjoyable. His attention to detail and knowledge of Bali were impressive. Highly recommend SFM Tour and Travel!",
+      avatar: "/avatars/user-4.jpg",
+      reviewUrl: "https://maps.app.goo.gl/8BxKp26AzU5sCuvB8",
+    },
+    {
+      name: "Santosh Choudhary",
+      info: "Verified Google Reviewer",
+      date: "2 months ago",
+      tour: "SFM Holiday Tour Package",
+      rating: 5,
+      comment:
+        "I had a wonderful experience with this Sfm Tour & Travels. The entire trip was well organized, and everything went smoothly from start to finish. Their team was professional, responsive, and always ready to help. The booking process was easy, and all arrangements were made on time. I highly recommend their services to anyone looking for a reliable and hassle-free travel experience. Thank you for making my trip memorable!",
+      avatar: "/avatars/user-5.jpg",
+      reviewUrl: "https://maps.app.goo.gl/FCVVBiLvdzRi2e6FA",
+    },
+    {
+      name: "Kanika Kanika",
+      info: "Verified Google Reviewer",
+      date: "3 months ago",
+      tour: "Singapore Delight Package",
+      rating: 5,
+      comment:
+        "We recently had the pleasure of traveling to Singapore with the exceptional assistance of SFM TRAVEL and I am delighted to share my wonderful experience. From start to finish, every detail of the plan exceeded our expectations in planning and executing our Singapore trip. Their attention to detail, commitment to punctuality, and focus on our comfort made this one of the best travel experiences we've ever had. I highly recommend their services to anyone looking for a perfectly planned and stress-free vacation. Thanks to SFM TEAM.",
+      avatar: "/avatars/user-6.jpg",
+      reviewUrl: "https://maps.app.goo.gl/VuRgmRurJLD9ShPB7",
     },
   ];
 
@@ -405,7 +383,13 @@ export const TestimonialsSection = memo(function TestimonialsSection() {
                         <Star key={i} className="w-4 h-4 fill-amber-500 text-amber-500" />
                       ))}
                     </div>
-                    <span className="inline-flex items-center gap-1.5 bg-slate-100 text-slate-700 text-[11px] font-bold px-2.5 py-1 rounded-full border border-slate-200/60 shadow-xs">
+                    <a
+                      href={rev.reviewUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-900 text-[11px] font-bold px-2.5 py-1 rounded-full border border-slate-200/60 shadow-xs transition-colors"
+                      title="View original review on Google Maps"
+                    >
                       <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                         <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -413,22 +397,29 @@ export const TestimonialsSection = memo(function TestimonialsSection() {
                         <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
                       </svg>
                       Google Review
-                    </span>
+                      <ExternalLink className="w-2.5 h-2.5 text-slate-400" />
+                    </a>
                   </div>
 
                   {/* Review Text */}
-                  <p className="text-slate-700 text-sm leading-relaxed font-medium italic break-words min-h-[90px]">
+                  <p className="text-slate-700 text-sm leading-relaxed font-medium italic break-words whitespace-pre-line min-h-[90px]">
                     "{rev.comment}"
                   </p>
                 </div>
 
                 {/* Reviewer Profile with Real Portrait Face Photo */}
                 <div className="pt-5 mt-4 border-t border-slate-100 flex items-center gap-3.5 relative z-10">
-                  <div className="relative shrink-0">
+                  <a
+                    href={rev.reviewUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative shrink-0 group/avatar block"
+                    title={`View ${rev.name}'s review on Google Maps`}
+                  >
                     <img
                       src={rev.avatar}
                       alt={rev.name}
-                      className="w-12 h-12 rounded-full object-cover ring-2 ring-amber-400/80 shadow-md"
+                      className="w-12 h-12 rounded-full object-cover ring-2 ring-amber-400/80 shadow-md group-hover/avatar:ring-amber-500 transition-all"
                       loading="lazy"
                     />
                     <span
@@ -437,16 +428,18 @@ export const TestimonialsSection = memo(function TestimonialsSection() {
                     >
                       ✓
                     </span>
-                  </div>
+                  </a>
 
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <h4 className="font-extrabold text-slate-900 text-sm truncate">{rev.name}</h4>
-                      {rev.isLocalGuide && (
-                        <span className="bg-amber-100 text-amber-800 text-[9px] font-black px-1.5 py-0.5 rounded-full shrink-0">
-                          ★ Local Guide
-                        </span>
-                      )}
+                      <a
+                        href={rev.reviewUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-extrabold text-slate-900 text-sm truncate hover:text-amber-600 transition-colors"
+                      >
+                        {rev.name}
+                      </a>
                     </div>
                     <p className="text-[11px] text-slate-500 font-medium truncate">{rev.info}</p>
                     <p className="text-[11px] text-amber-600 font-bold truncate">{rev.tour} • {rev.date}</p>
