@@ -79,7 +79,7 @@ export function JapanItineraryPage() {
   }, []);
 
   const priceInr = 149999;
-  const whatsappNumber = "919999779351";
+  const whatsappNumber = "919711038584";
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     "Hi SFM Travels! I want to book / inquire about the Wonders of Japan Experience (7 Days / 6 Nights, ₹1,49,999/person) package."
   )}`;
@@ -214,11 +214,11 @@ export function JapanItineraryPage() {
                     </a>
 
                     <a
-                      href="tel:+919999779351"
+                      href="tel:+919711038584"
                       className="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 px-4 rounded-2xl text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer border border-slate-700"
                     >
                       <Phone className="w-4 h-4 text-amber-400" />
-                      <span>Call Expert (+91 99997 79351)</span>
+                      <span>Call Expert (+91 97110 38584)</span>
                     </a>
                   </div>
 

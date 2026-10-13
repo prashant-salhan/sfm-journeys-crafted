@@ -36,7 +36,7 @@ export const CircularSocialMenu = memo(function CircularSocialMenu() {
     {
       id: "whatsapp",
       name: "WhatsApp",
-      href: "https://wa.me/919999779351?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!",
+      href: "https://wa.me/919711038584?text=Hi%20SFM%20Travels,%20I%20want%20to%20plan%20my%20trip!",
       icon: MessageCircle,
       bg: "bg-emerald-500 hover:bg-emerald-600 border-emerald-300/40",
       shadow: "shadow-emerald-500/40",

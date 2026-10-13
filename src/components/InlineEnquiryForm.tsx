@@ -92,7 +92,7 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
 
   if (submitSuccess && submittedData) {
     const waMsg = `Hi SFM Travels! I submitted an enquiry for ${encodeURIComponent(submittedData.travel)} (Name: ${encodeURIComponent(submittedData.name)}, Phone: ${encodeURIComponent(submittedData.phone)}). Please share my day-wise itinerary.`;
-    const waUrl = `https://wa.me/919999779351?text=${waMsg}`;
+    const waUrl = `https://wa.me/919711038584?text=${waMsg}`;
 
     return (
       <div className="bg-emerald-50 border border-emerald-200 p-8 sm:p-10 rounded-3xl text-center space-y-6 shadow-xl animate-fade-in">
@@ -170,7 +170,7 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({ initialPackag
             ref={phoneRef}
             defaultValue=""
             autoComplete="off"
-            placeholder="e.g. +91 99997 79351"
+            placeholder="e.g. +91 97110 38584"
             required
             className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-base sm:text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none"
             style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}

@@ -171,7 +171,7 @@ export function VietnamItineraryPage() {
   }, []);
 
   const priceInr = 62000;
-  const whatsappNumber = "919999779351";
+  const whatsappNumber = "919711038584";
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     "Hi SFM Travels! I want to book / inquire about the Amazing Vietnam North-to-South (10 Days / 9 Nights, ₹62,000/person, Min 02 Person Required) package."
   )}`;

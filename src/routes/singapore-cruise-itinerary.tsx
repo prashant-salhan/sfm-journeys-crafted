@@ -150,7 +150,7 @@ export function SingaporeCruiseItineraryPage() {
   }, []);
 
   const priceInr = 124000;
-  const whatsappNumber = "919999779351";
+  const whatsappNumber = "919711038584";
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     "Hi SFM Travels! I want to book / inquire about the Singapore + Genting Dream Cruise (6 Nights / 7 Days, ₹124,000/person) package."
   )}`;

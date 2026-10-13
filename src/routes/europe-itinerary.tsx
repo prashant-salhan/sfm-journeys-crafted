@@ -161,7 +161,7 @@ export function EuropeItineraryPage() {
   }, []);
 
   const priceInr = 119999;
-  const whatsappNumber = "919999779351";
+  const whatsappNumber = "919711038584";
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     "Hi SFM Travels! I want to book / inquire about the Paris & Swiss Alps Special (7 Days / 6 Nights, ₹1,19,999/person) package."
   )}`;

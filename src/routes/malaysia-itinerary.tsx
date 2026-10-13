@@ -127,7 +127,7 @@ export function MalaysiaItineraryPage() {
   }, []);
 
   const priceInr = 18999;
-  const whatsappNumber = "919999779351";
+  const whatsappNumber = "919711038584";
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     "Hi SFM Travels! I want to book / inquire about the Malaysia Budget Friendly (4 Days / 3 Nights, ₹18,999/person) package."
   )}`;

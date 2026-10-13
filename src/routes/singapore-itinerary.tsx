@@ -106,7 +106,7 @@ export function SingaporeItineraryPage() {
   }, []);
 
   const priceInr = 95000;
-  const whatsappNumber = "919999779351";
+  const whatsappNumber = "919711038584";
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     "Hi SFM Travels! I want to book / inquire about the Singapore + Cruise Package (4 Nights / 5 Days, ₹95,000/person) package."
   )}`;
@@ -314,11 +314,11 @@ export function SingaporeItineraryPage() {
                     </a>
 
                     <a
-                      href="tel:+919999779351"
+                      href="tel:+919711038584"
                       className="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 px-4 rounded-2xl text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer border border-slate-700"
                     >
                       <Phone className="w-4 h-4 text-amber-400" />
-                      <span>Call Expert (+91 99997 79351)</span>
+                      <span>Call Expert (+91 97110 38584)</span>
                     </a>
                   </div>
 

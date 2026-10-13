@@ -49,7 +49,7 @@ const directorInfo = {
   designation: "Director",
   roleTag: "Director & Visionary Founder",
   image: directorImg,
-  phones: ["+91 97110 38584", "+91 99997 79351"],
+  phones: ["+91 97110 38584"],
   email: "sudhanshu.shridhar@sfmtravels.com",
   address: "A-2/53 Prateek Apartments, 2nd Floor, DDA Flats, Paschim Vihar, Delhi - 110063",
   bio: "Leading SFM Travels (Smile For Millions) with a commitment to excellence, Sudhanshu Shridhar oversees strategic growth, customer experience standards, and bespoke travel solutions for thousands of holidaymakers across India and international destinations.",
@@ -404,7 +404,7 @@ export function AboutPage() {
                 <Link to="/" hash="contact" className="rounded-xl bg-gradient-to-r from-sky to-cyan-300 px-7 py-3.5 text-sm font-bold text-ink shadow-lg shadow-sky/20 hover:brightness-110">
                   Book Your Trip
                 </Link>
-                <a href="https://wa.me/919999779351" target="_blank" rel="noreferrer" className="rounded-xl border border-whatsapp bg-whatsapp/10 px-7 py-3.5 text-sm font-bold text-whatsapp hover:bg-whatsapp/20">
+                <a href="https://wa.me/919711038584" target="_blank" rel="noreferrer" className="rounded-xl border border-whatsapp bg-whatsapp/10 px-7 py-3.5 text-sm font-bold text-whatsapp hover:bg-whatsapp/20">
                   WhatsApp Us
                 </a>
               </div>

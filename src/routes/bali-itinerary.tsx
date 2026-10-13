@@ -162,7 +162,7 @@ export function BaliItineraryPage() {
   }, []);
 
   const priceInr = 88000;
-  const whatsappNumber = "919999779351";
+  const whatsappNumber = "919711038584";
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     "Hi SFM Travels! I want to book / inquire about the Bali Escape Package (6 Nights / 7 Days, ₹88,000/person with flights)."
   )}`;
