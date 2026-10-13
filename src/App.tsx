@@ -191,31 +191,32 @@ export const FEATURED_PACKAGES: IndiaPackage[] = [
     ]
   },
   {
-    id: "bali-honeymoon-special",
-    title: "Bali Honeymoon Special",
+    id: "bali-escape",
+    title: "Bali Escape",
     category: "International & Luxury",
     duration: "7 Days / 6 Nights",
-    description: "Private pool villa, Kintamani volcano, Ubud swing & rice terraces, Nusa Penida island tour, Tanah Lot & Uluwatu Kecak dance.",
-    priceInr: 39999,
+    description: "4N Kuta Central Park Hotel + 2N Ubud Private Pool Villa with Flights Included, Water Sports, Uluwatu Kecak Dance, Nusa Penida, Candlelight Dinner, ATV Quad & Cretya Swings.",
+    priceInr: 88000,
     image: baliHeroPic,
-    badge: "Bali Special",
+    badge: "Flights Included",
     detailsUrl: "/bali-itinerary",
     rating: 4.9,
     reviewsCount: 410,
     inclusions: [
-      "06N Stay (Hotel & Pool Villa)",
-      "Romantic Candle Light Dinner",
-      "Nusa Penida Island Tour",
-      "Ubud Swing & Tanah Lot Sunset"
+      "Flights Included & 4★ Hotel",
+      "2N Ubud Private Pool Villa",
+      "Nusa Penida & Water Sports",
+      "ATV Quad Biking & Cretya Swings",
+      "Floating Breakfast & Candlelight Dinner"
     ],
     itinerary: [
-      { day: 1, title: "Arrival in Bali & Private Check-in", desc: "Meet & greet at Denpasar Airport, private transfer to hotel, welcome flower garland and leisure evening." },
-      { day: 2, title: "Kintamani Volcano & Ubud Swing", desc: "Batur volcano views, Tegalalang rice terraces, jungle swing ride, and Luwak coffee plantation." },
-      { day: 3, title: "Full-Day West Nusa Penida Island Tour", desc: "Fast boat to Nusa Penida. Visit Kelingking T-Rex Beach, Broken Beach, Angel's Billabong, and Crystal Bay." },
-      { day: 4, title: "Bedugul Water Temple & Tanah Lot", desc: "Ulun Danu Beratan Temple on Lake Beratan and iconic Tanah Lot ocean temple sunset." },
-      { day: 5, title: "Uluwatu Temple & Kecak Dance", desc: "Waterblow Beach, Uluwatu cliffside temple, Kecak dance performance, and Jimbaran Bay seafood dinner." },
-      { day: 6, title: "Private Pool Villa & Candlelight Dinner", desc: "Transfer to luxury private pool villa. Floating breakfast experience & evening romantic candlelight dinner." },
-      { day: 7, title: "Hotel Check-out & Airport Transfer", desc: "Breakfast, free time for souvenir shopping at Kuta art market, and drop at Denpasar airport." }
+      { day: 1, title: "Arrival in Bali | Hotel Transfer", desc: "Meet & greet at Bali Airport, transfer to 4★ hotel in Kuta/Seminyak." },
+      { day: 2, title: "Water Sports | Uluwatu Temple | Kecak Dance", desc: "Banana boat, jet ski, couple parasailing, cliffside Uluwatu Temple & sunset Kecak dance show." },
+      { day: 3, title: "Nusa Penida Island Tour | Candlelight Dinner", desc: "Fast boat to Nusa Penida, Kelingking Beach, Broken Beach, snorkeling, canoeing & romantic candlelight dinner." },
+      { day: 4, title: "ATV Quad Biking | Alas Harum / Cretya", desc: "90-minute ATV quad biking adventure, Alas Harum / Cretya, Angel Swing, Bed Swing & Sky Bike." },
+      { day: 5, title: "Kintamani Tour | Waterfall | Rice Terraces | Ubud Transfer", desc: "Kintamani viewpoint, coffee plantation, waterfall, rice terraces, and check-in to Ubud Private Pool Villa." },
+      { day: 6, title: "Leisure Day in Ubud | Floating Breakfast", desc: "Iconic floating breakfast in your private pool villa and leisure time to explore Ubud." },
+      { day: 7, title: "Departure from Bali", desc: "Villa check-out and transfer to Bali International Airport for flight departure." }
     ]
   },
   {
