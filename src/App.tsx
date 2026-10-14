@@ -619,10 +619,14 @@ function MainContent() {
       }, 50);
 
       const timer1 = setTimeout(() => {
+        const activeTag = document.activeElement?.tagName?.toLowerCase();
+        if (activeTag === "input" || activeTag === "textarea") return;
         setIsAutoPopUpOpen(true);
       }, 45000);
 
       const timer2 = setTimeout(() => {
+        const activeTag = document.activeElement?.tagName?.toLowerCase();
+        if (activeTag === "input" || activeTag === "textarea") return;
         setIsAutoPopUpOpen(true);
       }, 120000);
 
@@ -636,7 +640,7 @@ function MainContent() {
 
   useEffect(() => {
     if (typeof document !== "undefined") {
-      if (isAutoPopUpOpen) {
+      if (isAutoPopUpOpen && window.innerWidth >= 768) {
         document.body.style.overflow = "hidden";
       } else {
         document.body.style.overflow = "unset";
