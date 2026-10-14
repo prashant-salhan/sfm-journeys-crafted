@@ -289,7 +289,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
                 style={{ color: "#0f172a" }}
-                className="nav-link-item flex items-center gap-1 hover:scale-105 transition-all drop-shadow-sm font-black text-xs sm:text-sm bg-transparent border-none cursor-pointer py-1 uppercase"
+                className="nav-link-item flex items-center gap-1 hover:scale-105 transition-all drop-shadow-sm font-black text-xs sm:text-sm bg-transparent border-none cursor-pointer py-1"
               >
                 <span>International Packages</span>
                 <ChevronDown
@@ -374,11 +374,11 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
 
             <a
               href="#enquiry"
-              onClick={(e) => handleNavClick(e, "enquiry", undefined, "Hotel & Flight Services")}
+              onClick={(e) => handleNavClick(e, "enquiry", undefined, "Hotel And Flight Services")}
               style={{ color: "#0f172a", textDecoration: "none" }}
               className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
             >
-              Hotel & Flight Services
+              Hotel And Flight Services
             </a>
             {/* Cruise Dropdown */}
             <div
@@ -400,7 +400,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
                   setIsCruiseOpen(!isCruiseOpen);
                 }}
                 style={{ color: "#0f172a" }}
-                className="nav-link-item flex items-center gap-1 hover:scale-105 transition-all drop-shadow-sm font-black text-xs sm:text-sm bg-transparent border-none cursor-pointer py-1 uppercase"
+                className="nav-link-item flex items-center gap-1 hover:scale-105 transition-all drop-shadow-sm font-black text-xs sm:text-sm bg-transparent border-none cursor-pointer py-1"
               >
                 <span>Cruise</span>
                 <ChevronDown
@@ -454,6 +454,14 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
               className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
             >
               About Us
+            </a>
+            <a
+              href="#visit-office"
+              onClick={(e) => handleNavClick(e, "visit-office")}
+              style={{ color: "#0f172a", textDecoration: "none" }}
+              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
+            >
+              Our Office
             </a>
           </nav>
 
@@ -579,7 +587,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
               style={{ color: "#0f172a", textDecoration: "none" }}
               className="block font-extrabold text-sm nav-link-item"
             >
-              Hotel & Flight Services
+              Hotel And Flight Services
             </a>
             {/* Mobile Cruise Dropdown */}
             <div className="space-y-2">
@@ -629,6 +637,17 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
               className="block font-extrabold text-sm nav-link-item"
             >
               About Us
+            </a>
+            <a
+              href="#visit-office"
+              onClick={(e) => {
+                setMobileMenuOpen(false);
+                handleNavClick(e, "visit-office");
+              }}
+              style={{ color: "#0f172a", textDecoration: "none" }}
+              className="block font-extrabold text-sm nav-link-item"
+            >
+              Our Office
             </a>
             <div className="pt-3 border-t border-amber-200 flex items-center justify-between">
               <CurrencySelector className="scale-90" />

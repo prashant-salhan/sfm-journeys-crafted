@@ -46,6 +46,7 @@ import {
   type IndiaPackage,
 } from "@/components/Sections";
 import { JourneyInFramesSection } from "@/components/JourneyInFramesSection";
+import { VisitOfficeSection } from "@/components/VisitOfficeSection";
 
 import sfmHero from "@/assets/sfm-hero.jpg";
 import sfmKashmir from "@/assets/sfm-kashmir.jpg";
@@ -500,6 +501,95 @@ function PackagesCarousel({
   );
 }
 
+/**
+ * AnimatedCounter:
+ * Smooth counting animation triggered via IntersectionObserver when entering the viewport.
+ * Uses an easeOutExpo curve for realistic counting deceleration, matching modern counter animations.
+ */
+function AnimatedCounter({
+  target,
+  decimals = 0,
+  prefix = "",
+  suffix = "",
+  duration = 2000,
+}: {
+  target: number;
+  decimals?: number;
+  prefix?: string;
+  suffix?: string;
+  duration?: number;
+}) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const [hasStarted, setHasStarted] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    if (typeof IntersectionObserver === "undefined") {
+      setHasStarted(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setHasStarted(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -20px 0px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
+    let startTimestamp: number | null = null;
+    let animationFrameId: number;
+
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const elapsed = timestamp - startTimestamp;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Smooth ease-out expo curve for counting animation
+      const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const current = eased * target;
+
+      setCount(current);
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(step);
+      } else {
+        setCount(target);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [hasStarted, target, duration]);
+
+  const formatted =
+    decimals > 0
+      ? count.toFixed(decimals)
+      : Math.floor(count).toLocaleString("en-IN");
+
+  return (
+    <span ref={ref} className="inline-block tabular-nums font-black">
+      {prefix}
+      {hasStarted ? formatted : (decimals > 0 ? (0).toFixed(decimals) : "0")}
+      {suffix}
+    </span>
+  );
+}
+
 function MainContent() {
   const { formatPrice } = useCurrency();
   const [activeTab, setActiveTab] = useState("all");
@@ -640,7 +730,7 @@ function MainContent() {
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-lg">
             Travel Professionals <br className="hidden sm:inline" />
             <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
-              Office In Delhi & Dubai
+              Office In Delhi And Dubai
             </span>
           </h1>
 
@@ -661,32 +751,161 @@ function MainContent() {
         </section>
       </div>
 
-      {/* Trust & Stats Ticker Bar */}
-      <section className="bg-slate-50 border-b border-slate-200 pt-16 sm:pt-24 pb-6 px-4">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          <div className="space-y-1 hover:scale-105 transition-transform">
-            <div className="flex items-center justify-center gap-1.5 text-amber-600 font-black text-xl sm:text-2xl">
-              <Users className="w-5 h-5 text-amber-600" /> 50,000+
-            </div>
-            <p className="text-slate-600 text-xs font-bold">Happy Travelers Hosted</p>
+      {/* Luxury Stats Section (Matching Midnight Slate & Golden Amber Palette) */}
+      <section className="relative bg-gradient-to-b from-slate-950 via-[#070e1d] to-slate-950 text-white pt-24 sm:pt-36 pb-20 sm:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-slate-800/80">
+        {/* Subtle Ambient Background Image with Dark Slate & Amber Radiance */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <img
+            src={sfmHero}
+            alt="SFM Travelers Family Background"
+            className="w-full h-full object-cover object-center opacity-10 filter brightness-75 contrast-125 saturate-50"
+          />
+          {/* Matching Slate & Amber Gradients */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/90 to-slate-950" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(245,158,11,0.15)_0%,rgba(217,119,6,0.06)_50%,transparent_80%)]" />
+          {/* Subtle noise/stardust pattern */}
+          <div
+            className="absolute inset-0 opacity-[0.06]"
+            style={{
+              backgroundImage: "radial-gradient(rgba(255,255,255,0.7) 1px, transparent 1px)",
+              backgroundSize: "24px 24px",
+            }}
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10 space-y-12 sm:space-y-16">
+          {/* Section Header */}
+          <div className="text-center space-y-2 max-w-3xl mx-auto">
+            <span
+              className="font-script text-amber-400 text-2xl sm:text-3xl font-bold block drop-shadow-sm"
+              style={{ fontFamily: '"Caveat", cursive' }}
+            >
+              Explore Without Limits
+            </span>
+            <h3
+              className="font-display text-white text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight"
+              style={{
+                fontFamily: '"Fraunces", Georgia, serif',
+                fontVariationSettings: '"SOFT" 100, "WONK" 1',
+              }}
+            >
+              Your Trusted Partner for{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500">
+                Unforgettable Global Adventures
+              </span>
+            </h3>
           </div>
-          <div className="space-y-1 hover:scale-105 transition-transform">
-            <div className="flex items-center justify-center gap-1.5 text-amber-600 font-black text-xl sm:text-2xl">
-              <Star className="w-5 h-5 fill-amber-500 text-amber-500 animate-pulse" /> 4.9 / 5.0
+
+          {/* 4 Frosted Glass Stat Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+            {/* Card 1: Happy Travelers */}
+            <div className="p-8 sm:p-9 rounded-3xl bg-slate-900/60 sm:bg-white/[0.04] backdrop-blur-xl border border-white/10 hover:border-amber-400/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_20px_40px_-15px_rgba(0,0,0,0.7)] hover:bg-white/[0.08] hover:-translate-y-2 hover:shadow-[0_0_50px_-10px_rgba(245,158,11,0.35)] transition-all duration-500 group flex flex-col justify-between">
+              <div>
+                <div
+                  className="font-display text-5xl sm:text-6xl font-bold tracking-tight bg-gradient-to-b from-white via-amber-50 to-amber-300 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(245,158,11,0.3)]"
+                  style={{
+                    fontFamily: '"Fraunces", Georgia, serif',
+                    fontVariationSettings: '"SOFT" 100, "WONK" 1',
+                  }}
+                >
+                  <AnimatedCounter target={50000} suffix="+" duration={2000} />
+                </div>
+                <b
+                  className="block mt-4 text-amber-400 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] font-outfit"
+                  style={{ fontFamily: '"Outfit", system-ui, sans-serif' }}
+                >
+                  Happy Travelers
+                </b>
+                <small
+                  className="block mt-1.5 text-slate-300 font-outfit text-xs sm:text-sm leading-relaxed font-normal"
+                  style={{ fontFamily: '"Outfit", system-ui, sans-serif' }}
+                >
+                  in the SFM Travels global network
+                </small>
+              </div>
             </div>
-            <p className="text-slate-600 text-xs font-bold">Google & TripAdvisor Rating</p>
-          </div>
-          <div className="space-y-1 hover:scale-105 transition-transform">
-            <div className="flex items-center justify-center gap-1.5 text-amber-600 font-black text-xl sm:text-2xl">
-              <Building className="w-5 h-5 text-amber-600" /> 200+
+
+            {/* Card 2: Verified Rating */}
+            <div className="p-8 sm:p-9 rounded-3xl bg-slate-900/60 sm:bg-white/[0.04] backdrop-blur-xl border border-white/10 hover:border-amber-400/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_20px_40px_-15px_rgba(0,0,0,0.7)] hover:bg-white/[0.08] hover:-translate-y-2 hover:shadow-[0_0_50px_-10px_rgba(245,158,11,0.35)] transition-all duration-500 group flex flex-col justify-between">
+              <div>
+                <div
+                  className="font-display text-5xl sm:text-6xl font-bold tracking-tight bg-gradient-to-b from-white via-amber-50 to-amber-300 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(245,158,11,0.3)] flex items-baseline gap-1"
+                  style={{
+                    fontFamily: '"Fraunces", Georgia, serif',
+                    fontVariationSettings: '"SOFT" 100, "WONK" 1',
+                  }}
+                >
+                  <AnimatedCounter target={4.9} decimals={1} duration={1800} />
+                  <span className="text-3xl sm:text-4xl text-amber-400">★</span>
+                </div>
+                <b
+                  className="block mt-4 text-amber-400 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] font-outfit"
+                  style={{ fontFamily: '"Outfit", system-ui, sans-serif' }}
+                >
+                  Verified Rating
+                </b>
+                <small
+                  className="block mt-1.5 text-slate-300 font-outfit text-xs sm:text-sm leading-relaxed font-normal"
+                  style={{ fontFamily: '"Outfit", system-ui, sans-serif' }}
+                >
+                  quality reviews across Google and TripAdvisor
+                </small>
+              </div>
             </div>
-            <p className="text-slate-600 text-xs font-bold">Direct Partner Hotels</p>
-          </div>
-          <div className="space-y-1 hover:scale-105 transition-transform">
-            <div className="flex items-center justify-center gap-1.5 text-amber-600 font-black text-xl sm:text-2xl">
-              <Clock className="w-5 h-5 text-amber-600" /> 24 / 7
+
+            {/* Card 3: Partner Hotels */}
+            <div className="p-8 sm:p-9 rounded-3xl bg-slate-900/60 sm:bg-white/[0.04] backdrop-blur-xl border border-white/10 hover:border-amber-400/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_20px_40px_-15px_rgba(0,0,0,0.7)] hover:bg-white/[0.08] hover:-translate-y-2 hover:shadow-[0_0_50px_-10px_rgba(245,158,11,0.35)] transition-all duration-500 group flex flex-col justify-between">
+              <div>
+                <div
+                  className="font-display text-5xl sm:text-6xl font-bold tracking-tight bg-gradient-to-b from-white via-amber-50 to-amber-300 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(245,158,11,0.3)]"
+                  style={{
+                    fontFamily: '"Fraunces", Georgia, serif',
+                    fontVariationSettings: '"SOFT" 100, "WONK" 1',
+                  }}
+                >
+                  <AnimatedCounter target={200} suffix="+" duration={1800} />
+                </div>
+                <b
+                  className="block mt-4 text-amber-400 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] font-outfit"
+                  style={{ fontFamily: '"Outfit", system-ui, sans-serif' }}
+                >
+                  Partner Hotels
+                </b>
+                <small
+                  className="block mt-1.5 text-slate-300 font-outfit text-xs sm:text-sm leading-relaxed font-normal"
+                  style={{ fontFamily: '"Outfit", system-ui, sans-serif' }}
+                >
+                  handpicked 4★ and 5★ luxury stays
+                </small>
+              </div>
             </div>
-            <p className="text-slate-600 text-xs font-bold">On-Ground Concierge Support</p>
+
+            {/* Card 4: 24/7 Concierge */}
+            <div className="p-8 sm:p-9 rounded-3xl bg-slate-900/60 sm:bg-white/[0.04] backdrop-blur-xl border border-white/10 hover:border-amber-400/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_20px_40px_-15px_rgba(0,0,0,0.7)] hover:bg-white/[0.08] hover:-translate-y-2 hover:shadow-[0_0_50px_-10px_rgba(245,158,11,0.35)] transition-all duration-500 group flex flex-col justify-between">
+              <div>
+                <div
+                  className="font-display text-5xl sm:text-6xl font-bold tracking-tight bg-gradient-to-b from-white via-amber-50 to-amber-300 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(245,158,11,0.3)]"
+                  style={{
+                    fontFamily: '"Fraunces", Georgia, serif',
+                    fontVariationSettings: '"SOFT" 100, "WONK" 1',
+                  }}
+                >
+                  <AnimatedCounter target={24} suffix="/7" duration={1500} />
+                </div>
+                <b
+                  className="block mt-4 text-amber-400 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] font-outfit"
+                  style={{ fontFamily: '"Outfit", system-ui, sans-serif' }}
+                >
+                  Concierge Care
+                </b>
+                <small
+                  className="block mt-1.5 text-slate-300 font-outfit text-xs sm:text-sm leading-relaxed font-normal"
+                  style={{ fontFamily: '"Outfit", system-ui, sans-serif' }}
+                >
+                  dedicated on-ground personal trip support
+                </small>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -769,6 +988,9 @@ function MainContent() {
         }}
         formatPrice={formatPrice}
       />
+
+      {/* Visit Our Office - Google Maps & Contact (Birla Open Minds Inspired) */}
+      <VisitOfficeSection />
 
       {/* Footer */}
       <FooterSection />

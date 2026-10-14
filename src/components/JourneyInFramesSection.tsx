@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, memo } from "react";
-import { Camera, MousePointer, Sparkles } from "lucide-react";
+import { Camera, Sparkles } from "lucide-react";
 
 interface GuestFrame {
   id: number;
@@ -71,34 +71,44 @@ const GUEST_FRAMES: GuestFrame[] = [
   { id: 61, src: "/guest-frames/frame-61.jpeg", alt: "SFM Travels Guest Moment 61" },
 ];
 
+const DUPLICATED_FRAMES: GuestFrame[] = [...GUEST_FRAMES, ...GUEST_FRAMES];
+
 export const JourneyInFramesSection = memo(function JourneyInFramesSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  const targetScrollRef = useRef(0);
-  const currentScrollRef = useRef(0);
+  const isPausedRef = useRef(false);
   const isDraggingRef = useRef(false);
   const startXRef = useRef(0);
   const scrollStartRef = useRef(0);
 
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0, visible: false });
   const [isGrabbed, setIsGrabbed] = useState(false);
 
-  // Smooth sliding animation loop using requestAnimationFrame
+  // Smooth continuous auto-sliding loop with seamless wrap-around and pause on image hover
   useEffect(() => {
     let animId: number;
+    let lastTimestamp: number | null = null;
+    const SPEED_PIXELS_PER_SEC = 130; // Brisk, smooth and engaging sliding speed
 
-    const animate = () => {
-      if (containerRef.current && trackRef.current) {
-        const maxScroll = Math.max(0, trackRef.current.scrollWidth - containerRef.current.clientWidth);
-        targetScrollRef.current = Math.max(0, Math.min(maxScroll, targetScrollRef.current));
+    const animate = (timestamp: number) => {
+      if (lastTimestamp === null) lastTimestamp = timestamp;
+      const deltaSec = Math.min((timestamp - lastTimestamp) / 1000, 0.1);
+      lastTimestamp = timestamp;
 
-        const diff = targetScrollRef.current - currentScrollRef.current;
-        if (Math.abs(diff) > 0.4) {
-          currentScrollRef.current += diff * (isDraggingRef.current ? 0.35 : 0.08);
-          containerRef.current.scrollLeft = currentScrollRef.current;
+      const container = containerRef.current;
+      const track = trackRef.current;
+
+      if (container && track && !isPausedRef.current && !isDraggingRef.current) {
+        const halfWidth = track.scrollWidth / 2;
+        if (halfWidth > 0) {
+          let nextScroll = container.scrollLeft + SPEED_PIXELS_PER_SEC * deltaSec;
+          if (nextScroll >= halfWidth) {
+            nextScroll -= halfWidth;
+          }
+          container.scrollLeft = nextScroll;
         }
       }
+
       animId = requestAnimationFrame(animate);
     };
 
@@ -106,44 +116,33 @@ export const JourneyInFramesSection = memo(function JourneyInFramesSection() {
     return () => cancelAnimationFrame(animId);
   }, []);
 
-  // Slide purely with cursor movement across container
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current || !trackRef.current) return;
-
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    setCursorPos({ x: e.clientX, y: e.clientY, visible: true });
-
-    if (isDraggingRef.current) {
-      const dx = e.clientX - startXRef.current;
-      targetScrollRef.current = scrollStartRef.current - dx;
-      return;
-    }
-
-    // Direct cursor position sliding
-    const ratio = Math.max(0, Math.min(1, x / rect.width));
-    const maxScroll = trackRef.current.scrollWidth - containerRef.current.clientWidth;
-    if (maxScroll > 0) {
-      targetScrollRef.current = ratio * maxScroll;
-    }
+  // Hover strictly over image card pauses; leaving resumes sliding
+  const handleCardMouseEnter = () => {
+    isPausedRef.current = true;
   };
 
-  const handleMouseEnter = () => {
-    setCursorPos((prev) => ({ ...prev, visible: true }));
-  };
-
-  const handleMouseLeave = () => {
-    setCursorPos((prev) => ({ ...prev, visible: false }));
-    isDraggingRef.current = false;
-    setIsGrabbed(false);
+  const handleCardMouseLeave = () => {
+    isPausedRef.current = false;
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     isDraggingRef.current = true;
     setIsGrabbed(true);
+    isPausedRef.current = true;
     startXRef.current = e.clientX;
     scrollStartRef.current = containerRef.current?.scrollLeft || 0;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDraggingRef.current || !containerRef.current || !trackRef.current) return;
+    const dx = e.clientX - startXRef.current;
+    let nextScroll = scrollStartRef.current - dx;
+    const halfWidth = trackRef.current.scrollWidth / 2;
+    if (halfWidth > 0) {
+      while (nextScroll < 0) nextScroll += halfWidth;
+      while (nextScroll >= halfWidth) nextScroll -= halfWidth;
+    }
+    containerRef.current.scrollLeft = nextScroll;
   };
 
   const handleMouseUp = () => {
@@ -155,7 +154,7 @@ export const JourneyInFramesSection = memo(function JourneyInFramesSection() {
   const handleTouchStart = (e: React.TouchEvent) => {
     if (e.touches.length === 1) {
       isDraggingRef.current = true;
-      setIsGrabbed(true);
+      isPausedRef.current = true;
       startXRef.current = e.touches[0].clientX;
       scrollStartRef.current = containerRef.current?.scrollLeft || 0;
     }
@@ -164,13 +163,21 @@ export const JourneyInFramesSection = memo(function JourneyInFramesSection() {
   const handleTouchMove = (e: React.TouchEvent) => {
     if (isDraggingRef.current && e.touches.length === 1 && containerRef.current && trackRef.current) {
       const dx = e.touches[0].clientX - startXRef.current;
-      targetScrollRef.current = scrollStartRef.current - dx;
+      let nextScroll = scrollStartRef.current - dx;
+      const halfWidth = trackRef.current.scrollWidth / 2;
+      if (halfWidth > 0) {
+        while (nextScroll < 0) nextScroll += halfWidth;
+        while (nextScroll >= halfWidth) nextScroll -= halfWidth;
+      }
+      containerRef.current.scrollLeft = nextScroll;
     }
   };
 
   const handleTouchEnd = () => {
     isDraggingRef.current = false;
-    setIsGrabbed(false);
+    setTimeout(() => {
+      isPausedRef.current = false;
+    }, 400);
   };
 
   return (
@@ -180,38 +187,37 @@ export const JourneyInFramesSection = memo(function JourneyInFramesSection() {
       <div className="absolute bottom-0 inset-x-0 h-44 bg-gradient-to-t from-slate-200/50 via-slate-100/20 to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 mb-8">
-        {/* Exact Header matching user requirement */}
+        {/* Header */}
         <div className="text-center space-y-2 max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 text-[11px] font-bold uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 text-[11px] font-bold uppercase tracking-wider mb-2 font-outfit">
             <Camera className="w-3.5 h-3.5 text-amber-500" />
             <span>Real SFM Travelers Gallery</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-wider uppercase font-sans">
+          <h2
+            className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-wider uppercase"
+            style={{
+              fontFamily: '"Fraunces", Georgia, serif',
+              fontVariationSettings: '"SOFT" 100, "WONK" 1',
+            }}
+          >
             JOURNEY IN FRAMES
           </h2>
           {/* Yellow decorative accent bar */}
           <div className="w-16 h-1 bg-[#fbbf24] mx-auto rounded-full my-2.5 shadow-sm" />
-          <p className="text-slate-500 text-sm sm:text-base font-semibold tracking-wide">
+          <p
+            className="font-outfit text-slate-500 text-sm sm:text-base font-semibold tracking-wide"
+            style={{ fontFamily: '"Outfit", system-ui, sans-serif' }}
+          >
             Pictures Perfect Moments
           </p>
-
-          {/* Interactive Cursor Hint Pill */}
-          <div className="pt-2">
-            <span className="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 bg-white/90 border border-slate-200/90 px-4 py-1.5 rounded-full shadow-sm">
-              <MousePointer className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
-              <span>Hover & move cursor to slide frames smoothly</span>
-            </span>
-          </div>
         </div>
       </div>
 
-      {/* Sliding Gallery Container with Cursor Control */}
+      {/* Infinite Seamless Sliding Gallery Container */}
       <div
         ref={containerRef}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
         onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
@@ -228,14 +234,16 @@ export const JourneyInFramesSection = memo(function JourneyInFramesSection() {
           ref={trackRef}
           className="flex items-start gap-6 sm:gap-8 px-6 sm:px-12 w-max"
         >
-          {GUEST_FRAMES.map((frame) => (
+          {DUPLICATED_FRAMES.map((frame, index) => (
             <div
-              key={frame.id}
+              key={`${frame.id}-${index}`}
               className="flex flex-col items-center shrink-0 group select-none"
               style={{ width: "270px" }}
             >
-              {/* Main Photo Frame Card */}
+              {/* Main Photo Frame Card: Only hovering over this stops the sliding */}
               <div
+                onMouseEnter={handleCardMouseEnter}
+                onMouseLeave={handleCardMouseLeave}
                 className="w-full h-[360px] sm:h-[390px] rounded-2xl overflow-hidden bg-white p-2.5 shadow-xl shadow-slate-300/40 border border-slate-200/90 transition-all duration-300 group-hover:scale-[1.03] group-hover:-translate-y-2 group-hover:shadow-2xl group-hover:shadow-amber-500/15 group-hover:border-amber-400/60 relative flex flex-col"
               >
                 <div className="w-full h-full rounded-xl overflow-hidden relative bg-slate-100">

@@ -33,16 +33,16 @@ export function SearchBox({
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-2xl border border-white/90 p-4 sm:p-7 rounded-2xl sm:rounded-3xl max-w-3xl mx-auto shadow-2xl shadow-slate-950/30 space-y-4 sm:space-y-5 transition-all hover-card-3d relative z-30">
+    <div className="bg-slate-950/65 backdrop-blur-2xl border border-white/20 p-4 sm:p-6 sm:px-8 rounded-2xl sm:rounded-3xl max-w-3xl mx-auto shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7),0_0_40px_-15px_rgba(240,92,43,0.25)] space-y-4 sm:space-y-5 transition-all relative z-30 ring-1 ring-white/10">
       {/* Category Pills */}
-      <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center border-b border-slate-100 pb-3 sm:pb-4">
+      <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center border-b border-white/10 pb-3 sm:pb-4">
         {[
           { id: "all", label: "All Packages" },
           { id: "singapore", label: "Singapore" },
           { id: "bali", label: "Bali" },
           { id: "thailand", label: "Thailand" },
           { id: "vietnam", label: "Vietnam" },
-          { id: "europe", label: "Europe & Swiss" },
+          { id: "europe", label: "Europe and Swiss" },
           { id: "malaysia", label: "Malaysia" },
           { id: "international", label: "All International" },
           { id: "domestic", label: "Domestic Tours" },
@@ -52,10 +52,10 @@ export function SearchBox({
           <button
             key={tab.id}
             onClick={() => onTabChange(tab.id)}
-            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition-all cursor-pointer ${
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition-all cursor-pointer font-outfit ${
               activeTab === tab.id
-                ? "bg-slate-900 text-white shadow-md scale-105 font-black ring-2 ring-slate-800"
-                : "bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 hover:scale-102"
+                ? "bg-gradient-to-r from-[#F05C2B] via-[#FF7A3D] to-[#F8A51C] text-white shadow-[0_4px_16px_rgba(240,92,43,0.5)] scale-105 font-black ring-1 ring-white/40"
+                : "bg-white/10 hover:bg-white/20 text-slate-200 hover:text-white hover:scale-102 border border-white/10 backdrop-blur-md"
             }`}
           >
             {tab.label}
@@ -66,8 +66,8 @@ export function SearchBox({
       {/* Input & Action */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <label htmlFor="sfm_search_query" className="sr-only">Search India Destinations</label>
-          <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-amber-500 pointer-events-none transition-transform group-hover:scale-110" />
+          <label htmlFor="sfm_search_query" className="sr-only">Search India & International Destinations</label>
+          <Search className="absolute left-3.5 top-3.5 sm:top-4 w-4 h-4 text-amber-400 pointer-events-none transition-transform group-hover:scale-110" />
           <input
             id="sfm_search_query"
             name="searchQuery"
@@ -76,26 +76,27 @@ export function SearchBox({
             placeholder="Search destinations, e.g. Kashmir, Houseboat, Taj Mahal, Goa, Thailand..."
             value={localQuery}
             onChange={handleInputChange}
-            className="w-full bg-slate-50 border border-slate-300 focus:border-amber-500 focus:bg-white focus:ring-4 focus:ring-amber-500/15 rounded-xl pl-10 sm:pl-11 pr-3 sm:pr-4 py-3 text-base sm:text-sm text-slate-900 placeholder:text-slate-400 font-semibold transition-all outline-none"
-            style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
+            className="w-full bg-white/10 hover:bg-white/15 focus:bg-white/20 backdrop-blur-md border border-white/25 focus:border-[#F8A51C] focus:ring-4 focus:ring-[#F05C2B]/20 rounded-xl pl-10 sm:pl-11 pr-3 sm:pr-4 py-3 sm:py-3.5 text-base sm:text-sm text-white placeholder:text-slate-300 font-medium transition-all outline-none font-outfit"
           />
         </div>
         <button
           onClick={onGetQuote}
-          className="bg-gradient-to-r from-amber-500 via-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black px-5 py-3 rounded-xl transition-all flex items-center justify-center gap-2 text-xs sm:text-sm shrink-0 cursor-pointer shadow-lg shadow-amber-500/25 hover:scale-103 active:scale-98"
+          className="bg-gradient-to-r from-[#AD2627] via-[#F05C2B] to-[#FF7A3D] hover:from-[#7A1518] hover:to-[#F05C2B] text-white font-extrabold px-6 py-3 sm:py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 text-xs sm:text-sm shrink-0 cursor-pointer shadow-[0_8px_25px_-5px_rgba(240,92,43,0.5)] hover:scale-105 active:scale-95 duration-200 font-outfit"
         >
-          <Sparkles className="w-4 h-4 text-slate-950 animate-spin-slow" /> Get Custom Quote <ArrowRight className="w-4 h-4" />
+          <Sparkles className="w-4 h-4 text-white animate-spin-slow" />
+          <span>Get Custom Quote</span>
+          <ArrowRight className="w-4 h-4" />
         </button>
       </div>
 
       {/* Quick Search Tag Shortcuts */}
-      <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-slate-500">
-        <span className="font-bold text-slate-600">Popular:</span>
+      <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-slate-300 font-outfit">
+        <span className="font-bold text-slate-200">Popular:</span>
         {["Singapore", "Bali", "Thailand", "Vietnam", "Europe", "Malaysia", "Kashmir", "Kerala"].map((tag, idx) => (
           <button
             key={idx}
             onClick={() => setQuickTag(tag)}
-            className="hover:text-amber-600 font-bold underline decoration-slate-300 underline-offset-4 hover:scale-105 transition-transform cursor-pointer"
+            className="text-amber-300/90 hover:text-amber-200 font-semibold underline decoration-amber-400/40 underline-offset-4 hover:scale-105 transition-all cursor-pointer"
           >
             #{tag}
           </button>

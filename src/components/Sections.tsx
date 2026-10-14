@@ -19,6 +19,11 @@ import {
   Phone,
   Mail,
   ExternalLink,
+  BadgeCheck,
+  Headphones,
+  Car,
+  HeartHandshake,
+  CheckCircle2,
 } from "lucide-react";
 import sfmLogo from "@/assets/sfm-logo.png";
 
@@ -618,50 +623,177 @@ export const FaqSection = memo(function FaqSection() {
 });
 
 export const WhyChooseUsSection = memo(function WhyChooseUsSection() {
+  const PILLARS = [
+    {
+      num: "01",
+      tag: "Best Rate Promise",
+      title: "Direct Rates Guarantee",
+      desc: "Direct contracting with 4★/5★ luxury resorts, boutique heritage palaces & verified houseboat owners.",
+      icon: ShieldCheck,
+      gradient: "from-amber-500 via-amber-400 to-yellow-400",
+      accentBg: "bg-amber-500/10 text-amber-700 border-amber-500/25",
+      iconShadow: "shadow-amber-500/30",
+      highlights: [
+        "Zero hidden markups",
+        "Direct resort tie-ups",
+        "Best price assurance",
+      ],
+    },
+    {
+      num: "02",
+      tag: "Live Concierge Desk",
+      title: "24/7 On-Ground Support",
+      desc: "Dedicated personal India tour manager assisting you from airport arrival, hotel check-ins, to final departure.",
+      icon: Headphones,
+      gradient: "from-orange-500 via-amber-500 to-amber-400",
+      accentBg: "bg-orange-500/10 text-orange-700 border-orange-500/25",
+      iconShadow: "shadow-orange-500/30",
+      highlights: [
+        "Instant WhatsApp helpline",
+        "Real-time flight tracking",
+        "Local language assistance",
+      ],
+    },
+    {
+      num: "03",
+      tag: "Safety & Comfort Fleet",
+      title: "Verified Cab Drivers",
+      desc: "Professional, uniform-clad local drivers with well-maintained, sanitized, GPS-tracked air-conditioned vehicles.",
+      icon: Car,
+      gradient: "from-amber-600 via-orange-500 to-amber-400",
+      accentBg: "bg-amber-500/10 text-amber-700 border-amber-500/25",
+      iconShadow: "shadow-amber-600/30",
+      highlights: [
+        "Sanitized private AC cabs",
+        "Police-verified chauffeurs",
+        "Experienced route guides",
+      ],
+    },
+    {
+      num: "04",
+      tag: "12+ Years Heritage",
+      title: "50,000+ Happy Guests",
+      desc: "Over a decade of handcrafted hospitality creating unforgettable bespoke holiday memories across India.",
+      icon: HeartHandshake,
+      gradient: "from-yellow-500 via-amber-400 to-amber-500",
+      accentBg: "bg-yellow-500/10 text-yellow-800 border-yellow-500/25",
+      iconShadow: "shadow-yellow-500/30",
+      highlights: [
+        "4.9★ Google & TripAdvisor",
+        "94% repeat & referral guests",
+        "100% custom-tailored pacing",
+      ],
+    },
+  ];
+
   return (
-    <section id="why-us" className="py-20 px-4 bg-slate-50 border-t border-slate-200">
-      <div className="max-w-7xl mx-auto text-center space-y-12">
-        <div className="space-y-4 max-w-3xl mx-auto">
-          <span className="text-xs font-bold uppercase tracking-widest text-amber-600">
-            Why SFM Travels India
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-            Your Trusted Incredible India Destination Specialist
+    <section id="why-us" className="py-24 sm:py-28 px-4 bg-gradient-to-b from-white via-slate-50/60 to-amber-50/20 border-t border-slate-200/80 relative overflow-hidden">
+      {/* Ambient background radiance */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-gradient-to-b from-amber-400/10 via-amber-500/5 to-transparent blur-3xl pointer-events-none rounded-full" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[300px] bg-amber-500/5 blur-[100px] pointer-events-none rounded-full" />
+
+      <div className="max-w-7xl mx-auto relative z-10 space-y-16">
+        {/* Header with Luxury Editorial Styling */}
+        <div className="text-center space-y-4 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-700 text-xs font-black uppercase tracking-widest shadow-sm font-outfit">
+            <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
+            <span>Why SFM Travels ?</span>
+          </div>
+
+          <h2
+            className="font-display text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight"
+            style={{
+              fontFamily: '"Fraunces", Georgia, serif',
+              fontVariationSettings: '"SOFT" 100, "WONK" 1',
+            }}
+          >
+            Your Trusted{" "}
+            <span className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 bg-clip-text text-transparent">
+              Worldwide
+            </span>{" "}
+            Destination Specialist
           </h2>
-          <p className="text-slate-600 text-sm font-medium">
-            Direct contracts, transparent pricing, and 100% guest satisfaction guarantee.
+
+          <p className="text-slate-600 text-sm sm:text-base font-medium max-w-2xl mx-auto leading-relaxed">
+            Direct resort contracts, 100% transparent pricing, and handcrafted bespoke vacations managed with personal warmth.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="space-y-3 p-7 bg-white border border-slate-200/90 rounded-3xl hover-card-3d shadow-lg shadow-slate-200/50">
-            <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-600 w-fit mx-auto border border-amber-500/20 float-3d shadow-sm">
-              <ShieldCheck className="w-8 h-8" />
-            </div>
-            <h3 className="font-extrabold text-slate-900 text-base">Direct Rates Guarantee</h3>
-            <p className="text-slate-600 text-xs leading-relaxed font-medium">Direct contracting with 4★/5★ luxury resorts & verified houseboat owners.</p>
-          </div>
-          <div className="space-y-3 p-7 bg-white border border-slate-200/90 rounded-3xl hover-card-3d shadow-lg shadow-slate-200/50">
-            <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-600 w-fit mx-auto border border-amber-500/20 float-3d shadow-sm">
-              <Clock className="w-8 h-8" />
-            </div>
-            <h3 className="font-extrabold text-slate-900 text-base">24/7 On-Ground Support</h3>
-            <p className="text-slate-600 text-xs leading-relaxed font-medium">Dedicated India tour manager assisting you from arrival to final drop.</p>
-          </div>
-          <div className="space-y-3 p-7 bg-white border border-slate-200/90 rounded-3xl hover-card-3d shadow-lg shadow-slate-200/50">
-            <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-600 w-fit mx-auto border border-amber-500/20 float-3d shadow-sm">
-              <FileCheck className="w-8 h-8" />
-            </div>
-            <h3 className="font-extrabold text-slate-900 text-base">Verified Cab Drivers</h3>
-            <p className="text-slate-600 text-xs leading-relaxed font-medium">Professional, uniform-clad local drivers with well-maintained air-conditioned vehicles.</p>
-          </div>
-          <div className="space-y-3 p-7 bg-white border border-slate-200/90 rounded-3xl hover-card-3d shadow-lg shadow-slate-200/50">
-            <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-600 w-fit mx-auto border border-amber-500/20 float-3d shadow-sm">
-              <Users className="w-8 h-8" />
-            </div>
-            <h3 className="font-extrabold text-slate-900 text-base">50,000+ Happy Guests</h3>
-            <p className="text-slate-600 text-xs leading-relaxed font-medium">Over 10 years of experience creating unforgettable journeys across India.</p>
-          </div>
+        {/* 4 Elevated Dynamic Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          {PILLARS.map((pillar) => {
+            const IconComponent = pillar.icon;
+            return (
+              <div
+                key={pillar.num}
+                className="group relative bg-white/95 backdrop-blur-xl border border-slate-200/90 hover:border-amber-400/60 rounded-3xl p-7 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-amber-500/15 hover:-translate-y-2.5 transition-all duration-500 flex flex-col justify-between overflow-hidden"
+              >
+                {/* Top Subtle Gradient Line */}
+                <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                {/* Number Watermark in Background */}
+                <span className="absolute -top-3 -right-2 font-display text-7xl font-black text-slate-100 group-hover:text-amber-500/10 transition-colors duration-500 pointer-events-none select-none">
+                  {pillar.num}
+                </span>
+
+                <div className="space-y-5 relative z-10">
+                  {/* Top Row: 3D Gradient Icon + Tag Chip */}
+                  <div className="flex items-center justify-between">
+                    <div
+                      className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${pillar.gradient} text-slate-950 flex items-center justify-center shadow-lg ${pillar.iconShadow} group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500`}
+                    >
+                      <IconComponent className="w-7 h-7 text-slate-950 stroke-[2.3]" />
+                    </div>
+
+                    <span
+                      className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border shadow-xs ${pillar.accentBg}`}
+                    >
+                      {pillar.tag}
+                    </span>
+                  </div>
+
+                  {/* Title & Description */}
+                  <div className="space-y-2 text-left">
+                    <h3 className="font-display font-extrabold text-slate-900 text-lg sm:text-xl tracking-tight group-hover:text-amber-600 transition-colors">
+                      {pillar.title}
+                    </h3>
+                    <p className="text-slate-600 text-xs sm:text-[13px] leading-relaxed font-medium">
+                      {pillar.desc}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Highlights Checkmark List */}
+                <div className="mt-6 pt-5 border-t border-slate-100 space-y-2 text-left relative z-10">
+                  {pillar.highlights.map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-slate-700">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-amber-500 shrink-0 font-bold" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom Trust & Assurance Ribbon */}
+        <div className="max-w-4xl mx-auto bg-gradient-to-r from-amber-500/10 via-amber-400/15 to-amber-500/10 border border-amber-500/25 rounded-2xl py-3.5 px-6 shadow-sm flex flex-wrap items-center justify-around gap-4 text-xs font-bold text-slate-800">
+          <span className="flex items-center gap-1.5">
+            <BadgeCheck className="w-4 h-4 text-emerald-600" /> 100% Verified Accommodations
+          </span>
+          <span className="hidden sm:inline text-amber-400">•</span>
+          <span className="flex items-center gap-1.5">
+            <ShieldCheck className="w-4 h-4 text-amber-600" /> Transparent Pricing
+          </span>
+          <span className="hidden sm:inline text-amber-400">•</span>
+          <span className="flex items-center gap-1.5">
+            <Headphones className="w-4 h-4 text-amber-600" /> Dedicated Tour Manager
+          </span>
+          <span className="hidden sm:inline text-amber-400">•</span>
+          <span className="flex items-center gap-1.5">
+            <HeartHandshake className="w-4 h-4 text-emerald-600" /> 50,000+ Happy Explorers
+          </span>
         </div>
       </div>
     </section>
@@ -751,6 +883,20 @@ export const FooterSection = memo(function FooterSection() {
                 <span>About Us</span>
               </a>
             </li>
+            <li>
+              <a
+                href="#visit-office"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("visit-office")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                style={{ textDecoration: "none" }}
+                className="no-underline text-slate-300 hover:text-amber-400 transition-all inline-flex items-center gap-2 group"
+              >
+                <ChevronRight className="w-3.5 h-3.5 text-amber-400 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                <span>Visit Our Office</span>
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -762,7 +908,7 @@ export const FooterSection = memo(function FooterSection() {
           <div className="space-y-2.5 text-xs text-slate-300">
             <p className="leading-relaxed flex items-start gap-2">
               <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-              <span><strong>India:</strong> 142, Basement Avtar Enclave - Paschim Vihar New Delhi - 110063</span>
+              <span><strong>India:</strong> SFM Tour And Travels, Prateek Apartments, DDA Flats, A2/53, A 2 Block, Paschim Vihar, Delhi – 110063</span>
             </p>
             <p className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-amber-400 shrink-0" />
