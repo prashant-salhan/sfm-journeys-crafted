@@ -813,7 +813,7 @@ function MainContent() {
                     fontVariationSettings: '"SOFT" 100, "WONK" 1',
                   }}
                 >
-                  <AnimatedCounter target={50000} suffix="+" duration={2000} />
+                  <AnimatedCounter target={5000} suffix="+" duration={2000} />
                 </div>
                 <b
                   className="block mt-4 text-amber-400 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] font-outfit"

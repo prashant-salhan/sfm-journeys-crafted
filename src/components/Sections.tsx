@@ -307,7 +307,7 @@ export const TestimonialsSection = memo(function TestimonialsSection() {
             <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500 animate-bounce-subtle" /> Verified Google Reviews
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-            Loved by 50,000+ Happy Travelers
+            Loved by 5,000+ Happy Travelers
           </h2>
           <div className="flex flex-wrap items-center justify-center gap-3 text-amber-600 font-extrabold text-sm">
             <div className="flex text-amber-500">
@@ -672,7 +672,7 @@ export const WhyChooseUsSection = memo(function WhyChooseUsSection() {
     {
       num: "04",
       tag: "12+ Years Heritage",
-      title: "50,000+ Happy Guests",
+      title: "5,000+ Happy Guests",
       desc: "Over a decade of handcrafted hospitality creating unforgettable bespoke holiday memories across India.",
       icon: HeartHandshake,
       gradient: "from-yellow-500 via-amber-400 to-amber-500",
@@ -792,7 +792,7 @@ export const WhyChooseUsSection = memo(function WhyChooseUsSection() {
           </span>
           <span className="hidden sm:inline text-amber-400">•</span>
           <span className="flex items-center gap-1.5">
-            <HeartHandshake className="w-4 h-4 text-emerald-600" /> 50,000+ Happy Explorers
+            <HeartHandshake className="w-4 h-4 text-emerald-600" /> 5,000+ Happy Explorers
           </span>
         </div>
       </div>
