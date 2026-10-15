@@ -377,14 +377,9 @@ function ChangePasswordModal({
   onClose: () => void;
   onPasswordChanged: (updatedAdmin: any) => void;
 }) {
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [newUsername, setNewUsername] = useState("");
-  const [showPass, setShowPass] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
+  const [savedResult, setSavedResult] = useState<{ username: string; password: string } | null>(null);
+  const [copiedCreds, setCopiedCreds] = useState(false);
+  const [revealNewPass, setRevealNewPass] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -428,19 +423,30 @@ function ChangePasswordModal({
         throw new Error(data.error || "Failed to update password.");
       }
 
+      const activeUser = data.admin?.username || newUsername.trim() || "admin";
       setSuccessMsg("🎉 Password updated successfully! Your new password has been saved.");
+      setSavedResult({
+        username: activeUser,
+        password: newPassword,
+      });
+
       if (data.admin) {
         localStorage.setItem("sfm_admin_user", JSON.stringify(data.admin));
         onPasswordChanged(data.admin);
       }
-      setTimeout(() => {
-        onClose();
-      }, 1500);
     } catch (err: any) {
       setError(err.message || "Failed to update password.");
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleCopyCredentials = () => {
+    if (!savedResult) return;
+    const text = `SFM Travels Admin Portal Credentials\nPortal URL: https://sfmtravels.co.in/admin\nUsername: ${savedResult.username}\nPassword: ${savedResult.password}`;
+    navigator.clipboard.writeText(text);
+    setCopiedCreds(true);
+    setTimeout(() => setCopiedCreds(false), 2500);
   };
 
   return (
@@ -453,8 +459,12 @@ function ChangePasswordModal({
               <KeyRound className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-display font-bold text-base text-white">Change Admin Password</h3>
-              <p className="text-xs text-slate-400">Set a custom password for your admin account</p>
+              <h3 className="font-display font-bold text-base text-white">
+                {savedResult ? "Credentials Saved" : "Change Admin Password"}
+              </h3>
+              <p className="text-xs text-slate-400">
+                {savedResult ? "Your new credentials are now active" : "Set a custom password for your admin account"}
+              </p>
             </div>
           </div>
           <button
@@ -465,103 +475,273 @@ function ChangePasswordModal({
           </button>
         </div>
 
-        {/* Feedback Alerts */}
-        {error && (
-          <div className="p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
-            <span>{error}</span>
-          </div>
-        )}
+        {/* If successfully changed, show the Credentials Summary Card */}
+        {savedResult ? (
+          <div className="space-y-4">
+            <div className="p-3.5 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2.5">
+              <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+              <span className="font-semibold">
+                Password updated successfully! Here are your active credentials:
+              </span>
+            </div>
 
-        {successMsg && (
-          <div className="p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-            <span>{successMsg}</span>
-          </div>
-        )}
+            {/* Credentials Box */}
+            <div className="bg-slate-950/80 border border-white/10 rounded-2xl p-4 space-y-3 font-mono text-xs">
+              <div className="flex items-center justify-between py-1 border-b border-white/5">
+                <span className="text-slate-400 font-sans text-xs">Portal Login:</span>
+                <span className="text-amber-300 font-bold">sfmtravels.co.in/admin</span>
+              </div>
+              <div className="flex items-center justify-between py-1 border-b border-white/5">
+                <span className="text-slate-400 font-sans text-xs">Username:</span>
+                <span className="text-white font-bold">{savedResult.username}</span>
+              </div>
+              <div className="flex items-center justify-between py-1">
+                <span className="text-slate-400 font-sans text-xs">Password:</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-emerald-400 font-bold">
+                    {revealNewPass ? savedResult.password : "••••••••••••"}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setRevealNewPass(!revealNewPass)}
+                    className="text-slate-400 hover:text-white transition-colors cursor-pointer"
+                    title={revealNewPass ? "Hide password" : "Show password"}
+                  >
+                    {revealNewPass ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
+              </div>
+            </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-1.5">
-            <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">
-              Current Password
-            </label>
-            <input
-              type={showPass ? "text" : "password"}
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-              placeholder="Enter current password (e.g. admin123)"
-              className="w-full bg-slate-950 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 font-sans"
-            />
-          </div>
-
-          <div className="space-y-1.5">
-            <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">
-              New Password
-            </label>
-            <input
-              type={showPass ? "text" : "password"}
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              placeholder="Enter your new custom password"
-              className="w-full bg-slate-950 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 font-sans"
-            />
-          </div>
-
-          <div className="space-y-1.5">
-            <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">
-              Confirm New Password
-            </label>
-            <input
-              type={showPass ? "text" : "password"}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Re-enter your new password"
-              className="w-full bg-slate-950 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 font-sans"
-            />
-          </div>
-
-          <div className="space-y-1.5">
-            <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">
-              Custom Username (Optional)
-            </label>
-            <input
-              type="text"
-              value={newUsername}
-              onChange={(e) => setNewUsername(e.target.value)}
-              placeholder="Leave blank to keep current username"
-              className="w-full bg-slate-950 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 font-sans"
-            />
-          </div>
-
-          <div className="flex items-center justify-between pt-1">
+            {/* Quick Copy Button */}
             <button
               type="button"
-              onClick={() => setShowPass(!showPass)}
-              className="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer font-medium"
+              onClick={handleCopyCredentials}
+              className="w-full bg-slate-800 hover:bg-slate-700 text-white border border-white/10 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
             >
-              {showPass ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-              <span>{showPass ? "Hide Passwords" : "Show Passwords"}</span>
+              {copiedCreds ? (
+                <>
+                  <Check className="w-4 h-4 text-emerald-400" />
+                  <span className="text-emerald-400">Credentials Copied to Clipboard!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-4 h-4 text-amber-400" />
+                  <span>Copy Username & Password</span>
+                </>
+              )}
             </button>
-          </div>
 
-          <div className="pt-2 flex items-center justify-end gap-3">
+            {/* Where to view info note */}
+            <div className="bg-slate-950/50 rounded-xl p-3 border border-white/5 space-y-1 text-[11px] text-slate-400 leading-relaxed font-sans">
+              <span className="text-amber-400 font-bold block mb-1">📁 Where to find your credentials anytime:</span>
+              <p>• <b className="text-slate-300">Local File:</b> In <code className="text-amber-300 bg-slate-900 px-1 py-0.5 rounded">backend_sfm/.env</code> (ADMIN_USERNAME & ADMIN_PASSWORD)</p>
+              <p>• <b className="text-slate-300">Live Website:</b> On <b className="text-slate-300">dashboard.render.com</b> &rarr; sfm-backend-5skx &rarr; Environment</p>
+              <p>• <b className="text-slate-300">Admin Header:</b> Your username is always displayed on the top header badge</p>
+            </div>
+
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 rounded-xl border border-white/10 hover:bg-white/5 text-slate-300 text-xs font-bold transition-colors cursor-pointer"
+              className="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 py-3 rounded-xl text-xs font-black transition-all shadow-md shadow-amber-500/20 cursor-pointer"
             >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="bg-amber-500 hover:bg-amber-400 text-slate-950 px-5 py-2.5 rounded-xl text-xs font-black transition-all shadow-md shadow-amber-500/20 cursor-pointer disabled:opacity-50"
-            >
-              {loading ? "Saving..." : "Save New Password"}
+              Done & Close
             </button>
           </div>
-        </form>
+        ) : (
+          /* Form */
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Feedback Alerts */}
+            {error && (
+              <div className="p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
+
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">
+                Current Password
+              </label>
+              <input
+                type={showPass ? "text" : "password"}
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                placeholder="Enter current password"
+                className="w-full bg-slate-950 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 font-sans"
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">
+                New Password
+              </label>
+              <input
+                type={showPass ? "text" : "password"}
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Enter your new custom password"
+                className="w-full bg-slate-950 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 font-sans"
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">
+                Confirm New Password
+              </label>
+              <input
+                type={showPass ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Re-enter your new password"
+                className="w-full bg-slate-950 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 font-sans"
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">
+                Custom Username (Optional)
+              </label>
+              <input
+                type="text"
+                value={newUsername}
+                onChange={(e) => setNewUsername(e.target.value)}
+                placeholder="Leave blank to keep current username"
+                className="w-full bg-slate-950 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 font-sans"
+              />
+            </div>
+
+            <div className="flex items-center justify-between pt-1">
+              <button
+                type="button"
+                onClick={() => setShowPass(!showPass)}
+                className="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer font-medium"
+              >
+                {showPass ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                <span>{showPass ? "Hide Passwords" : "Show Passwords"}</span>
+              </button>
+            </div>
+
+            <div className="pt-2 flex items-center justify-end gap-3">
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-4 py-2.5 rounded-xl border border-white/10 hover:bg-white/5 text-slate-300 text-xs font-bold transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={loading}
+                className="bg-amber-500 hover:bg-amber-400 text-slate-950 px-5 py-2.5 rounded-xl text-xs font-black transition-all shadow-md shadow-amber-500/20 cursor-pointer disabled:opacity-50"
+              >
+                {loading ? "Saving..." : "Save New Password"}
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function AccountDetailsModal({
+  adminUser,
+  onClose,
+  onChangePassword,
+}: {
+  adminUser: any;
+  onClose: () => void;
+  onChangePassword: () => void;
+}) {
+  return (
+    <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+      <div className="bg-slate-900 border border-white/15 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl relative space-y-5 animate-fade-in">
+        {/* Header */}
+        <div className="flex items-center justify-between pb-3 border-b border-white/10">
+          <div className="flex items-center gap-2">
+            <div className="p-2 rounded-xl bg-amber-500/15 border border-amber-500/25 text-amber-400">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="font-display font-bold text-base text-white">Admin Account Profile</h3>
+              <p className="text-xs text-slate-400">Current credentials and security configuration</p>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Profile Card */}
+        <div className="bg-slate-950/90 border border-white/10 rounded-2xl p-5 space-y-3.5">
+          <div className="flex items-center justify-between py-1 border-b border-white/5">
+            <span className="text-xs text-slate-400 font-medium">Active Username:</span>
+            <span className="text-sm font-bold text-amber-300 font-mono flex items-center gap-1.5">
+              <User className="w-3.5 h-3.5 text-amber-400" />
+              {adminUser?.username || "admin"}
+            </span>
+          </div>
+
+          <div className="flex items-center justify-between py-1 border-b border-white/5">
+            <span className="text-xs text-slate-400 font-medium">Admin Role:</span>
+            <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-md">
+              {adminUser?.role || "Super Administrator"}
+            </span>
+          </div>
+
+          <div className="flex items-center justify-between py-1 border-b border-white/5">
+            <span className="text-xs text-slate-400 font-medium">Admin Email:</span>
+            <span className="text-xs font-mono text-slate-300">
+              {adminUser?.email || "admin@sfmtravels.com"}
+            </span>
+          </div>
+
+          <div className="flex items-center justify-between py-1">
+            <span className="text-xs text-slate-400 font-medium">Active Backend:</span>
+            <span className="text-xs text-slate-300 font-mono">
+              {getApiBaseUrl().includes("render.com") ? "Render Cloud (Live)" : "Localhost (Port 5000)"}
+            </span>
+          </div>
+        </div>
+
+        {/* Storage Location Guide */}
+        <div className="bg-slate-950/50 rounded-2xl p-4 border border-white/5 space-y-2 text-xs text-slate-400 leading-relaxed font-sans">
+          <span className="text-amber-400 font-bold block flex items-center gap-1.5">
+            <KeyRound className="w-3.5 h-3.5" /> Where Password & Username are Stored:
+          </span>
+          <p>
+            • <b className="text-slate-200">Local .env file:</b> Open <code className="text-amber-300 bg-slate-900 px-1 py-0.5 rounded text-[11px]">backend_sfm/.env</code> on your PC. Look for <code className="text-amber-300 bg-slate-900 px-1 py-0.5 rounded text-[11px]">ADMIN_USERNAME</code> and <code className="text-amber-300 bg-slate-900 px-1 py-0.5 rounded text-[11px]">ADMIN_PASSWORD</code>.
+          </p>
+          <p>
+            • <b className="text-slate-200">Live Render Dashboard:</b> Go to <span className="text-slate-200 font-semibold">dashboard.render.com</span> &rarr; select <span className="text-slate-200 font-semibold">sfm-backend-5skx</span> &rarr; <span className="text-slate-200 font-semibold">Environment</span> &rarr; click the 👁️ eye icon to unmask your password.
+          </p>
+        </div>
+
+        {/* Buttons */}
+        <div className="pt-1 flex items-center justify-end gap-3">
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-4 py-2.5 rounded-xl border border-white/10 hover:bg-white/5 text-slate-300 text-xs font-bold transition-colors cursor-pointer"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              onClose();
+              onChangePassword();
+            }}
+            className="bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2.5 rounded-xl text-xs font-black transition-all shadow-md shadow-amber-500/20 cursor-pointer flex items-center gap-1.5"
+          >
+            <KeyRound className="w-3.5 h-3.5" />
+            <span>Change Password</span>
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -580,6 +760,7 @@ export function AdminEnquiriesPage() {
   });
 
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
+  const [showAccountModal, setShowAccountModal] = useState(false);
 
   const [enquiries, setEnquiries] = useState<EnquiryItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -823,10 +1004,15 @@ export function AdminEnquiriesPage() {
 
             {/* Admin User Badge, Change Password & Logout */}
             <div className="flex items-center gap-2 pl-2 border-l border-white/15">
-              <span className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/10 text-amber-300 border border-amber-500/25 text-xs font-bold">
+              <button
+                type="button"
+                onClick={() => setShowAccountModal(true)}
+                className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/25 text-xs font-bold transition-all cursor-pointer"
+                title="View Admin account profile and credentials info"
+              >
                 <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
                 <span>{adminUser?.username || "admin"}</span>
-              </span>
+              </button>
               <button
                 onClick={() => setShowChangePasswordModal(true)}
                 className="bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer"
@@ -1179,6 +1365,15 @@ export function AdminEnquiriesPage() {
           onPasswordChanged={(updatedAdmin) => {
             setAdminUser(updatedAdmin);
           }}
+        />
+      )}
+
+      {/* Account Details Modal */}
+      {showAccountModal && (
+        <AccountDetailsModal
+          adminUser={adminUser}
+          onClose={() => setShowAccountModal(false)}
+          onChangePassword={() => setShowChangePasswordModal(true)}
         />
       )}
     </div>
