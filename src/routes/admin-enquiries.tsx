@@ -152,7 +152,7 @@ function doGet(e) {
 }`;
 
 function AdminLoginView({ onSuccess }: { onSuccess: (user: any) => void }) {
-  const [identifier, setIdentifier] = useState("admin");
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -189,7 +189,7 @@ function AdminLoginView({ onSuccess }: { onSuccess: (user: any) => void }) {
 
       if (res && res.status === 401) {
         const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.error || "Invalid username or password. You can log in using 'admin' and password '@sfmtravels2026'.");
+        throw new Error(errData.error || "Invalid username or password. Please verify your admin credentials.");
       }
 
       // Offline / network fallback verification
@@ -216,12 +216,6 @@ function AdminLoginView({ onSuccess }: { onSuccess: (user: any) => void }) {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleFillDefault = () => {
-    setIdentifier("admin");
-    setPassword("@sfmtravels2026");
-    setError("");
   };
 
   return (
@@ -342,25 +336,6 @@ function AdminLoginView({ onSuccess }: { onSuccess: (user: any) => void }) {
               )}
             </button>
           </form>
-
-          {/* Quick Default Credentials Helper */}
-          <div className="pt-4 border-t border-white/10 space-y-2">
-            <div className="flex items-center justify-between text-[11px] text-slate-400">
-              <span className="font-semibold">Default Staff Credentials:</span>
-              <button
-                type="button"
-                onClick={handleFillDefault}
-                className="text-amber-400 hover:text-amber-300 font-bold underline cursor-pointer"
-              >
-                Auto-fill Master Credentials
-              </button>
-            </div>
-            <div className="bg-slate-950/60 rounded-lg p-2.5 text-[11px] font-mono text-slate-300 border border-white/5 flex items-center justify-between">
-              <span>User: <strong className="text-white">admin</strong></span>
-              <span className="text-slate-600">•</span>
-              <span>Pass: <strong className="text-emerald-400">@sfmtravels2026</strong></span>
-            </div>
-          </div>
         </div>
       </main>
 
