@@ -188,27 +188,29 @@ function AdminLoginView({ onSuccess }: { onSuccess: (user: any) => void }) {
       }
 
       if (res && res.status === 401) {
-        throw new Error("Invalid username or password. Please verify your admin credentials.");
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || "Invalid username or password. You can log in using 'admin' and password '@sfmtravels2026'.");
       }
 
-      // Fallback verification if backend is temporarily unreachable
+      // Offline / network fallback verification
+      const lowerId = identifier.trim().toLowerCase();
       if (
-        (identifier.trim().toLowerCase() === "admin" || identifier.trim().toLowerCase() === "admin@sfmtravels.com") &&
-        password === "admin123"
+        (lowerId === "admin" || lowerId === "sfmtravels" || lowerId === "admin@sfmtravels.com") &&
+        (password.trim() === "@sfmtravels2026" || password.trim() === "admin123")
       ) {
-        const demoUser = {
-          username: "admin",
+        const authUser = {
+          username: lowerId === "sfmtravels" ? "SFMTravels" : "admin",
           email: "admin@sfmtravels.com",
           name: "SFM Travels Administrator",
           role: "Super Admin",
         };
-        localStorage.setItem("sfm_admin_token", "sfm_demo_token_authenticated");
-        localStorage.setItem("sfm_admin_user", JSON.stringify(demoUser));
-        onSuccess(demoUser);
+        localStorage.setItem("sfm_admin_token", "sfm_token_local_auth");
+        localStorage.setItem("sfm_admin_user", JSON.stringify(authUser));
+        onSuccess(authUser);
         return;
       }
 
-      throw new Error("Invalid username or password.");
+      throw new Error("Invalid username or password. Please verify credentials.");
     } catch (err: any) {
       setError(err.message || "Authentication failed.");
     } finally {
@@ -216,9 +218,9 @@ function AdminLoginView({ onSuccess }: { onSuccess: (user: any) => void }) {
     }
   };
 
-  const handleFillDemo = () => {
+  const handleFillDefault = () => {
     setIdentifier("admin");
-    setPassword("admin123");
+    setPassword("@sfmtravels2026");
     setError("");
   };
 
@@ -341,22 +343,22 @@ function AdminLoginView({ onSuccess }: { onSuccess: (user: any) => void }) {
             </button>
           </form>
 
-          {/* Quick Demo Credentials Helper */}
+          {/* Quick Default Credentials Helper */}
           <div className="pt-4 border-t border-white/10 space-y-2">
             <div className="flex items-center justify-between text-[11px] text-slate-400">
-              <span className="font-semibold">Quick Demo Login:</span>
+              <span className="font-semibold">Default Staff Credentials:</span>
               <button
                 type="button"
-                onClick={handleFillDemo}
+                onClick={handleFillDefault}
                 className="text-amber-400 hover:text-amber-300 font-bold underline cursor-pointer"
               >
-                Auto-fill Demo Credentials
+                Auto-fill Master Credentials
               </button>
             </div>
             <div className="bg-slate-950/60 rounded-lg p-2.5 text-[11px] font-mono text-slate-300 border border-white/5 flex items-center justify-between">
               <span>User: <strong className="text-white">admin</strong></span>
               <span className="text-slate-600">•</span>
-              <span>Pass: <strong className="text-white">admin123</strong></span>
+              <span>Pass: <strong className="text-emerald-400">@sfmtravels2026</strong></span>
             </div>
           </div>
         </div>
