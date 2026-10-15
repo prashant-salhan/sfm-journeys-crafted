@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminEnquiriesRouteImport } from './routes/admin-enquiries'
 import { Route as BaliItineraryRouteImport } from './routes/bali-itinerary'
 import { Route as EuropeItineraryRouteImport } from './routes/europe-itinerary'
 import { Route as JapanItineraryRouteImport } from './routes/japan-itinerary'
@@ -28,6 +29,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminEnquiriesRoute = AdminEnquiriesRouteImport.update({
+  id: '/admin-enquiries',
+  path: '/admin-enquiries',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BaliItineraryRoute = BaliItineraryRouteImport.update({
@@ -75,6 +81,7 @@ const VietnamItineraryRoute = VietnamItineraryRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin-enquiries': typeof AdminEnquiriesRoute
   '/bali-itinerary': typeof BaliItineraryRoute
   '/europe-itinerary': typeof EuropeItineraryRoute
   '/japan-itinerary': typeof JapanItineraryRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin-enquiries': typeof AdminEnquiriesRoute
   '/bali-itinerary': typeof BaliItineraryRoute
   '/europe-itinerary': typeof EuropeItineraryRoute
   '/japan-itinerary': typeof JapanItineraryRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin-enquiries': typeof AdminEnquiriesRoute
   '/bali-itinerary': typeof BaliItineraryRoute
   '/europe-itinerary': typeof EuropeItineraryRoute
   '/japan-itinerary': typeof JapanItineraryRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/admin-enquiries'
     | '/bali-itinerary'
     | '/europe-itinerary'
     | '/japan-itinerary'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/admin-enquiries'
     | '/bali-itinerary'
     | '/europe-itinerary'
     | '/japan-itinerary'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/admin-enquiries'
     | '/bali-itinerary'
     | '/europe-itinerary'
     | '/japan-itinerary'
@@ -151,6 +163,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminEnquiriesRoute: typeof AdminEnquiriesRoute
   BaliItineraryRoute: typeof BaliItineraryRoute
   EuropeItineraryRoute: typeof EuropeItineraryRoute
   JapanItineraryRoute: typeof JapanItineraryRoute
@@ -175,6 +188,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin-enquiries': {
+      id: '/admin-enquiries'
+      path: '/admin-enquiries'
+      fullPath: '/admin-enquiries'
+      preLoaderRoute: typeof AdminEnquiriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bali-itinerary': {
@@ -239,6 +259,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminEnquiriesRoute: AdminEnquiriesRoute,
   BaliItineraryRoute: BaliItineraryRoute,
   EuropeItineraryRoute: EuropeItineraryRoute,
   JapanItineraryRoute: JapanItineraryRoute,

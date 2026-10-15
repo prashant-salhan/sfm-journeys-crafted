@@ -36,6 +36,7 @@ import { BaliItineraryPage } from "@/routes/bali-itinerary";
 import { MalaysiaItineraryPage } from "@/routes/malaysia-itinerary";
 import { SingaporeCruiseItineraryPage } from "@/routes/singapore-cruise-itinerary";
 import { AboutPage } from "@/routes/about";
+import { AdminEnquiriesPage } from "@/routes/admin-enquiries";
 import {
   RegionsSection,
   TestimonialsSection,
@@ -1123,6 +1124,14 @@ export default function App() {
     return (
       <CurrencyProvider>
         <AboutPage />
+      </CurrencyProvider>
+    );
+  }
+
+  if (pathname.includes("/admin") || pathname.includes("/enquiries") || pathname.includes("/sheets")) {
+    return (
+      <CurrencyProvider>
+        <AdminEnquiriesPage />
       </CurrencyProvider>
     );
   }

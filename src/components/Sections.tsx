@@ -897,6 +897,21 @@ export const FooterSection = memo(function FooterSection() {
                 <span>Visit Our Office</span>
               </a>
             </li>
+            <li>
+              <a
+                href="/admin"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.history.pushState(null, "", "/admin");
+                  window.dispatchEvent(new PopStateEvent("popstate"));
+                }}
+                style={{ textDecoration: "none" }}
+                className="no-underline text-slate-400 hover:text-amber-400 transition-all inline-flex items-center gap-2 group font-semibold"
+              >
+                <ChevronRight className="w-3.5 h-3.5 text-amber-400 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                <span>Admin Portal Login</span>
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -949,12 +964,25 @@ export const FooterSection = memo(function FooterSection() {
 
       <div className="max-w-7xl mx-auto pt-8 border-t border-slate-900 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>© {new Date().getFullYear()} SFM Travels. All rights reserved. Smile For Millions</div>
-        <div className="flex gap-4 text-[11px] text-slate-400">
+        <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-slate-400">
           <a href="#enquiry" style={{ textDecoration: "none" }} className="no-underline text-slate-400 hover:text-amber-400 transition-colors">Privacy Policy</a>
           <span>•</span>
           <a href="#enquiry" style={{ textDecoration: "none" }} className="no-underline text-slate-400 hover:text-amber-400 transition-colors">Terms of Service</a>
           <span>•</span>
           <a href="#enquiry" style={{ textDecoration: "none" }} className="no-underline text-slate-400 hover:text-amber-400 transition-colors">Cancellation Policy</a>
+          <span>•</span>
+          <a
+            href="/admin"
+            onClick={(e) => {
+              e.preventDefault();
+              window.history.pushState(null, "", "/admin");
+              window.dispatchEvent(new PopStateEvent("popstate"));
+            }}
+            style={{ textDecoration: "none" }}
+            className="no-underline text-slate-400 hover:text-amber-400 transition-colors inline-flex items-center gap-1 font-bold"
+          >
+            <span>🔐 Admin Portal</span>
+          </a>
         </div>
       </div>
     </footer>
