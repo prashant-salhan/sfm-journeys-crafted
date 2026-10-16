@@ -27,6 +27,7 @@ import { SearchBox } from "@/components/SearchBox";
 import { InlineEnquiryForm } from "@/components/InlineEnquiryForm";
 import { ItineraryModal } from "@/components/ItineraryModal";
 import { CircularSocialMenu } from "@/components/CircularSocialMenu";
+import { FloatingEventsWidget } from "@/components/FloatingEventsWidget";
 import { SingaporeItineraryPage } from "@/routes/singapore-itinerary";
 import { VietnamItineraryPage } from "@/routes/vietnam-itinerary";
 import { ThailandItineraryPage } from "@/routes/thailand-itinerary";
@@ -340,11 +341,13 @@ function PackagesCarousel({
   formatPrice,
   setSelectedPackage,
   scrollToEnquiry,
+  highlightedPackageId,
 }: {
   packages: IndiaPackage[];
   formatPrice: (price: number) => string;
   setSelectedPackage: (pkg: IndiaPackage) => void;
   scrollToEnquiry: (title?: string) => void;
+  highlightedPackageId?: string | null;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -386,66 +389,88 @@ function PackagesCarousel({
   return (
     <div className="relative group/carousel px-2 sm:px-4">
       {/* Left Manual Arrow Button */}
-      <button
-        onClick={handleScrollLeft}
-        type="button"
-        aria-label="Scroll left"
-        disabled={!canScrollLeft}
-        className={`absolute -left-2 sm:-left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-slate-900/90 border border-amber-500/40 text-amber-400 flex items-center justify-center shadow-2xl transition-all duration-300 cursor-pointer ${
-          canScrollLeft
-            ? "opacity-90 hover:opacity-100 hover:bg-amber-500 hover:text-slate-950 hover:scale-110 active:scale-95 shadow-amber-500/20"
-            : "opacity-30 cursor-not-allowed border-slate-800 text-slate-600 bg-slate-900/50"
-        }`}
-      >
-        <ChevronLeft className="w-6 h-6 stroke-[3]" />
-      </button>
+      {packages.length > 1 && (
+        <button
+          onClick={handleScrollLeft}
+          type="button"
+          aria-label="Scroll left"
+          disabled={!canScrollLeft}
+          className={`absolute -left-2 sm:-left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-slate-900/90 border border-amber-500/40 text-amber-400 flex items-center justify-center shadow-2xl transition-all duration-300 cursor-pointer ${
+            canScrollLeft
+              ? "opacity-90 hover:opacity-100 hover:bg-amber-500 hover:text-slate-950 hover:scale-110 active:scale-95 shadow-amber-500/20"
+              : "opacity-30 cursor-not-allowed border-slate-800 text-slate-600 bg-slate-900/50"
+          }`}
+        >
+          <ChevronLeft className="w-6 h-6 stroke-[3]" />
+        </button>
+      )}
 
       {/* Right Manual Arrow Button */}
-      <button
-        onClick={handleScrollRight}
-        type="button"
-        aria-label="Scroll right"
-        disabled={!canScrollRight}
-        className={`absolute -right-2 sm:-right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-slate-900/90 border border-amber-500/40 text-amber-400 flex items-center justify-center shadow-2xl transition-all duration-300 cursor-pointer ${
-          canScrollRight
-            ? "opacity-90 hover:opacity-100 hover:bg-amber-500 hover:text-slate-950 hover:scale-110 active:scale-95 shadow-amber-500/20"
-            : "opacity-30 cursor-not-allowed border-slate-800 text-slate-600 bg-slate-900/50"
-        }`}
-      >
-        <ChevronRight className="w-6 h-6 stroke-[3]" />
-      </button>
+      {packages.length > 1 && (
+        <button
+          onClick={handleScrollRight}
+          type="button"
+          aria-label="Scroll right"
+          disabled={!canScrollRight}
+          className={`absolute -right-2 sm:-right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-slate-900/90 border border-amber-500/40 text-amber-400 flex items-center justify-center shadow-2xl transition-all duration-300 cursor-pointer ${
+            canScrollRight
+              ? "opacity-90 hover:opacity-100 hover:bg-amber-500 hover:text-slate-950 hover:scale-110 active:scale-95 shadow-amber-500/20"
+              : "opacity-30 cursor-not-allowed border-slate-800 text-slate-600 bg-slate-900/50"
+          }`}
+        >
+          <ChevronRight className="w-6 h-6 stroke-[3]" />
+        </button>
+      )}
 
       {/* Manual Horizontal Sliding Container */}
       <div
         ref={containerRef}
-        className="flex gap-6 overflow-x-auto no-scrollbar py-4 px-2 select-none scroll-smooth snap-x snap-mandatory"
+        className={`flex gap-6 overflow-x-auto no-scrollbar py-4 px-2 select-none scroll-smooth snap-x snap-mandatory ${
+          packages.length === 1 ? "justify-center" : "justify-start"
+        }`}
       >
-        {packages.map((pkg) => (
-          <div
-            key={pkg.id}
-            className="w-[85vw] max-w-[360px] min-w-[270px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl overflow-hidden hover:border-amber-400 transition-all duration-300 flex flex-col group shadow-xl shadow-slate-200/60 hover-card-3d snap-start"
-          >
-            <div className="relative h-60 overflow-hidden">
-              <img
-                src={pkg.image}
-                alt={pkg.title}
-                className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+        {packages.map((pkg) => {
+          const isHighlighted = highlightedPackageId === pkg.id;
+          return (
+            <div
+              key={pkg.id}
+              id={`package-card-${pkg.id}`}
+              className={`w-[85vw] max-w-[360px] min-w-[270px] shrink-0 bg-white rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col group shadow-xl snap-start transition-all duration-500 relative ${
+                isHighlighted
+                  ? "border-2 border-amber-500 ring-4 ring-amber-400/80 ring-offset-2 scale-[1.03] shadow-2xl shadow-amber-500/40 z-20"
+                  : "border border-slate-200/90 hover:border-amber-400 shadow-slate-200/60 hover-card-3d"
+              }`}
+            >
+              <div
+                className="relative h-60 overflow-hidden cursor-pointer"
+                onClick={() => setSelectedPackage(pkg)}
+              >
+                <img
+                  src={pkg.image}
+                  alt={pkg.title}
+                  className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
 
-              <span className="absolute top-4 left-4 bg-amber-500 text-slate-950 font-black text-[11px] px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
-                {pkg.badge}
-              </span>
+                <span className="absolute top-4 left-4 bg-amber-500 text-slate-950 font-black text-[11px] px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+                  {pkg.badge}
+                </span>
 
-              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-                <span className="bg-slate-950/80 backdrop-blur-md text-amber-400 text-xs font-bold px-3 py-1 rounded-lg border border-slate-800 flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5" /> {pkg.duration}
-                </span>
-                <span className="bg-slate-950/80 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1 rounded-lg border border-slate-800 flex items-center gap-1">
-                  <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" /> {pkg.rating} ({pkg.reviewsCount})
-                </span>
+                {isHighlighted && (
+                  <span className="absolute top-4 right-4 bg-amber-400 text-slate-950 font-black text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider shadow-lg animate-pulse border border-slate-950/20">
+                    Selected Package
+                  </span>
+                )}
+
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                  <span className="bg-slate-950/80 backdrop-blur-md text-amber-400 text-xs font-bold px-3 py-1 rounded-lg border border-slate-800 flex items-center gap-1">
+                    <Calendar className="w-3.5 h-3.5" /> {pkg.duration}
+                  </span>
+                  <span className="bg-slate-950/80 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1 rounded-lg border border-slate-800 flex items-center gap-1">
+                    <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" /> {pkg.rating} ({pkg.reviewsCount})
+                  </span>
+                </div>
               </div>
-            </div>
 
             <div className="p-6 flex-1 flex flex-col justify-between space-y-6">
               <div className="space-y-3">
@@ -496,7 +521,8 @@ function PackagesCarousel({
               </div>
             </div>
           </div>
-        ))}
+        );
+      })}
       </div>
     </div>
   );
@@ -602,16 +628,75 @@ function MainContent() {
   const enquiryFormRef = useRef<HTMLDivElement>(null);
 
   const [isAutoPopUpOpen, setIsAutoPopUpOpen] = useState(false);
+  const [highlightedPackageId, setHighlightedPackageId] = useState<string | null>(null);
+
+  const scrollToEnquiry = useCallback((pkgTitle?: string) => {
+    if (pkgTitle) {
+      setEnquiryPackageTitle(pkgTitle);
+    }
+    enquiryFormRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
+  const handleNavigateToPackageCard = useCallback((pkgId: string, categoryTab?: string) => {
+    if (categoryTab) {
+      setActiveTab(categoryTab);
+    } else {
+      setActiveTab("all");
+    }
+    setSearchQuery("");
+
+    setTimeout(() => {
+      const cardEl = document.getElementById(`package-card-${pkgId}`);
+      if (cardEl) {
+        cardEl.scrollIntoView({ behavior: "smooth", inline: "center", block: "center" });
+      } else {
+        const pkgsEl = document.getElementById("packages");
+        if (pkgsEl) pkgsEl.scrollIntoView({ behavior: "smooth" });
+      }
+
+      setHighlightedPackageId(pkgId);
+      setTimeout(() => {
+        setHighlightedPackageId((current) => (current === pkgId ? null : current));
+      }, 3500);
+    }, 120);
+  }, []);
 
   useEffect(() => {
-    // 1. Force initial scroll to top header/hero section on initial mount and page refresh
     if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const pkgParam = params.get("package");
+      const enquiryParam = params.get("enquiry");
+      const tabParam = params.get("tab");
+
+      if (pkgParam) {
+        const found = FEATURED_PACKAGES.find((p) => p.id === pkgParam);
+        if (found) {
+          let tab = "all";
+          if (found.id.includes("kashmir") || found.id.includes("manali")) tab = "north";
+          else if (found.id.includes("kerala")) tab = "kerala";
+          else if (found.id.includes("rajasthan")) tab = "rajasthan";
+          else if (found.id.includes("goa")) tab = "goa";
+          handleNavigateToPackageCard(found.id, tab);
+          return;
+        }
+      } else if (tabParam) {
+        setActiveTab(tabParam);
+        setTimeout(() => {
+          document.getElementById("packages")?.scrollIntoView({ behavior: "smooth" });
+        }, 200);
+        return;
+      } else if (enquiryParam) {
+        scrollToEnquiry(enquiryParam);
+        return;
+      }
+
+      // Default scroll to top on fresh visit without query params
       if ("scrollRestoration" in window.history) {
         window.history.scrollRestoration = "manual";
       }
       window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 
-      if (window.location.hash) {
+      if (window.location.hash && !window.location.hash.includes("package-card-")) {
         window.history.replaceState(null, "", window.location.pathname + window.location.search);
       }
 
@@ -637,7 +722,7 @@ function MainContent() {
         clearTimeout(timer2);
       };
     }
-  }, []);
+  }, [handleNavigateToPackageCard, scrollToEnquiry]);
 
   useEffect(() => {
     if (typeof document !== "undefined") {
@@ -655,15 +740,64 @@ function MainContent() {
 
   const filteredPackages = useMemo(() => {
     return FEATURED_PACKAGES.filter((pkg) => {
-      const isIntl = pkg.id.includes("dubai") || pkg.id.includes("thailand") || pkg.id.includes("swiss") || pkg.id.includes("singapore") || pkg.category.toLowerCase().includes("international");
+      const isIntl =
+        pkg.id.includes("dubai") ||
+        pkg.id.includes("thailand") ||
+        pkg.id.includes("swiss") ||
+        pkg.id.includes("singapore") ||
+        pkg.id.includes("bali") ||
+        pkg.id.includes("vietnam") ||
+        pkg.id.includes("europe") ||
+        pkg.id.includes("malaysia") ||
+        pkg.category.toLowerCase().includes("international") ||
+        Boolean(pkg.detailsUrl);
+
       let matchesTab = true;
-      if (activeTab === "north") matchesTab = pkg.id.includes("kashmir") || pkg.id.includes("manali");
-      else if (activeTab === "kerala") matchesTab = pkg.id.includes("kerala");
-      else if (activeTab === "rajasthan") matchesTab = pkg.id.includes("rajasthan");
-      else if (activeTab === "goa") matchesTab = pkg.id.includes("goa");
-      else if (activeTab === "singapore") matchesTab = pkg.id.includes("singapore") || pkg.title.toLowerCase().includes("singapore");
-      else if (activeTab === "international") matchesTab = isIntl;
-      else if (activeTab === "domestic") matchesTab = !isIntl;
+      if (activeTab === "all") {
+        matchesTab = true;
+      } else if (activeTab === "international") {
+        matchesTab = isIntl;
+      } else if (activeTab === "domestic") {
+        matchesTab = !isIntl;
+      } else if (activeTab === "singapore") {
+        matchesTab = pkg.id.includes("singapore") || pkg.title.toLowerCase().includes("singapore");
+      } else if (activeTab === "bali") {
+        matchesTab = pkg.id.includes("bali") || pkg.title.toLowerCase().includes("bali");
+      } else if (activeTab === "thailand") {
+        matchesTab =
+          pkg.id.includes("thailand") ||
+          pkg.title.toLowerCase().includes("thailand") ||
+          pkg.title.toLowerCase().includes("phuket") ||
+          pkg.description.toLowerCase().includes("thailand");
+      } else if (activeTab === "vietnam") {
+        matchesTab = pkg.id.includes("vietnam") || pkg.title.toLowerCase().includes("vietnam");
+      } else if (activeTab === "europe") {
+        matchesTab =
+          pkg.id.includes("europe") ||
+          pkg.id.includes("swiss") ||
+          pkg.id.includes("paris") ||
+          pkg.title.toLowerCase().includes("europe") ||
+          pkg.title.toLowerCase().includes("swiss") ||
+          pkg.title.toLowerCase().includes("paris");
+      } else if (activeTab === "malaysia") {
+        matchesTab = pkg.id.includes("malaysia") || pkg.title.toLowerCase().includes("malaysia");
+      } else if (activeTab === "kashmir") {
+        matchesTab = pkg.id.includes("kashmir") || pkg.title.toLowerCase().includes("kashmir");
+      } else if (activeTab === "kerala") {
+        matchesTab = pkg.id.includes("kerala") || pkg.title.toLowerCase().includes("kerala");
+      } else if (activeTab === "north") {
+        matchesTab =
+          pkg.id.includes("kashmir") ||
+          pkg.id.includes("manali") ||
+          pkg.title.toLowerCase().includes("kashmir") ||
+          pkg.title.toLowerCase().includes("manali");
+      } else if (activeTab === "rajasthan") {
+        matchesTab = pkg.id.includes("rajasthan") || pkg.title.toLowerCase().includes("rajasthan");
+      } else if (activeTab === "goa") {
+        matchesTab = pkg.id.includes("goa") || pkg.title.toLowerCase().includes("goa");
+      } else if (activeTab === "manali") {
+        matchesTab = pkg.id.includes("manali") || pkg.title.toLowerCase().includes("manali");
+      }
 
       let matchesSearch = true;
       if (searchQuery.trim()) {
@@ -678,23 +812,23 @@ function MainContent() {
     });
   }, [activeTab, searchQuery]);
 
-  const scrollToEnquiry = (pkgTitle?: string) => {
-    if (pkgTitle) {
-      setEnquiryPackageTitle(pkgTitle);
-    }
-    enquiryFormRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-amber-500 selection:text-slate-950 relative">
       {/* Top Navbar Sticky across full page */}
       <div className="sticky top-0 z-50 w-full pointer-events-auto">
         <Navbar
-          onPlanTripClick={() => scrollToEnquiry("Custom Tour Plan")}
+          onPlanTripClick={(title) => scrollToEnquiry(title || "Custom Tour Plan")}
           onSelectCategory={(cat) => {
             setActiveTab(cat);
             document.getElementById("packages")?.scrollIntoView({ behavior: "smooth" });
           }}
+          onSelectPackage={(pkgId) => {
+            const found = FEATURED_PACKAGES.find((p) => p.id === pkgId);
+            if (found) {
+              setSelectedPackage(found);
+            }
+          }}
+          onNavigateToPackageCard={handleNavigateToPackageCard}
         />
       </div>
 
@@ -748,6 +882,11 @@ function MainContent() {
               activeTab={activeTab}
               onTabChange={(tab) => {
                 startTransition(() => setActiveTab(tab));
+                setSearchQuery("");
+                const el = document.getElementById("packages");
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth" });
+                }
               }}
               onSearchChange={(q) => setSearchQuery(q)}
               onGetQuote={() => scrollToEnquiry("Customized Destination Plan")}
@@ -948,6 +1087,7 @@ function MainContent() {
             formatPrice={formatPrice}
             setSelectedPackage={setSelectedPackage}
             scrollToEnquiry={scrollToEnquiry}
+            highlightedPackageId={highlightedPackageId}
           />
         )}
       </section>
@@ -1056,89 +1196,49 @@ export default function App() {
     return () => window.removeEventListener("popstate", onPopState);
   }, [pathname]);
 
-  if (pathname.includes("/singapore-cruise-itinerary") || pathname.includes("/singapore-cruise")) {
-    return (
-      <CurrencyProvider>
-        <SingaporeCruiseItineraryPage />
-      </CurrencyProvider>
-    );
-  }
+  const isAdmin =
+    pathname.includes("/admin") ||
+    pathname.includes("/enquiries") ||
+    pathname.includes("/sheets");
 
-  if (pathname.includes("/singapore-itinerary") || pathname.includes("/singapore")) {
-    return (
-      <CurrencyProvider>
-        <SingaporeItineraryPage />
-      </CurrencyProvider>
-    );
-  }
-
-  if (pathname.includes("/vietnam-itinerary") || pathname.includes("/vietnam")) {
-    return (
-      <CurrencyProvider>
-        <VietnamItineraryPage />
-      </CurrencyProvider>
-    );
-  }
-
-  if (pathname.includes("/thailand-itinerary") || pathname.includes("/thailand")) {
-    return (
-      <CurrencyProvider>
-        <ThailandItineraryPage />
-      </CurrencyProvider>
-    );
-  }
-
-  if (pathname.includes("/europe-itinerary") || pathname.includes("/europe")) {
-    return (
-      <CurrencyProvider>
-        <EuropeItineraryPage />
-      </CurrencyProvider>
-    );
-  }
-
-  if (pathname.includes("/japan-itinerary") || pathname.includes("/japan")) {
-    return (
-      <CurrencyProvider>
-        <JapanItineraryPage />
-      </CurrencyProvider>
-    );
-  }
-
-  if (pathname.includes("/bali-itinerary") || pathname.includes("/bali")) {
-    return (
-      <CurrencyProvider>
-        <BaliItineraryPage />
-      </CurrencyProvider>
-    );
-  }
-
-  if (pathname.includes("/malaysia-itinerary") || pathname.includes("/malaysia")) {
-    return (
-      <CurrencyProvider>
-        <MalaysiaItineraryPage />
-      </CurrencyProvider>
-    );
-  }
-
-  if (pathname.includes("/about")) {
-    return (
-      <CurrencyProvider>
-        <AboutPage />
-      </CurrencyProvider>
-    );
-  }
-
-  if (pathname.includes("/admin") || pathname.includes("/enquiries") || pathname.includes("/sheets")) {
-    return (
-      <CurrencyProvider>
-        <AdminEnquiriesPage />
-      </CurrencyProvider>
-    );
-  }
+  const renderContent = () => {
+    if (pathname.includes("/singapore-cruise-itinerary") || pathname.includes("/singapore-cruise")) {
+      return <SingaporeCruiseItineraryPage />;
+    }
+    if (pathname.includes("/singapore-itinerary") || pathname.includes("/singapore")) {
+      return <SingaporeItineraryPage />;
+    }
+    if (pathname.includes("/vietnam-itinerary") || pathname.includes("/vietnam")) {
+      return <VietnamItineraryPage />;
+    }
+    if (pathname.includes("/thailand-itinerary") || pathname.includes("/thailand")) {
+      return <ThailandItineraryPage />;
+    }
+    if (pathname.includes("/europe-itinerary") || pathname.includes("/europe")) {
+      return <EuropeItineraryPage />;
+    }
+    if (pathname.includes("/japan-itinerary") || pathname.includes("/japan")) {
+      return <JapanItineraryPage />;
+    }
+    if (pathname.includes("/bali-itinerary") || pathname.includes("/bali")) {
+      return <BaliItineraryPage />;
+    }
+    if (pathname.includes("/malaysia-itinerary") || pathname.includes("/malaysia")) {
+      return <MalaysiaItineraryPage />;
+    }
+    if (pathname.includes("/about")) {
+      return <AboutPage />;
+    }
+    if (isAdmin) {
+      return <AdminEnquiriesPage />;
+    }
+    return <MainContent />;
+  };
 
   return (
     <CurrencyProvider>
-      <MainContent />
+      {renderContent()}
+      {!isAdmin && <FloatingEventsWidget />}
     </CurrencyProvider>
   );
 }

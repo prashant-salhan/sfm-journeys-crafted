@@ -1,11 +1,13 @@
 import { useState, memo, useRef, useEffect } from "react";
-import { Menu, X, Zap, FileCheck, Phone, Award, MapPin, Sparkles, ChevronDown } from "lucide-react";
+import { Menu, X, Zap, FileCheck, Phone, Award, MapPin, Sparkles, ChevronDown, ArrowRight } from "lucide-react";
 import sfmLogo from "@/assets/sfm-logo.png";
 import { CurrencySelector } from "@/components/CurrencySelector";
 
 interface NavbarProps {
   onPlanTripClick: (title?: string) => void;
   onSelectCategory?: (category: string) => void;
+  onSelectPackage?: (pkgId: string) => void;
+  onNavigateToPackageCard?: (pkgId: string, categoryTab?: string) => void;
 }
 
 const INTERNATIONAL_GROUPS = [
@@ -92,16 +94,129 @@ const INTERNATIONAL_GROUPS = [
     ],
   },
 ];
+const DOMESTIC_GROUPS = [
+  {
+    column: 1,
+    title: "North India",
+    items: [
+      "Kashmir",
+      "Srinagar",
+      "Gulmarg",
+      "Pahalgam",
+      "Ladakh",
+      "Manali",
+      "Shimla",
+      "Dharamshala",
+      "Dalhousie",
+      "Spiti Valley",
+      "Punjab",
+    ],
+  },
+  {
+    column: 2,
+    title: "Rajasthan & Goa",
+    items: [
+      "Rajasthan",
+      "Jaipur",
+      "Udaipur",
+      "Jodhpur",
+      "Jaisalmer",
+      "Pushkar",
+      "Ranthambore",
+      "Mount Abu",
+      "Goa",
+      "North Goa",
+      "South Goa",
+    ],
+  },
+  {
+    column: 3,
+    title: "South India",
+    items: [
+      "Kerala",
+      "Munnar",
+      "Alleppey",
+      "Thekkady",
+      "Wayanad",
+      "Kovalam",
+      "Ooty",
+      "Coorg",
+      "Kodaikanal",
+      "Mysore",
+      "Hampi",
+      "Rameshwaram",
+    ],
+  },
+  {
+    column: 4,
+    title: "East & North East",
+    items: [
+      "Darjeeling",
+      "Gangtok",
+      "Sikkim",
+      "Shillong",
+      "Meghalaya",
+      "Kaziranga",
+      "Assam",
+      "Arunachal",
+      "Andaman",
+      "Varanasi",
+      "Agra",
+      "Rishikesh",
+    ],
+  },
+];
 
-export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }: NavbarProps) {
+export const DOMESTIC_DESTINATION_MAP: Record<
+  string,
+  { packageId: string; categoryTab: string }
+> = {
+  // Kashmir Paradise (Srinagar, Gulmarg, Pahalgam)
+  kashmir: { packageId: "kashmir-paradise", categoryTab: "north" },
+  srinagar: { packageId: "kashmir-paradise", categoryTab: "north" },
+  gulmarg: { packageId: "kashmir-paradise", categoryTab: "north" },
+  pahalgam: { packageId: "kashmir-paradise", categoryTab: "north" },
+
+  // Manali Snow Escape
+  manali: { packageId: "manali-snow-escape", categoryTab: "north" },
+
+  // Royal Rajasthan (Jaipur, Udaipur, Jodhpur, Jaisalmer)
+  rajasthan: { packageId: "royal-rajasthan", categoryTab: "rajasthan" },
+  jaipur: { packageId: "royal-rajasthan", categoryTab: "rajasthan" },
+  udaipur: { packageId: "royal-rajasthan", categoryTab: "rajasthan" },
+  jodhpur: { packageId: "royal-rajasthan", categoryTab: "rajasthan" },
+  jaisalmer: { packageId: "royal-rajasthan", categoryTab: "rajasthan" },
+
+  // Goa Beach Bliss
+  goa: { packageId: "goa-beach-bliss", categoryTab: "goa" },
+  "north goa": { packageId: "goa-beach-bliss", categoryTab: "goa" },
+  "south goa": { packageId: "goa-beach-bliss", categoryTab: "goa" },
+
+  // Kerala Emerald (Munnar, Alleppey, Thekkady)
+  kerala: { packageId: "kerala-backwaters", categoryTab: "kerala" },
+  munnar: { packageId: "kerala-backwaters", categoryTab: "kerala" },
+  alleppey: { packageId: "kerala-backwaters", categoryTab: "kerala" },
+  thekkady: { packageId: "kerala-backwaters", categoryTab: "kerala" },
+};
+
+export const Navbar = memo(function Navbar({
+  onPlanTripClick,
+  onSelectCategory,
+  onSelectPackage,
+  onNavigateToPackageCard,
+}: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isDomesticOpen, setIsDomesticOpen] = useState(false);
+  const [mobileDomesticOpen, setMobileDomesticOpen] = useState(false);
   const [isInternationalOpen, setIsInternationalOpen] = useState(false);
   const [mobileInternationalOpen, setMobileInternationalOpen] = useState(false);
   const [isCruiseOpen, setIsCruiseOpen] = useState(false);
   const [mobileCruiseOpen, setMobileCruiseOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const domesticDropdownRef = useRef<HTMLDivElement>(null);
   const cruiseDropdownRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const domesticTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const cruiseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleNavClick = (
@@ -111,7 +226,9 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
     tripTitle?: string
   ) => {
     e.preventDefault();
+    setIsDomesticOpen(false);
     setIsInternationalOpen(false);
+    setIsCruiseOpen(false);
     setMobileMenuOpen(false);
     if (category) {
       onSelectCategory?.(category);
@@ -130,7 +247,9 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
 
   const handleDestinationClick = (e: React.MouseEvent<HTMLElement>, destination: string) => {
     e.preventDefault();
+    setIsDomesticOpen(false);
     setIsInternationalOpen(false);
+    setIsCruiseOpen(false);
     setMobileMenuOpen(false);
     const destKey = destination.toLowerCase();
     const dedicatedRoutes: Record<string, string> = {
@@ -149,8 +268,120 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
     onPlanTripClick?.(`International Package - ${destination}`);
   };
 
+  const handleDomesticDestinationClick = (
+    e: React.MouseEvent<HTMLElement>,
+    destination: string
+  ) => {
+    e.preventDefault();
+    setIsDomesticOpen(false);
+    setMobileDomesticOpen(false);
+    setIsInternationalOpen(false);
+    setIsCruiseOpen(false);
+    setMobileMenuOpen(false);
+
+    const destKey = destination.trim().toLowerCase();
+    const pkgMatch = DOMESTIC_DESTINATION_MAP[destKey];
+
+    // Check if main column headings were clicked
+    if (destKey === "north india") {
+      if (typeof window !== "undefined" && window.location.pathname !== "/") {
+        window.location.href = "/?tab=north#packages";
+        return;
+      }
+      onSelectCategory?.("north");
+      const el = document.getElementById("packages");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
+    if (destKey === "rajasthan & goa") {
+      if (typeof window !== "undefined" && window.location.pathname !== "/") {
+        window.location.href = "/?tab=rajasthan#packages";
+        return;
+      }
+      onSelectCategory?.("rajasthan");
+      const el = document.getElementById("packages");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
+    if (destKey === "south india") {
+      if (typeof window !== "undefined" && window.location.pathname !== "/") {
+        window.location.href = "/?tab=kerala#packages";
+        return;
+      }
+      onSelectCategory?.("kerala");
+      const el = document.getElementById("packages");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
+    if (destKey === "east & north east") {
+      // No packages yet for East & North East -> redirect to enquiry form
+      const enquiryTitle = "Domestic Package - East & North East";
+      if (typeof window !== "undefined" && window.location.pathname !== "/") {
+        window.location.href = `/?enquiry=${encodeURIComponent(enquiryTitle)}#enquiry`;
+        return;
+      }
+      onPlanTripClick?.(enquiryTitle);
+      return;
+    }
+
+    // 1. If package exists: Link to specific package card!
+    if (pkgMatch) {
+      if (typeof window !== "undefined" && window.location.pathname !== "/") {
+        window.location.href = `/?package=${pkgMatch.packageId}#package-card-${pkgMatch.packageId}`;
+        return;
+      }
+
+      if (onNavigateToPackageCard) {
+        onNavigateToPackageCard(pkgMatch.packageId, pkgMatch.categoryTab);
+      } else {
+        if (pkgMatch.categoryTab && onSelectCategory) {
+          onSelectCategory(pkgMatch.categoryTab);
+        }
+        setTimeout(() => {
+          const cardEl = document.getElementById(`package-card-${pkgMatch.packageId}`);
+          if (cardEl) {
+            cardEl.scrollIntoView({ behavior: "smooth", inline: "center", block: "center" });
+          } else {
+            const pkgsEl = document.getElementById("packages");
+            if (pkgsEl) pkgsEl.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 120);
+      }
+    } else {
+      // 2. If no package exists yet: Redirect to form as done previously!
+      const enquiryTitle = `Domestic Package - ${destination}`;
+      if (typeof window !== "undefined" && window.location.pathname !== "/") {
+        window.location.href = `/?enquiry=${encodeURIComponent(enquiryTitle)}#enquiry`;
+        return;
+      }
+      onPlanTripClick?.(enquiryTitle);
+    }
+  };
+
+  const handleDomesticMouseEnter = () => {
+    if (domesticTimeoutRef.current) clearTimeout(domesticTimeoutRef.current);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (cruiseTimeoutRef.current) clearTimeout(cruiseTimeoutRef.current);
+    setIsInternationalOpen(false);
+    setIsCruiseOpen(false);
+    setIsDomesticOpen(true);
+  };
+
+  const handleDomesticMouseLeave = () => {
+    domesticTimeoutRef.current = setTimeout(() => {
+      setIsDomesticOpen(false);
+    }, 200);
+  };
+
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (domesticTimeoutRef.current) clearTimeout(domesticTimeoutRef.current);
+    if (cruiseTimeoutRef.current) clearTimeout(cruiseTimeoutRef.current);
+    setIsDomesticOpen(false);
+    setIsCruiseOpen(false);
     setIsInternationalOpen(true);
   };
 
@@ -160,10 +391,22 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
     }, 200);
   };
 
+  const handleCruiseMouseEnter = () => {
+    if (cruiseTimeoutRef.current) clearTimeout(cruiseTimeoutRef.current);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (domesticTimeoutRef.current) clearTimeout(domesticTimeoutRef.current);
+    setIsDomesticOpen(false);
+    setIsInternationalOpen(false);
+    setIsCruiseOpen(true);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsInternationalOpen(false);
+      }
+      if (domesticDropdownRef.current && !domesticDropdownRef.current.contains(event.target as Node)) {
+        setIsDomesticOpen(false);
       }
       if (cruiseDropdownRef.current && !cruiseDropdownRef.current.contains(event.target as Node)) {
         setIsCruiseOpen(false);
@@ -173,6 +416,7 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (domesticTimeoutRef.current) clearTimeout(domesticTimeoutRef.current);
       if (cruiseTimeoutRef.current) clearTimeout(cruiseTimeoutRef.current);
     };
   }, []);
@@ -264,14 +508,81 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
 
           {/* High-Contrast Nav Links for Light Background */}
           <nav className="hidden lg:flex items-center gap-7 font-black text-xs sm:text-sm">
-            <a
-              href="#packages"
-              onClick={(e) => handleNavClick(e, "packages", "domestic")}
-              style={{ color: "#0f172a", textDecoration: "none" }}
-              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
+            {/* Domestic Packages Mega Dropdown */}
+            <div
+              ref={domesticDropdownRef}
+              className="py-2"
+              onMouseEnter={handleDomesticMouseEnter}
+              onMouseLeave={handleDomesticMouseLeave}
             >
-              Domestic Packages
-            </a>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  onSelectCategory?.("domestic");
+                  setIsDomesticOpen(!isDomesticOpen);
+                  setIsInternationalOpen(false);
+                  setIsCruiseOpen(false);
+                  const el = document.getElementById("packages");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                style={{ color: "#0f172a" }}
+                className="nav-link-item flex items-center gap-1 hover:scale-105 transition-all drop-shadow-sm font-black text-xs sm:text-sm bg-transparent border-none cursor-pointer py-1"
+              >
+                <span>Domestic Packages</span>
+                <ChevronDown
+                  className={`w-4 h-4 text-amber-600 transition-transform duration-200 ${
+                    isDomesticOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {/* Domestic Packages Dropdown Panel */}
+              {isDomesticOpen && (
+                <div
+                  className="absolute top-full left-0 right-0 mx-auto mt-2 w-[95vw] max-w-5xl bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-slate-950/20 z-[100] animate-fade-in text-slate-900"
+                  onMouseEnter={handleDomesticMouseEnter}
+                  onMouseLeave={handleDomesticMouseLeave}
+                >
+                  <div className="grid grid-cols-4 gap-8 text-left">
+                    {DOMESTIC_GROUPS.map((group, colIdx) => (
+                      <div key={colIdx} className="space-y-2">
+                        <h4
+                          onClick={(e) => handleDomesticDestinationClick(e, group.title)}
+                          className="text-sm font-extrabold text-slate-800 tracking-tight hover:text-amber-600 hover:underline cursor-pointer"
+                        >
+                          {group.title}
+                        </h4>
+                        <div className="flex flex-col space-y-1">
+                          {group.items.map((item, itemIdx) => (
+                            <button
+                              key={itemIdx}
+                              onClick={(e) => handleDomesticDestinationClick(e, item)}
+                              style={{ fontSize: "13px" }}
+                              className="text-left text-[13px] sm:text-xs font-bold text-slate-600 hover:text-amber-600 transition-colors py-0.5 bg-transparent border-none cursor-pointer w-full font-sans leading-normal"
+                            >
+                              {item}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="pt-4 mt-6 border-t border-slate-100 flex items-center justify-between">
+                    <span className="text-xs text-slate-500 font-medium">Looking for customized India tours & bespoke itineraries?</span>
+                    <button
+                      onClick={() => {
+                        setIsDomesticOpen(false);
+                        onPlanTripClick?.("Custom India Tour");
+                      }}
+                      className="text-xs font-black text-amber-600 hover:text-amber-700 cursor-pointer flex items-center gap-1 bg-transparent border-none p-0"
+                    >
+                      Plan Custom India Trip →
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* International Packages Mega Dropdown */}
             <div
@@ -490,17 +801,47 @@ export const Navbar = memo(function Navbar({ onPlanTripClick, onSelectCategory }
         {/* Mobile Navigation Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden bg-amber-50/98 backdrop-blur-2xl border border-amber-200 mt-2 rounded-2xl p-5 shadow-2xl space-y-3.5 animate-fade-in max-h-[80vh] overflow-y-auto">
-            <a
-              href="#packages"
-              onClick={(e) => {
-                setMobileMenuOpen(false);
-                handleNavClick(e, "packages", "domestic");
-              }}
-              style={{ color: "#0f172a", textDecoration: "none" }}
-              className="block font-extrabold text-sm nav-link-item"
-            >
-              Domestic Packages
-            </a>
+            {/* Mobile Domestic Packages Dropdown */}
+            <div className="space-y-2">
+              <button
+                onClick={() => setMobileDomesticOpen(!mobileDomesticOpen)}
+                className="w-full flex items-center justify-between font-extrabold text-sm text-slate-900 bg-transparent border-none cursor-pointer py-1"
+              >
+                <span>Domestic Packages</span>
+                <ChevronDown
+                  className={`w-4 h-4 text-amber-600 transition-transform ${
+                    mobileDomesticOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {mobileDomesticOpen && (
+                <div className="pl-3 border-l-2 border-amber-400 space-y-4 py-2">
+                  {DOMESTIC_GROUPS.map((group, idx) => (
+                    <div key={idx} className="space-y-1.5">
+                      <h5
+                        onClick={(e) => handleDomesticDestinationClick(e, group.title)}
+                        className="text-xs font-black text-slate-800 uppercase cursor-pointer hover:text-amber-600 hover:underline"
+                      >
+                        {group.title}
+                      </h5>
+                      <div className="grid grid-cols-2 gap-1 pl-1">
+                        {group.items.map((item, itemIdx) => (
+                          <button
+                            key={itemIdx}
+                            onClick={(e) => handleDomesticDestinationClick(e, item)}
+                            style={{ fontSize: "13px" }}
+                            className="text-left text-[13px] font-bold text-slate-700 hover:text-amber-600 py-1 bg-transparent border-none cursor-pointer font-sans leading-normal"
+                          >
+                            {item}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Mobile International Packages Dropdown */}
             <div className="space-y-2">

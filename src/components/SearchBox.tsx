@@ -28,8 +28,13 @@ export function SearchBox({
   const setQuickTag = (tag: string) => {
     setLocalQuery(tag);
     startTransition(() => {
+      onTabChange("all");
       onSearchChange(tag);
     });
+    const el = document.getElementById("packages");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -51,7 +56,10 @@ export function SearchBox({
         ].map((tab) => (
           <button
             key={tab.id}
-            onClick={() => onTabChange(tab.id)}
+            onClick={() => {
+              setLocalQuery("");
+              onTabChange(tab.id);
+            }}
             className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition-all cursor-pointer font-outfit ${
               activeTab === tab.id
                 ? "bg-gradient-to-r from-[#F05C2B] via-[#FF7A3D] to-[#F8A51C] text-white shadow-[0_4px_16px_rgba(240,92,43,0.5)] scale-105 font-black ring-1 ring-white/40"

@@ -441,7 +441,10 @@ export function IndiaPortal() {
     }
   }, []);
 
-  const handleScrollToEnquiry = useCallback(() => {
+  const handleScrollToEnquiry = useCallback((title?: string) => {
+    if (typeof title === "string" && title) {
+      setSelectedPackageTitle(title);
+    }
     requestAnimationFrame(() => {
       const el = document.getElementById("enquiry");
       if (el) {
@@ -486,7 +489,7 @@ export function IndiaPortal() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-amber-500 selection:text-slate-950 w-full max-w-full overflow-x-hidden">
       {/* Isolated Navbar component */}
-      <Navbar onPlanTripClick={handleScrollToEnquiry} />
+      <Navbar onPlanTripClick={handleScrollToEnquiry} onSelectCategory={setActiveTab} />
 
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden py-16 sm:py-20 px-4">

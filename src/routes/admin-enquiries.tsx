@@ -354,6 +354,14 @@ function ChangePasswordModal({
   onClose: () => void;
   onPasswordChanged: (updatedAdmin: any) => void;
 }) {
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [newUsername, setNewUsername] = useState("");
+  const [showPass, setShowPass] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
   const [savedResult, setSavedResult] = useState<{ username: string; password: string } | null>(null);
   const [copiedCreds, setCopiedCreds] = useState(false);
   const [revealNewPass, setRevealNewPass] = useState(false);
