@@ -48,7 +48,7 @@ export const CircularSocialMenu = memo(function CircularSocialMenu() {
 
   return (
     <div
-      className="fixed bottom-6 right-6 z-[9999] pointer-events-auto flex items-center justify-center select-none"
+      className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-[9999] pointer-events-auto flex items-center justify-center select-none"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => {
         setIsOpen(false);

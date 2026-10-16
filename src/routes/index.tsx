@@ -30,6 +30,7 @@ import { SearchBox } from "@/components/SearchBox";
 import { ItineraryModal } from "@/components/ItineraryModal";
 import { InlineEnquiryForm } from "@/components/InlineEnquiryForm";
 import { CircularSocialMenu } from "@/components/CircularSocialMenu";
+import { FloatingEventsWidget } from "@/components/FloatingEventsWidget";
 import {
   RegionsSection,
   TravelEssentialsSection,
@@ -680,6 +681,7 @@ export function IndiaPortal() {
 
       <FooterSection />
       <CircularSocialMenu />
+      <FloatingEventsWidget />
 
       {/* Day-by-Day Itinerary Modal */}
       <ItineraryModal
