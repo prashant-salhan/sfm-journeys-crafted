@@ -105,6 +105,14 @@ export const VisitOfficeSection = memo(function VisitOfficeSection() {
                     >
                       +971 52 697 3378
                     </a>
+                    <span className="mx-1 text-slate-300">/</span>
+                    <a
+                      href="tel:+971563607490"
+                      className="hover:text-[#F05C2B] transition-colors"
+                      style={{ textDecoration: "none" }}
+                    >
+                      +971 56 360 7490
+                    </a>
                   </p>
                 </div>
               </div>

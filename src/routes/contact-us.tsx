@@ -348,9 +348,15 @@ export function ContactUsPage() {
                 </div>
                 <div>
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Dubai Representative:</span>
-                  <a href="tel:+971526973378" className="text-xs font-bold text-slate-300 hover:text-white no-underline">
-                    +971 52 697 3378
-                  </a>
+                  <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs">
+                    <a href="tel:+971526973378" className="font-bold text-slate-300 hover:text-white no-underline">
+                      +971 52 697 3378
+                    </a>
+                    <span className="text-slate-600">/</span>
+                    <a href="tel:+971563607490" className="font-bold text-slate-300 hover:text-white no-underline">
+                      +971 56 360 7490
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

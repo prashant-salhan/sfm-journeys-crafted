@@ -930,11 +930,27 @@ export const FooterSection = memo(function FooterSection() {
               <span className="font-bold text-amber-400">India:</span>
               <a href="tel:+919711038584" style={{ textDecoration: "none" }} className="no-underline text-slate-300 hover:text-amber-400 transition-colors">+91 97110 38584</a>
             </p>
-            <p className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-amber-400 shrink-0" />
-              <span className="font-bold text-amber-400">UAE / Dubai:</span>
-              <a href="tel:+971526973378" style={{ textDecoration: "none" }} className="no-underline text-slate-300 hover:text-amber-400 transition-colors">+971 52 697 3378</a>
-            </p>
+            <div className="flex items-start gap-2">
+              <Phone className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+              <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+                <span className="font-bold text-amber-400">UAE / Dubai:</span>
+                <a
+                  href="tel:+971526973378"
+                  style={{ textDecoration: "none" }}
+                  className="no-underline text-slate-300 hover:text-amber-400 transition-colors"
+                >
+                  +971 52 697 3378
+                </a>
+                <span className="text-slate-500">/</span>
+                <a
+                  href="tel:+971563607490"
+                  style={{ textDecoration: "none" }}
+                  className="no-underline text-slate-300 hover:text-amber-400 transition-colors"
+                >
+                  +971 56 360 7490
+                </a>
+              </div>
+            </div>
             <p className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-amber-400 shrink-0" />
               <a href="mailto:info@sfmtravels.co.in" style={{ textDecoration: "none" }} className="no-underline text-slate-300 hover:text-amber-400 transition-colors">info@sfmtravels.co.in</a>
