@@ -1,5 +1,37 @@
 import { useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+
+function Link({
+  to,
+  hash,
+  children,
+  className,
+  ...props
+}: {
+  to?: string;
+  hash?: string;
+  children?: React.ReactNode;
+  className?: string;
+  [key: string]: any;
+}) {
+  const href = `${to || "/"}${hash ? `#${hash}` : ""}`;
+  return (
+    <a
+      href={href}
+      className={className}
+      onClick={(e) => {
+        if (to && to !== window.location.pathname) {
+          e.preventDefault();
+          window.history.pushState({}, "", href);
+          window.dispatchEvent(new PopStateEvent("popstate"));
+        }
+      }}
+      {...props}
+    >
+      {children}
+    </a>
+  );
+}
 import {
   ArrowLeft,
   Building2,

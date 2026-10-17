@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminEnquiriesRouteImport } from './routes/admin-enquiries'
 import { Route as BaliItineraryRouteImport } from './routes/bali-itinerary'
+import { Route as ContactUsRouteImport } from './routes/contact-us'
 import { Route as EuropeItineraryRouteImport } from './routes/europe-itinerary'
 import { Route as JapanItineraryRouteImport } from './routes/japan-itinerary'
 import { Route as MalaysiaItineraryRouteImport } from './routes/malaysia-itinerary'
@@ -39,6 +40,11 @@ const AdminEnquiriesRoute = AdminEnquiriesRouteImport.update({
 const BaliItineraryRoute = BaliItineraryRouteImport.update({
   id: '/bali-itinerary',
   path: '/bali-itinerary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactUsRoute = ContactUsRouteImport.update({
+  id: '/contact-us',
+  path: '/contact-us',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EuropeItineraryRoute = EuropeItineraryRouteImport.update({
@@ -83,6 +89,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/admin-enquiries': typeof AdminEnquiriesRoute
   '/bali-itinerary': typeof BaliItineraryRoute
+  '/contact-us': typeof ContactUsRoute
   '/europe-itinerary': typeof EuropeItineraryRoute
   '/japan-itinerary': typeof JapanItineraryRoute
   '/malaysia-itinerary': typeof MalaysiaItineraryRoute
@@ -96,6 +103,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/admin-enquiries': typeof AdminEnquiriesRoute
   '/bali-itinerary': typeof BaliItineraryRoute
+  '/contact-us': typeof ContactUsRoute
   '/europe-itinerary': typeof EuropeItineraryRoute
   '/japan-itinerary': typeof JapanItineraryRoute
   '/malaysia-itinerary': typeof MalaysiaItineraryRoute
@@ -110,6 +118,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/admin-enquiries': typeof AdminEnquiriesRoute
   '/bali-itinerary': typeof BaliItineraryRoute
+  '/contact-us': typeof ContactUsRoute
   '/europe-itinerary': typeof EuropeItineraryRoute
   '/japan-itinerary': typeof JapanItineraryRoute
   '/malaysia-itinerary': typeof MalaysiaItineraryRoute
@@ -125,6 +134,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin-enquiries'
     | '/bali-itinerary'
+    | '/contact-us'
     | '/europe-itinerary'
     | '/japan-itinerary'
     | '/malaysia-itinerary'
@@ -138,6 +148,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin-enquiries'
     | '/bali-itinerary'
+    | '/contact-us'
     | '/europe-itinerary'
     | '/japan-itinerary'
     | '/malaysia-itinerary'
@@ -151,6 +162,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin-enquiries'
     | '/bali-itinerary'
+    | '/contact-us'
     | '/europe-itinerary'
     | '/japan-itinerary'
     | '/malaysia-itinerary'
@@ -165,6 +177,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AdminEnquiriesRoute: typeof AdminEnquiriesRoute
   BaliItineraryRoute: typeof BaliItineraryRoute
+  ContactUsRoute: typeof ContactUsRoute
   EuropeItineraryRoute: typeof EuropeItineraryRoute
   JapanItineraryRoute: typeof JapanItineraryRoute
   MalaysiaItineraryRoute: typeof MalaysiaItineraryRoute
@@ -202,6 +215,13 @@ declare module '@tanstack/react-router' {
       path: '/bali-itinerary'
       fullPath: '/bali-itinerary'
       preLoaderRoute: typeof BaliItineraryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact-us': {
+      id: '/contact-us'
+      path: '/contact-us'
+      fullPath: '/contact-us'
+      preLoaderRoute: typeof ContactUsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/europe-itinerary': {
@@ -261,6 +281,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AdminEnquiriesRoute: AdminEnquiriesRoute,
   BaliItineraryRoute: BaliItineraryRoute,
+  ContactUsRoute: ContactUsRoute,
   EuropeItineraryRoute: EuropeItineraryRoute,
   JapanItineraryRoute: JapanItineraryRoute,
   MalaysiaItineraryRoute: MalaysiaItineraryRoute,

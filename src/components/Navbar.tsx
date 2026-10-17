@@ -239,9 +239,16 @@ export const Navbar = memo(function Navbar({
       const el = document.getElementById(targetId);
       if (el) {
         el.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.location.href = `/#${targetId}`;
       }
     } else {
-      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      if (typeof window !== "undefined" && window.location.pathname !== "/") {
+        window.history.pushState({}, "", "/");
+        window.dispatchEvent(new PopStateEvent("popstate"));
+      } else {
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      }
     }
   };
 
@@ -523,7 +530,11 @@ export const Navbar = memo(function Navbar({
                   setIsInternationalOpen(false);
                   setIsCruiseOpen(false);
                   const el = document.getElementById("packages");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth" });
+                  } else {
+                    window.location.href = "/#packages";
+                  }
                 }}
                 style={{ color: "#0f172a" }}
                 className="nav-link-item flex items-center gap-1 hover:scale-105 transition-all drop-shadow-sm font-black text-xs sm:text-sm bg-transparent border-none cursor-pointer py-1"
@@ -774,6 +785,18 @@ export const Navbar = memo(function Navbar({
             >
               Our Office
             </a>
+            <a
+              href="/contact-us"
+              onClick={(e) => {
+                e.preventDefault();
+                window.history.pushState({}, "", "/contact-us");
+                window.dispatchEvent(new PopStateEvent("popstate"));
+              }}
+              style={{ color: "#0f172a", textDecoration: "none" }}
+              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm text-amber-600 font-extrabold"
+            >
+              Contact Us
+            </a>
           </nav>
 
           {/* Compact Right Actions */}
@@ -989,6 +1012,19 @@ export const Navbar = memo(function Navbar({
               className="block font-extrabold text-sm nav-link-item"
             >
               Our Office
+            </a>
+            <a
+              href="/contact-us"
+              onClick={(e) => {
+                e.preventDefault();
+                setMobileMenuOpen(false);
+                window.history.pushState({}, "", "/contact-us");
+                window.dispatchEvent(new PopStateEvent("popstate"));
+              }}
+              style={{ color: "#d97706", textDecoration: "none" }}
+              className="block font-extrabold text-sm nav-link-item text-amber-600"
+            >
+              Contact Us
             </a>
             <div className="pt-3 border-t border-amber-200 flex items-center justify-between">
               <CurrencySelector className="scale-90" />

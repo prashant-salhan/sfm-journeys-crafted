@@ -12,12 +12,9 @@ const getApiBase = () => {
     return window.__SFM_API_URL__;
   }
   let url = (import.meta.env["VITE_API_URL"] as string | undefined) || "";
-  if (url.includes("api.sfmtravels.co.in")) url = "";
+  // Discard broken or unconfigured custom api domains
+  if (url.includes("api.sfmtravels")) url = "";
   if (url) return url;
-  if (typeof window !== "undefined") {
-    const host = window.location.hostname;
-    if (host === "localhost" || host === "127.0.0.1") return "http://localhost:5000";
-  }
   return "https://sfm-backend-5skx.onrender.com";
 };
 
@@ -102,7 +99,9 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({
     setSubmitting(true);
     setSubmitError("");
 
-    const apiBase = getApiBase();
+    const primaryApi = getApiBase();
+    const fallbackApi = "https://sfm-backend-5skx.onrender.com";
+
     const payload = {
       fullName: cleanName,
       name: cleanName,
@@ -113,23 +112,46 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({
       source: source || "india_portal_inline",
     };
 
-    // 1. Post to backend Render API
+    let sentSuccessfully = false;
+
+    // 1. Post to primary backend
     try {
-      if (apiBase) {
-        await fetch(`${apiBase}/api/enquiries`, {
+      if (primaryApi) {
+        const res = await fetch(`${primaryApi}/api/enquiries`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
-        }).catch((err) => console.warn("Backend Enquiry submission network warning:", err));
+        });
+        if (res.ok) {
+          sentSuccessfully = true;
+        } else {
+          console.warn(`Primary API ${primaryApi} responded with status: ${res.status}`);
+        }
       }
     } catch (err) {
-      console.error("Backend Enquiry submission error:", err);
+      console.warn("Primary API submission warning:", err);
     }
 
-    // 2. Local storage safety backup so no lead is lost
+    // 2. If primary failed or was unreachable, immediately retry with fallback Render endpoint
+    if (!sentSuccessfully && primaryApi !== fallbackApi) {
+      try {
+        const fbRes = await fetch(`${fallbackApi}/api/enquiries`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (fbRes.ok) {
+          sentSuccessfully = true;
+        }
+      } catch (fbErr) {
+        console.warn("Fallback Render API submission warning:", fbErr);
+      }
+    }
+
+    // 3. Local storage safety backup so no lead is lost
     try {
       const stored = JSON.parse(localStorage.getItem("sfm_enquiries") || "[]");
-      stored.push({ ...payload, submittedAt: new Date().toISOString() });
+      stored.push({ ...payload, submittedAt: new Date().toISOString(), syncedToAtlas: sentSuccessfully });
       localStorage.setItem("sfm_enquiries", JSON.stringify(stored));
     } catch (_) {}
 

@@ -416,12 +416,8 @@ const getApiBase = () => {
     return window.__SFM_API_URL__;
   }
   let url = (import.meta.env["VITE_API_URL"] as string | undefined) || "";
-  if (url.includes("api.sfmtravels.co.in")) url = "";
+  if (url.includes("api.sfmtravels")) url = "";
   if (url) return url;
-  if (typeof window !== "undefined") {
-    const host = window.location.hostname;
-    if (host === "localhost" || host === "127.0.0.1") return "http://localhost:5000";
-  }
   return "https://sfm-backend-5skx.onrender.com";
 };
 

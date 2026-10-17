@@ -37,6 +37,7 @@ import { BaliItineraryPage } from "@/routes/bali-itinerary";
 import { MalaysiaItineraryPage } from "@/routes/malaysia-itinerary";
 import { SingaporeCruiseItineraryPage } from "@/routes/singapore-cruise-itinerary";
 import { AboutPage } from "@/routes/about";
+import { ContactUsPage } from "@/routes/contact-us";
 import { AdminEnquiriesPage } from "@/routes/admin-enquiries";
 import {
   RegionsSection,
@@ -1228,6 +1229,9 @@ export default function App() {
     }
     if (pathname.includes("/about")) {
       return <AboutPage />;
+    }
+    if (pathname.includes("/contact-us") || pathname === "/contact") {
+      return <ContactUsPage />;
     }
     if (isAdmin) {
       return <AdminEnquiriesPage />;
