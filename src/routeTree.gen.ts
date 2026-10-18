@@ -20,6 +20,7 @@ import { Route as MalaysiaItineraryRouteImport } from './routes/malaysia-itinera
 import { Route as SingaporeCruiseItineraryRouteImport } from './routes/singapore-cruise-itinerary'
 import { Route as SingaporeItineraryRouteImport } from './routes/singapore-itinerary'
 import { Route as ThailandItineraryRouteImport } from './routes/thailand-itinerary'
+import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as VietnamItineraryRouteImport } from './routes/vietnam-itinerary'
 
 const IndexRoute = IndexRouteImport.update({
@@ -78,6 +79,11 @@ const ThailandItineraryRoute = ThailandItineraryRouteImport.update({
   path: '/thailand-itinerary',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ThankYouRoute = ThankYouRouteImport.update({
+  id: '/thank-you',
+  path: '/thank-you',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VietnamItineraryRoute = VietnamItineraryRouteImport.update({
   id: '/vietnam-itinerary',
   path: '/vietnam-itinerary',
@@ -96,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/singapore-cruise-itinerary': typeof SingaporeCruiseItineraryRoute
   '/singapore-itinerary': typeof SingaporeItineraryRoute
   '/thailand-itinerary': typeof ThailandItineraryRoute
+  '/thank-you': typeof ThankYouRoute
   '/vietnam-itinerary': typeof VietnamItineraryRoute
 }
 export interface FileRoutesByTo {
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/singapore-cruise-itinerary': typeof SingaporeCruiseItineraryRoute
   '/singapore-itinerary': typeof SingaporeItineraryRoute
   '/thailand-itinerary': typeof ThailandItineraryRoute
+  '/thank-you': typeof ThankYouRoute
   '/vietnam-itinerary': typeof VietnamItineraryRoute
 }
 export interface FileRoutesById {
@@ -125,6 +133,7 @@ export interface FileRoutesById {
   '/singapore-cruise-itinerary': typeof SingaporeCruiseItineraryRoute
   '/singapore-itinerary': typeof SingaporeItineraryRoute
   '/thailand-itinerary': typeof ThailandItineraryRoute
+  '/thank-you': typeof ThankYouRoute
   '/vietnam-itinerary': typeof VietnamItineraryRoute
 }
 export interface FileRouteTypes {
@@ -141,6 +150,7 @@ export interface FileRouteTypes {
     | '/singapore-cruise-itinerary'
     | '/singapore-itinerary'
     | '/thailand-itinerary'
+    | '/thank-you'
     | '/vietnam-itinerary'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -155,6 +165,7 @@ export interface FileRouteTypes {
     | '/singapore-cruise-itinerary'
     | '/singapore-itinerary'
     | '/thailand-itinerary'
+    | '/thank-you'
     | '/vietnam-itinerary'
   id:
     | '__root__'
@@ -169,6 +180,7 @@ export interface FileRouteTypes {
     | '/singapore-cruise-itinerary'
     | '/singapore-itinerary'
     | '/thailand-itinerary'
+    | '/thank-you'
     | '/vietnam-itinerary'
   fileRoutesById: FileRoutesById
 }
@@ -184,6 +196,7 @@ export interface RootRouteChildren {
   SingaporeCruiseItineraryRoute: typeof SingaporeCruiseItineraryRoute
   SingaporeItineraryRoute: typeof SingaporeItineraryRoute
   ThailandItineraryRoute: typeof ThailandItineraryRoute
+  ThankYouRoute: typeof ThankYouRoute
   VietnamItineraryRoute: typeof VietnamItineraryRoute
 }
 
@@ -266,6 +279,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ThailandItineraryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/thank-you': {
+      id: '/thank-you'
+      path: '/thank-you'
+      fullPath: '/thank-you'
+      preLoaderRoute: typeof ThankYouRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/vietnam-itinerary': {
       id: '/vietnam-itinerary'
       path: '/vietnam-itinerary'
@@ -288,6 +308,7 @@ const rootRouteChildren: RootRouteChildren = {
   SingaporeCruiseItineraryRoute: SingaporeCruiseItineraryRoute,
   SingaporeItineraryRoute: SingaporeItineraryRoute,
   ThailandItineraryRoute: ThailandItineraryRoute,
+  ThankYouRoute: ThankYouRoute,
   VietnamItineraryRoute: VietnamItineraryRoute,
 }
 export const routeTree = rootRouteImport

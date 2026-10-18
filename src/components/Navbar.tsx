@@ -793,7 +793,7 @@ export const Navbar = memo(function Navbar({
                 window.dispatchEvent(new PopStateEvent("popstate"));
               }}
               style={{ color: "#0f172a", textDecoration: "none" }}
-              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm text-amber-600 font-extrabold"
+              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
             >
               Contact Us
             </a>
@@ -801,7 +801,7 @@ export const Navbar = memo(function Navbar({
 
           {/* Compact Right Actions */}
           <div className="hidden sm:flex items-center gap-4">
-            <CurrencySelector className="scale-95" />
+            <CurrencySelector />
             <button
               onClick={() => onPlanTripClick()}
               className="font-black text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer hover:scale-105 transition-all bg-transparent border-none px-2 py-1 nav-link-item"
@@ -1021,13 +1021,13 @@ export const Navbar = memo(function Navbar({
                 window.history.pushState({}, "", "/contact-us");
                 window.dispatchEvent(new PopStateEvent("popstate"));
               }}
-              style={{ color: "#d97706", textDecoration: "none" }}
-              className="block font-extrabold text-sm nav-link-item text-amber-600"
+              style={{ color: "#0f172a", textDecoration: "none" }}
+              className="block font-extrabold text-sm nav-link-item"
             >
               Contact Us
             </a>
             <div className="pt-3 border-t border-amber-200 flex items-center justify-between">
-              <CurrencySelector className="scale-90" />
+              <CurrencySelector />
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);

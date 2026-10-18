@@ -38,6 +38,7 @@ import { MalaysiaItineraryPage } from "@/routes/malaysia-itinerary";
 import { SingaporeCruiseItineraryPage } from "@/routes/singapore-cruise-itinerary";
 import { AboutPage } from "@/routes/about";
 import { ContactUsPage } from "@/routes/contact-us";
+import { ThankYouPage } from "@/routes/thank-you";
 import { AdminEnquiriesPage } from "@/routes/admin-enquiries";
 import {
   RegionsSection,
@@ -1105,9 +1106,9 @@ function MainContent() {
       {/* Why Choose Us */}
       <WhyChooseUsSection />
 
-      {/* Enquiry Form Section - Translucent Glass */}
+      {/* Enquiry Form Section - Crisp HD Container */}
       <section ref={enquiryFormRef} id="enquiry" className="py-24 px-4 bg-gradient-to-b from-slate-50 via-amber-50/20 to-slate-100 border-t border-slate-200/60 relative">
-        <div className="max-w-4xl mx-auto bg-white/75 backdrop-blur-xl border border-white/80 p-8 sm:p-12 rounded-3xl shadow-2xl shadow-slate-300/50 space-y-8 relative z-10 hover-card-3d">
+        <div className="max-w-4xl mx-auto bg-white border border-slate-200/90 p-8 sm:p-12 rounded-3xl shadow-2xl shadow-slate-300/40 space-y-8 relative z-10">
           <div className="text-center space-y-3">
             <span className="text-xs font-bold uppercase tracking-widest text-amber-600">
               Free Instant Quote
@@ -1152,7 +1153,7 @@ function MainContent() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-lg bg-white/95 backdrop-blur-2xl rounded-3xl p-6 sm:p-8 shadow-2xl border border-amber-500/30 max-h-[90vh] overflow-y-auto hover-card-3d cursor-default"
+            className="relative w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-amber-500/30 max-h-[90vh] overflow-y-auto cursor-default"
           >
             <button
               onClick={closeAutoPopUp}
@@ -1229,6 +1230,9 @@ export default function App() {
     }
     if (pathname.includes("/about")) {
       return <AboutPage />;
+    }
+    if (pathname.includes("/thank-you") || pathname === "/thankyou" || pathname === "/thanks") {
+      return <ThankYouPage />;
     }
     if (pathname.includes("/contact-us") || pathname === "/contact") {
       return <ContactUsPage />;

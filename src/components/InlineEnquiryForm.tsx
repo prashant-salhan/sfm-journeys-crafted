@@ -155,9 +155,46 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({
       localStorage.setItem("sfm_enquiries", JSON.stringify(stored));
     } catch (_) {}
 
+    const refCode = "SFM-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+    try {
+      sessionStorage.setItem(
+        "sfm_latest_enquiry",
+        JSON.stringify({
+          name: cleanName,
+          phone: cleanPhone,
+          email: cleanEmail,
+          destination: cleanTravel,
+          message: cleanDesc,
+          source: source || "website",
+          ref: refCode,
+          submittedAt: new Date().toISOString(),
+        })
+      );
+    } catch (_) {}
+
     setSubmitting(false);
     setSubmittedData({ name: cleanName, phone: cleanPhone, travel: cleanTravel });
     setSubmitSuccess(true);
+
+    // Smooth redirect to dedicated Thank You page
+    const queryParams = new URLSearchParams({
+      name: cleanName,
+      phone: cleanPhone,
+      dest: cleanTravel,
+      ref: refCode,
+    });
+    const thankYouUrl = `/thank-you?${queryParams.toString()}`;
+
+    try {
+      window.history.pushState({}, "", thankYouUrl);
+      window.dispatchEvent(new PopStateEvent("popstate"));
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      if (window.location.pathname !== "/thank-you") {
+        window.location.href = thankYouUrl;
+      }
+    } catch (_) {
+      window.location.href = thankYouUrl;
+    }
   };
 
   if (submitSuccess && submittedData) {
