@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { getAuthApiBase } from "@/context/AuthContext";
 
 export interface CurrencyConfig {
   code: string;
@@ -58,7 +59,8 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
     const fetchLiveRates = async () => {
       try {
-        const res = await fetch("https://open.er-api.com/v6/latest/INR");
+        const apiBase = getAuthApiBase();
+        const res = await fetch(`${apiBase}/api/currency-rates`);
         if (res.ok) {
           const data = await res.json();
           if (data && data.rates && isMounted) {
@@ -73,8 +75,8 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             setRates(newRates);
           }
         }
-      } catch (err) {
-        console.warn("[Currency Rates Note]: Using fallback exchange rates", err);
+      } catch {
+        // Fallback rates from SUPPORTED_CURRENCIES are already active
       } finally {
         if (isMounted) setIsRatesLoading(false);
       }

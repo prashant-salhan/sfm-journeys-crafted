@@ -1,21 +1,9 @@
 import { useState, useEffect, useRef, memo, type FormEvent } from "react";
 import { CheckCircle2, Send, Sparkles, MessageCircle, PhoneCall, ShieldCheck } from "lucide-react";
-
-declare global {
-  interface Window {
-    __SFM_API_URL__?: string;
-  }
-}
+import { useAuth, getAuthApiBase } from "@/context/AuthContext";
 
 const getApiBase = () => {
-  if (typeof window !== "undefined" && window.__SFM_API_URL__) {
-    return window.__SFM_API_URL__;
-  }
-  let url = (import.meta.env["VITE_API_URL"] as string | undefined) || "";
-  // Discard broken or unconfigured custom api domains
-  if (url.includes("api.sfmtravels")) url = "";
-  if (url) return url;
-  return "https://sfm-backend-5skx.onrender.com";
+  return getAuthApiBase();
 };
 
 interface InlineEnquiryFormProps {
@@ -37,13 +25,65 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({
   const [destination, setDestination] = useState(initialPackageTitle || "Incredible India Holiday Package");
   const [message, setMessage] = useState("");
 
+  // Diwali Voucher State
+  const [voucherCode, setVoucherCode] = useState("");
+  const [validatingVoucher, setValidatingVoucher] = useState(false);
+  const [voucherError, setVoucherError] = useState("");
+  const [appliedVoucher, setAppliedVoucher] = useState<{ code: string; discountAmount: number; message: string } | null>(null);
+
   const [submittedData, setSubmittedData] = useState<{
     name: string;
     phone: string;
     travel: string;
+    voucherCode?: string | undefined;
+    discountAmount?: number | undefined;
   } | null>(null);
 
   const successContainerRef = useRef<HTMLDivElement>(null);
+
+  // Auto-prefill if traveler is logged in
+  const { user } = useAuth();
+  useEffect(() => {
+    if (user) {
+      setFullName((prev) => (prev ? prev : user.fullName || ""));
+      setPhone((prev) => (prev ? prev : user.phone || ""));
+      setEmail((prev) => (prev ? prev : user.email || ""));
+    }
+  }, [user]);
+
+  // Validate Diwali voucher code
+  const handleValidateVoucher = async () => {
+    if (!voucherCode.trim()) {
+      setVoucherError("Please enter your voucher code.");
+      return;
+    }
+    setValidatingVoucher(true);
+    setVoucherError("");
+    try {
+      const api = getApiBase();
+      const res = await fetch(`${api}/api/vouchers/validate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: voucherCode.trim().toUpperCase() }),
+      });
+      const data = await res.json().catch(() => null);
+      if (res.ok && data?.success && data?.valid) {
+        setAppliedVoucher({
+          code: data.code,
+          discountAmount: data.discountAmount || 5000,
+          message: data.message || "₹5,000 Diwali Member Discount Applied!",
+        });
+        setVoucherError("");
+      } else {
+        setAppliedVoucher(null);
+        setVoucherError(data?.error || "Invalid or expired voucher code.");
+      }
+    } catch (err: any) {
+      setVoucherError(err.message || "Could not validate voucher. Please try again.");
+    } finally {
+      setValidatingVoucher(false);
+    }
+  };
 
   // Synchronize when initialPackageTitle prop updates
   useEffect(() => {
@@ -110,9 +150,11 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({
       destination: cleanTravel,
       message: cleanDesc,
       source: source || "india_portal_inline",
+      voucherCode: appliedVoucher ? appliedVoucher.code : (voucherCode.trim() || undefined),
     };
 
     let sentSuccessfully = false;
+    let serverId = "";
 
     // 1. Post to primary backend
     try {
@@ -124,6 +166,10 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({
         });
         if (res.ok) {
           sentSuccessfully = true;
+          const json = await res.json().catch(() => null);
+          if (json?.data?._id) {
+            serverId = String(json.data._id);
+          }
         } else {
           console.warn(`Primary API ${primaryApi} responded with status: ${res.status}`);
         }
@@ -142,6 +188,10 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({
         });
         if (fbRes.ok) {
           sentSuccessfully = true;
+          const json = await fbRes.json().catch(() => null);
+          if (json?.data?._id) {
+            serverId = String(json.data._id);
+          }
         }
       } catch (fbErr) {
         console.warn("Fallback Render API submission warning:", fbErr);
@@ -155,7 +205,27 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({
       localStorage.setItem("sfm_enquiries", JSON.stringify(stored));
     } catch (_) {}
 
-    const refCode = "SFM-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+    const refCode = serverId
+      ? "SFM-" + serverId.slice(-6).toUpperCase()
+      : "SFM-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+
+    // 4. Only store local offline copy if network request failed (avoids duplicating in User Panel)
+    if (!sentSuccessfully) {
+      try {
+        const userEnqs = JSON.parse(localStorage.getItem("sfm_user_local_enquiries") || "[]");
+        userEnqs.push({
+          _id: refCode,
+          fullName: cleanName,
+          phone: cleanPhone,
+          email: cleanEmail,
+          destination: cleanTravel,
+          message: cleanDesc,
+          status: "new",
+          createdAt: new Date().toISOString(),
+        });
+        localStorage.setItem("sfm_user_local_enquiries", JSON.stringify(userEnqs));
+      } catch (_) {}
+    }
     try {
       sessionStorage.setItem(
         "sfm_latest_enquiry",
@@ -173,7 +243,13 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({
     } catch (_) {}
 
     setSubmitting(false);
-    setSubmittedData({ name: cleanName, phone: cleanPhone, travel: cleanTravel });
+    setSubmittedData({
+      name: cleanName,
+      phone: cleanPhone,
+      travel: cleanTravel,
+      voucherCode: appliedVoucher?.code,
+      discountAmount: appliedVoucher?.discountAmount,
+    });
     setSubmitSuccess(true);
 
     // Smooth redirect to dedicated Thank You page
@@ -228,6 +304,14 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({
           <p><strong>Name:</strong> {submittedData.name}</p>
           <p><strong>Phone:</strong> {submittedData.phone}</p>
           <p><strong>Destination:</strong> {submittedData.travel}</p>
+          {submittedData.voucherCode && (
+            <p className="text-emerald-700 font-extrabold pt-1 border-t border-emerald-100 flex items-center justify-between">
+              <span>🪔 Diwali Member Voucher:</span>
+              <span className="font-mono bg-emerald-100 px-2 py-0.5 rounded text-emerald-800">
+                -₹{submittedData.discountAmount || 5000} ({submittedData.voucherCode})
+              </span>
+            </p>
+          )}
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
@@ -392,6 +476,72 @@ export const InlineEnquiryForm = memo(function InlineEnquiryForm({
           className="w-full bg-slate-50 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-xl px-4 py-3 text-base sm:text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all outline-none font-outfit"
           style={{ color: "#0f172a", backgroundColor: "#f8fafc" }}
         />
+      </div>
+
+      {/* Diwali Member Voucher Field */}
+      <div className="p-3.5 bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-orange-500/10 border border-amber-300/80 rounded-2xl space-y-2">
+        <div className="flex items-center justify-between">
+          <label
+            htmlFor="sfm_voucher_code"
+            className="text-xs font-bold text-slate-800 flex items-center gap-1.5 uppercase tracking-wider font-outfit"
+          >
+            <span>🪔</span>
+            <span>Have a ₹5,000 Diwali Member Voucher?</span>
+          </label>
+          {appliedVoucher && (
+            <span className="text-[10px] bg-emerald-600 text-white font-black px-2 py-0.5 rounded-full shadow-xs">
+              ₹5,000 APPLIED
+            </span>
+          )}
+        </div>
+
+        <div className="flex gap-2">
+          <input
+            id="sfm_voucher_code"
+            type="text"
+            value={voucherCode}
+            onChange={(e) => {
+              setVoucherCode(e.target.value.toUpperCase());
+              if (voucherError) setVoucherError("");
+            }}
+            disabled={!!appliedVoucher || validatingVoucher}
+            placeholder="e.g. DIWALI-SFM-XXXXXX"
+            className="flex-1 bg-white border border-amber-300 focus:border-amber-500 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-mono uppercase tracking-wider text-slate-900 outline-none transition-all placeholder:normal-case placeholder:font-sans placeholder:tracking-normal font-bold"
+          />
+          {appliedVoucher ? (
+            <button
+              type="button"
+              onClick={() => {
+                setAppliedVoucher(null);
+                setVoucherCode("");
+              }}
+              className="px-3.5 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl transition-all cursor-pointer"
+            >
+              Remove
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={handleValidateVoucher}
+              disabled={validatingVoucher || !voucherCode.trim()}
+              className="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs rounded-xl transition-all disabled:opacity-40 cursor-pointer shadow-sm active:scale-95"
+            >
+              {validatingVoucher ? "Checking..." : "Apply Code"}
+            </button>
+          )}
+        </div>
+
+        {voucherError && (
+          <p className="text-[11px] text-rose-600 font-bold animate-fade-in font-outfit">
+            ⚠️ {voucherError}
+          </p>
+        )}
+        {appliedVoucher && (
+          <p className="text-[11px] text-emerald-800 font-bold flex items-center gap-1 animate-fade-in font-outfit">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+            <span>{appliedVoucher.message}</span>
+          </p>
+        )}
       </div>
 
       {/* Submit Button */}

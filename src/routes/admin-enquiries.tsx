@@ -61,6 +61,19 @@ interface EnquiryItem {
   createdAt: string;
 }
 
+interface RegisteredUserItem {
+  _id: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  memberId?: string;
+  role?: string;
+  travelStyle?: string;
+  preferredDestinations?: string[];
+  createdAt: string;
+  lastLoginAt?: string;
+}
+
 interface SheetStatus {
   success: boolean;
   configured: boolean;
@@ -747,6 +760,8 @@ export function AdminEnquiriesPage() {
   const [showAccountModal, setShowAccountModal] = useState(false);
 
   const [enquiries, setEnquiries] = useState<EnquiryItem[]>([]);
+  const [registeredUsers, setRegisteredUsers] = useState<RegisteredUserItem[]>([]);
+  const [activeTab, setActiveTab] = useState<"enquiries" | "users">("enquiries");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -788,6 +803,17 @@ export function AdminEnquiriesPage() {
       if (!res.ok) throw new Error("Could not connect to backend server");
       const json = await res.json();
       setEnquiries(json.data || []);
+
+      // 1B. Fetch registered users from dedicated 'registered_users' MongoDB collection
+      try {
+        const uRes = await fetch(`${getApiBaseUrl()}/api/registered-users`);
+        if (uRes.ok) {
+          const uJson = await uRes.json();
+          setRegisteredUsers(uJson.data || []);
+        }
+      } catch (uErr) {
+        console.warn("Could not load registered users:", uErr);
+      }
 
       // 2. Fetch sheet status
       const statusRes = await fetch(`${getApiBaseUrl()}/api/sheets/status`).catch(() => null);
@@ -866,6 +892,53 @@ export function AdminEnquiriesPage() {
   };
 
   const handleExportCsv = () => {
+    if (activeTab === "users") {
+      if (registeredUsers.length === 0) {
+        alert("No registered users to export.");
+        return;
+      }
+      const headers = [
+        "Registration Date (IST)",
+        "Member ID",
+        "Full Name",
+        "Email",
+        "Phone",
+        "Role",
+        "Travel Style",
+        "Preferred Destinations",
+        "Last Login (IST)"
+      ];
+      const rows = registeredUsers.map((u) => {
+        const d = new Date(u.createdAt);
+        const dateStr = !isNaN(d.getTime()) ? d.toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : u.createdAt;
+        const lastLoginStr = u.lastLoginAt ? new Date(u.lastLoginAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : "N/A";
+        return [
+          dateStr,
+          u.memberId || "N/A",
+          u.fullName || "",
+          u.email || "",
+          u.phone || "",
+          u.role || "traveler",
+          u.travelStyle || "Customized Vacation",
+          (u.preferredDestinations || []).join("; "),
+          lastLoginStr
+        ];
+      });
+      const csvContent =
+        "data:text/csv;charset=utf-8," +
+        [headers, ...rows]
+          .map((row) => row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(","))
+          .join("\n");
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `SFM_Registered_Users_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      return;
+    }
+
     if (enquiries.length === 0) {
       alert("No enquiries to export.");
       return;
@@ -934,6 +1007,20 @@ export function AdminEnquiriesPage() {
     });
   }, [enquiries, searchQuery]);
 
+  // Filtered registered users
+  const filteredUsers = useMemo(() => {
+    if (!searchQuery.trim()) return registeredUsers;
+    const q = searchQuery.toLowerCase();
+    return registeredUsers.filter((u) => {
+      const name = (u.fullName || "").toLowerCase();
+      const email = (u.email || "").toLowerCase();
+      const phone = (u.phone || "").toLowerCase();
+      const memberId = (u.memberId || "").toLowerCase();
+      const style = (u.travelStyle || "").toLowerCase();
+      return name.includes(q) || email.includes(q) || phone.includes(q) || memberId.includes(q) || style.includes(q);
+    });
+  }, [registeredUsers, searchQuery]);
+
   if (!isAuthenticated) {
     return (
       <AdminLoginView
@@ -967,7 +1054,7 @@ export function AdminEnquiriesPage() {
           <div className="flex items-center gap-2.5">
             <span className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5">
               <Database className="w-3.5 h-3.5" />
-              <span>MongoDB Connected ({enquiries.length})</span>
+              <span>MongoDB: {enquiries.length} Enquiries • {registeredUsers.length} Users</span>
             </span>
             <button
               onClick={handleExportCsv}
@@ -1187,15 +1274,61 @@ export function AdminEnquiriesPage() {
           </div>
         </div>
 
-        {/* MongoDB Form Entries Table */}
+        {/* MongoDB Collections Showcase: Enquiries & Registered Users */}
         <div className="bg-slate-900/90 border border-white/10 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          {/* Collection Tab Switcher */}
+          <div className="flex flex-wrap items-center gap-3 border-b border-white/10 pb-4">
+            <button
+              onClick={() => setActiveTab("enquiries")}
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all cursor-pointer ${
+                activeTab === "enquiries"
+                  ? "bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 font-black"
+                  : "bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white"
+              }`}
+            >
+              <Database className="w-4 h-4" />
+              <span>Customer Enquiries</span>
+              <span
+                className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                  activeTab === "enquiries" ? "bg-slate-950/20 text-slate-950" : "bg-white/10 text-slate-300"
+                }`}
+              >
+                {enquiries.length}
+              </span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("users")}
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all cursor-pointer ${
+                activeTab === "users"
+                  ? "bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 font-black"
+                  : "bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white"
+              }`}
+            >
+              <User className="w-4 h-4" />
+              <span>Registered Users</span>
+              <span
+                className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                  activeTab === "users" ? "bg-slate-950/20 text-slate-950" : "bg-white/10 text-slate-300"
+                }`}
+              >
+                {registeredUsers.length}
+              </span>
+              <span className="text-[9px] uppercase tracking-wider bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/30">
+                registered_users collection
+              </span>
+            </button>
+          </div>
+
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h2 className="text-xl sm:text-2xl font-bold font-display text-white">
-                Live MongoDB Enquiries Showcase
+                {activeTab === "enquiries" ? "Live Customer Enquiries" : "MongoDB Registered Users"}
               </h2>
               <p className="text-xs text-slate-400">
-                Displaying {filteredEnquiries.length} of {enquiries.length} customer tour requests.
+                {activeTab === "enquiries"
+                  ? `Displaying ${filteredEnquiries.length} of ${enquiries.length} customer tour requests (enquiries collection).`
+                  : `Displaying ${filteredUsers.length} of ${registeredUsers.length} verified travelers stored in 'registered_users' collection.`}
               </p>
             </div>
 
@@ -1228,6 +1361,92 @@ export function AdminEnquiriesPage() {
                 Retry Connection
               </button>
             </div>
+          ) : activeTab === "users" ? (
+            filteredUsers.length === 0 ? (
+              <div className="py-16 text-center text-slate-500 space-y-2">
+                <p className="text-base font-bold">No registered users found matching "{searchQuery}"</p>
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="text-xs text-amber-400 hover:underline font-bold cursor-pointer"
+                >
+                  Clear Search Filter
+                </button>
+              </div>
+            ) : (
+              <div className="overflow-x-auto rounded-2xl border border-white/10">
+                <table className="w-full text-left border-collapse text-xs sm:text-sm">
+                  <thead>
+                    <tr className="bg-white/[0.04] border-b border-white/10 text-slate-400 font-bold uppercase tracking-wider text-[11px]">
+                      <th className="py-3.5 px-4">Registered Date</th>
+                      <th className="py-3.5 px-4">Member ID</th>
+                      <th className="py-3.5 px-4">Full Name</th>
+                      <th className="py-3.5 px-4">Email</th>
+                      <th className="py-3.5 px-4">Phone</th>
+                      <th className="py-3.5 px-4">Role / Status</th>
+                      <th className="py-3.5 px-4">Travel Style</th>
+                      <th className="py-3.5 px-4">Destinations</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/5">
+                    {filteredUsers.map((u) => {
+                      const d = new Date(u.createdAt);
+                      const dateStr = !isNaN(d.getTime())
+                        ? d.toLocaleDateString("en-IN", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                            timeZone: "Asia/Kolkata",
+                          }) +
+                          " " +
+                          d.toLocaleTimeString("en-IN", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            timeZone: "Asia/Kolkata",
+                          })
+                        : u.createdAt;
+
+                      return (
+                        <tr key={u._id} className="hover:bg-white/[0.02] transition-colors">
+                          <td className="py-3.5 px-4 text-slate-400 font-mono text-[11px] whitespace-nowrap">
+                            {dateStr}
+                          </td>
+                          <td className="py-3.5 px-4 whitespace-nowrap">
+                            <span className="font-mono text-xs font-bold bg-amber-500/10 text-amber-300 border border-amber-500/25 px-2 py-0.5 rounded-md">
+                              {u.memberId || "SFM-MEMBER"}
+                            </span>
+                          </td>
+                          <td className="py-3.5 px-4 font-bold text-white whitespace-nowrap">
+                            {u.fullName}
+                          </td>
+                          <td className="py-3.5 px-4 text-amber-300 font-mono text-xs whitespace-nowrap">
+                            <a href={`mailto:${u.email}`} className="hover:underline">
+                              {u.email}
+                            </a>
+                          </td>
+                          <td className="py-3.5 px-4 font-mono text-xs text-slate-300 whitespace-nowrap">
+                            <a href={`tel:${u.phone}`} className="hover:underline">
+                              {u.phone}
+                            </a>
+                          </td>
+                          <td className="py-3.5 px-4 whitespace-nowrap">
+                            <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/20">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                              Active Traveler
+                            </span>
+                          </td>
+                          <td className="py-3.5 px-4 text-slate-300 text-xs">
+                            {u.travelStyle || "Customized Vacation"}
+                          </td>
+                          <td className="py-3.5 px-4 text-slate-400 text-xs max-w-xs truncate">
+                            {(u.preferredDestinations || []).join(", ") || "General"}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )
           ) : filteredEnquiries.length === 0 ? (
             <div className="py-16 text-center text-slate-500 space-y-2">
               <p className="text-base font-bold">No enquiries found matching "{searchQuery}"</p>

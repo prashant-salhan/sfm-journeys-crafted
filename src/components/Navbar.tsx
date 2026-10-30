@@ -1,7 +1,9 @@
 import { useState, memo, useRef, useEffect } from "react";
-import { Menu, X, Zap, FileCheck, Phone, Award, MapPin, Sparkles, ChevronDown, ArrowRight } from "lucide-react";
+import { Menu, X, Zap, FileCheck, Phone, Award, MapPin, Sparkles, ChevronDown, ArrowRight, User, LogOut } from "lucide-react";
 import sfmLogo from "@/assets/sfm-logo.png";
 import { CurrencySelector } from "@/components/CurrencySelector";
+import { useAuth } from "@/context/AuthContext";
+import { AuthModal } from "@/components/AuthModal";
 
 interface NavbarProps {
   onPlanTripClick: (title?: string) => void;
@@ -206,6 +208,9 @@ export const Navbar = memo(function Navbar({
   onNavigateToPackageCard,
 }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, isAuthenticated, logout, openAuthModal } = useAuth();
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const userDropdownRef = useRef<HTMLDivElement>(null);
   const [isDomesticOpen, setIsDomesticOpen] = useState(false);
   const [mobileDomesticOpen, setMobileDomesticOpen] = useState(false);
   const [isInternationalOpen, setIsInternationalOpen] = useState(false);
@@ -409,6 +414,10 @@ export const Navbar = memo(function Navbar({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      if (userDropdownRef.current && !userDropdownRef.current.contains(event.target as Node)) {
+        setUserDropdownOpen(false);
+      }
+
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsInternationalOpen(false);
       }
@@ -493,28 +502,28 @@ export const Navbar = memo(function Navbar({
       </div>
 
       {/* Modern Subtle Light Warm Orange Floating Curved Navbar */}
-      <header className="sticky top-2 sm:top-3 z-50 px-2 sm:px-4 max-w-[95%] xl:max-w-[1440px] mx-auto my-1.5">
-        <div className="bg-amber-50/95 backdrop-blur-xl rounded-xl sm:rounded-full px-4 sm:px-7 py-1.5 sm:py-2 shadow-xl shadow-slate-950/15 border border-amber-200/90 flex items-center justify-between transition-all relative">
+      <header className="sticky top-2 sm:top-3 z-50 px-2 sm:px-4 w-[98%] max-w-[1780px] mx-auto my-1.5">
+        <div className="bg-amber-50/95 backdrop-blur-xl rounded-2xl sm:rounded-full px-3.5 sm:px-5 xl:px-7 2xl:px-8 py-1.5 sm:py-2 shadow-xl shadow-slate-950/15 border border-amber-200/90 flex items-center justify-between transition-all relative">
           {/* Logo */}
           <a
             href="#"
             onClick={(e) => handleNavClick(e)}
             style={{ textDecoration: "none" }}
-            className="flex items-center gap-2.5 no-underline select-none"
+            className="flex items-center gap-2 no-underline select-none shrink-0 whitespace-nowrap"
           >
-            <img src={sfmLogo} alt="SFM Travels Logo" className="h-7 sm:h-8 w-auto object-contain filter drop-shadow" />
+            <img src={sfmLogo} alt="SFM Travels Logo" className="h-6 sm:h-7 w-auto object-contain filter drop-shadow shrink-0" />
             <div>
-              <span className="text-sm sm:text-base font-black tracking-tight text-slate-950 block leading-none drop-shadow-sm">
+              <span className="text-xs sm:text-sm font-black tracking-tight text-slate-950 block leading-none drop-shadow-sm whitespace-nowrap">
                 SFM <span className="text-amber-600">TRAVELS</span>
               </span>
-              <span className="text-[8px] sm:text-[9px] tracking-widest text-amber-700 font-black uppercase block mt-0.5 drop-shadow-sm">
+              <span className="text-[7.5px] sm:text-[8px] tracking-wider text-amber-700 font-black uppercase block mt-0.5 drop-shadow-sm whitespace-nowrap">
                 Smile For Millions
               </span>
             </div>
           </a>
 
           {/* High-Contrast Nav Links for Light Background */}
-          <nav className="hidden lg:flex items-center gap-7 font-black text-xs sm:text-sm">
+          <nav className="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-5 font-black text-[11px] xl:text-[12px] 2xl:text-[13px] whitespace-nowrap">
             {/* Domestic Packages Mega Dropdown */}
             <div
               ref={domesticDropdownRef}
@@ -537,11 +546,11 @@ export const Navbar = memo(function Navbar({
                   }
                 }}
                 style={{ color: "#0f172a" }}
-                className="nav-link-item flex items-center gap-1 hover:scale-105 transition-all drop-shadow-sm font-black text-xs sm:text-sm bg-transparent border-none cursor-pointer py-1"
+                className="nav-link-item flex items-center gap-0.5 hover:scale-105 transition-all drop-shadow-sm font-black text-[11px] xl:text-[12px] 2xl:text-[13px] whitespace-nowrap bg-transparent border-none cursor-pointer py-1"
               >
                 <span>Domestic Packages</span>
                 <ChevronDown
-                  className={`w-4 h-4 text-amber-600 transition-transform duration-200 ${
+                  className={`w-3.5 h-3.5 text-amber-600 transition-transform duration-200 shrink-0 ${
                     isDomesticOpen ? "rotate-180" : ""
                   }`}
                 />
@@ -611,11 +620,11 @@ export const Navbar = memo(function Navbar({
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
                 style={{ color: "#0f172a" }}
-                className="nav-link-item flex items-center gap-1 hover:scale-105 transition-all drop-shadow-sm font-black text-xs sm:text-sm bg-transparent border-none cursor-pointer py-1"
+                className="nav-link-item flex items-center gap-0.5 hover:scale-105 transition-all drop-shadow-sm font-black text-[11px] xl:text-[12px] 2xl:text-[13px] whitespace-nowrap bg-transparent border-none cursor-pointer py-1"
               >
                 <span>International Packages</span>
                 <ChevronDown
-                  className={`w-4 h-4 text-amber-600 transition-transform duration-200 ${
+                  className={`w-3.5 h-3.5 text-amber-600 transition-transform duration-200 shrink-0 ${
                     isInternationalOpen ? "rotate-180" : ""
                   }`}
                 />
@@ -698,7 +707,7 @@ export const Navbar = memo(function Navbar({
               href="#enquiry"
               onClick={(e) => handleNavClick(e, "enquiry", undefined, "Hotel And Flight Services")}
               style={{ color: "#0f172a", textDecoration: "none" }}
-              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
+              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm font-black text-[11px] xl:text-[12px] 2xl:text-[13px] whitespace-nowrap"
             >
               Hotel And Flight Services
             </a>
@@ -722,11 +731,11 @@ export const Navbar = memo(function Navbar({
                   setIsCruiseOpen(!isCruiseOpen);
                 }}
                 style={{ color: "#0f172a" }}
-                className="nav-link-item flex items-center gap-1 hover:scale-105 transition-all drop-shadow-sm font-black text-xs sm:text-sm bg-transparent border-none cursor-pointer py-1"
+                className="nav-link-item flex items-center gap-0.5 hover:scale-105 transition-all drop-shadow-sm font-black text-[11px] xl:text-[12px] 2xl:text-[13px] whitespace-nowrap bg-transparent border-none cursor-pointer py-1"
               >
                 <span>Cruise</span>
                 <ChevronDown
-                  className={`w-4 h-4 text-amber-600 transition-transform duration-200 ${
+                  className={`w-3.5 h-3.5 text-amber-600 transition-transform duration-200 shrink-0 ${
                     isCruiseOpen ? "rotate-180" : ""
                   }`}
                 />
@@ -773,7 +782,7 @@ export const Navbar = memo(function Navbar({
               href="#why-us"
               onClick={(e) => handleNavClick(e, "why-us")}
               style={{ color: "#0f172a", textDecoration: "none" }}
-              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
+              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm font-black text-[11px] xl:text-[12px] 2xl:text-[13px] whitespace-nowrap"
             >
               About Us
             </a>
@@ -781,7 +790,7 @@ export const Navbar = memo(function Navbar({
               href="#visit-office"
               onClick={(e) => handleNavClick(e, "visit-office")}
               style={{ color: "#0f172a", textDecoration: "none" }}
-              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
+              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm font-black text-[11px] xl:text-[12px] 2xl:text-[13px] whitespace-nowrap"
             >
               Our Office
             </a>
@@ -793,21 +802,81 @@ export const Navbar = memo(function Navbar({
                 window.dispatchEvent(new PopStateEvent("popstate"));
               }}
               style={{ color: "#0f172a", textDecoration: "none" }}
-              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm"
+              className="nav-link-item hover:scale-105 transition-all drop-shadow-sm font-black text-[11px] xl:text-[12px] 2xl:text-[13px] whitespace-nowrap"
             >
               Contact Us
             </a>
           </nav>
 
           {/* Compact Right Actions */}
-          <div className="hidden sm:flex items-center gap-4">
+          <div className="hidden sm:flex items-center gap-2 xl:gap-2.5 shrink-0 whitespace-nowrap">
             <CurrencySelector />
+
+            {/* Traveler User Panel / Auth Button */}
+            {isAuthenticated && user ? (
+              <div ref={userDropdownRef} className="relative">
+                <button
+                  type="button"
+                  onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                  className="flex items-center gap-1.5 bg-amber-50 hover:bg-amber-100/80 text-slate-900 border border-amber-300 px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer shadow-2xs font-outfit"
+                >
+                  <div className="w-5 h-5 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center text-[10px] font-black uppercase">
+                    {user.fullName.charAt(0) || "U"}
+                  </div>
+                  <span className="max-w-[90px] truncate">{user.fullName.split(" ")[0]}</span>
+                  <ChevronDown className="w-3.5 h-3.5 text-amber-700" />
+                </button>
+
+                {userDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white border border-slate-200 rounded-2xl shadow-xl py-2 z-50 text-slate-900 animate-fade-in text-xs font-outfit">
+                    <div className="px-3.5 py-2 border-b border-slate-100">
+                      <p className="font-bold text-slate-900 truncate">{user.fullName}</p>
+                      <p className="text-[10px] text-amber-700 font-mono">{user.memberId}</p>
+                    </div>
+                    <a
+                      href="/user-panel"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setUserDropdownOpen(false);
+                        window.history.pushState({}, "", "/user-panel");
+                        window.dispatchEvent(new PopStateEvent("popstate"));
+                      }}
+                      className="flex items-center gap-2 px-3.5 py-2 hover:bg-amber-50 text-slate-700 hover:text-amber-800 font-semibold no-underline transition-colors"
+                    >
+                      <User className="w-3.5 h-3.5 text-amber-600" />
+                      <span>User Travel Panel</span>
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setUserDropdownOpen(false);
+                        logout();
+                      }}
+                      className="w-full text-left flex items-center gap-2 px-3.5 py-2 hover:bg-rose-50 text-rose-600 font-semibold transition-colors bg-transparent border-none cursor-pointer"
+                    >
+                      <LogOut className="w-3.5 h-3.5" />
+                      <span>Sign Out</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => openAuthModal()}
+                className="flex items-center gap-1 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 font-black px-2.5 xl:px-3 py-1.5 rounded-full text-[11px] xl:text-xs transition-all shadow-xs cursor-pointer hover:scale-105 active:scale-95 font-outfit border-none whitespace-nowrap shrink-0"
+              >
+                <User className="w-3.5 h-3.5 text-slate-950" />
+                <span>Login / Sign Up</span>
+              </button>
+            )}
+
             <button
               onClick={() => onPlanTripClick()}
-              className="font-black text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer hover:scale-105 transition-all bg-transparent border-none px-2 py-1 nav-link-item"
+              className="font-black text-[11px] xl:text-xs flex items-center gap-1 cursor-pointer hover:scale-105 transition-all bg-transparent border-none px-1.5 py-1 nav-link-item whitespace-nowrap shrink-0"
               style={{ color: "#d97706" }}
             >
-              <MapPin className="w-4 h-4 text-amber-600" />
+              <MapPin className="w-3.5 h-3.5 text-amber-600 shrink-0" />
               <span>Plan My Trip</span>
             </button>
           </div>
@@ -1026,6 +1095,61 @@ export const Navbar = memo(function Navbar({
             >
               Contact Us
             </a>
+            {/* Mobile User Panel / Sign In */}
+            <div className="pt-2.5 border-t border-amber-200">
+              {isAuthenticated && user ? (
+                <div className="flex items-center justify-between py-1 font-outfit">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center text-xs font-black">
+                      {user.fullName.charAt(0) || "U"}
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-slate-900">{user.fullName}</p>
+                      <p className="text-[10px] text-amber-700 font-mono">{user.memberId}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href="/user-panel"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setMobileMenuOpen(false);
+                        window.history.pushState({}, "", "/user-panel");
+                        window.dispatchEvent(new PopStateEvent("popstate"));
+                      }}
+                      className="bg-amber-500 text-slate-950 text-xs font-bold px-3 py-1 rounded-lg no-underline"
+                    >
+                      User Panel
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        logout();
+                      }}
+                      className="text-rose-600 text-xs font-bold bg-transparent border-none cursor-pointer"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="py-1 font-outfit">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      openAuthModal();
+                    }}
+                    className="w-full text-center bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-xs cursor-pointer border-none"
+                  >
+                    <User className="w-3.5 h-3.5 text-slate-950" />
+                    <span>Login / Sign Up</span>
+                  </button>
+                </div>
+              )}
+            </div>
+
             <div className="pt-3 border-t border-amber-200 flex items-center justify-between">
               <CurrencySelector />
               <button
@@ -1041,6 +1165,7 @@ export const Navbar = memo(function Navbar({
           </div>
         )}
       </header>
+      <AuthModal />
     </>
   );
 });

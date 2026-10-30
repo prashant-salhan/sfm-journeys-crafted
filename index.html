@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-PKCJSW2B');</script>
-    <!-- End Google Tag Manager -->
-    <!-- Google tag (gtag.js) - Excluded on internal /admin portal to avoid tracking staff and browser adblock alerts -->
+    <!-- Google Tag Manager & Google Ads (gtag.js) -->
+    <!-- Excluded on localhost/dev and internal staff/user portals to avoid ad-blocker alerts and fake dev analytics -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      window.gtag = gtag;
+      (function() {
+        var host = window.location.hostname;
+        var path = window.location.pathname;
+        var isLocalDev = host === 'localhost' || host === '127.0.0.1' || host.startsWith('192.168.') || host === '';
+        var isInternalPortal = path.startsWith('/admin') || path.startsWith('/user-panel');
 
-      // Only initialize & load tracking on public customer-facing routes
-      if (!window.location.pathname.startsWith('/admin')) {
-        gtag('js', new Date());
-        gtag('config', 'AW-18465861425', {
-          cookie_domain: 'auto',
-          cookie_flags: 'SameSite=None;Secure',
-        });
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
 
-        var gtagScript = document.createElement('script');
-        gtagScript.async = true;
-        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18465861425';
-        document.head.appendChild(gtagScript);
-      }
+        if (!isLocalDev && !isInternalPortal) {
+          // GTM
+          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-PKCJSW2B');
+
+          // Google Ads Conversion Tag
+          gtag('js', new Date());
+          gtag('config', 'AW-18465861425', {
+            cookie_domain: 'auto',
+            cookie_flags: 'SameSite=None;Secure',
+          });
+
+          var gtagScript = document.createElement('script');
+          gtagScript.async = true;
+          gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18465861425';
+          document.head.appendChild(gtagScript);
+        }
+      })();
     </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

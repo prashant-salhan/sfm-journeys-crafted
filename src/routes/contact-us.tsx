@@ -24,7 +24,6 @@ import {
 import { Navbar } from "@/components/Navbar";
 import { FooterSection } from "@/components/Sections";
 import { CircularSocialMenu } from "@/components/CircularSocialMenu";
-import { FloatingEventsWidget } from "@/components/FloatingEventsWidget";
 import { InlineEnquiryForm } from "@/components/InlineEnquiryForm";
 
 import sudhanshuCard from "@/assets/team/sudhanshu-sridhar-card.jpg";
@@ -892,7 +891,6 @@ export function ContactUsPage() {
 
       {/* Floating Widgets */}
       <CircularSocialMenu />
-      <FloatingEventsWidget />
-    </div>
+          </div>
   );
 }

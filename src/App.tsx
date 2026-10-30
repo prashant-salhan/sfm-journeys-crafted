@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 
 import { CurrencyProvider, useCurrency } from "@/context/CurrencyContext";
+import { AuthProvider } from "@/context/AuthContext";
 import { Navbar } from "@/components/Navbar";
 import { SearchBox } from "@/components/SearchBox";
 import { InlineEnquiryForm } from "@/components/InlineEnquiryForm";
@@ -40,6 +41,9 @@ import { AboutPage } from "@/routes/about";
 import { ContactUsPage } from "@/routes/contact-us";
 import { ThankYouPage } from "@/routes/thank-you";
 import { AdminEnquiriesPage } from "@/routes/admin-enquiries";
+import { RegisterPage } from "@/routes/register";
+import { LoginPage } from "@/routes/login";
+import { UserPanelPage } from "@/routes/user-panel";
 import {
   RegionsSection,
   TestimonialsSection,
@@ -1231,6 +1235,20 @@ export default function App() {
     if (pathname.includes("/about")) {
       return <AboutPage />;
     }
+    if (pathname.includes("/register") || pathname.includes("/signup")) {
+      return <RegisterPage />;
+    }
+    if (pathname.includes("/login") || pathname.includes("/signin")) {
+      return <LoginPage />;
+    }
+    if (
+      pathname.includes("/user-panel") ||
+      pathname.includes("/dashboard") ||
+      pathname.includes("/account") ||
+      pathname.includes("/my-trips")
+    ) {
+      return <UserPanelPage />;
+    }
     if (pathname.includes("/thank-you") || pathname === "/thankyou" || pathname === "/thanks") {
       return <ThankYouPage />;
     }
@@ -1243,10 +1261,18 @@ export default function App() {
     return <MainContent />;
   };
 
+  const isAuthOrPanel =
+    pathname.includes("/register") ||
+    pathname.includes("/login") ||
+    pathname.includes("/user-panel") ||
+    pathname.includes("/dashboard");
+
   return (
-    <CurrencyProvider>
-      {renderContent()}
-      {!isAdmin && <FloatingEventsWidget />}
-    </CurrencyProvider>
+    <AuthProvider>
+      <CurrencyProvider>
+        {renderContent()}
+        {!isAdmin && !isAuthOrPanel && <FloatingEventsWidget />}
+      </CurrencyProvider>
+    </AuthProvider>
   );
 }

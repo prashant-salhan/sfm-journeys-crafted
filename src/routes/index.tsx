@@ -30,7 +30,6 @@ import { SearchBox } from "@/components/SearchBox";
 import { ItineraryModal } from "@/components/ItineraryModal";
 import { InlineEnquiryForm } from "@/components/InlineEnquiryForm";
 import { CircularSocialMenu } from "@/components/CircularSocialMenu";
-import { FloatingEventsWidget } from "@/components/FloatingEventsWidget";
 import {
   RegionsSection,
   TravelEssentialsSection,
@@ -412,8 +411,15 @@ declare global {
 }
 
 const getApiBase = () => {
-  if (typeof window !== "undefined" && window.__SFM_API_URL__) {
-    return window.__SFM_API_URL__;
+  if (typeof window !== "undefined") {
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      const customLocal = (import.meta.env["VITE_LOCAL_API_URL"] as string | undefined) || "";
+      if (customLocal) return customLocal;
+      return "http://localhost:5000";
+    }
+    if (window.__SFM_API_URL__) {
+      return window.__SFM_API_URL__;
+    }
   }
   let url = (import.meta.env["VITE_API_URL"] as string | undefined) || "";
   if (url.includes("api.sfmtravels")) url = "";
@@ -677,8 +683,7 @@ export function IndiaPortal() {
 
       <FooterSection />
       <CircularSocialMenu />
-      <FloatingEventsWidget />
-
+      
       {/* Day-by-Day Itinerary Modal */}
       <ItineraryModal
         packageData={selectedItineraryPkg}

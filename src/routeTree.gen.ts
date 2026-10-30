@@ -16,11 +16,14 @@ import { Route as BaliItineraryRouteImport } from './routes/bali-itinerary'
 import { Route as ContactUsRouteImport } from './routes/contact-us'
 import { Route as EuropeItineraryRouteImport } from './routes/europe-itinerary'
 import { Route as JapanItineraryRouteImport } from './routes/japan-itinerary'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as MalaysiaItineraryRouteImport } from './routes/malaysia-itinerary'
+import { Route as RegisterRouteImport } from './routes/register'
 import { Route as SingaporeCruiseItineraryRouteImport } from './routes/singapore-cruise-itinerary'
 import { Route as SingaporeItineraryRouteImport } from './routes/singapore-itinerary'
 import { Route as ThailandItineraryRouteImport } from './routes/thailand-itinerary'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
+import { Route as UserPanelRouteImport } from './routes/user-panel'
 import { Route as VietnamItineraryRouteImport } from './routes/vietnam-itinerary'
 
 const IndexRoute = IndexRouteImport.update({
@@ -58,9 +61,19 @@ const JapanItineraryRoute = JapanItineraryRouteImport.update({
   path: '/japan-itinerary',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MalaysiaItineraryRoute = MalaysiaItineraryRouteImport.update({
   id: '/malaysia-itinerary',
   path: '/malaysia-itinerary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SingaporeCruiseItineraryRoute =
@@ -84,6 +97,11 @@ const ThankYouRoute = ThankYouRouteImport.update({
   path: '/thank-you',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UserPanelRoute = UserPanelRouteImport.update({
+  id: '/user-panel',
+  path: '/user-panel',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VietnamItineraryRoute = VietnamItineraryRouteImport.update({
   id: '/vietnam-itinerary',
   path: '/vietnam-itinerary',
@@ -98,11 +116,14 @@ export interface FileRoutesByFullPath {
   '/contact-us': typeof ContactUsRoute
   '/europe-itinerary': typeof EuropeItineraryRoute
   '/japan-itinerary': typeof JapanItineraryRoute
+  '/login': typeof LoginRoute
   '/malaysia-itinerary': typeof MalaysiaItineraryRoute
+  '/register': typeof RegisterRoute
   '/singapore-cruise-itinerary': typeof SingaporeCruiseItineraryRoute
   '/singapore-itinerary': typeof SingaporeItineraryRoute
   '/thailand-itinerary': typeof ThailandItineraryRoute
   '/thank-you': typeof ThankYouRoute
+  '/user-panel': typeof UserPanelRoute
   '/vietnam-itinerary': typeof VietnamItineraryRoute
 }
 export interface FileRoutesByTo {
@@ -113,11 +134,14 @@ export interface FileRoutesByTo {
   '/contact-us': typeof ContactUsRoute
   '/europe-itinerary': typeof EuropeItineraryRoute
   '/japan-itinerary': typeof JapanItineraryRoute
+  '/login': typeof LoginRoute
   '/malaysia-itinerary': typeof MalaysiaItineraryRoute
+  '/register': typeof RegisterRoute
   '/singapore-cruise-itinerary': typeof SingaporeCruiseItineraryRoute
   '/singapore-itinerary': typeof SingaporeItineraryRoute
   '/thailand-itinerary': typeof ThailandItineraryRoute
   '/thank-you': typeof ThankYouRoute
+  '/user-panel': typeof UserPanelRoute
   '/vietnam-itinerary': typeof VietnamItineraryRoute
 }
 export interface FileRoutesById {
@@ -129,11 +153,14 @@ export interface FileRoutesById {
   '/contact-us': typeof ContactUsRoute
   '/europe-itinerary': typeof EuropeItineraryRoute
   '/japan-itinerary': typeof JapanItineraryRoute
+  '/login': typeof LoginRoute
   '/malaysia-itinerary': typeof MalaysiaItineraryRoute
+  '/register': typeof RegisterRoute
   '/singapore-cruise-itinerary': typeof SingaporeCruiseItineraryRoute
   '/singapore-itinerary': typeof SingaporeItineraryRoute
   '/thailand-itinerary': typeof ThailandItineraryRoute
   '/thank-you': typeof ThankYouRoute
+  '/user-panel': typeof UserPanelRoute
   '/vietnam-itinerary': typeof VietnamItineraryRoute
 }
 export interface FileRouteTypes {
@@ -146,11 +173,14 @@ export interface FileRouteTypes {
     | '/contact-us'
     | '/europe-itinerary'
     | '/japan-itinerary'
+    | '/login'
     | '/malaysia-itinerary'
+    | '/register'
     | '/singapore-cruise-itinerary'
     | '/singapore-itinerary'
     | '/thailand-itinerary'
     | '/thank-you'
+    | '/user-panel'
     | '/vietnam-itinerary'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -161,11 +191,14 @@ export interface FileRouteTypes {
     | '/contact-us'
     | '/europe-itinerary'
     | '/japan-itinerary'
+    | '/login'
     | '/malaysia-itinerary'
+    | '/register'
     | '/singapore-cruise-itinerary'
     | '/singapore-itinerary'
     | '/thailand-itinerary'
     | '/thank-you'
+    | '/user-panel'
     | '/vietnam-itinerary'
   id:
     | '__root__'
@@ -176,11 +209,14 @@ export interface FileRouteTypes {
     | '/contact-us'
     | '/europe-itinerary'
     | '/japan-itinerary'
+    | '/login'
     | '/malaysia-itinerary'
+    | '/register'
     | '/singapore-cruise-itinerary'
     | '/singapore-itinerary'
     | '/thailand-itinerary'
     | '/thank-you'
+    | '/user-panel'
     | '/vietnam-itinerary'
   fileRoutesById: FileRoutesById
 }
@@ -192,11 +228,14 @@ export interface RootRouteChildren {
   ContactUsRoute: typeof ContactUsRoute
   EuropeItineraryRoute: typeof EuropeItineraryRoute
   JapanItineraryRoute: typeof JapanItineraryRoute
+  LoginRoute: typeof LoginRoute
   MalaysiaItineraryRoute: typeof MalaysiaItineraryRoute
+  RegisterRoute: typeof RegisterRoute
   SingaporeCruiseItineraryRoute: typeof SingaporeCruiseItineraryRoute
   SingaporeItineraryRoute: typeof SingaporeItineraryRoute
   ThailandItineraryRoute: typeof ThailandItineraryRoute
   ThankYouRoute: typeof ThankYouRoute
+  UserPanelRoute: typeof UserPanelRoute
   VietnamItineraryRoute: typeof VietnamItineraryRoute
 }
 
@@ -251,11 +290,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JapanItineraryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/malaysia-itinerary': {
       id: '/malaysia-itinerary'
       path: '/malaysia-itinerary'
       fullPath: '/malaysia-itinerary'
       preLoaderRoute: typeof MalaysiaItineraryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/singapore-cruise-itinerary': {
@@ -286,6 +339,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ThankYouRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/user-panel': {
+      id: '/user-panel'
+      path: '/user-panel'
+      fullPath: '/user-panel'
+      preLoaderRoute: typeof UserPanelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/vietnam-itinerary': {
       id: '/vietnam-itinerary'
       path: '/vietnam-itinerary'
@@ -304,11 +364,14 @@ const rootRouteChildren: RootRouteChildren = {
   ContactUsRoute: ContactUsRoute,
   EuropeItineraryRoute: EuropeItineraryRoute,
   JapanItineraryRoute: JapanItineraryRoute,
+  LoginRoute: LoginRoute,
   MalaysiaItineraryRoute: MalaysiaItineraryRoute,
+  RegisterRoute: RegisterRoute,
   SingaporeCruiseItineraryRoute: SingaporeCruiseItineraryRoute,
   SingaporeItineraryRoute: SingaporeItineraryRoute,
   ThailandItineraryRoute: ThailandItineraryRoute,
   ThankYouRoute: ThankYouRoute,
+  UserPanelRoute: UserPanelRoute,
   VietnamItineraryRoute: VietnamItineraryRoute,
 }
 export const routeTree = rootRouteImport
