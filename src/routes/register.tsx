@@ -3,6 +3,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import {
   User,
   Mail,
+  MessageSquare,
+  Smartphone,
   Phone,
   Lock,
   Eye,
@@ -12,6 +14,8 @@ import {
   Sparkles,
   ShieldCheck,
   CheckCircle2,
+  MessageCircle,
+  ExternalLink,
   Clock,
   Compass,
   Star,
@@ -45,6 +49,7 @@ export function RegisterPage() {
   const [resendTimer, setResendTimer] = useState(30);
   const [canResend, setCanResend] = useState(false);
   const [debugOtp, setDebugOtp] = useState<string | null>(null);
+  const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null);
   const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   // Registration form fields (shown only once OTP is verified)
@@ -642,7 +647,7 @@ export function RegisterPage() {
                       <strong className="text-slate-950 font-bold">{activeIdentifier}</strong>.
                     </p>
 
-                    {/* Localhost testing helper badge */}
+                    {/* On-screen OTP Verification Card */}
                     {debugOtp && (
                       <div
                         onClick={() => {
@@ -650,16 +655,21 @@ export function RegisterPage() {
                           setOtpValues(digits);
                           triggerVerify(debugOtp);
                         }}
-                        className="p-2.5 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 text-xs font-bold flex items-center justify-between cursor-pointer hover:bg-amber-100 transition-all shadow-2xs"
+                        className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-orange-500/20 border-2 border-amber-400 text-slate-900 flex items-center justify-between cursor-pointer hover:bg-amber-100/90 transition-all shadow-xs group"
                         title="Click to automatically fill and verify"
                       >
-                        <span className="flex items-center gap-1.5">
-                          <Sparkles className="w-4 h-4 text-amber-600" />
-                          <span>
-                            Testing OTP: <strong className="font-mono text-sm tracking-wider">{debugOtp}</strong>
+                        <div>
+                          <span className="text-[10px] uppercase font-bold tracking-wider text-amber-800 block">
+                            Your Verification Code
                           </span>
+                          <span className="font-mono font-black text-2xl sm:text-3xl tracking-widest text-slate-950 select-all">
+                            {debugOtp}
+                          </span>
+                        </div>
+                        <span className="text-xs font-bold text-amber-950 bg-amber-300 px-3 py-1.5 rounded-xl hover:bg-amber-400 transition-colors shadow-2xs flex items-center gap-1">
+                          <span>Auto-fill Code</span>
+                          <span>→</span>
                         </span>
-                        <span className="text-[11px] underline text-amber-700">Auto-fill & Verify</span>
                       </div>
                     )}
 

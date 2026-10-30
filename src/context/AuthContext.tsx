@@ -59,6 +59,7 @@ interface AuthContextType {
     success: boolean;
     isExistingUser?: boolean;
     debugOtp?: string;
+    whatsappUrl?: string;
     message?: string;
     error?: string;
   }>;
@@ -158,6 +159,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           success: true,
           isExistingUser: data.isExistingUser,
           debugOtp: data.debugOtp,
+          whatsappUrl: data.whatsappUrl,
           message: data.message,
         };
       }
