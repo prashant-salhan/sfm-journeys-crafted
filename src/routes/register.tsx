@@ -48,8 +48,6 @@ export function RegisterPage() {
   const [otpValues, setOtpValues] = useState<string[]>(["", "", "", "", "", ""]);
   const [resendTimer, setResendTimer] = useState(30);
   const [canResend, setCanResend] = useState(false);
-  const [debugOtp, setDebugOtp] = useState<string | null>(null);
-  const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null);
   const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   // Registration form fields (shown only once OTP is verified)
@@ -121,9 +119,6 @@ export function RegisterPage() {
       setOtpValues(["", "", "", "", "", ""]);
       setResendTimer(30);
       setCanResend(false);
-      if (result.debugOtp) {
-        setDebugOtp(result.debugOtp);
-      }
       setSuccessMessage(result.message || `Verification code sent to ${targetVal}`);
       setTimeout(() => {
         otpRefs.current[0]?.focus();
@@ -144,9 +139,6 @@ export function RegisterPage() {
     if (result.success) {
       setResendTimer(30);
       setCanResend(false);
-      if (result.debugOtp) {
-        setDebugOtp(result.debugOtp);
-      }
       setSuccessMessage(`A new OTP has been sent to ${activeIdentifier}`);
     } else {
       setErrorMessage(result.error || "Failed to resend OTP.");
@@ -647,31 +639,24 @@ export function RegisterPage() {
                       <strong className="text-slate-950 font-bold">{activeIdentifier}</strong>.
                     </p>
 
-                    {/* On-screen OTP Verification Card */}
-                    {debugOtp && (
-                      <div
-                        onClick={() => {
-                          const digits = debugOtp.split("");
-                          setOtpValues(digits);
-                          triggerVerify(debugOtp);
-                        }}
-                        className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-orange-500/20 border-2 border-amber-400 text-slate-900 flex items-center justify-between cursor-pointer hover:bg-amber-100/90 transition-all shadow-xs group"
-                        title="Click to automatically fill and verify"
-                      >
-                        <div>
-                          <span className="text-[10px] uppercase font-bold tracking-wider text-amber-800 block">
-                            Your Verification Code
-                          </span>
-                          <span className="font-mono font-black text-2xl sm:text-3xl tracking-widest text-slate-950 select-all">
-                            {debugOtp}
-                          </span>
-                        </div>
-                        <span className="text-xs font-bold text-amber-950 bg-amber-300 px-3 py-1.5 rounded-xl hover:bg-amber-400 transition-colors shadow-2xs flex items-center gap-1">
-                          <span>Auto-fill Code</span>
-                          <span>→</span>
+                    {/* Real SMS Delivery Notification Card */}
+                    <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/15 via-amber-500/5 to-orange-500/15 border border-amber-300 text-slate-800 space-y-2 text-left shadow-xs">
+                      <div className="flex items-center justify-between">
+                        <span className="flex items-center gap-1.5 text-xs font-black text-amber-950">
+                          <Smartphone className="w-4 h-4 text-amber-600 shrink-0" />
+                          <span>OTP Sent via SMS</span>
+                        </span>
+                        <span className="text-[10px] font-bold bg-amber-200/90 text-amber-900 px-2.5 py-0.5 rounded-full border border-amber-300">
+                          Mobile SMS Inbox
                         </span>
                       </div>
-                    )}
+                      <p className="text-xs text-slate-700 leading-relaxed font-outfit">
+                        A 6-digit verification code with our <strong>Welcome to SFM Travels</strong> message has been dispatched directly to the SMS inbox of <strong className="text-slate-950 font-mono">{activeIdentifier}</strong>.
+                      </p>
+                      <p className="text-[11px] text-amber-800 font-medium">
+                        Please check your text messages / SMS inbox and enter the 6-digit code below.
+                      </p>
+                    </div>
 
                     {/* 6-Digit OTP Boxes */}
                     <div className="flex items-center justify-between gap-2 sm:gap-2.5 my-3" onPaste={handleOtpPaste}>

@@ -1,21 +1,15 @@
 import { useState, useEffect, useRef, type FormEvent, type ClipboardEvent, type KeyboardEvent } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { CountryCodeSelector, DEFAULT_COUNTRY, type CountryOption } from "@/components/CountryCodeSelector";
+import sfmLogo from "@/assets/sfm-logo.png";
 import {
   X,
   Phone,
   Mail,
-  MessageSquare,
   Smartphone,
   ArrowLeft,
   CheckCircle2,
-  MessageCircle,
-  ExternalLink,
-  ShieldCheck,
-  Sparkles,
   Loader2,
-  Plane,
-  Gift,
   Lock,
   ChevronDown,
   Eye,
@@ -58,8 +52,6 @@ export function AuthModal() {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
-  const [debugOtp, setDebugOtp] = useState<string | null>(null);
-  const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null);
   const [resendTimer, setResendTimer] = useState(30);
   const [canResend, setCanResend] = useState(false);
 
@@ -78,7 +70,6 @@ export function AuthModal() {
       setConfirmPassword("");
       setShowPassword(false);
       setShowConfirmPassword(false);
-      setDebugOtp(null);
     }
   }, [isAuthModalOpen, authModalInitialMode]);
 
@@ -135,9 +126,6 @@ export function AuthModal() {
       setResendTimer(30);
       setCanResend(false);
       setOtpValues(["", "", "", "", "", ""]);
-      if (result.debugOtp) {
-        setDebugOtp(result.debugOtp);
-      }
       setSuccessMsg(result.message || `OTP sent to ${activeIdentifier}`);
       setTimeout(() => {
         otpRefs.current[0]?.focus();
@@ -157,9 +145,6 @@ export function AuthModal() {
     if (result.success) {
       setResendTimer(30);
       setCanResend(false);
-      if (result.debugOtp) {
-        setDebugOtp(result.debugOtp);
-      }
       setSuccessMsg(`A new OTP has been sent to ${activeIdentifier}`);
     } else {
       setErrorMsg(result.error || "Failed to resend OTP.");
@@ -308,66 +293,15 @@ export function AuthModal() {
         </button>
 
         {/* ------------------------------------------------------------- */}
-        {/* LEFT COLUMN: Travel Club Festive Banner */}
+        {/* LEFT COLUMN: Brand Logo with White Background                */}
         {/* ------------------------------------------------------------- */}
-        <div className="w-full md:w-[45%] bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950 p-6 sm:p-8 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
-          <div className="absolute -top-12 -left-12 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-12 -right-12 w-56 h-56 bg-orange-600/20 rounded-full blur-3xl pointer-events-none" />
-
-          {/* Top Brand & Badge */}
-          <div className="relative z-10">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-bold uppercase tracking-wider mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>SFM Travel Club</span>
-            </div>
-
-            <h2 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight mb-2">
-              India, Let's Go <br />
-              <span className="text-amber-400">
-                Explore The World!
-              </span>
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
-              Unlock secret member rates on Flights, Luxury Hotels & Tailored Holiday Packages.
-            </p>
-          </div>
-
-          {/* Middle Offer Card */}
-          <div className="relative z-10 my-6 bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/15 shadow-xl">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="bg-red-600 text-white text-xs font-black px-2 py-0.5 rounded-md uppercase tracking-wider">
-                Up to ₹1,001 OFF*
-              </span>
-              <span className="text-amber-300 text-xs font-bold">Holiday Special</span>
-            </div>
-            <p className="text-sm font-bold text-white mb-1">
-              On Kashmir, Kerala, Rajasthan & Dubai Packages!
-            </p>
-            <p className="text-[11px] text-slate-300 leading-normal">
-              Register with Mobile Phone or Google Mail OTP. Instant secure member ID confirmation.
-            </p>
-          </div>
-
-          {/* Bottom Trust Highlights */}
-          <div className="relative z-10 space-y-2.5 text-xs text-slate-300">
-            <div className="flex items-center gap-2.5">
-              <div className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-                <ShieldCheck className="w-3.5 h-3.5" />
-              </div>
-              <span className="font-medium">100% Verified Trips & Govt. Approved Partners</span>
-            </div>
-            <div className="flex items-center gap-2.5">
-              <div className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
-                <Gift className="w-3.5 h-3.5" />
-              </div>
-              <span className="font-medium">Zero Convenience Fee on First Booking</span>
-            </div>
-            <div className="flex items-center gap-2.5">
-              <div className="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
-                <Plane className="w-3.5 h-3.5" />
-              </div>
-              <span className="font-medium">24/7 Dedicated SFM Holiday Concierge</span>
-            </div>
+        <div className="w-full md:w-[45%] bg-white p-3 sm:p-5 md:p-6 flex items-center justify-center shrink-0 border-b md:border-b-0 md:border-r border-slate-100 min-h-[240px] md:min-h-full">
+          <div className="w-full h-full flex items-center justify-center">
+            <img
+              src={sfmLogo}
+              alt="SFM Travels Logo"
+              className="w-full h-full max-h-[480px] object-contain select-none transition-transform duration-300 hover:scale-[1.02]"
+            />
           </div>
         </div>
 
@@ -602,31 +536,24 @@ export function AuthModal() {
                   </button>
                 </p>
 
-                {/* On-screen OTP Verification Card */}
-                {debugOtp && (
-                  <div
-                    onClick={() => {
-                      const digits = debugOtp.split("");
-                      setOtpValues(digits);
-                      triggerVerify(debugOtp);
-                    }}
-                    className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-orange-500/20 border-2 border-amber-400 text-slate-900 flex items-center justify-between cursor-pointer hover:bg-amber-100/90 transition-all shadow-xs group"
-                    title="Click to automatically fill and verify"
-                  >
-                    <div>
-                      <span className="text-[10px] uppercase font-bold tracking-wider text-amber-800 block">
-                        Your Verification Code
-                      </span>
-                      <span className="font-mono font-black text-2xl sm:text-3xl tracking-widest text-slate-950 select-all">
-                        {debugOtp}
-                      </span>
-                    </div>
-                    <span className="text-xs font-bold text-amber-950 bg-amber-300 px-3 py-1.5 rounded-xl hover:bg-amber-400 transition-colors shadow-2xs flex items-center gap-1">
-                      <span>Auto-fill Code</span>
-                      <span>→</span>
+                {/* Real SMS Delivery Notification Card */}
+                <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/15 via-amber-500/5 to-orange-500/15 border border-amber-300 text-slate-800 space-y-2 text-left shadow-xs">
+                  <div className="flex items-center justify-between">
+                    <span className="flex items-center gap-1.5 text-xs font-black text-amber-950">
+                      <Smartphone className="w-4 h-4 text-amber-600 shrink-0" />
+                      <span>OTP Sent via SMS</span>
+                    </span>
+                    <span className="text-[10px] font-bold bg-amber-200/90 text-amber-900 px-2.5 py-0.5 rounded-full border border-amber-300">
+                      Mobile SMS Inbox
                     </span>
                   </div>
-                )}
+                  <p className="text-xs text-slate-700 leading-relaxed font-outfit">
+                    A 6-digit verification code with our <strong>Welcome to SFM Travels</strong> message has been dispatched directly to the SMS inbox of <strong className="text-slate-950 font-mono">{activeIdentifier}</strong>.
+                  </p>
+                  <p className="text-[11px] text-amber-800 font-medium">
+                    Please check your text messages / SMS inbox and enter the 6-digit code below.
+                  </p>
+                </div>
 
                 {/* 6-Digit OTP Boxes */}
                 <div className="flex items-center justify-between gap-2 sm:gap-2.5 my-3" onPaste={handleOtpPaste}>
