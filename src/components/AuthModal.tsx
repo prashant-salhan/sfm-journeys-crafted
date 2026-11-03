@@ -293,15 +293,29 @@ export function AuthModal() {
         </button>
 
         {/* ------------------------------------------------------------- */}
-        {/* LEFT COLUMN: Brand Logo with White Background                */}
+        {/* LEFT COLUMN: Modern Black Glassmorphism Brand Showcase        */}
         {/* ------------------------------------------------------------- */}
-        <div className="w-full md:w-[45%] bg-white p-3 sm:p-5 md:p-6 flex items-center justify-center shrink-0 border-b md:border-b-0 md:border-r border-slate-100 min-h-[240px] md:min-h-full">
-          <div className="w-full h-full flex items-center justify-center">
-            <img
-              src={sfmLogo}
-              alt="SFM Travels Logo"
-              className="w-full h-full max-h-[480px] object-contain select-none transition-transform duration-300 hover:scale-[1.02]"
-            />
+        <div className="w-full md:w-[45%] bg-gradient-to-br from-slate-950 via-black to-slate-900 p-6 sm:p-8 flex items-center justify-center relative overflow-hidden shrink-0 border-b md:border-b-0 md:border-r border-white/10 min-h-[260px] md:min-h-full">
+          {/* Glassmorphic Ambient Refraction & Glow Lights */}
+          <div className="absolute -top-16 -left-16 w-64 h-64 bg-amber-500/25 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-16 -right-16 w-64 h-64 bg-sky-500/25 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0.01)_100%)] pointer-events-none" />
+
+          {/* Frosted Glassmorphism Card Frame */}
+          <div className="relative z-10 w-full flex items-center justify-center">
+            <div className="relative group w-full max-w-[320px] p-5 sm:p-7 rounded-3xl bg-white/[0.05] backdrop-blur-2xl border border-white/[0.12] shadow-[0_16px_40px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.15)] hover:border-white/25 transition-all duration-500">
+              {/* Subtle Top Glass Shine */}
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+              
+              {/* Ambient Glow behind the Logo */}
+              <div className="absolute -inset-2 bg-gradient-to-tr from-amber-500/20 via-transparent to-sky-500/20 rounded-3xl blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+
+              <img
+                src={sfmLogo}
+                alt="SFM Travels Logo"
+                className="w-full h-auto max-h-[420px] object-contain select-none drop-shadow-[0_20px_35px_rgba(0,0,0,0.7)] transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
           </div>
         </div>
 
